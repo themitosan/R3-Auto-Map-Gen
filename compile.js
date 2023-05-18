@@ -83,9 +83,6 @@ module.exports = {
 			// Create new hash file
 			this.fs.writeFileSync('hash.inc', '', 'utf8');
 
-			// log success
-			console.info('\n--- PROCESS COMPLETE ---\n');
-
 		} catch (err) {
 
 			// Display error

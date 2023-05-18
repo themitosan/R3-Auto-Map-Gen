@@ -1,5 +1,5 @@
 {
-	"hash": "DIRTY",
+	"hash": "",
 	"version": "1.0.0",
 	"main": "App/index.htm",
 	"author": "TemmieHeartz",
@@ -21,13 +21,12 @@
 	},
 	"scripts": {
 		"dev": "nw",
-		"build-pr": "node comp-pr.js",
-		"build-main": "node comp-main.js"
+		"build": "node comp-main.js"
+	},
+	"dependencies": {
+		"nw": "^0.76.1-sdk"
 	},
 	"devDependencies": {
 		"nw-builder": "^3.5.7"
-	},
-	"dependencies": {
-		"nw": "^0.76.0-sdk"
 	}
 }

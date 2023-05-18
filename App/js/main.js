@@ -7,6 +7,7 @@ const APP = {
 
 	// Version
 	version: '1.0.0',
+	hash: nw.App.manifest.hash,
 
 	// Modules
 	fs: void 0,
@@ -93,7 +94,7 @@ const APP = {
 
 	// About screen
 	about: function(){
-		window.alert('R3 Auto Map Gen. - Version: ' + APP.version + '\nCreated by TemmieHeartz\nTwitter: @TemmieHeartz\n\nBuild Hash: ' + nw.App.manifest.hash);
+		window.alert('R3 Auto Map Gen. - Version: ' + APP.version + '\nCreated by TemmieHeartz\nTwitter: @TemmieHeartz\n\nBuild Hash: ' + this.hash);
 	},
 
 	// Run game
@@ -138,8 +139,13 @@ const APP = {
 
 		try {
 
+			// Fix empty hash
+			if (APP.hash === ''){
+				APP.hash = 'DIRTY';
+			}
+
 			// Get app title string
-			const appTitle = 'R3 Auto Map Gen. - Version: ' + APP.version + ' [' + nw.App.manifest.hash + ']'; 
+			const appTitle = 'R3 Auto Map Gen. - Version: ' + APP.version + ' [' + APP.hash + ']'; 
 
 			console.info(appTitle);
 			document.title = appTitle;
