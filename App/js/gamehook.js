@@ -40,7 +40,6 @@ temp_GAMEHOOK = {
 					// Update GUI
 					TMS.addClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
 					document.getElementById('BTN_SELECT_EXE').disabled = 'disabled';
-					document.getElementById('BTN_START_EXE').disabled = 'disabled';
 					document.getElementById('BTN_START').disabled = 'disabled';
 					document.getElementById('BTN_STOP').disabled = '';
 					APP.gameHook.gameActive = !0;
@@ -75,10 +74,6 @@ temp_GAMEHOOK = {
 		document.getElementById('BTN_STOP').disabled = 'disabled';
 
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
-
-		if (APP.fs.existsSync(APP.options.settingsData.gamePath + '/' + APP.options.settingsData.exeName)){
-			document.getElementById('BTN_START_EXE').disabled = '';
-		}
 		
 		this.gameActive = !1;
 

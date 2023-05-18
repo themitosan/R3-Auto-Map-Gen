@@ -223,11 +223,6 @@ temp_OPTIONS = {
 		// Load file
 		this.settingsData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
 
-		// Check if game executable exists
-		if (APP.fs.existsSync(this.settingsData.gamePath + '/' +  this.settingsData.exeName) === !0){
-			document.getElementById('BTN_START_EXE').disabled = '';
-		}
-
 		// Check if has BioRand mod installed
 		if (APP.fs.existsSync(this.settingsData.gamePath + '/mod_biorand') === !0){
 			document.getElementById('CHECKBOX_isBioRand').checked = !0
