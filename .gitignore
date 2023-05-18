@@ -1,0 +1,5 @@
+Settings.json
+node_modules/
+Cache/
+Build/
+*.bat

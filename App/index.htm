@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html>
+
+	<head>
+		<meta charset="utf-8">
+		<title>R3 Auto Map Gen. - Please wait...</title>
+		<link rel="apple-touch-icon" href="img/icon.png">
+		<link rel="stylesheet" type="text/css" href="css/style.css">
+		<meta name="viewport" content="width=device-width, initial-scale=1">
+		<link rel="shortcut icon" type="image/png" href="img/icon.png" sizes="389x339"/>
+	</head>
+
+	<body>
+
+		<!-- Main Canvas -->
+		<div class="APP_CANVAS" id="APP_CANVAS">
+
+			<div class="APP_MENU MENU_TOP" id="MENU_TOP">
+				<div id="RE3_CAPTURE_ICON" class="RE3_CAPTURE_ICON"></div>
+				<input type="button" disabled="disabled" id="BTN_START_EXE" value="Start game" onclick="APP.runGame();">
+				<input type="button" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
+				<input type="button" disabled="disabled" id="BTN_STOP" value="Stop" onclick="APP.gameHook.stop();">
+				<label id="LABEL_RE3_INFO_mapName"></label>
+				<label id="LABEL_mapDragStatus"> - Canvas drag is INACTIVE</label>
+			</div>
+
+			<div class="APP_MENU MENU_RIGHT" id="MENU_RIGHT">
+
+				Zoom: <label id="LABEL_mapCanvasZoom">1</label><br>
+				<input type="range" min="0.1" max="2" step="0.001" id="OPTION_mapCanvasZoom" oninput="APP.options.updateCanvasZoom();">
+				<br><br>
+
+				<input type="button" value="[F7] Center map" onclick="APP.graphics.updatePlayerPos();" class="BTN_OPTIONS">
+				<input type="button" value="[F8] Reset zoom" onclick="APP.options.resetCanvasZoom();" class="BTN_OPTIONS">
+				<input type="button" title="Global Shortcut: Ctrl+F9" value="[F9] Reset map" onclick="APP.options.resetMap();" class="BTN_OPTIONS">
+				<input type="button" value="[CTRL] Toggle drag" onclick="APP.graphics.toggleDragMapCanvas();" class="BTN_OPTIONS">
+				<input type="button" title="Global Shortcut: Ctrl+Shift+S" value="Save Map" onclick="APP.options.saveMap();" class="BTN_OPTIONS">
+				<input type="button" value="Load Map" onclick="APP.options.loadMapFile();" class="BTN_OPTIONS">
+				<input type="button" title="Global Shortcut: Ctrl+F10" value="[F10] Reload Map" onclick="APP.options.loadLatestFile();" class="BTN_OPTIONS" id="BTN_MAP_RELOAD" disabled="disabled">
+				<br><br>
+
+				<!-- Get game path -->
+				<input type="button" value="Select game executable" onclick="APP.options.getGamePath();" class="BTN_OPTIONS" id="BTN_SELECT_EXE"><br>
+
+				<div class="DIV_CHECKBOX">
+					<input type="checkbox" id="CHECKBOX_isBioRand">
+					<label class="cursor-pointer" title="Leave this checkbox active if is a BioRand mod." onclick="APP.tools.processCheckbox('CHECKBOX_isBioRand');"> - Is BioRand?</label>
+				</div><br>
+
+				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS">
+
+			</div>
+
+			<!-- Map Canvas -->
+			<div class="APP_MAP_CANVAS" id="APP_MAP_CANVAS"></div>
+
+		</div>
+
+		<div class="none">
+
+			<!-- File manager -->
+			<input type="file" id="APP_FILE_LOADER"/>
+			<input type="file" id="APP_FILE_SAVE" nwsaveas/>
+			<input type="file" id="APP_FOLDER_LOADER" nwdirectory/>
+
+			<!-- TMS.js -->
+			<script type="text/javascript" src="js/TMS.js"></script>
+
+			<script type="text/javascript" src="js/tools.js"></script>
+			<script type="text/javascript" src="js/filemanager.js"></script>
+			<script type="text/javascript" src="js/options.js"></script>
+			<script type="text/javascript" src="js/database.js"></script>
+			<script type="text/javascript" src="js/graphics.js"></script>
+			<script type="text/javascript" src="js/gamehook.js"></script>
+
+			<!-- Main Script -->
+			<script type="text/javascript" src="js/main.js"></script>
+
+		</div>
+
+	</body>
+</html>
