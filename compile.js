@@ -31,7 +31,9 @@ module.exports = {
 		nwVersion = this.nwVersion;
 
 		// Update package.json
-		packageJson.hash = buildHash;
+		if (buildHash.length !== 0){
+			packageJson.hash = buildHash.slice(0, 6);
+		}
 		packageJson.main = 'index.htm';
 		packageJson.window.icon = 'img/icon.png';
 
