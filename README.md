@@ -9,7 +9,7 @@ This app creates an node-conected map on the go for Resident Evil 3 classic.
 
 <sup>
   
- _(Click [Here](https://twitter.com/temmieheartz/status/1659312625384140802) to see how it works)_
+ _(Click [here](https://twitter.com/temmieheartz/status/1659312625384140802) to see how it works)_
   
 </sup>
 
