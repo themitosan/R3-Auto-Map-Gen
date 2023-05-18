@@ -98,43 +98,6 @@ const APP = {
 					 '\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs');
 	},
 
-	// Run game
-	runGame: function(){
-
-		// Get game executable path and check if the same exists
-		const gPath = APP.options.settingsData.gamePath + '/' + APP.options.settingsData.exeName;
-
-		if (APP.fs.existsSync(gPath) === !0){
-
-			// Spawn process and read selected game folder
-			var gProcess,
-				gFolder = APP.fs.readdirSync(APP.options.settingsData.gamePath),
-				pList = Array.from(APP.memoryjs.getProcesses()),
-				pFilter = pList.filter(function(cProcess){
-					if (cProcess.szExeFile === APP.options.settingsData.exeName){
-						return cProcess;
-					}
-				});
-
-			// Check if can spawn process
-			if (pFilter.length === 0){
-				gProcess = APP.childProcess.spawn(gPath, [], {detached: !0});
-			}
-
-			// Check if Gemini REBirth exists on selected folder
-			if (gFolder.indexOf('ddraw.dll') !== -1){
-				window.alert('INFO: Gemini REBirth mod was detected.\n\nWhen \"This game contains scenes of explicit violence and gore\" message shows up, close this alert.');
-			}
-
-			// Delay starting hook process
-			setTimeout(function(){
-				APP.gameHook.seekGame();
-			}, 50);
-
-		}
-
-	},
-
 	// Init
 	init: function(){
 
