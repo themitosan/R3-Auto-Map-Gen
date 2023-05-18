@@ -94,7 +94,8 @@ const APP = {
 
 	// About screen
 	about: function(){
-		window.alert('R3 Auto Map Gen. - Version: ' + APP.version + '\nCreated by TemmieHeartz\nTwitter: @TemmieHeartz\n\nBuild Hash: ' + this.hash);
+		window.alert('R3 Auto Map Gen. - Version: ' + APP.version + '\nCreated by TemmieHeartz\nTwitter: @TemmieHeartz\n\nBuild Hash: ' + this.hash +
+					 '\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs');
 	},
 
 	// Run game
@@ -153,8 +154,14 @@ const APP = {
 			// Require modules
 			APP.fs = require('fs');
 			APP.path = require('path');
-			APP.memoryjs = require('App/memoryjs');
 			APP.childProcess = require('child_process');
+
+			// Require memoryjs
+			if (nw.App.argv.indexOf('-dev') !== -1){
+				APP.memoryjs = require('App/node_modules/memoryjs');
+			} else {
+				APP.memoryjs = require('node_modules/memoryjs');
+			}
 
 			// Enable start
 			document.getElementById('BTN_START').disabled = '';

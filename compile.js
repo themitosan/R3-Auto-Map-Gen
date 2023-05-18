@@ -30,11 +30,13 @@ module.exports = {
 		nwFlavor = this.nwFlavor;
 		nwVersion = this.nwVersion;
 
-		// Update package.json hash
+		// Update package.json
 		packageJson.hash = buildHash;
+		packageJson.main = 'index.htm';
+		packageJson.window.icon = 'img/icon.png';
 
 		// Update package.json and remove inc file
-		this.fs.writeFileSync('./package.json', JSON.stringify(packageJson, null, '\t'), 'utf8');
+		this.fs.writeFileSync('./App/package.json', JSON.stringify(packageJson, null, '\t'), 'utf8');
 		this.fs.unlinkSync('hash.inc');
 
 		// Log data before builder setup
@@ -52,9 +54,9 @@ module.exports = {
 			zip: !0,
 			arch: 'x64',
 			mode: 'build',
-			srcDir: './App/',
+			srcDir: './App',
 			ourDir: './Build/',
-			files: './App/**/**',
+			files: './App/**/*',
 			platforms: ['win64'],
 
 			// Set flavor and version

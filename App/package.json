@@ -1,7 +1,7 @@
 {
 	"hash": "",
 	"version": "1.0.0",
-	"main": "App/index.htm",
+	"main": "index.htm",
 	"author": "TemmieHeartz",
 	"license": "GPL-2.0-only",
 	"name": "R3 Auto Map Gen",
@@ -16,7 +16,7 @@
 		"fullscreen": false,
 		"position": "center",
 		"theme-color": "#200",
-		"icon": "App/img/icon.png",
+		"icon": "img/icon.png",
 		"title": "R3 Auto Map Gen."
 	},
 	"scripts": {
