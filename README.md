@@ -7,6 +7,12 @@
   
 This app creates an node-conected map on the go for Resident Evil 3 classic.
 
+<sup>
+  
+ _(Click [Here](https://twitter.com/temmieheartz/status/1659312625384140802) to see how it works)_
+  
+</sup>
+
 ## How to install
 - Download latest build from [GitHub Actions](https://github.com/temmieheartz/R3-Auto-Map-Gen/actions)
 - Extract the zip on a _cool-looking_ place
