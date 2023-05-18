@@ -1,5 +1,5 @@
 <h1 align="center">
-  <img src="https://github.com/temmieheartz/R3-Auto-Map-Gen/blob/main/App/img/icon.png?raw=true" alt="R3_auto_map_gen_icon" title="R3 Auto Map Gen." width="100"/>
+  <img src="https://github.com/temmieheartz/R3-Auto-Map-Gen/blob/main/App/img/icon.png?raw=true" alt="R3_auto_map_gen_icon" title="R3 Auto Map Gen." width="200"/>
   <br>R3 Auto Map Gen.
 </h1>
 
