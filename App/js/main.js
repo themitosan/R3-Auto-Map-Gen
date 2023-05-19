@@ -33,8 +33,6 @@ const APP = {
 		// Start keypress
 		window.onkeyup = function(evt){
 
-			// console.info(evt);
-
 			switch (evt.key){
 
 				case 'F1':
@@ -95,7 +93,7 @@ const APP = {
 	// About screen
 	about: function(){
 		window.alert('R3 Auto Map Gen. - Version: ' + APP.version + '\nCreated by TemmieHeartz\nTwitter: @TemmieHeartz\n\nBuild Hash: ' + this.hash +
-					 '\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs');
+					 '\n\nExternal plugins present on this project:\n\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs');
 	},
 
 	// Init
@@ -111,6 +109,7 @@ const APP = {
 			// Get app title string
 			const appTitle = 'R3 Auto Map Gen. - Version: ' + APP.version + ' [' + APP.hash + ']'; 
 
+			// Update log and app title
 			console.info(appTitle);
 			document.title = appTitle;
 
@@ -153,4 +152,5 @@ delete temp_GRAPHICS;
 delete temp_DATABASE;
 delete temp_FILEMANAGER;
 
+// Init
 window.onload = APP.init;

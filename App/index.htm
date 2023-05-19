@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html lang="en-us">
 
 	<head>
 		<meta charset="utf-8">
@@ -15,6 +15,7 @@
 		<!-- Main Canvas -->
 		<div class="APP_CANVAS" id="APP_CANVAS">
 
+			<!-- Top menu -->
 			<div class="APP_MENU MENU_TOP" id="MENU_TOP">
 				<div id="RE3_CAPTURE_ICON" class="RE3_CAPTURE_ICON"></div>
 				<input type="button" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
@@ -23,6 +24,7 @@
 				<label id="LABEL_mapDragStatus"> - Canvas drag is INACTIVE</label>
 			</div>
 
+			<!-- Right menu -->
 			<div class="APP_MENU MENU_RIGHT" id="MENU_RIGHT">
 
 				Zoom: <label id="LABEL_mapCanvasZoom">1</label><br>
@@ -65,6 +67,7 @@
 			<!-- TMS.js -->
 			<script type="text/javascript" src="js/TMS.js"></script>
 
+			<!-- App modules -->
 			<script type="text/javascript" src="js/tools.js"></script>
 			<script type="text/javascript" src="js/filemanager.js"></script>
 			<script type="text/javascript" src="js/options.js"></script>
@@ -78,4 +81,5 @@
 		</div>
 
 	</body>
+
 </html>

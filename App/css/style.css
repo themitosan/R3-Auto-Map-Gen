@@ -8,6 +8,9 @@ body {
 	font-family: monospace;
 	background-color: #200;
 }
+input[type="file"] {
+	display: none !important;
+}
 input[type="button"] {
 	margin: 2px;
 	border: none;

@@ -38,7 +38,7 @@ module.exports = {
 		packageJson.window.icon = 'img/icon.png';
 
 		// Update package.json and remove inc file
-		this.fs.writeFileSync('./App/package.json', JSON.stringify(packageJson, null, '\t'), 'utf8');
+		this.fs.writeFileSync('./App/package.json', JSON.stringify(packageJson), 'utf8');
 		this.fs.unlinkSync('hash.inc');
 
 		// Log data before builder setup
