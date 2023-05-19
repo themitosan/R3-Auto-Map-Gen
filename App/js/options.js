@@ -214,7 +214,7 @@ temp_OPTIONS = {
 	loadSettings: function(){
 
 		// Get file path
-		const fPath = nw.__dirname + '/Settings.json';
+		const fPath = APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json';
 
 		if (APP.fs.existsSync(fPath) === !1){
 			APP.options.saveSettings();
@@ -234,7 +234,7 @@ temp_OPTIONS = {
 	saveSettings: function(){
 
 		try {
-			APP.fs.writeFileSync(nw.__dirname + '/Settings.json', JSON.stringify(this.settingsData), 'utf8');
+			APP.fs.writeFileSync(APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json', JSON.stringify(this.settingsData), 'utf8');
 		} catch (err) {
 			window.alert('ERROR - Unable to save settings!\n' + err);
 			throw new Error(err);
