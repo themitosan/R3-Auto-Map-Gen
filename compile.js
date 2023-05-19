@@ -34,7 +34,10 @@ module.exports = {
 		if (buildHash.length !== 0){
 			packageJson.hash = buildHash.slice(0, 6);
 		}
+		packageJson.scripts = void 0;
 		packageJson.main = 'index.htm';
+		packageJson.dependencies = void 0;
+		packageJson.devDependencies = void 0;
 		packageJson.window.icon = 'img/icon.png';
 
 		// Update package.json and remove inc file

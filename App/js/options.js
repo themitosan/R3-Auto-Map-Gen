@@ -242,11 +242,14 @@ temp_OPTIONS = {
 
 	},
 
-	// Get game path
+	// Get game path / data
 	getGamePath: function(){
 
 		// Check if game is running
 		if (APP.gameHook.gameActive === !1){
+
+			// Main popup
+			window.alert('INFO: After closing this message, select your main game executable.');
 
 			// Select game executable
 			APP.filemanager.selectFile('.exe', function(path){
@@ -260,8 +263,8 @@ temp_OPTIONS = {
 				APP.options.settingsData.gamePath = pData.dir;
 
 				// Set ram pos.
-				APP.options.settingsData.memoryData.stage = window.prompt('Please insert ram pos. for "Stage":\n[Example: "0x00A673C6" (without quotes) for Classic REbirth 1.1.0 SourceNext patch]');
-				APP.options.settingsData.memoryData.room = window.prompt('Please insert ram pos. for "Room":\n[Example: "0x00A673C8" (without quotes) for Classic REbirth 1.1.0 SourceNext patch]');
+				APP.options.settingsData.memoryData.stage = window.prompt('Please insert ram pos. for "Stage":\n\n[Example: "0x00A673C6" (without quotes) for Classic REbirth 1.1.0 SourceNext patch]');
+				APP.options.settingsData.memoryData.room = window.prompt('Please insert ram pos. for "Room":\n\n[Example: "0x00A673C8" (without quotes) for Classic REbirth 1.1.0 SourceNext patch]');
 
 				// Check input
 				var s = APP.options.settingsData.memoryData.stage,
