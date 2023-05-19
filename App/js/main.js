@@ -63,30 +63,33 @@ const APP = {
 
 		}
 
-		// Create quick save shortcut
-		var sMap = new nw.Shortcut({
-				key: 'Ctrl+Shift+S',
+		// Create global shortcuts 
+		const createGlobalShortcut = function(keys, action){
+			var newKey = new nw.Shortcut({
+				key: keys,
 				active: function(){
-					APP.options.saveMap(!0);
-				}
-			}),
-			lMap = new nw.Shortcut({
-				key: 'Ctrl+F10',
-				active: function(){
-					APP.options.loadLatestFile();
-				}
-			}),
-			rMap = new nw.Shortcut({
-				key: 'Ctrl+F9',
-				active: function(){
-					APP.options.resetMap();
+					action();
 				}
 			});
+			nw.App.registerGlobalHotKey(newKey);
+		}
 
-		// Register shortcuts
-		nw.App.registerGlobalHotKey(sMap);
-		nw.App.registerGlobalHotKey(lMap);
-		nw.App.registerGlobalHotKey(rMap);
+		// Init global shortcuts
+		createGlobalShortcut('Ctrl+Shift+S', function(){
+			APP.options.saveMap(!0);
+		});
+		createGlobalShortcut('Ctrl+F7', function(){
+			APP.graphics.updatePlayerPos();
+		});
+		createGlobalShortcut('Ctrl+F8', function(){
+			APP.options.resetCanvasZoom();
+		});
+		createGlobalShortcut('Ctrl+F9', function(){
+			APP.options.resetMap();
+		});
+		createGlobalShortcut('Ctrl+F10', function(){
+			APP.options.loadLatestFile();
+		});
 
 	},
 

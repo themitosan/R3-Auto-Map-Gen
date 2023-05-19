@@ -35,6 +35,7 @@ temp_GAMEHOOK = {
 	
 				try {
 
+					// Open process
 					APP.gameHook.gameObject = APP.memoryjs.openProcess(exeName);
 
 					// Update GUI
@@ -51,7 +52,7 @@ temp_GAMEHOOK = {
 
 				} catch (err) {
 					window.alert('ERROR: Unable to load game process!' + err + '\nCheck internal log to know more.');
-					window.alert('IMPORTANT: If you are running the game process from BioRand, make sure to select game path from \"select game executable\" button and click on \"Start game above\".');
+					window.alert('IMPORTANT: If you are running the game process from BioRand, Don\'t use \"Start RE3\" button. Instead, run the game from explorer.');
 					throw new Error(err);
 				}
 	
