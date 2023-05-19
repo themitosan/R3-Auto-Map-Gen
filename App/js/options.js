@@ -83,8 +83,8 @@ temp_OPTIONS = {
 		
 		}
 
-		// Check if file exists
-		if (quickSave === !0 && APP.fs.existsSync(APP.options.latestFile) === !0){
+		// Check if file exists, is BioRand and if seed is the same
+		if (quickSave === !0 && APP.fs.existsSync(APP.options.latestFile) === !0 && APP.path.parse(APP.options.latestFile).name === APP.options.fileName){
 
 			try {
 
