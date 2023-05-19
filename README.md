@@ -23,8 +23,14 @@ This app creates an node-conected map on the go for Resident Evil 3 classic.
 ...If everything is fine, just open your game - go to main menu and then click on `Hook game process`.
 
 ## How this thing works?
-- Open your game, start hook, do a simple run and you will see how it works!
+- Open your game, start hook, open a simple door and you will see the magic!
 
+<sup>
+
+You can also see a live demo [here](https://twitter.com/temmieheartz/status/1659312625384140802).
+
+</sup>
+  
 ## Where this thing can be helpful?
 _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca/biorand)**?_
 
