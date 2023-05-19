@@ -79,6 +79,8 @@ const APP = {
 			APP.options.saveMap(!0);
 		});
 		createGlobalShortcut('Ctrl+F7', function(){
+			APP.graphics.enableCanvasDrag = !0;
+			APP.graphics.toggleDragMapCanvas();
 			APP.graphics.updatePlayerPos();
 		});
 		createGlobalShortcut('Ctrl+F8', function(){
