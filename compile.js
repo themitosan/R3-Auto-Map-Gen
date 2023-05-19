@@ -14,8 +14,7 @@ module.exports = {
 	nwFlavor: void 0,
 	nwVersion: void 0,
 
-	// Require modules
-	fs: require('fs'),
+	// Require nw-builder
 	nwBuilder: require('nw-builder'),
 
 	// Start compiler
@@ -23,8 +22,9 @@ module.exports = {
 
 		// Get main data
 		var date = new Date,
+			fs = require('fs'),
 			packageJson = this.packageJson,
-			buildHash = this.fs.readFileSync('hash.inc', 'utf8');
+			buildHash = fs.readFileSync('hash.inc', 'utf8');
 
 		// Get run data
 		nwFlavor = this.nwFlavor;
@@ -41,8 +41,8 @@ module.exports = {
 		packageJson.window.icon = 'img/icon.png';
 
 		// Update package.json and remove inc file
-		this.fs.writeFileSync('./App/package.json', JSON.stringify(packageJson), 'utf8');
-		this.fs.unlinkSync('hash.inc');
+		fs.writeFileSync('./App/package.json', JSON.stringify(packageJson), 'utf8');
+		fs.unlinkSync('hash.inc');
 
 		// Log data before builder setup
 		console.info('INFO - Running compiler\n\nVersion: ' + this.nwVersion + '\nFlavor: ' + this.nwFlavor + '\n\npackage.json: ');
@@ -84,11 +84,21 @@ module.exports = {
 
 		try {
 
-			// Run nw-builder
-			compileData.build();
-
 			// Create new hash file
-			this.fs.writeFileSync('hash.inc', '', 'utf8');
+			fs.writeFileSync('hash.inc', '', 'utf8');
+
+			// Get licence and readme files
+			const license = fs.readFileSync('./LICENSE', 'utf8'),
+				readme = fs.readFileSync('./README.md', 'utf8');
+
+			// Run nw-builder
+			compileData.build().then(function(){
+	
+				// Copy license and readme to build dir
+				fs.writeFileSync('./build/R3 Auto Map Gen/win64/LICENSE', license, 'utf8');
+				fs.writeFileSync('./build/R3 Auto Map Gen/win64/README.md', readme, 'utf8');
+	
+			});
 
 		} catch (err) {
 
