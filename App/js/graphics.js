@@ -107,12 +107,22 @@ temp_GRAPHICS = {
 	// Create line
 	pushLine: function(parent, newMap){
 
+		// Declare variables
 		var canAdd = !0,
-			lineList = this.addedLines;
+			connectedLines,
+			reverseConnection,
+			lineList = this.addedLines,
+			lineNames = [
+				parent + '_' + newMap,
+				newMap + '_' + parent
+			];
 
-		if (lineList[parent + '_' + newMap] !== void 0 || lineList[newMap + '_' + parent] !== void 0){
-			canAdd = !1;
-		}
+		// Check if can add new lines to canvas
+		lineNames.forEach(function(lNames){
+			if (lineList[lNames] !== void 0){
+				canAdd = !1;
+			}
+		});
 
 		if (canAdd === !0){
 
@@ -124,13 +134,42 @@ temp_GRAPHICS = {
 				x2 = (nData.x + parseFloat(nData.width / 2)) - canvasData.x,
 				y2 = (nData.y + parseFloat(nData.height / 2)) - canvasData.y;
 
-			// Create HTML and render on map
-			const tempLine = '<svg id="' + parent + '_' + newMap + '"><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
-
-			TMS.append('APP_MAP_CANVAS', tempLine);
+			// Create HTML and render new lines
+			lineNames.forEach(function(lName){
+				const tempLine = '<svg id="' + lName + '"><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
+				TMS.append('APP_MAP_CANVAS', tempLine);
+			});
 
 			// Push to list
 			APP.graphics.addedLines[parent + '_' + newMap] = { p: parent, n: newMap };
+			APP.graphics.addedLines[newMap + '_' + parent] = { p: newMap, n: parent };
+
+		}
+
+		// Check if load map process isn't running
+		if (APP.options.isMapLoading === !1){
+
+			// Update current lines
+			Array.from(document.getElementsByClassName('SVG_CURRENT_FLOW')).forEach(function(cElement){
+				TMS.removeClass(cElement.id, 'SVG_CURRENT_FLOW');
+			});
+
+			// Add connection animation to current line and get backwards connection id
+			for (var i = 0; i < lineNames.length; i++){
+				if (document.getElementById(lineNames[i]) !== null){
+					reverseConnection = lineNames[i].split('_').reverse().toString().replace(',', '_');
+					TMS.addClass(lineNames[i], 'SVG_CURRENT_FLOW');
+					break;
+				}
+			}
+
+			// Display only current line with animation
+			connectedLines = Object.keys(lineList).filter(function(cLine){
+				if (cLine.indexOf(newMap) !== -1){
+					TMS.css(cLine, {'opacity': '1'});
+				}
+			});
+			TMS.css(reverseConnection, {'opacity': '0'});
 
 		}
 
@@ -159,7 +198,7 @@ temp_GRAPHICS = {
 
 			// Update Lines
 			if (domName !== 'APP_MAP_CANVAS'){
-				APP.graphics.updateLines();
+				APP.graphics.updateLines(domName);
 			}
 
 		}
@@ -186,14 +225,28 @@ temp_GRAPHICS = {
 	},
 
 	// Update lines
-	updateLines: function(){
+	updateLines: function(roomName){
 
 		const lineList = this.addedLines;
 
 		if (Object.keys(lineList).length !== 0){
 
-			Object.keys(lineList).forEach(function(cLine){
+			// Get default connected lines
+			var processList = Object.keys(lineList);
 
+			// Check if room name was provided. If so, update only connected lines
+			if (roomName !== void 0){
+				processList = Object.keys(lineList).filter(function(cLine){
+					if (cLine.indexOf(roomName.replace('ROOM_', '')) !== -1){
+						return cLine;
+					}
+				});
+			}
+
+			// Process lines
+			processList.forEach(function(cLine){
+
+				// Set variables
 				var canvasData = TMS.getRect('APP_MAP_CANVAS'),
 					pData = TMS.getRect('ROOM_' + lineList[cLine].p),
 					nData = TMS.getRect('ROOM_' + lineList[cLine].n),
@@ -202,6 +255,7 @@ temp_GRAPHICS = {
 					x2 = (nData.x + parseFloat(nData.width / 2)) - canvasData.x,
 					y2 = (nData.y + parseFloat(nData.height / 2)) - canvasData.y;
 
+				// Update line
 				document.getElementById(cLine).innerHTML = '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/>';
 
 			});
@@ -213,6 +267,7 @@ temp_GRAPHICS = {
 	// Update player position
 	updatePlayerPos: function(){
 
+		// Check if player map history
 		if (APP.gameHook.mapHistory.length !== 0){
 
 			Object.keys(this.addedMaps).forEach(function(cMap){

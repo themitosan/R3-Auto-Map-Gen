@@ -2,6 +2,7 @@
 	R3 Auto Map Gen.
 	styles.css
 */
+
 body {
 	color: #fff;
 	user-select: none;
@@ -95,7 +96,7 @@ label {
 .MENU_RIGHT {
 	top: 0px;
 	right: 0px;
-	width: 176px;
+	width: 158px;
 	height: auto;
 	overflow: auto;
 	padding-top: 10px;
@@ -185,6 +186,17 @@ label {
 }
 
 /*
+	SVG
+*/
+.SVG_CURRENT_FLOW {
+	stroke-dasharray: 6;
+	animation-play-state: revert;
+	animation: CONNECTION_FLOW 2s linear;
+	filter: drop-shadow(0px 0px 2px #fffa);
+	animation-iteration-count: infinite !important;
+}
+
+/*
 	Animations
 */
 @keyframes PLAYER_PRESENT {
@@ -199,6 +211,13 @@ label {
 
 	100% {
 		background-color: #00a;
+	}
+
+}
+@keyframes CONNECTION_FLOW {
+
+	100% {
+		stroke-dashoffset: -60;
 	}
 
 }

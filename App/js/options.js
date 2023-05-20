@@ -9,6 +9,7 @@ temp_OPTIONS = {
 		Variables
 	*/
 	latestFile: '',
+	isMapLoading: !1,
 	fileName: 'RE3_MAP',
 
 	/*
@@ -131,6 +132,9 @@ temp_OPTIONS = {
 
 		if (APP.fs.existsSync(fPath) === !0){
 
+			// Set map loading process as true
+			APP.options.isMapLoading = !0;
+
 			// Start load process
 			var startHookAfter = !1,
 				saveData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
@@ -176,9 +180,13 @@ temp_OPTIONS = {
 			// Release reload button
 			document.getElementById('BTN_MAP_RELOAD').disabled = '';
 
+			// Seek game process again
 			if (startHookAfter === !0){
 				APP.gameHook.seekGame();
 			}
+
+			// Set map loading process as false
+			APP.options.isMapLoading = !1;
 
 		}
 
