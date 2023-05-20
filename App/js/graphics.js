@@ -136,7 +136,7 @@ temp_GRAPHICS = {
 
 			// Create HTML and render new lines
 			lineNames.forEach(function(lName){
-				const tempLine = '<svg id="' + lName + '"><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
+				const tempLine = '<svg id="' + lName + '" class="" style=""><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
 				TMS.append('APP_MAP_CANVAS', tempLine);
 			});
 
@@ -154,14 +154,9 @@ temp_GRAPHICS = {
 				TMS.removeClass(cElement.id, 'SVG_CURRENT_FLOW');
 			});
 
-			// Add connection animation to current line and get backwards connection id
-			for (var i = 0; i < lineNames.length; i++){
-				if (document.getElementById(lineNames[i]) !== null){
-					reverseConnection = lineNames[i].split('_').reverse().toString().replace(',', '_');
-					TMS.addClass(lineNames[i], 'SVG_CURRENT_FLOW');
-					break;
-				}
-			}
+			// Add connection animation to current line and set backwards connection id
+			TMS.addClass(parent + '_' + newMap, 'SVG_CURRENT_FLOW');
+			reverseConnection = newMap + '_' + parent;
 
 			// Display only current line with animation
 			connectedLines = Object.keys(lineList).filter(function(cLine){
@@ -170,6 +165,9 @@ temp_GRAPHICS = {
 				}
 			});
 			TMS.css(reverseConnection, {'opacity': '0'});
+
+			// Update line after render
+			APP.graphics.updateLines('ROOM_' + newMap);
 
 		}
 
