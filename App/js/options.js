@@ -236,6 +236,11 @@ temp_OPTIONS = {
 			document.getElementById('CHECKBOX_isBioRand').checked = !0
 		}
 
+		// Check if savedata folder exists
+		if (APP.fs.existsSync(this.settingsData.gamePath + '/savedata') === !0){
+			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
+		}
+
 	},
 
 	// Save app settings
@@ -246,6 +251,43 @@ temp_OPTIONS = {
 		} catch (err) {
 			window.alert('ERROR - Unable to save settings!\n' + err);
 			throw new Error(err);
+		}
+
+	},
+
+	// Delete all save files
+	delGameSaveFiles: function(){
+
+		// Get save data folder
+		const saveDataPath = APP.options.settingsData.gamePath + '/savedata';
+
+		// Check if game save folder exists 
+		if (APP.fs.existsSync(saveDataPath) === !0){
+
+			const conf = window.confirm('WARN: Are you sure about this action?\nIt\'s kinda obvious, but this will delete all your save files!');
+			if (conf === !0){
+
+				try {
+
+					// Save extension list
+					const extList = ['.bio3', '.sav'];
+
+					// Read directory and try to unlink all files with recognized save extensions
+					APP.fs.readdirSync(saveDataPath).filter(function(cFile){
+						if (extList.indexOf(APP.path.parse(saveDataPath + '/' + cFile).ext.toLowerCase()) !== -1){
+							APP.fs.unlinkSync(saveDataPath + '/' + cFile);
+						}
+					});
+
+					window.alert('INFO: Process complete!');
+
+				} catch (err) {
+					window.alert('ERROR: Unable to delete save files!\n' + err);
+					throw new Error(err);
+				}
+				
+			}
+
 		}
 
 	},

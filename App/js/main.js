@@ -59,6 +59,10 @@ const APP = {
 					APP.options.loadLatestFile();
 					break;
 
+				case 'Delete':
+					APP.options.delGameSaveFiles();
+					break;
+
 			}
 
 		}
@@ -91,6 +95,9 @@ const APP = {
 		});
 		createGlobalShortcut('Ctrl+F10', function(){
 			APP.options.loadLatestFile();
+		});
+		createGlobalShortcut('Ctrl+Delete', function(){
+			APP.options.delGameSaveFiles();
 		});
 
 	},
