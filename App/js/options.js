@@ -117,7 +117,7 @@ temp_OPTIONS = {
 				content: newData,
 				fileName: APP.options.fileName + '.json',
 				callback: function(path){
-					window.alert('Save successfull!\nPath: ' + path);
+					window.alert('Save successfull!\n\nPath: ' + path);
 					APP.options.fileName = APP.path.parse(path).name;
 					APP.options.latestFile = path;
 				}

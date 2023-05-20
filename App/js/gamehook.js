@@ -57,7 +57,7 @@ temp_GAMEHOOK = {
 				}
 	
 			} else {
-				window.alert('ERROR: Unable to find game process!\n\"' + exeName + '\"');
+				window.alert('ERROR: Unable to find game process!\n(' + exeName + ')');
 			}
 		
 		}
@@ -116,44 +116,61 @@ temp_GAMEHOOK = {
 	// Check game state
 	updateProcess: function(){
 
-		try {
+		// Check if game process is available
+		const pList = Array.from(APP.memoryjs.getProcesses()),
+			gProcess = pList.filter(function(cProcess){
+				if (cProcess.szExeFile === APP.options.settingsData.exeName){
+					return cProcess;
+				}
+			});
 
-			// Get memory positions and read
-			var memoryData = APP.options.settingsData.memoryData,
-				cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
-				cMap = 'R' + cStage + APP.gameHook.read(memoryData.room, 2, 'hex');
+		if (gProcess.length !== 0){
 
-			// Switch game start / end
-			switch (cMap){
+			try {
 
-				// Game start
-				case 'R10D':
-					if (APP.gameHook.mapHistory.length > 1){
-						APP.options.resetMap();
-					}
-					break;
+				// Get memory positions and read
+				var memoryData = APP.options.settingsData.memoryData,
+					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
+					cMap = 'R' + cStage + APP.gameHook.read(memoryData.room, 2, 'hex');
+
+				// Switch game start / end
+				switch (cMap){
+
+					// Game start
+					case 'R10D':
+						if (APP.gameHook.mapHistory.length > 1){
+							APP.options.resetMap();
+						}
+						break;
+
+				}
+
+				// Check if latest map is the current one
+				if (this.mapHistory[(this.mapHistory.length - 1)] !== cMap){
+
+					APP.gameHook.mapHistory.push(cMap);
+					const mHistory = APP.gameHook.mapHistory;
+
+					// Push room to map
+					APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)]);
+
+					// Update player pos.
+					APP.graphics.updatePlayerPos();
+
+				}
+
+			} catch (err) {
+
+				APP.gameHook.stop();
+				window.alert('ERROR - Unable to read game data!\n' + err + '\n\nThis may happen due game process not being available anymore.');
+				throw new Error(err);
 
 			}
 
-			// Check if latest map is the current one
-			if (this.mapHistory[(this.mapHistory.length - 1)] !== cMap){
-
-				APP.gameHook.mapHistory.push(cMap);
-				const mHistory = APP.gameHook.mapHistory;
-
-				// Push room to map
-				APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)]);
-
-				// Update player pos.
-				APP.graphics.updatePlayerPos();
-
-			}
-
-		} catch (err) {
+		} else {
 
 			APP.gameHook.stop();
-			window.alert('ERROR - Unable to read game data!\n' + err + '\n\nThis may happen due game process not being available anymore.');
-			throw new Error(err);
+			window.alert('ERROR - Unable to read game data!\nReason: The game process was closed / not found!');
 
 		}
 
