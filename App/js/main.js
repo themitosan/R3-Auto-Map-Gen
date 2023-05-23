@@ -134,10 +134,8 @@ const APP = {
 				}, 50);
 
 			} catch (err) {
-
 				window.alert('ERROR: Unable to start game process!\n\n' + err);
 				throw new Error(err);
-
 			}
 
 		}
