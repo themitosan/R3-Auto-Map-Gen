@@ -10,7 +10,7 @@ temp_OPTIONS = {
 	*/
 	latestFile: '',
 	isMapLoading: !1,
-	fileName: 'RE3_MAP',
+	fileName: 'GAME_MAP',
 
 	/*
 		Functions
@@ -154,6 +154,7 @@ temp_OPTIONS = {
 				APP.graphics.pushMap(cAction.mapName, cAction.parent);
 			});
 
+			// Process maps
 			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 
 				// Update data
@@ -224,6 +225,7 @@ temp_OPTIONS = {
 		// Get file path
 		const fPath = APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json';
 
+		// Check if save file exists
 		if (APP.fs.existsSync(fPath) === !1){
 			APP.options.saveSettings();
 		}
@@ -231,9 +233,14 @@ temp_OPTIONS = {
 		// Load file
 		this.settingsData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
 
+		// Check if game executable exists
+		if (APP.fs.existsSync(this.settingsData.gamePath + '/' + this.settingsData.exeName) === !0){
+			document.getElementById('BTN_RUN_GAME').disabled = '';
+		}
+
 		// Check if has BioRand mod installed
 		if (APP.fs.existsSync(this.settingsData.gamePath + '/mod_biorand') === !0){
-			document.getElementById('CHECKBOX_isBioRand').checked = !0
+			document.getElementById('CHECKBOX_isBioRand').checked = 'disabled';
 		}
 
 		// Check if savedata folder exists
@@ -264,6 +271,7 @@ temp_OPTIONS = {
 		// Check if game save folder exists 
 		if (APP.fs.existsSync(saveDataPath) === !0){
 
+			// Confirm action
 			const conf = window.confirm('WARN: Are you sure about this action?\nIt\'s kinda obvious, but this will delete all your save files!');
 			if (conf === !0){
 

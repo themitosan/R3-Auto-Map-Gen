@@ -20,9 +20,10 @@ temp_GAMEHOOK = {
 
 	// Seek game
 	seekGame: function(){
-
+		
 		if (this.gameActive === !1){
 
+			// Check if game process exists
 			var exeName = APP.options.settingsData.exeName,
 				pList = Array.from(APP.memoryjs.getProcesses()),
 				gProcess = pList.filter(function(cProcess){
@@ -41,6 +42,7 @@ temp_GAMEHOOK = {
 					// Update GUI
 					TMS.addClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
 					document.getElementById('BTN_SELECT_EXE').disabled = 'disabled';
+					document.getElementById('BTN_RUN_GAME').disabled = 'disabled';
 					document.getElementById('BTN_START').disabled = 'disabled';
 					document.getElementById('BTN_STOP').disabled = '';
 					APP.gameHook.gameActive = !0;
@@ -52,8 +54,8 @@ temp_GAMEHOOK = {
 
 				} catch (err) {
 					window.alert('ERROR: Unable to load game process!' + err + '\nCheck internal log to know more.');
-					window.alert('IMPORTANT: If you are running the game process from BioRand, Don\'t use \"Start RE3\" button. Instead, run the game from explorer.');
-					throw new Error(err);
+					window.alert('IMPORTANT: If you are running the game process from BioRand, Don\'t use \"Start RE3\" button!\n\nInstead, run the game using \"Start Game\" at top-left corner or from explorer.');
+					console.error(err);
 				}
 	
 			} else {
@@ -70,12 +72,23 @@ temp_GAMEHOOK = {
 		// Clear game interval
 		clearInterval(this.updateObject);
 
+		// Update buttons
 		document.getElementById('BTN_START').disabled = '';
 		document.getElementById('BTN_SELECT_EXE').disabled = '';
 		document.getElementById('BTN_STOP').disabled = 'disabled';
 
+		// Remove on icon
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
-		
+
+		// Check if game executable exists
+		if (APP.fs.existsSync(APP.options.settingsData.gamePath + '/' + APP.options.settingsData.exeName) === !0){
+			document.getElementById('BTN_RUN_GAME').disabled = '';
+		}
+
+		// Reset spawn variable
+		APP.spawnProcess = void 0;
+
+		// Set running flag as false
 		this.gameActive = !1;
 
 	},

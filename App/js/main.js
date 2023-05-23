@@ -13,6 +13,7 @@ const APP = {
 	fs: void 0,
 	path: void 0,
 	memoryjs: void 0,
+	spawnProcess: void 0,
 	childProcess: void 0,
 
 	// Import other files
@@ -108,6 +109,41 @@ const APP = {
 					 '\n\nExternal plugins present on this project:\n\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs');
 	},
 
+	// Run game
+	runGame: function(){
+
+		// Get game path
+		const gPath = APP.options.settingsData.gamePath + '/' + APP.options.settingsData.exeName;
+
+		// Check if game path exists
+		if (APP.fs.existsSync(gPath) === !0){
+
+			try {
+
+				// Update chdir
+				process.chdir(APP.options.settingsData.gamePath);
+
+				// Run game
+				APP.spawnProcess = APP.childProcess.spawn(gPath, [], {
+					detached: !0
+				});
+
+				// Seek game process
+				setTimeout(function(){
+					APP.gameHook.seekGame();
+				}, 50);
+
+			} catch (err) {
+
+				window.alert('ERROR: Unable to start game process!\n\n' + err);
+				throw new Error(err);
+
+			}
+
+		}
+
+	},
+
 	// Init
 	init: function(){
 
@@ -136,6 +172,9 @@ const APP = {
 			} else {
 				APP.memoryjs = require('node_modules/memoryjs');
 			}
+
+			// Reset chdir
+			process.chdir(APP.tools.fixPath(APP.path.parse(process.execPath).dir));
 
 			// Enable start
 			document.getElementById('BTN_START').disabled = '';

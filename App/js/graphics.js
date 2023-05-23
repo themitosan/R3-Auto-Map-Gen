@@ -136,7 +136,7 @@ temp_GRAPHICS = {
 
 			// Create HTML and render new lines
 			lineNames.forEach(function(lName){
-				const tempLine = '<svg id="' + lName + '" class="" style=""><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
+				const tempLine = '<svg id="' + lName + '"><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
 				TMS.append('APP_MAP_CANVAS', tempLine);
 			});
 
