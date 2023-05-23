@@ -17,8 +17,7 @@ This app creates an node-conected map on the go for Resident Evil 3 classic.
 - Download latest build from [GitHub Actions](https://github.com/temmieheartz/R3-Auto-Map-Gen/actions)
 - Extract the zip on a _cool-looking_ place
 - Run `R3 Auto Map Gen.exe`
-- Click on `Select game executable` and... _Select your game executable_.
-- Then, you will need to provide ram positions for stage and room from your game.
+- Click on `App Setup`, select your game executable and then insert ram positions for current stage and room.
 
 ...If everything is fine, just open your game - go to main menu and then click on `Hook game process`.
 
@@ -40,6 +39,6 @@ _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca
 <br>
 <sup>
 
-_Some parts from this project was obtained from [R3ditor V2](https://github.com/temmieheartz/R3ditor-V2) and [R3V3](https://github.com/temmieheartz/R3V3-ARCHIVE)._
+_Some parts from this project was obtained from [R3ditor V2](https://github.com/temmieheartz/R3ditor-V2) and [R3V3](https://github.com/temmieheartz/R3V3-ARCHIVE._
 
 </sup>
