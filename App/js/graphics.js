@@ -61,6 +61,19 @@ temp_GRAPHICS = {
 				posX = parseFloat((pData.left + pData.width) + distanceFactor);
 				posY = (pData.top - heightFactor) + nDoorFactor;
 
+				// Change positions depending of parent map
+				switch (parent){
+					
+					// If isn't a BioRand mod, add extra distance from previous room
+					case 'R215':
+						if (isBioRandMod === !1){
+							posX = (posX + 510);
+						}
+						break;
+
+				}
+
+
 			}
 
 			// Check if is save room
@@ -68,7 +81,7 @@ temp_GRAPHICS = {
 				saveRoomClass = ' SAVE_ROOM';
 			}
 
-			// Apply extra conditions depending on current map
+			// Change class or positions depending on current map
 			switch (mapName){
 
 				// If next map is boutique and is BioRand mod, add extra distance from previous room
@@ -76,11 +89,6 @@ temp_GRAPHICS = {
 					if (isBioRandMod === !0){
 						posX = (posX + (distanceFactor * 10));
 					}
-					break;
-
-				// If is trolley running, add some distance from previous room
-				case 'R215':
-					posX = (posX + (distanceFactor * 10));
 					break;
 
 				// Game start
@@ -96,8 +104,9 @@ temp_GRAPHICS = {
 			}
 
 			// Generate room html and append to canvas
-			const mapTemp = '<div id="ROOM_' + mapName + '" class="DIV_ROOM' + saveRoomClass + ' ' + mapExtraClass + '" style="top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' +
-				  APP.database.rdtNames[mapName].name + '</div>';
+			const mapTemp = '<div id="ROOM_' + mapName + '" title="[' + mapName + ']\n' + APP.database.rdtNames[mapName].name + ', ' + APP.database.rdtNames[mapName].location +
+							'" class="DIV_ROOM' + saveRoomClass + ' ' + mapExtraClass + '" style="top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' + 
+							APP.database.rdtNames[mapName].name + '</div>';
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Push selected map to list
