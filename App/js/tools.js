@@ -64,6 +64,9 @@ temp_TOOLS = {
 		if (value !== void 0 && parseInt(value) !== NaN){
 			const n = parseInt(value);
 			res = ((n - n) - n);
+			if (res < 0){
+				res = ((res - res) - res);
+			}
 		}
 
 		return res;
@@ -344,11 +347,15 @@ temp_TOOLS = {
 	},
 
 	// Check online status
-	checkOnlineStatus: async function(){
+	checkOnlineStatus: async function(url){
 
 		try {
 
-			const fetchTest = await fetch('https://google.com');
+			if (url === void 0 || url === ''){
+				url = 'https://google.com/';
+			}
+
+			var fetchTest = await fetch(url);
 			return parseInt(fetchTest.status) > 199 && parseInt(fetchTest.status) < 300;
 
 		} catch (err){

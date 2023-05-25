@@ -37,6 +37,7 @@ temp_OPTIONS = {
 		APP.graphics.addedLines = {};
 		APP.gameHook.mapHistory = [];
 		APP.graphics.addedMapHistory = [];
+		APP.graphics.enabledDragList = [];
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
@@ -45,6 +46,8 @@ temp_OPTIONS = {
 		// Reset HTML
 		document.getElementById('APP_MAP_CANVAS').innerHTML = '';
 		TMS.css('APP_MAP_CANVAS', {'top': '-50000px', 'left': '-50000px'});
+
+		console.clear();
 
 	},
 
@@ -101,7 +104,7 @@ temp_OPTIONS = {
 				document.getElementById('LABEL_mapDragStatus').innerHTML = ' - Map file was updated successfully! (' + APP.options.fileName + ')';
 				setTimeout(function(){
 					document.getElementById('LABEL_mapDragStatus').innerHTML = msg;
-				}, 1500);
+				}, 1700);
 
 			} catch (err) {
 				window.alert('ERROR - Unable to save map!\nPath: ' + APP.options.latestFile + '\n\n' + err);
@@ -117,7 +120,7 @@ temp_OPTIONS = {
 				content: newData,
 				fileName: APP.options.fileName + '.json',
 				callback: function(path){
-					window.alert('Save successfull!\n\nPath: ' + path);
+					window.alert('INFO: Save successfull!\n\nPath: ' + path);
 					APP.options.fileName = APP.path.parse(path).name;
 					APP.options.latestFile = path;
 				}
@@ -240,7 +243,7 @@ temp_OPTIONS = {
 
 		// Check if has BioRand mod installed
 		if (APP.fs.existsSync(this.settingsData.gamePath + '/mod_biorand') === !0){
-			document.getElementById('CHECKBOX_isBioRand').checked = 'disabled';
+			document.getElementById('CHECKBOX_isBioRand').checked = !0;
 		}
 
 		// Check if savedata folder exists

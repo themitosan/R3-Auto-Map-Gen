@@ -10,7 +10,9 @@ temp_GRAPHICS = {
 	*/
 	addedMaps: {},
 	addedLines: {},
+	distanceFactor: 20,
 	addedMapHistory: [],
+	enabledDragList: [],
 	enableCanvasDrag: !1,
 
 	/*
@@ -35,7 +37,9 @@ temp_GRAPHICS = {
 			var posX = 50010,
 				posY = 50050,
 				saveRoomClass = '',
-				mapExtraClass = '';
+				mapExtraClass = '',
+				distanceFactor = APP.graphics.distanceFactor,
+				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
 			if (parent !== void 0){
 
@@ -53,7 +57,8 @@ temp_GRAPHICS = {
 						left: parseInt(TMS.getCssData('ROOM_' + parent, 'left').replace('px', ''))
 					};
 
-				posX = parseFloat((pData.left + pData.width) + 20);
+				// Set default position
+				posX = parseFloat((pData.left + pData.width) + distanceFactor);
 				posY = (pData.top - heightFactor) + nDoorFactor;
 
 			}
@@ -63,7 +68,20 @@ temp_GRAPHICS = {
 				saveRoomClass = ' SAVE_ROOM';
 			}
 
+			// Apply extra conditions depending on current map
 			switch (mapName){
+
+				// If next map is boutique and is BioRand mod, add extra distance from previous room
+				case 'R10F':
+					if (isBioRandMod === !0){
+						posX = (posX + (distanceFactor * 10));
+					}
+					break;
+
+				// If is trolley running, add some distance from previous room
+				case 'R215':
+					posX = (posX + (distanceFactor * 10));
+					break;
 
 				// Game start
 				case 'R10D':
@@ -77,30 +95,125 @@ temp_GRAPHICS = {
 
 			}
 
-			// Generate room and append to map
+			// Generate room html and append to canvas
 			const mapTemp = '<div id="ROOM_' + mapName + '" class="DIV_ROOM' + saveRoomClass + ' ' + mapExtraClass + '" style="top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' +
 				  APP.database.rdtNames[mapName].name + '</div>';
-
 			TMS.append('APP_MAP_CANVAS', mapTemp);
-
-			// Enable drag
-			APP.graphics.enableDrag('ROOM_' + mapName);
 
 			// Push selected map to list
 			APP.graphics.addedMaps[mapName] = {x: posX, y: posY, doors: []};
 
+			// If map file isn't loading
+			if (APP.options.isMapLoading === !1 && parent !== void 0){
+				APP.graphics.processMapColission(mapName, parent);
+			} 
+
 		}
 
 		// Update labels
-		document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = 'Map: ' + APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
-
-		// Push line
-		if (parent !== void 0){
-			APP.graphics.pushLine(parent, mapName);
+		const lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
+		if (lMapHistory !== void 0){
+			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = 'Map: ' + lMapHistory;
 		}
+
+		// Enable drag
+		APP.graphics.enableDrag('ROOM_' + mapName);
 
 		// Push history
 		this.addedMapHistory.push({mapName: mapName, parent: parent});
+
+		// Push line
+		APP.graphics.pushLine(parent, mapName);
+
+	},
+
+	// Process map colisions
+	processMapColission: function(mapTarget, parent){
+
+		// Check if map was added
+		if (this.addedMaps[mapTarget] !== void 0){
+
+			// Define cycle counter
+			var cycles = 0;
+
+			// Process
+			const runProcess = function(){
+
+				// Bump cycle counter
+				cycles++;
+
+				// Set reset flag
+				var reRun = !1;
+
+				// Start processing
+				Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
+
+					// Exclude current map from processing
+					if (cMap !== mapTarget){
+
+						/*
+							Define some vars to make easy to read
+
+							A_: mapTarget
+							B_: cMap
+
+							d_factor = 40
+						*/
+						var d_factor = 39,
+							c_checks = [],
+							target_rect = TMS.getRect('ROOM_' + mapTarget, !0),
+							parent_rect = TMS.getRect('ROOM_' + parent, !0),
+							cMap_rect = TMS.getRect('ROOM_' + cMap, !0),
+
+							P_leftCentered = (parent_rect.left + (parent_rect.width / 2)),
+
+							A_L  = parseFloat(target_rect.left),
+							A_W  = parseFloat(target_rect.width),
+							A_T  = parseFloat(target_rect.top),
+							A_H  = parseFloat(target_rect.height),
+							A_WL = parseFloat(A_W + A_L),
+							A_TH = parseFloat(A_T + A_H),
+
+							B_L  = parseFloat(cMap_rect.left),
+							B_W  = parseFloat(cMap_rect.width),
+							B_T  = parseFloat(cMap_rect.top),
+							B_H  = parseFloat(cMap_rect.height),
+							B_WL = parseFloat(B_W + B_L),
+							B_TH = parseFloat(B_T + B_H);
+
+						/*
+							Push conditions to check array
+						*/
+						c_checks.push(A_WL > (B_L - d_factor)); // If mapTarget left pos. + it's size is higher than cMap left (minus factor)
+						c_checks.push(A_L < (B_WL + d_factor)); // If mapTarget left pos. is lower than cMap left + it's size (plus factor)
+						c_checks.push(A_TH > (B_T - d_factor)); // If mapTarget top pos. + it's size is higher than cMap top pos. (minus factor)
+						c_checks.push(A_T < (B_TH + d_factor)); // If mapTarget top pos. is lower than cMap top pos. + it's own size (plus factor)
+
+						// Check if needs to update mapTarget pos.
+						if (c_checks.indexOf(!1) === -1){
+							TMS.css('ROOM_' + mapTarget, {'top': A_TH + 'px', 'left': P_leftCentered + 'px'});
+							reRun = !0;
+						}
+
+					}
+
+				});
+
+				// Check if need to run process again
+				if (reRun === !0){
+					runProcess();
+				}
+
+			}
+
+			// Start process
+			runProcess();
+
+			// Log adittion
+			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.rdtNames[mapTarget].name + '] colissions was processed comparing with ' +
+						 Object.keys(APP.graphics.addedMaps).length + ' maps, with a total of ' + cycles + ' cycles.');
+
+		}
 
 	},
 
@@ -123,7 +236,10 @@ temp_GRAPHICS = {
 				canAdd = !1;
 			}
 		});
-
+		if (parent === void 0){
+			canAdd = !1;
+		}
+		
 		if (canAdd === !0){
 
 			var pData = TMS.getRect('ROOM_' + parent),
@@ -217,8 +333,11 @@ temp_GRAPHICS = {
 			document.onmousemove = dragElement;
 		}
 
-		// Enable drag
-		document.getElementById(domName).onmousedown = dragMouseDown;
+		// Check if can enable drag
+		if (APP.graphics.enabledDragList.indexOf(domName) === -1){
+			document.getElementById(domName).onmousedown = dragMouseDown;
+			APP.graphics.enabledDragList.push(domName);
+		}
 
 	},
 

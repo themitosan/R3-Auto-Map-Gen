@@ -498,15 +498,30 @@ const TMS = Object.freeze(Object.seal({
 	/*
 		Get HTML element rect
 	*/
-	getRect: function(elementId){
+	getRect: function(elementId, useCustomMode){
 
-		var elId = TMS.getElement(elementId);
+		var res,
+			elId = TMS.getElement(elementId);
 
 		if (elId !== null){
-			return document.getElementById(elementId).getBoundingClientRect();
+			res = document.getElementById(elementId).getBoundingClientRect();
+
+			if (useCustomMode === !0){
+				res = {
+					top: parseFloat(TMS.getCssData(elementId, 'top').replace('px', '')),
+					left: parseFloat(TMS.getCssData(elementId, 'left').replace('px', '')),
+					right: parseFloat(TMS.getCssData(elementId, 'right').replace('px', '')),
+					width: parseFloat(TMS.getCssData(elementId, 'width').replace('px', '')),
+					height: parseFloat(TMS.getCssData(elementId, 'height').replace('px', '')),
+					bottom: parseFloat(TMS.getCssData(elementId, 'bottom').replace('px', ''))
+				}
+			}
+
 		} else {
 			TMS.warn('Unable to get rect because DOM does not exist! (' + elementId + ')');
 		}
+
+		return res;
 
 	}
 	

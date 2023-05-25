@@ -49,7 +49,9 @@ svg {
 	z-index: 8;
 	width: 100%;
 	height: 100%;
+	stroke-width: 2;
 	position: absolute;
+	stroke-linecap: round;
 }
 label {
 	margin-left: 2px;
@@ -125,23 +127,21 @@ label {
 	padding: 10px;
 	display: flex;
 	flex-wrap: wrap;
-	border-width: 2px;
 	position: absolute;
 	text-align: center;
 	align-items: center;
-	border-style: solid;
 	flex-direction: row;
 	align-content: center;
 	font-family: monospace;
 	justify-content: center;
 	background-color: #0000;
 	text-shadow: 1px 1px 2px #000;
+	box-shadow: 0px 0px 0px 2px #fff inset;
 	background-image: linear-gradient(180deg, #00642f, #0a0);
 }
 .PLAYER_PRESENT {
 	animation-delay: 0s;
 	animation-duration: 4s;
-	box-shadow: 0px 0px 10px #006;
 	animation-fill-mode: forwards;
 	text-shadow: 0px 0px 2px #fffa;
 	animation-name: PLAYER_PRESENT;
@@ -189,10 +189,10 @@ label {
 	SVG
 */
 .SVG_CURRENT_FLOW {
+	stroke: #0f0;
 	stroke-dasharray: 6;
-	animation-play-state: revert;
 	animation: CONNECTION_FLOW 2s linear;
-	filter: drop-shadow(0px 0px 2px #fffa);
+	filter: drop-shadow(0px 0px 2px #fff9);
 	animation-iteration-count: infinite !important;
 }
 
@@ -202,7 +202,7 @@ label {
 @keyframes PLAYER_PRESENT {
 
 	0% {
-		background-color: #00a;
+		background-color: #008;
 	}
 
 	50% {
@@ -210,7 +210,7 @@ label {
 	}
 
 	100% {
-		background-color: #00a;
+		background-color: #008;
 	}
 
 }

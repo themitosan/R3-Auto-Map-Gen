@@ -176,7 +176,7 @@ temp_GAMEHOOK = {
 
 				APP.gameHook.stop();
 				window.alert('ERROR - Unable to read game data!\n' + err + '\n\nThis may happen due game process not being available anymore.');
-				throw new Error(err);
+				console.error(err);
 
 			}
 
