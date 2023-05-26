@@ -64,13 +64,21 @@ temp_GRAPHICS = {
 				// Change positions depending of parent map
 				switch (parent){
 					
-					// Add extra distance from points of no return
+					/*
+						Add extra distance from points of no return
+					*/
+
+					// Trolley / Cable car running
 					case 'R215':
 						posX = (posX + 510);
 						break;
+
+					// Clock tower nemesis fight
 					case 'R30D':
 						posX = (posX + 510);
 						break;
+
+					// Worm fight
 					case 'R415':
 						posX = (posX + 510);
 						break;
