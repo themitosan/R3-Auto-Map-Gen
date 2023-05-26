@@ -387,13 +387,21 @@ temp_OPTIONS = {
 				APP.options.settingsData.gamePath = pData.dir;
 
 				// Set ram pos.
-				var s = window.prompt('Please insert ram pos. for "Stage":\n\n[Example: "0x00A673C6" (without quotes) for Classic REbirth 1.1.0 SourceNext patch]'),
-					r = window.prompt('Please insert ram pos. for "Room":\n\n[Example: "0x00A673C8" (without quotes) for Classic REbirth 1.1.0 SourceNext patch]');
+				var s = window.prompt('Please insert ram pos. for "Stage":\nExample: 0x00A673C6 for Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.'),
+					r = window.prompt('Please insert ram pos. for "Room":\nExample: 0x00A673C8 for Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.');
 
-				if (s === '' || s  === null || s.length !== 10){
+				// Check if is for default values
+				if (s === null){
+					s = '0x00A673C6';
+				}
+				if (r === null){
+					r = '0x00A673C8';
+				}
+
+				if (s === '' || s.length !== 10){
 					canSave = !1;
 				}
-				if (r === '' || r  === null || r.length !== 10){
+				if (r === '' || r.length !== 10){
 					canSave = !1;
 				}
 

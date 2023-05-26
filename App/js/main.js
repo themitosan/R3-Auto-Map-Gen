@@ -34,8 +34,6 @@ const APP = {
 		// Start keypress
 		window.onkeyup = function(evt){
 
-			console.info(evt.key);
-
 			switch (evt.key){
 
 				case 'F1':
@@ -115,6 +113,9 @@ const APP = {
 		});
 		createGlobalShortcut('Ctrl+-', function(){
 			APP.options.adjustFontSize('minus');
+		});
+		createGlobalShortcut('Ctrl+Shift+R', function(){
+			APP.runGame();
 		});
 
 	},

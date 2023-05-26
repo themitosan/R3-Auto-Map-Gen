@@ -64,15 +64,18 @@ temp_GRAPHICS = {
 				// Change positions depending of parent map
 				switch (parent){
 					
-					// If isn't a BioRand mod, add extra distance from previous room
+					// Add extra distance from points of no return
 					case 'R215':
-						if (isBioRandMod === !1){
-							posX = (posX + 510);
-						}
+						posX = (posX + 510);
+						break;
+					case 'R30D':
+						posX = (posX + 510);
+						break;
+					case 'R415':
+						posX = (posX + 510);
 						break;
 
 				}
-
 
 			}
 
@@ -87,7 +90,7 @@ temp_GRAPHICS = {
 				// If next map is boutique and is BioRand mod, add extra distance from previous room
 				case 'R10F':
 					if (isBioRandMod === !0){
-						posX = (posX + (distanceFactor * 10));
+						posX = (posX + (distanceFactor * 8));
 					}
 					break;
 
