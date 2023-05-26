@@ -97,6 +97,8 @@ module.exports = {
 				// Copy license and readme to build dir
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/LICENSE', license, 'utf8');
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/README.md', readme, 'utf8');
+				fs.writeFileSync('./version.txt', 'Version: ' + packageJson.version, 'utf8');
+				fs.writeFileSync('./build/R3 Auto Map Gen/win64/version.txt', 'Version: ' + packageJson.version, 'utf8');
 	
 			});
 

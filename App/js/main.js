@@ -34,6 +34,8 @@ const APP = {
 		// Start keypress
 		window.onkeyup = function(evt){
 
+			console.info(evt.key);
+
 			switch (evt.key){
 
 				case 'F1':
@@ -62,6 +64,14 @@ const APP = {
 
 				case 'Delete':
 					APP.options.delGameSaveFiles();
+					break;
+
+				case '=':
+					APP.options.adjustFontSize('plus');
+					break;
+
+				case '-':
+					APP.options.adjustFontSize('minus');
 					break;
 
 			}
@@ -99,6 +109,12 @@ const APP = {
 		});
 		createGlobalShortcut('Ctrl+Delete', function(){
 			APP.options.delGameSaveFiles();
+		});
+		createGlobalShortcut('Ctrl+Equal', function(){
+			APP.options.adjustFontSize('plus');
+		});
+		createGlobalShortcut('Ctrl+-', function(){
+			APP.options.adjustFontSize('minus');
 		});
 
 	},

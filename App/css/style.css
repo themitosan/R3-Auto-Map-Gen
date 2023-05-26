@@ -115,6 +115,7 @@ label {
 	height: 100000px;
 	overflow: hidden;
 	position: absolute;
+	font-size: 13px;
 	background-color: #0000;
 	transition-duration: 1s;
 	transition-timing-function: cubic-bezier(0,1,0,1);

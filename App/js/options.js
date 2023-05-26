@@ -10,11 +10,67 @@ temp_OPTIONS = {
 	*/
 	latestFile: '',
 	isMapLoading: !1,
-	fileName: 'GAME_MAP',
+	adjustFontSizeTimeout: void 0,
 
 	/*
 		Functions
 	*/
+
+	// Adjust room font size
+	adjustFontSize: function(mode){
+
+		// Clear timeout
+		clearTimeout(this.adjustFontSizeTimeout);
+
+		// Get font size
+		var fSize = this.settingsData.fontSize;
+
+		if (mode === void 0 || typeof mode !== 'string'){
+			mode = 'plus';
+		}
+
+		// Check operation mode
+		switch (mode){
+
+			case 'plus':
+				fSize++;
+				break;
+
+			case 'minus':
+				fSize--;
+				break;
+
+			case 'reset':
+				fSize = 13;
+				break;
+
+		}
+
+		// Check if font are too small
+		if (fSize < 8){
+			fSize = 8;
+		}
+
+		// Update canvas font size
+		TMS.css('APP_MAP_CANVAS', {'font-size': fSize + 'px'});
+
+		// Center screen
+		if (APP.graphics.enableCanvasDrag === !1){
+			APP.options.adjustFontSizeTimeout = setTimeout(function(){
+				APP.graphics.updatePlayerPos();
+				clearTimeout(APP.options.adjustFontSizeTimeout);
+			}, 1010);
+		} else {
+			APP.graphics.updatePlayerPos();
+		}
+
+		// Update settings data
+		this.settingsData.fontSize = fSize;
+
+		// Update settings file
+		this.saveSettings();
+
+	},
 
 	// Update canvas zoom
 	updateCanvasZoom: function(){
@@ -42,17 +98,19 @@ temp_OPTIONS = {
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
 		APP.graphics.toggleDragMapCanvas();
+		document.getElementById('APP_MAP_CANVAS').onmousedown = null;
 
 		// Reset HTML
 		document.getElementById('APP_MAP_CANVAS').innerHTML = '';
 		TMS.css('APP_MAP_CANVAS', {'top': '-50000px', 'left': '-50000px'});
 
-		console.clear();
-
 	},
 
 	// Save map
 	saveMap: function(quickSave){
+
+		// Set file name var
+		var fileName = 'GAME_MAP';
 
 		// Update map locations
 		Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
@@ -82,13 +140,13 @@ temp_OPTIONS = {
 			const randDataPath = APP.options.settingsData.gamePath + '/mod_biorand/description.txt';
 			if (APP.fs.existsSync(randDataPath) === !0){
 				const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
-				APP.options.fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
+				fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 			}
 		
 		}
 
 		// Check if file exists, is BioRand and if seed is the same
-		if (quickSave === !0 && APP.fs.existsSync(APP.options.latestFile) === !0 && APP.path.parse(APP.options.latestFile).name === APP.options.fileName){
+		if (quickSave === !0 && APP.fs.existsSync(APP.options.latestFile) === !0 && APP.path.parse(APP.options.latestFile).name === fileName){
 
 			try {
 
@@ -101,7 +159,7 @@ temp_OPTIONS = {
 
 				// Set message
 				var msg = document.getElementById('LABEL_mapDragStatus').innerHTML;
-				document.getElementById('LABEL_mapDragStatus').innerHTML = ' - Map file was updated successfully! (' + APP.options.fileName + ')';
+				document.getElementById('LABEL_mapDragStatus').innerHTML = ' - Map file was updated successfully! (' + fileName + ')';
 				setTimeout(function(){
 					document.getElementById('LABEL_mapDragStatus').innerHTML = msg;
 				}, 1700);
@@ -118,10 +176,10 @@ temp_OPTIONS = {
 				ext: '.json',
 				mode: 'utf8',
 				content: newData,
-				fileName: APP.options.fileName + '.json',
+				fileName: fileName + '.json',
 				callback: function(path){
 					window.alert('INFO: Save successfull!\n\nPath: ' + path);
-					APP.options.fileName = APP.path.parse(path).name;
+					fileName = APP.path.parse(path).name;
 					APP.options.latestFile = path;
 				}
 			});
@@ -133,6 +191,7 @@ temp_OPTIONS = {
 	// Load map
 	loadMapProcess: function(fPath){
 
+		// Check if current path exists
 		if (APP.fs.existsSync(fPath) === !0){
 
 			// Set map loading process as true
@@ -218,6 +277,7 @@ temp_OPTIONS = {
 			stage: '0x00A673C6',
 			room: '0x00A673C8'
 		},
+		fontSize: 13,
 		gamePath: '',
 		exeName: 'BIOHAZARD(R) 3 PC.exe'
 	},
@@ -250,6 +310,9 @@ temp_OPTIONS = {
 		if (APP.fs.existsSync(this.settingsData.gamePath + '/savedata') === !0){
 			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 		}
+
+		// Update font size
+		TMS.css('APP_MAP_CANVAS', {'font-size': this.settingsData.fontSize + 'px'});
 
 	},
 

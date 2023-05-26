@@ -1,5 +1,6 @@
 Settings.json
 node_modules/
+version.txt
 Cache/*
 Build/*
 *.bat

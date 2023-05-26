@@ -302,7 +302,8 @@ temp_GRAPHICS = {
 	enableDrag: function(domName){
 
 		// Variables
-		var pos1 = pos2 = pos3 = pos4 = 0,
+		var dList = this.enabledDragList,
+			pos1 = pos2 = pos3 = pos4 = 0,
 			elmnt = document.getElementById(domName);
 
 		// Process drag event
@@ -343,7 +344,7 @@ temp_GRAPHICS = {
 		}
 
 		// Check if can enable drag
-		if (APP.graphics.enabledDragList.indexOf(domName) === -1){
+		if (dList.indexOf(domName) === -1){
 			document.getElementById(domName).onmousedown = dragMouseDown;
 			APP.graphics.enabledDragList.push(domName);
 		}
@@ -429,7 +430,9 @@ temp_GRAPHICS = {
 		// Check if window has focus
 		if (nw.Window.get().cWindow.focused === !0){
 
-			var labelStatus = 'INACTIVE';
+			// Declare vars
+			var labelStatus = 'INACTIVE',
+				pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
 
 			switch (APP.graphics.enableCanvasDrag){
 
@@ -441,8 +444,11 @@ temp_GRAPHICS = {
 					break;
 
 				case !0:
-					document.getElementById('APP_MAP_CANVAS').onmousedown = null;
 					TMS.css('APP_MAP_CANVAS', {'cursor': 'auto', 'transition-duration': '1s'});
+					document.getElementById('APP_MAP_CANVAS').onmousedown = null;
+					if (pos !== -1){
+						APP.graphics.enabledDragList.splice(pos, 1);
+					}
 					APP.graphics.enableCanvasDrag = !1;
 					break;
 
