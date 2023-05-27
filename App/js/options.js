@@ -22,7 +22,7 @@ temp_OPTIONS = {
 		// Clear timeout
 		clearTimeout(this.adjustFontSizeTimeout);
 
-		// Get font size
+		// Get font size and create update canvas function
 		var fSize = this.settingsData.fontSize;
 
 		if (mode === void 0 || typeof mode !== 'string'){
@@ -41,27 +41,27 @@ temp_OPTIONS = {
 				break;
 
 			case 'reset':
-				fSize = 13;
+				fSize = 0;
 				break;
 
 		}
 
 		// Check if font are too small
-		if (fSize < 8){
-			fSize = 8;
+		if (fSize < 0){
+			fSize = 0;
 		}
 
 		// Update canvas font size
-		TMS.css('APP_MAP_CANVAS', {'font-size': fSize + 'px'});
+		TMS.css('APP_MAP_CANVAS', {'font-size': (13 + fSize) + 'px'});
 
 		// Center screen
 		if (APP.graphics.enableCanvasDrag === !1){
 			APP.options.adjustFontSizeTimeout = setTimeout(function(){
-				APP.graphics.updatePlayerPos();
+				APP.options.updateCanvasCss(fSize);
 				clearTimeout(APP.options.adjustFontSizeTimeout);
 			}, 1010);
 		} else {
-			APP.graphics.updatePlayerPos();
+			this.updateCanvasCss(fSize);
 		}
 
 		// Update settings data
@@ -70,6 +70,14 @@ temp_OPTIONS = {
 		// Update settings file
 		this.saveSettings();
 
+	},
+
+	// Update canvas css
+	updateCanvasCss: function(fSize){
+		document.getElementById('APP_STYLE').innerHTML = '.DIV_ROOM {padding: ' + (10 + fSize) + 'px;}\n.PLAYER_PRESENT {text-shadow: 0px 0px ' + (4 + fSize) + 'px #002d;}\n.SVG_CURRENT_FLOW {stroke-dasharray: ' +
+														 (6 + fSize) + ';}\n@keyframes CONNECTION_FLOW { 100% {stroke-dashoffset: -' + (6 + fSize) + '0;}';
+		APP.graphics.updatePlayerPos();
+		APP.graphics.updateLines();
 	},
 
 	// Update canvas zoom
@@ -311,8 +319,9 @@ temp_OPTIONS = {
 			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 		}
 
-		// Update font size
-		TMS.css('APP_MAP_CANVAS', {'font-size': this.settingsData.fontSize + 'px'});
+		// Update canvas
+		TMS.css('APP_MAP_CANVAS', {'font-size': (this.settingsData.fontSize + 13) + 'px'});
+		document.getElementById('APP_STYLE').innerHTML = '.DIV_ROOM {padding: ' + (10 + this.settingsData.fontSize) + 'px;}';
 
 	},
 

@@ -36,9 +36,10 @@ temp_GRAPHICS = {
 			// Default coords
 			var posX = 50010,
 				posY = 50050,
-				saveRoomClass = '',
-				mapExtraClass = '',
+				mapExtraClass = [],
 				distanceFactor = APP.graphics.distanceFactor,
+				fontSizeFactor = APP.options.settingsData.fontSize,
+				dPadding = (10 + fontSizeFactor),
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
 			if (parent !== void 0){
@@ -70,26 +71,21 @@ temp_GRAPHICS = {
 
 					// Trolley / Cable car running
 					case 'R215':
-						posX = (posX + 510);
+						posX = (posX + 1400);
 						break;
 
 					// Clock tower nemesis fight
 					case 'R30D':
-						posX = (posX + 510);
+						posX = (posX + 1400);
 						break;
 
 					// Worm fight
 					case 'R415':
-						posX = (posX + 510);
+						posX = (posX + 1400);
 						break;
 
 				}
 
-			}
-
-			// Check if is save room
-			if (APP.database.rdtNames[mapName].saveRoom === !0){
-				saveRoomClass = ' SAVE_ROOM';
 			}
 
 			// Change class or positions depending on current map
@@ -98,32 +94,42 @@ temp_GRAPHICS = {
 				// If next map is boutique and is BioRand mod, add extra distance from previous room
 				case 'R10F':
 					if (isBioRandMod === !0){
-						posX = (posX + (distanceFactor * 8));
+						posX = (posX + (distanceFactor * 6));
 					}
 					break;
 
 				// Game start
 				case 'R10D':
-					mapExtraClass = 'GAME_START';
+					mapExtraClass.push('GAME_START');
 					break;
 
 				// Game end
 				case 'R50E':
-					mapExtraClass = 'GAME_END';
+					mapExtraClass.push('GAME_END');
 					break;
 
 			}
 
+			// Check if is save room
+			if (APP.database.rdtNames[mapName].saveRoom === !0){
+				mapExtraClass.push('SAVE_ROOM');
+			}
+
+			// Check if is BioRand mod and if current map is an objective
+			if (isBioRandMod === !0 && APP.database.rdtNames[mapName].isBioRandObjective === !0){
+				mapExtraClass.push('BIORAND_OBJECTIVE');
+			}
+
 			// Generate room html and append to canvas
 			const mapTemp = '<div id="ROOM_' + mapName + '" title="[' + mapName + ']\n' + APP.database.rdtNames[mapName].name + ', ' + APP.database.rdtNames[mapName].location +
-							'" class="DIV_ROOM' + saveRoomClass + ' ' + mapExtraClass + '" style="top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' + 
-							APP.database.rdtNames[mapName].name + '</div>';
+							'" class="DIV_ROOM ' + mapExtraClass.toString().replace(',', ' ') + '" style="top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' + APP.database.rdtNames[mapName].name +
+							'</div>';
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Push selected map to list
 			APP.graphics.addedMaps[mapName] = {x: posX, y: posY, doors: []};
 
-			// If map file isn't loading
+			// If map file isn't loading and there's a map parent, check if spawn position is over any other map
 			if (APP.options.isMapLoading === !1 && parent !== void 0){
 				APP.graphics.processMapColission(mapName, parent);
 			} 
@@ -181,10 +187,9 @@ temp_GRAPHICS = {
 						*/
 						var d_factor = 39,
 							c_checks = [],
-							target_rect = TMS.getRect('ROOM_' + mapTarget, !0),
-							parent_rect = TMS.getRect('ROOM_' + parent, !0),
 							cMap_rect = TMS.getRect('ROOM_' + cMap, !0),
-
+							parent_rect = TMS.getRect('ROOM_' + parent, !0),
+							target_rect = TMS.getRect('ROOM_' + mapTarget, !0),
 							P_leftCentered = (parent_rect.left + (parent_rect.width / 2)),
 
 							A_L  = parseFloat(target_rect.left),

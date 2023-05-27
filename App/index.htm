@@ -51,10 +51,26 @@
 
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_isBioRand">
-					<label class="cursor-pointer" title="Leave this checkbox active if is a BioRand mod." onclick="APP.tools.processCheckbox('CHECKBOX_isBioRand');"> - Is BioRand?</label>
+					<label class="cursor-pointer" title="Set this checkbox active if you are playing BioRand mod." onclick="APP.tools.processCheckbox('CHECKBOX_isBioRand');"> - Is BioRand?</label>
 				</div>
 
 				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS">
+
+				<!-- Room types -->
+				<div class="DIV_TITLE">
+					Map captions
+				</div>
+				<div class="SEPARATOR_0"></div>
+
+				<div class="RT PLAYER_PRESENT">
+					Current location
+				</div>
+				<div class="RT SAVE_ROOM">
+					Saveroom
+				</div>
+				<div class="RT BIORAND_OBJECTIVE">
+					Current objective
+				</div>
 
 			</div>
 
@@ -64,6 +80,9 @@
 		</div>
 
 		<div class="none">
+
+			<!-- Set style globally -->
+			<style type="text/css" id="APP_STYLE"></style>
 
 			<!-- File manager -->
 			<input type="file" id="APP_FILE_LOADER"/>
