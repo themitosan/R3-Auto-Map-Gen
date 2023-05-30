@@ -498,31 +498,58 @@ const TMS = Object.freeze(Object.seal({
 	/*
 		Get HTML element rect
 	*/
-	getRect: function(elementId, useCustomMode){
+	getRect: function(elementId){
 
 		var res,
 			elId = TMS.getElement(elementId);
 
 		if (elId !== null){
-			res = document.getElementById(elementId).getBoundingClientRect();
-
-			if (useCustomMode === !0){
-				res = {
-					top: parseFloat(TMS.getCssData(elementId, 'top').replace('px', '')),
-					left: parseFloat(TMS.getCssData(elementId, 'left').replace('px', '')),
-					right: parseFloat(TMS.getCssData(elementId, 'right').replace('px', '')),
-					width: parseFloat(TMS.getCssData(elementId, 'width').replace('px', '')),
-					height: parseFloat(TMS.getCssData(elementId, 'height').replace('px', '')),
-					bottom: parseFloat(TMS.getCssData(elementId, 'bottom').replace('px', ''))
-				}
-			}
-
+			res = elId.getBoundingClientRect();
 		} else {
 			TMS.warn('Unable to get rect because DOM does not exist! (' + elementId + ')');
 		}
 
 		return res;
 
+	},
+
+	/*
+		Get HTML dom coords.
+		Get element coords based on parent element 
+
+		T:  Y
+		L:  X
+		W:  Width
+		H:  Height
+		WL: X Pos. + It's own width
+		TH: Y Pos. + It's own height
+	*/
+	getCoords: function(elementId){
+
+		var res,
+			elId = TMS.getElement(elementId);
+
+		if (elId !== null){
+			
+			var top = elId.offsetTop,
+				left = elId.offsetLeft,
+				width = elId.getBoundingClientRect().width,
+				height = elId.getBoundingClientRect().height;
+
+			res = {
+				T: top,
+				L: left,
+				W: width,
+				H: height,
+				WL: parseFloat(width + left),
+				TH: parseFloat(top + height)
+			}
+
+		} else {
+			TMS.warn('Unable to get coords because DOM does not exist! (' + elementId + ')');
+		}
+
+		return res;
 	}
 	
 }));

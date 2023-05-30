@@ -77,6 +77,9 @@ temp_GAMEHOOK = {
 		document.getElementById('BTN_SELECT_EXE').disabled = '';
 		document.getElementById('BTN_STOP').disabled = 'disabled';
 
+		// Reset label
+		document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = '';
+
 		// Remove on icon
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
 

@@ -28,6 +28,8 @@
 			<!-- Right menu -->
 			<div class="APP_MENU MENU_RIGHT" id="MENU_RIGHT">
 
+				<input type="button" value="[DEV] Enable shortcuts" id="BTN_DEV_KB_SH" disabled="disabled" onclick="APP.devStartShortCuts();" class="BTN_OPTIONS">
+
 				Zoom: <label id="LABEL_mapCanvasZoom">1</label><br>
 				<input type="range" min="0.1" max="2" step="0.001" id="OPTION_mapCanvasZoom" oninput="APP.options.updateCanvasZoom();">
 				<br><br>

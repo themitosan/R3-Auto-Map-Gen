@@ -91,14 +91,14 @@ temp_DATABASE = {
 		'R30D': {name: 'Clock Tower Garden (Nemesis)', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
 		'R30E': {name: 'Main Hall Destroyed', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
 		'R30F': {name: 'Piano Hall & Dinner Room', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
-		'R310': {name: 'Chapel', location: 'Clock Tower', saveRoom: !0, isBioRandObjective: !1},
+		'R310': {name: 'Chapel (Carlos)', location: 'Clock Tower', saveRoom: !0, isBioRandObjective: !1},
 		'R311': {name: 'Resting Room', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
 		'R312': {name: 'Living Room', location: 'Clock Tower', saveRoom: !0, isBioRandObjective: !1},
-		'R313': {name: 'Clock Tower Library (2nd)', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
+		'R313': {name: 'Clock Tower Library (Carlos)', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
 		'R314': {name: 'Corridor to Clock Puzzle', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
-		'R315': {name: 'Clock Puzzle', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
-		'R316': {name: 'Main Hall Destroyed', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
-		'R317': {name: 'Piano Hall & Dinner Room', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
+		'R315': {name: 'Clock Puzzle (Carlos)', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
+		'R316': {name: 'Main Hall Destroyed (Carlos)', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
+		'R317': {name: 'Piano Hall & Dinner Room (Carlos)', location: 'Clock Tower', saveRoom: !1, isBioRandObjective: !1},
 		'R400': {name: 'Hospital Street', location: 'Park', saveRoom: !1, isBioRandObjective: !1},
 		'R401': {name: 'Park Office', location: 'Park', saveRoom: !0, isBioRandObjective: !1},
 		'R402': {name: 'Hospital Entrance', location: 'Hospital', saveRoom: !1, isBioRandObjective: !1},
@@ -179,7 +179,7 @@ temp_DATABASE = {
 		'R714': {name: '(Merc) Energy Station', location: 'Downtown', saveRoom: !1, isBioRandObjective: !1},
 		'R718': {name: '(Merc) Alley to Street 2', location: 'Uptown', saveRoom: !1, isBioRandObjective: !1},
 		'R71A': {name: '(Merc) Alley 6', location: 'Uptown', saveRoom: !1, isBioRandObjective: !1},
-		'R71B': {name: '(Merc) Mechanic\'s Office', location: 'Downtown', saveRoom: !1}
+		'R71B': {name: '(Merc) Mechanic\'s Office', location: 'Downtown', saveRoom: !1, isBioRandObjective: !1}
 	}
 
 }

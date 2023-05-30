@@ -29,7 +29,7 @@ const APP = {
 	*/
 
 	// Start keyboard shortcuts
-	startKbShortcuts: function(){
+	startKbShortcuts: function(disableGlobal){
 
 		// Start keypress
 		window.onkeyup = function(evt){
@@ -78,13 +78,18 @@ const APP = {
 
 		// Create global shortcuts 
 		const createGlobalShortcut = function(keys, action){
-			var newKey = new nw.Shortcut({
-				key: keys,
-				active: function(){
-					action();
-				}
-			});
-			nw.App.registerGlobalHotKey(newKey);
+			if (disableGlobal !== !0){
+				var newKey = new nw.Shortcut({
+					key: keys,
+					active: function(){
+						action();
+					},
+					failed: function(err){
+						console.error(err);
+					}
+				});
+				nw.App.registerGlobalHotKey(newKey);
+			}
 		}
 
 		// Init global shortcuts
@@ -169,8 +174,9 @@ const APP = {
 				APP.hash = 'DIRTY';
 			}
 
-			// Get app title string
-			const appTitle = 'R3 Auto Map Gen. - Version: ' + APP.version + ' [' + APP.hash + ']'; 
+			// Set vars
+			var startKbDevMode = !1,
+				appTitle = 'R3 Auto Map Gen. - Version: ' + APP.version + ' [' + APP.hash + ']'; 
 
 			// Update log and app title
 			console.info(appTitle);
@@ -181,9 +187,11 @@ const APP = {
 			APP.path = require('path');
 			APP.childProcess = require('child_process');
 
-			// Require memoryjs
+			// Check if app is on dev mode
 			if (nw.App.argv.indexOf('-dev') !== -1){
+				document.getElementById('BTN_DEV_KB_SH').disabled = '';
 				APP.memoryjs = require('App/node_modules/memoryjs');
+				startKbDevMode = !0;
 			} else {
 				APP.memoryjs = require('node_modules/memoryjs');
 			}
@@ -196,7 +204,7 @@ const APP = {
 			document.getElementById('BTN_START').focus();
 
 			// Start keyboard shortcuts
-			APP.startKbShortcuts();
+			APP.startKbShortcuts(startKbDevMode);
 
 			// Load settings
 			APP.options.loadSettings();
@@ -206,6 +214,12 @@ const APP = {
 			throw new Error(err);
 		}
 
+	},
+
+	// DEV - Start global shortcuts button
+	devStartShortCuts: function(){
+		document.getElementById('BTN_DEV_KB_SH').disabled = 'disabled';
+		APP.startKbShortcuts(!1);
 	}
 
 }

@@ -48,55 +48,16 @@ temp_GRAPHICS = {
 				APP.graphics.addedMaps[parent].doors.push(mapName);
 
 				// Get parent data
-				var heightFactor = 74,
-					nDoorFactor = (heightFactor * APP.graphics.addedMaps[parent].doors.length),
-					rect = TMS.getRect('ROOM_' + parent),
-					pData = {
-						width: rect.width,
-						height: rect.height,
-						top: parseInt(TMS.getCssData('ROOM_' + parent, 'top').replace('px', '')),
-						left: parseInt(TMS.getCssData('ROOM_' + parent, 'left').replace('px', ''))
-					};
+				var rect = TMS.getCoords('ROOM_' + parent);
 
 				// Set default position
-				posX = parseFloat((pData.left + pData.width) + distanceFactor);
-				posY = (pData.top - heightFactor) + nDoorFactor;
-
-				// Change positions depending of parent map
-				switch (parent){
-					
-					/*
-						Add extra distance from points of no return
-					*/
-
-					// Trolley / Cable car running
-					case 'R215':
-						posX = (posX + 1400);
-						break;
-
-					// Clock tower nemesis fight
-					case 'R30D':
-						posX = (posX + 1400);
-						break;
-
-					// Worm fight
-					case 'R415':
-						posX = (posX + 1400);
-						break;
-
-				}
+				posX = rect.L + (rect.W / 2);
+				posY = rect.T;
 
 			}
 
-			// Change class or positions depending on current map
+			// Change class depending on current map
 			switch (mapName){
-
-				// If next map is boutique and is BioRand mod, add extra distance from previous room
-				case 'R10F':
-					if (isBioRandMod === !0){
-						posX = (posX + (distanceFactor * 6));
-					}
-					break;
 
 				// Game start
 				case 'R10D':
@@ -160,7 +121,19 @@ temp_GRAPHICS = {
 		if (this.addedMaps[mapTarget] !== void 0){
 
 			// Define cycle counter
-			var cycles = 0;
+			var cycles = 0,
+				pointPos = 0,
+				point_factor = 0,
+				distanceFactor = APP.graphics.distanceFactor;
+
+			// Calc point factor
+			const calcPointFactor = function(val){
+				var res = (val * point_factor);
+				if (res === 0){
+					res = val;
+				}
+				return res;
+			} 
 
 			// Process
 			const runProcess = function(){
@@ -177,47 +150,134 @@ temp_GRAPHICS = {
 					// Exclude current map from processing
 					if (cMap !== mapTarget){
 
+						// Adjust point factors
+						if (pointPos > 11){
+							pointPos = 0;
+							point_factor++;
+						}
+
 						/*
 							Define some vars to make easy to read
-
-							A_: mapTarget
-							B_: cMap
-
-							d_factor = 40
 						*/
-						var d_factor = 39,
-							c_checks = [],
-							cMap_rect = TMS.getRect('ROOM_' + cMap, !0),
-							parent_rect = TMS.getRect('ROOM_' + parent, !0),
-							target_rect = TMS.getRect('ROOM_' + mapTarget, !0),
-							P_leftCentered = (parent_rect.left + (parent_rect.width / 2)),
-
-							A_L  = parseFloat(target_rect.left),
-							A_W  = parseFloat(target_rect.width),
-							A_T  = parseFloat(target_rect.top),
-							A_H  = parseFloat(target_rect.height),
-							A_WL = parseFloat(A_W + A_L),
-							A_TH = parseFloat(A_T + A_H),
-
-							B_L  = parseFloat(cMap_rect.left),
-							B_W  = parseFloat(cMap_rect.width),
-							B_T  = parseFloat(cMap_rect.top),
-							B_H  = parseFloat(cMap_rect.height),
-							B_WL = parseFloat(B_W + B_L),
-							B_TH = parseFloat(B_T + B_H);
+						var c_checks = [],
+							d_factor = (distanceFactor - 1),
+							
+							cMapCoords = TMS.getCoords('ROOM_' + cMap),
+							parentCoords = TMS.getCoords('ROOM_' + parent),
+							targetCoords = TMS.getCoords('ROOM_' + mapTarget);
 
 						/*
 							Push conditions to check array
 						*/
-						c_checks.push(A_WL > (B_L - d_factor)); // If mapTarget left pos. + it's size is higher than cMap left (minus factor)
-						c_checks.push(A_L < (B_WL + d_factor)); // If mapTarget left pos. is lower than cMap left + it's size (plus factor)
-						c_checks.push(A_TH > (B_T - d_factor)); // If mapTarget top pos. + it's size is higher than cMap top pos. (minus factor)
-						c_checks.push(A_T < (B_TH + d_factor)); // If mapTarget top pos. is lower than cMap top pos. + it's own size (plus factor)
+						c_checks.push(targetCoords.WL > (cMapCoords.L - d_factor)); // If mapTarget left pos. + it's size is higher than cMap left (minus factor)
+						c_checks.push(targetCoords.L < (cMapCoords.WL + d_factor)); // If mapTarget left pos. is lower than cMap left + it's size (plus factor)
+						c_checks.push(targetCoords.TH > (cMapCoords.T - d_factor)); // If mapTarget top pos. + it's size is higher than cMap top pos. (minus factor)
+						c_checks.push(targetCoords.T < (cMapCoords.TH + d_factor)); // If mapTarget top pos. is lower than cMap top pos. + it's own size (plus factor)
 
 						// Check if needs to update mapTarget pos.
 						if (c_checks.indexOf(!1) === -1){
-							TMS.css('ROOM_' + mapTarget, {'top': A_TH + 'px', 'left': P_leftCentered + 'px'});
+
+							/*
+								Seek next free location
+
+							  7 8___9__10 11
+								|\	|  /|
+							  6 |---O---| 0
+								|/__|__\|
+							  5 4   3   2 1
+							*/
+							switch (pointPos){
+
+								case 0:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': parentCoords.T + 'px',
+										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
+									});
+									break;
+
+								case 1:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
+									});
+									break;
+
+								case 2:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									});
+									break;
+
+								case 3:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
+										'left': APP.tools.parsePositive(parentCoords.WL - (parentCoords.W / 2) - (targetCoords.W / 2)) + 'px'
+									});
+									break;
+
+								case 4:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									});
+									break;
+
+								case 5:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
+									});
+									break;
+
+								case 6:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': parentCoords.T + 'px',
+										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
+									});
+									break;
+
+								case 7:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
+									});
+									break;
+
+								case 8:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									});
+									break;
+
+								case 9:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
+										'left': APP.tools.parsePositive(parentCoords.WL - (parentCoords.W / 2) - (targetCoords.W / 2)) + 'px'
+									});
+									break;
+
+								case 10:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									});
+									break;
+
+								case 11:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
+									});
+									break;
+
+							}
+
+							// Set run flag active
 							reRun = !0;
+							pointPos++;
+
 						}
 
 					}
@@ -235,8 +295,12 @@ temp_GRAPHICS = {
 			runProcess();
 
 			// Log adittion
-			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.rdtNames[mapTarget].name + '] colissions was processed comparing with ' +
-						 Object.keys(APP.graphics.addedMaps).length + ' maps, with a total of ' + cycles + ' cycles.');
+			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.rdtNames[mapTarget].name + '] colissions was processed comparing with ' + Object.keys(APP.graphics.addedMaps).length + ' maps');
+			console.table({
+				'Cycles': cycles,
+				'Point Factor': point_factor,
+				'Latest point position': pointPos
+			});
 
 		}
 
