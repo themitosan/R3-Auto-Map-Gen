@@ -5,7 +5,7 @@
 	"author": "TemmieHeartz",
 	"license": "GPL-2.0-only",
 	"name": "R3 Auto Map Gen",
-	"description": "This app creates a pseudo map on the go for Resident Evil 3 classic.",
+	"description": "This app creates an node-conected map on the go for Resident Evil 3 classic.",
 	"window": {
 		"frame": true,
 		"width": 1418,
