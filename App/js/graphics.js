@@ -295,12 +295,7 @@ temp_GRAPHICS = {
 			runProcess();
 
 			// Log adittion
-			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.rdtNames[mapTarget].name + '] colissions was processed comparing with ' + Object.keys(APP.graphics.addedMaps).length + ' maps');
-			console.table({
-				'Cycles': cycles,
-				'Point Factor': point_factor,
-				'Latest point position': pointPos
-			});
+			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.rdtNames[mapTarget].name + '] colissions was processed comparing with ' + Object.keys(APP.graphics.addedMaps).length + ' maps.');;
 
 		}
 

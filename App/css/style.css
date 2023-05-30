@@ -56,6 +56,7 @@ svg {
 label {
 	margin-left: 2px;
 	margin-right: 2px;
+	text-shadow: 2px 2px 2.8px #000a;
 }
 
 /*
@@ -83,9 +84,10 @@ label {
 	z-index: 100;
 	overflow: hidden;
 	position: absolute;
-	background-color: #444;
+	background-color: #0000;
+	backdrop-filter: blur(4px);
 	box-shadow: 0px 0px 10px #000;
-	background-image: linear-gradient(180deg, #444, #2e2e2e);
+	background-image: linear-gradient(180deg, #706099aa, #3e2e67aa);
 }
 .MENU_TOP {
 	top: 0px;
@@ -146,7 +148,7 @@ label {
 }
 .RT {
 	display: flex;
-	min-height: 30px;
+	min-height: 42px;
 	flex-wrap: nowrap;
 	align-items: center;
 	flex-direction: row;
