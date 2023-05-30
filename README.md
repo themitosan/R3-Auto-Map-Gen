@@ -24,6 +24,8 @@ This app creates an node-conected map on the go for Resident Evil 3 classic.
 ## How this thing works?
 - Open your game, start hook, open a simple door and you will see the magic!
 
+<img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/example.png?raw=true" alt="R3_Example" width="800">
+
 <sup>
 
 You can also see a live demo [here](https://twitter.com/temmieheartz/status/1659312625384140802).
