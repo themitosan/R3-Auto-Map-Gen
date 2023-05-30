@@ -19,7 +19,7 @@ temp_GAMEHOOK = {
 	*/
 
 	// Seek game
-	seekGame: function(){
+	seekGame: function(skipCheck){
 		
 		if (this.gameActive === !1){
 
@@ -32,7 +32,7 @@ temp_GAMEHOOK = {
 					}
 				});
 	
-			if (gProcess.length !== 0){
+			if (gProcess.length !== 0 || skipCheck === !0){
 	
 				try {
 

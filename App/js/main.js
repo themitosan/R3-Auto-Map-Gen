@@ -122,6 +122,9 @@ const APP = {
 		createGlobalShortcut('Ctrl+Shift+R', function(){
 			APP.runGame();
 		});
+		createGlobalShortcut('Ctrl+Shift+H', function(){
+			APP.gameHook.seekGame();
+		});
 
 	},
 
@@ -140,24 +143,44 @@ const APP = {
 		// Check if game path exists
 		if (APP.fs.existsSync(gPath) === !0){
 
-			try {
+			
+			// Start game
+			const doStartGamePlz = function(){
 
-				// Update chdir
-				process.chdir(APP.options.settingsData.gamePath);
+				try {
 
-				// Run game
-				APP.spawnProcess = APP.childProcess.spawn(gPath, [], {
-					detached: !0
+					// Update chdir
+					process.chdir(APP.options.settingsData.gamePath);
+
+					// Run game
+					APP.spawnProcess = APP.childProcess.spawn(gPath, [], {
+						detached: !0
+					});
+
+					// Seek game process
+					setTimeout(function(){
+						APP.gameHook.seekGame(!0);
+					}, 50);
+
+				} catch (err) {
+					window.alert('ERROR: Unable to start game process!\n\n' + err);
+					throw new Error(err);
+				}
+
+			}
+
+			// Check if game is running
+			var exeName = APP.options.settingsData.exeName,
+				pList = Array.from(APP.memoryjs.getProcesses()),
+				gProcess = pList.filter(function(cProcess){
+					if (cProcess.szExeFile === exeName){
+						return cProcess;
+					}
 				});
-
-				// Seek game process
-				setTimeout(function(){
-					APP.gameHook.seekGame();
-				}, 50);
-
-			} catch (err) {
-				window.alert('ERROR: Unable to start game process!\n\n' + err);
-				throw new Error(err);
+			if (gProcess.length === 0){
+				doStartGamePlz();
+			} else {
+				APP.gameHook.seekGame(!0);
 			}
 
 		}

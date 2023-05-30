@@ -19,7 +19,7 @@
 			<div class="APP_MENU MENU_TOP" id="MENU_TOP">
 				<div id="RE3_CAPTURE_ICON" class="RE3_CAPTURE_ICON"></div>
 				<input type="button" title="Global Shortcut: Ctrl+Shift+R" disabled="disabled" id="BTN_RUN_GAME" value="Start Game" onclick="APP.runGame();">
-				<input type="button" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
+				<input type="button" title="Global Shortcut: Ctrl+Shift+H" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
 				<input type="button" disabled="disabled" id="BTN_STOP" value="Stop" onclick="APP.gameHook.stop();">
 				<label id="LABEL_RE3_INFO_mapName"></label>
 				<label id="LABEL_mapDragStatus"> - Canvas drag is INACTIVE</label>
@@ -28,6 +28,7 @@
 			<!-- Right menu -->
 			<div class="APP_MENU MENU_RIGHT" id="MENU_RIGHT">
 
+				<!-- Dev: Enable global shortcuts -->
 				<input type="button" value="[DEV] Enable shortcuts" id="BTN_DEV_KB_SH" disabled="disabled" onclick="APP.devStartShortCuts();" class="BTN_OPTIONS">
 
 				Zoom: <label id="LABEL_mapCanvasZoom">1</label><br>
