@@ -232,6 +232,12 @@ const APP = {
 			// Load settings
 			APP.options.loadSettings();
 
+			// Display menus
+			setTimeout(function(){
+				TMS.css('MENU_TOP', {'height': '30px'});
+				TMS.css('MENU_RIGHT', {'width': '168px'});
+			}, 30);
+
 		} catch (err) {
 			window.alert('ERROR - Something happened on boot process!\n' + err);
 			throw new Error(err);

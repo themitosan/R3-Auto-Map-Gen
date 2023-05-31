@@ -87,7 +87,9 @@ label {
 	overflow: hidden;
 	position: absolute;
 	background-color: #0000;
+	transition-duration: 0.8s;
 	backdrop-filter: blur(4px);
+	transition-timing-function: cubic-bezier(0,1,0,1);
 	box-shadow: 0px 0px 10px #000;
 	background-image: linear-gradient(180deg, #706099aa, #3e2e67aa);
 }
@@ -95,7 +97,7 @@ label {
 	top: 0px;
 	left: 0px;
 	width: auto;
-	height: 30px;
+	height: 0px;
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
@@ -106,9 +108,9 @@ label {
 .MENU_RIGHT {
 	top: 0px;
 	right: 0px;
-	width: 168px;
+	width: 0px;
 	height: auto;
-	overflow: auto;
+	overflow: hidden;
 	padding-top: 10px;
 	text-align: center;
 	padding-bottom: 10px;
@@ -152,6 +154,7 @@ label {
 	background-image: linear-gradient(180deg, #00642f, #0a0);
 }
 .RT {
+	overflow: hidden;
 	display: flex;
 	min-height: 42px;
 	flex-wrap: nowrap;
@@ -215,7 +218,7 @@ label {
 	Options
 */
 .BTN_OPTIONS {
-	width: calc(100% - 20px);
+	width: 148px;
 }
 
 /*
