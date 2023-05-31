@@ -6,8 +6,8 @@
 const APP = {
 
 	// Version
-	version: '1.0.0',
 	hash: nw.App.manifest.hash,
+	version: nw.App.manifest.version,
 
 	// Modules
 	fs: void 0,
