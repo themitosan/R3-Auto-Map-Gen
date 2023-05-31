@@ -10,11 +10,21 @@ temp_OPTIONS = {
 	*/
 	latestFile: '',
 	isMapLoading: !1,
+	hideTopMenuOnSave: !1,
 	adjustFontSizeTimeout: void 0,
 
 	/*
 		Functions
 	*/
+
+	// Toggle hide top menu on quick-save
+	togglehideTopMenuOnSave: function(){
+
+		// Set var data and save on localstorage
+		this.hideTopMenuOnSave = JSON.parse(document.getElementById('CHECKBOX_hideTopMenu').checked);
+		localStorage.setItem('hideTopMenu', APP.options.hideTopMenuOnSave);
+
+	},
 
 	// Adjust room font size
 	adjustFontSize: function(mode){
@@ -141,7 +151,7 @@ temp_OPTIONS = {
 				history: APP.graphics.addedMapHistory,
 			});
 
-		// Check if "is BioRand" is active
+		// Check if "is BioRand" option is active
 		var checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked;
 		if (checkBioRand === !0){
 		
@@ -166,10 +176,14 @@ temp_OPTIONS = {
 				APP.graphics.updatePlayerPos();
 
 				// Set message
+				TMS.css('MENU_TOP', {'height': '30px'});
 				var msg = document.getElementById('LABEL_mapDragStatus').innerHTML;
 				document.getElementById('LABEL_mapDragStatus').innerHTML = ' - Map file was updated successfully! (' + fileName + ')';
 				setTimeout(function(){
 					document.getElementById('LABEL_mapDragStatus').innerHTML = msg;
+					if (APP.options.hideTopMenuOnSave === !0){
+						TMS.css('MENU_TOP', {'height': '0px'});
+					}
 				}, 1700);
 
 			} catch (err) {
@@ -178,6 +192,11 @@ temp_OPTIONS = {
 			}
 
 		} else {
+
+			// Reset top menu
+			if (APP.options.hideTopMenuOnSave === !1){
+				TMS.css('MENU_TOP', {'height': '30px'});
+			}
 
 			// Open save dialog
 			APP.filemanager.saveFile({
@@ -319,6 +338,13 @@ temp_OPTIONS = {
 			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 		}
 
+		// Update hide top menu checkbox
+		if (localStorage.getItem('hideTopMenu') === null){
+			localStorage.setItem('hideTopMenu', APP.options.hideTopMenuOnSave);
+		}
+		this.hideTopMenuOnSave = JSON.parse(localStorage.getItem('hideTopMenu'));
+		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenuOnSave;
+
 		// Update canvas
 		TMS.css('APP_MAP_CANVAS', {'font-size': (this.settingsData.fontSize + 13) + 'px'});
 		document.getElementById('APP_STYLE').innerHTML = '.DIV_ROOM {padding: ' + (10 + this.settingsData.fontSize) + 'px;}';
@@ -329,6 +355,7 @@ temp_OPTIONS = {
 	saveSettings: function(){
 
 		try {
+			localStorage.setItem('hideTopMenu', APP.options.hideTopMenuOnSave);
 			APP.fs.writeFileSync(APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json', JSON.stringify(this.settingsData), 'utf8');
 		} catch (err) {
 			window.alert('ERROR - Unable to save settings!\n' + err);

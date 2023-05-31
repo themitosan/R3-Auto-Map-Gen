@@ -50,7 +50,7 @@
 				<input type="button" title="Global Shortcut: Ctrl+Shift+S" value="Save Map" onclick="APP.options.saveMap();" class="BTN_OPTIONS">
 				<input type="button" value="Load Map" onclick="APP.options.loadMapFile();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+F10" value="[F10] Reload Map" onclick="APP.options.loadLatestFile();" class="BTN_OPTIONS" id="BTN_MAP_RELOAD" disabled="disabled">
-				<input type="button" title="Global Shortcut: Ctrl+Del" value="[Del] Clear game saves" onclick="APP.options.delGameSaveFiles();" class="BTN_OPTIONS" id="BTN_DEL_GAME_SAVES" disabled="disabled">
+				<input type="button" title="Global Shortcut: Ctrl+Del" value="[Del] Clear game save" onclick="APP.options.delGameSaveFiles();" class="BTN_OPTIONS" id="BTN_DEL_GAME_SAVES" disabled="disabled">
 
 				<!-- Run config -->
 				<input type="button" value="App Setup" onclick="APP.options.getGamePath();" class="BTN_OPTIONS" id="BTN_SELECT_EXE"><br>
@@ -58,6 +58,11 @@
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_isBioRand">
 					<label class="cursor-pointer" title="Set this checkbox active if you are playing BioRand mod." onclick="APP.tools.processCheckbox('CHECKBOX_isBioRand');"> - Is BioRand?</label>
+				</div>
+
+				<div class="DIV_CHECKBOX">
+					<input type="checkbox" id="CHECKBOX_hideTopMenu">
+					<label class="cursor-pointer" title="Set this checkbox active if you want hide top menu after save." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu');APP.options.togglehideTopMenuOnSave();"> - Hide top menu after quick-save</label>
 				</div>
 
 				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS">

@@ -510,6 +510,12 @@ temp_GRAPHICS = {
 			var labelStatus = 'INACTIVE',
 				pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
 
+			// Reset top menu size
+			if (APP.options.hideTopMenuOnSave === !1){
+				TMS.css('MENU_TOP', {'height': '30px'});
+			}
+
+			// Check enable canvas drag
 			switch (APP.graphics.enableCanvasDrag){
 
 				case !1:
