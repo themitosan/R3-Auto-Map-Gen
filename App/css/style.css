@@ -7,7 +7,6 @@ body {
 	color: #fff;
 	user-select: none;
 	font-family: monospace;
-	background-color: #200;
 }
 input[type="file"] {
 	display: none !important;
@@ -23,6 +22,8 @@ input[type="button"] {
 	background-image: linear-gradient(180deg, #fff, #999);
 }
 input[type="button"]:active {
+	color: #666a;
+	filter: blur(0.6px);
 	box-shadow: 0px 0px 6px #000 inset;
 	background-image: linear-gradient(0deg, #fff, #999);
 }
@@ -78,7 +79,8 @@ label {
 	height: 100%;
 	overflow: hidden;
 	position: absolute;
-	background-color: #0000;
+	background-color: #000;
+	background-image: linear-gradient(180deg, #000019, #002);
 }
 .APP_MENU {
 	z-index: 100;
@@ -121,8 +123,11 @@ label {
 	font-size: 13px;
 	height: 100000px;
 	overflow: hidden;
+	border-width: 2px;
 	position: absolute;
-	background-color: #0000;
+	border-color: #f00;
+	border-style: solid;
+	background-color: #200;
 	transition-duration: 1s;
 	transition-timing-function: cubic-bezier(0,1,0,1);
 }
@@ -198,11 +203,11 @@ label {
 	margin-right: 10px;
 	border-radius: 100px;
 	background-color: #000;
-	box-shadow: 0px 0px 2px #000 inset;
-	background-image: linear-gradient(180deg, #000, #222);
+	box-shadow: 0px 0px 6px #000 inset;
+	background-image: linear-gradient(180deg, #000, #333);
 }
 .RE3_CAPTURE_ICON_ON {
-	box-shadow: none;
+	box-shadow: 0px 0px 6px #0f06;
 	background-image: linear-gradient(180deg, #0e0, #090);
 }
 

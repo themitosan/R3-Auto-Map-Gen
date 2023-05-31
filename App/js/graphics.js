@@ -14,6 +14,7 @@ temp_GRAPHICS = {
 	addedMapHistory: [],
 	enabledDragList: [],
 	enableCanvasDrag: !1,
+	disableCanvasBgColor: !0,
 
 	/*
 		Functions
@@ -531,6 +532,27 @@ temp_GRAPHICS = {
 
 			// Update label
 			document.getElementById('LABEL_mapDragStatus').innerHTML = ' - Canvas drag is ' + labelStatus;
+
+		}
+
+	},
+
+	// Toggle canvas bg color
+	toggleBgColor: function(){
+
+		switch (this.disableCanvasBgColor){
+
+			// Enable background color
+			case !0:
+				TMS.css('APP_MAP_CANVAS', {'background-color': '#0000'});
+				APP.graphics.disableCanvasBgColor = !1;
+				break;
+
+			// Disable background color
+			case !1:
+				TMS.css('APP_MAP_CANVAS', {'background-color': '#200'});
+				APP.graphics.disableCanvasBgColor = !0;
+				break;
 
 		}
 
