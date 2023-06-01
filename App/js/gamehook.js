@@ -163,6 +163,13 @@ temp_GAMEHOOK = {
 						}
 						break;
 
+					// Game end
+					case 'R50E':
+						if (APP.gameHook.mapHistory.length > 1){
+							APP.options.resetMap();
+						}
+						break;
+
 				}
 
 				// Check if latest map is the current one

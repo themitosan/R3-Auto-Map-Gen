@@ -174,8 +174,8 @@ label {
 	background-image: linear-gradient(180deg, #00642f, #0a0);
 }
 .RT {
-	overflow: hidden;
 	display: flex;
+	overflow: hidden;
 	min-height: 42px;
 	flex-wrap: nowrap;
 	align-items: center;
@@ -210,6 +210,9 @@ label {
 }
 .GAME_END {
 	border-radius: 0px 14px 14px 0px;
+	animation-duration: 10s;
+	animation-name: HUE_CIRCLE;
+	text-shadow: 1px 1px 2px #000;
 }
 .BIORAND_OBJECTIVE {
 	border-radius: 12px !important;
@@ -275,6 +278,20 @@ label {
 		stroke-dashoffset: -60;
 	}
 
+}
+@keyframes HUE_CIRCLE {
+	0% {
+		background-color: #008;
+		filter: hue-rotate(0deg);
+	}
+	50% {
+		background-color: #00c;
+		filter: hue-rotate(180deg);
+	}
+	100% {
+		background-color: #008;
+		filter: hue-rotate(359deg);
+	}
 }
 
 /*
