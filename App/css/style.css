@@ -89,21 +89,41 @@ label {
 	background-color: #0000;
 	transition-duration: 0.8s;
 	backdrop-filter: blur(4px);
-	transition-timing-function: cubic-bezier(0,1,0,1);
 	box-shadow: 0px 0px 10px #000;
+	transition-timing-function: cubic-bezier(0,1,0,1);
 	background-image: linear-gradient(180deg, #706099aa, #3e2e67aa);
 }
 .MENU_TOP {
 	top: 0px;
-	left: 0px;
-	width: auto;
+	left: 10px;
 	height: 0px;
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
+	justify-content: center;
+	width: calc(100% - 196px);
 	padding: 0px 10px 0px 0px;
-	justify-content: flex-start;
-	border-bottom-right-radius: 6px;
+	border-radius: 0px 0px 8px 8px;
+}
+.MENU_TOP_BTNS {
+	left: 0px;
+	height: 30px;
+	display: flex;
+	flex-wrap: nowrap;
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+}
+.MENU_TOP_BG {
+	top: 0px;
+	left: 0px;
+	width: 100%;
+	z-index: 90;
+	height: 30px;
+	cursor: help;
+	display: none;
+	position: absolute;
+	background-color: #200;
 }
 .MENU_RIGHT {
 	top: 0px;
@@ -202,10 +222,9 @@ label {
 .RE3_CAPTURE_ICON {
 	width: 15px;
 	height: 15px;
-	margin-left: 10px;
-	margin-right: 10px;
 	border-radius: 100px;
 	background-color: #000;
+	margin: 0px 10px 0px 10px;
 	box-shadow: 0px 0px 6px #000 inset;
 	background-image: linear-gradient(180deg, #000, #333);
 }

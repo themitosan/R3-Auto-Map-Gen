@@ -15,14 +15,22 @@
 		<!-- Main Canvas -->
 		<div class="APP_CANVAS" id="APP_CANVAS">
 
+			<!-- Top Menu BG -->
+			<div class="MENU_TOP_BG" id="MENU_TOP_BG" title='This border is only visible when red background is on and "Hide top menu after quick-save" option is active.'></div>
+
 			<!-- Top menu -->
 			<div class="APP_MENU MENU_TOP" id="MENU_TOP">
-				<div id="RE3_CAPTURE_ICON" class="RE3_CAPTURE_ICON"></div>
-				<input type="button" title="Global Shortcut: Ctrl+Shift+R" disabled="disabled" id="BTN_RUN_GAME" value="Start Game" onclick="APP.runGame();">
-				<input type="button" title="Global Shortcut: Ctrl+Shift+H" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
-				<input type="button" disabled="disabled" id="BTN_STOP" value="Stop" onclick="APP.gameHook.stop();">
+				
+				<div class="MENU_TOP_BTNS">
+					<div id="RE3_CAPTURE_ICON" class="RE3_CAPTURE_ICON"></div>
+					<input type="button" title="Global Shortcut: Ctrl+Shift+R" disabled="disabled" id="BTN_RUN_GAME" value="Start Game" onclick="APP.runGame();">
+					<input type="button" title="Global Shortcut: Ctrl+Shift+H" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
+					<input type="button" disabled="disabled" id="BTN_STOP" value="Stop" onclick="APP.gameHook.stop();">
+				</div>
+
 				<label id="LABEL_RE3_INFO_mapName"></label>
-				<label id="LABEL_mapDragStatus"> - Canvas drag is INACTIVE</label>
+				<label id="LABEL_mapDragStatus">Canvas drag is INACTIVE</label>
+
 			</div>
 
 			<!-- Right menu -->
@@ -46,7 +54,7 @@
 				<input type="button" title="Global Shortcut: Ctrl+F7" value="[F7] Center map" onclick="APP.graphics.updatePlayerPos();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+F8" value="[F8] Reset zoom" onclick="APP.options.resetCanvasZoom();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+F9" value="[F9] Reset map" onclick="APP.options.resetMap();" class="BTN_OPTIONS">
-				<input type="button" value="[CTRL] Toggle drag" onclick="APP.graphics.toggleDragMapCanvas();" class="BTN_OPTIONS">
+				<input type="button" value="[Alt] Toggle drag" onclick="APP.graphics.toggleDragMapCanvas();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+Shift+S" value="Save Map" onclick="APP.options.saveMap();" class="BTN_OPTIONS">
 				<input type="button" value="Load Map" onclick="APP.options.loadMapFile();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+F10" value="[F10] Reload Map" onclick="APP.options.loadLatestFile();" class="BTN_OPTIONS" id="BTN_MAP_RELOAD" disabled="disabled">

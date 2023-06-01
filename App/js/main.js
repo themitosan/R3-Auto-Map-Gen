@@ -40,7 +40,7 @@ const APP = {
 					APP.about();
 					break;
 
-				case 'Control':
+				case 'Alt':
 					APP.graphics.toggleDragMapCanvas();
 					break;
 

@@ -20,6 +20,31 @@ temp_GRAPHICS = {
 		Functions
 	*/
 
+	// Update current map label
+	updateGuiLabel: function(){
+
+		var cMap = '',
+			gameRunningStatus = '',
+			canvasDragStatus = 'INACTIVE',
+			lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
+
+		// Check if latest map exists and if game is running
+		if (lMapHistory !== void 0 && APP.gameHook.gameActive === !0){
+			cMap = 'Map: ' + lMapHistory;
+			gameRunningStatus = ' - ';
+		}
+
+		// Check canvas drag status
+		if (this.enableCanvasDrag === !0){
+			canvasDragStatus = 'ACTIVE';
+		}
+
+		// Set label strings
+		document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
+		document.getElementById('LABEL_mapDragStatus').innerHTML = gameRunningStatus + 'Canvas drag is ' + canvasDragStatus;
+
+	},
+
 	// Add room to map
 	pushMap: function(mapName, parent){
 
@@ -99,10 +124,7 @@ temp_GRAPHICS = {
 		}
 
 		// Update labels
-		const lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
-		if (lMapHistory !== void 0){
-			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = 'Map: ' + lMapHistory;
-		}
+		this.updateGuiLabel();
 
 		// Enable drag
 		APP.graphics.enableDrag('ROOM_' + mapName);
@@ -503,43 +525,36 @@ temp_GRAPHICS = {
 	// Toggle drag map
 	toggleDragMapCanvas: function(){
 
-		// Check if window has focus
-		if (nw.Window.get().cWindow.focused === !0){
+		// Declare vars
+		var pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
 
-			// Declare vars
-			var labelStatus = 'INACTIVE',
-				pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
+		// Reset top menu size
+		if (APP.options.hideTopMenuOnSave === !1){
+			TMS.css('MENU_TOP', {'height': '30px'});
+		}
 
-			// Reset top menu size
-			if (APP.options.hideTopMenuOnSave === !1){
-				TMS.css('MENU_TOP', {'height': '30px'});
-			}
+		// Check enable canvas drag
+		switch (APP.graphics.enableCanvasDrag){
 
-			// Check enable canvas drag
-			switch (APP.graphics.enableCanvasDrag){
+			case !1:
+				TMS.css('APP_MAP_CANVAS', {'cursor': 'move', 'transition-duration': '0s'});
+				APP.graphics.enableDrag('APP_MAP_CANVAS');
+				APP.graphics.enableCanvasDrag = !0;
+				break;
 
-				case !1:
-					TMS.css('APP_MAP_CANVAS', {'cursor': 'move', 'transition-duration': '0s'});
-					APP.graphics.enableDrag('APP_MAP_CANVAS');
-					APP.graphics.enableCanvasDrag = !0;
-					labelStatus = 'ACTIVE';
-					break;
-
-				case !0:
-					TMS.css('APP_MAP_CANVAS', {'cursor': 'auto', 'transition-duration': '1s'});
-					document.getElementById('APP_MAP_CANVAS').onmousedown = null;
-					if (pos !== -1){
-						APP.graphics.enabledDragList.splice(pos, 1);
-					}
-					APP.graphics.enableCanvasDrag = !1;
-					break;
-
-			}
-
-			// Update label
-			document.getElementById('LABEL_mapDragStatus').innerHTML = ' - Canvas drag is ' + labelStatus;
+			case !0:
+				TMS.css('APP_MAP_CANVAS', {'cursor': 'auto', 'transition-duration': '1s'});
+				document.getElementById('APP_MAP_CANVAS').onmousedown = null;
+				if (pos !== -1){
+					APP.graphics.enabledDragList.splice(pos, 1);
+				}
+				APP.graphics.enableCanvasDrag = !1;
+				break;
 
 		}
+
+		// Update labels
+		this.updateGuiLabel();
 
 	},
 

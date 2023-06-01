@@ -23,6 +23,18 @@ temp_OPTIONS = {
 		// Set var data and save on localstorage
 		this.hideTopMenuOnSave = JSON.parse(document.getElementById('CHECKBOX_hideTopMenu').checked);
 		localStorage.setItem('hideTopMenu', APP.options.hideTopMenuOnSave);
+		
+		switch (this.hideTopMenuOnSave){
+
+			case !0:
+				TMS.css('MENU_TOP_BG', {'display': 'inline'});
+				break;
+
+			case !1:
+				TMS.css('MENU_TOP_BG', {'display': 'none'});
+				break;
+
+		}
 
 	},
 
@@ -175,16 +187,20 @@ temp_OPTIONS = {
 				// Center map
 				APP.graphics.updatePlayerPos();
 
-				// Set message
+				// Set GUI
 				TMS.css('MENU_TOP', {'height': '30px'});
-				var msg = document.getElementById('LABEL_mapDragStatus').innerHTML;
-				document.getElementById('LABEL_mapDragStatus').innerHTML = ' - Map file was updated successfully! (' + fileName + ')';
+				
+				// Set labels
+				document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = '';
+				document.getElementById('LABEL_mapDragStatus').innerHTML = 'Map file was updated successfully! (' + fileName + ')';
+				
+				// Reset label after 1.8s
 				setTimeout(function(){
-					document.getElementById('LABEL_mapDragStatus').innerHTML = msg;
+					APP.graphics.updateGuiLabel();
 					if (APP.options.hideTopMenuOnSave === !0){
 						TMS.css('MENU_TOP', {'height': '0px'});
 					}
-				}, 1700);
+				}, 1800);
 
 			} catch (err) {
 				window.alert('ERROR - Unable to save map!\nPath: ' + APP.options.latestFile + '\n\n' + err);
@@ -344,6 +360,7 @@ temp_OPTIONS = {
 		}
 		this.hideTopMenuOnSave = JSON.parse(localStorage.getItem('hideTopMenu'));
 		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenuOnSave;
+		this.togglehideTopMenuOnSave();
 
 		// Update canvas
 		TMS.css('APP_MAP_CANVAS', {'font-size': (this.settingsData.fontSize + 13) + 'px'});
