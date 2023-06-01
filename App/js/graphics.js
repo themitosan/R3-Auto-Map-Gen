@@ -566,12 +566,14 @@ temp_GRAPHICS = {
 			// Enable background color
 			case !0:
 				TMS.css('APP_MAP_CANVAS', {'background-color': '#0000'});
+				TMS.css('MENU_TOP_BG', {'background-color': '#0000'});
 				APP.graphics.disableCanvasBgColor = !1;
 				break;
 
 			// Disable background color
 			case !1:
 				TMS.css('APP_MAP_CANVAS', {'background-color': '#200'});
+				TMS.css('MENU_TOP_BG', {'background-color': '#200'});
 				APP.graphics.disableCanvasBgColor = !0;
 				break;
 
