@@ -9,30 +9,94 @@ temp_OPTIONS = {
 		Variables
 	*/
 	latestFile: '',
+	hideTopMenu: !1,
 	isMapLoading: !1,
-	hideTopMenuOnSave: !1,
 	adjustFontSizeTimeout: void 0,
+	bioRandObjectives: {
+		reset: !1,
+		current: null,
+		parentMap: null
+	},
+
+	/*
+		BioRand Functions
+	*/
+
+	// Update BioRand objective
+	updateBioRandObjective: function(mapName, parent){
+
+		var cObjective,
+			canContinue = !0,
+			canSolveObjective = !1;
+
+		// Set objective
+		if (APP.database.bio3.bioRandObjectives[mapName] !== void 0 && APP.options.bioRandObjectives.current !== mapName){
+			canContinue = !1;
+			APP.options.bioRandObjectives.current = mapName;
+			APP.options.bioRandObjectives.parentMap = parent;
+			APP.graphics.displayTopMsg('New Objective: ' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location, 5200);
+		}
+
+		// Reset objective
+		if (canContinue === !0 && APP.options.bioRandObjectives.current !== null){
+
+			cObjective = APP.options.bioRandObjectives.current;
+
+			// Solve objective process
+			const solveObjective = function(){
+				APP.options.bioRandObjectives.reset = !0;
+				APP.options.bioRandObjectives.current = null;
+				APP.options.bioRandObjectives.parentMap = null;
+				APP.graphics.displayTopMsg('Objective complete! - ' + APP.database.bio3.rdt[parent].name + ', ' + APP.database.bio3.rdt[parent].location, 5200);
+			}
+
+			// Check if can solve current objective
+			if (APP.database.bio3.bioRandObjectives[cObjective].endsOn === null){
+				canSolveObjective = !0;
+			}
+			if (canSolveObjective === !1 && APP.database.bio3.bioRandObjectives[cObjective].endsOn === mapName){
+				canSolveObjective = !0;
+			}
+
+			// End
+			if (canSolveObjective === !0){
+				solveObjective();
+			}
+
+		}
+
+	},
 
 	/*
 		Functions
 	*/
 
 	// Toggle hide top menu on quick-save
-	togglehideTopMenuOnSave: function(){
+	togglehideTopMenu: function(){
 
-		// Set var data and save on localstorage
-		this.hideTopMenuOnSave = JSON.parse(document.getElementById('CHECKBOX_hideTopMenu').checked);
-		localStorage.setItem('hideTopMenu', APP.options.hideTopMenuOnSave);
+		// Get data and save it on localstorage
+		this.hideTopMenu = JSON.parse(document.getElementById('CHECKBOX_hideTopMenu').checked);
+		localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
 		
-		switch (this.hideTopMenuOnSave){
+		// Display menu by default
+		TMS.css('MENU_TOP', {'height': '30px'});
 
-			case !0:
-				TMS.css('MENU_TOP_BG', {'display': 'inline'});
-				break;
+		// Check if game is running
+		if (APP.gameHook.gameActive === !0){
 
-			case !1:
-				TMS.css('MENU_TOP_BG', {'display': 'none'});
-				break;
+			switch (this.hideTopMenu){
+
+				case !0:
+					TMS.css('MENU_TOP', {'height': '0px'});
+					TMS.css('MENU_TOP_BG', {'display': 'inline'});
+					break;
+
+				case !1:
+					TMS.css('MENU_TOP', {'height': '30px'});
+					TMS.css('MENU_TOP_BG', {'display': 'none'});
+					break;
+
+			}
 
 		}
 
@@ -121,9 +185,11 @@ temp_OPTIONS = {
 		// Reset vars
 		APP.graphics.addedMaps = {};
 		APP.graphics.addedLines = {};
+		APP.graphics.xFarestMap = '';
 		APP.gameHook.mapHistory = [];
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
+		this.bioRandObjectives = { current: null, parentMap: null, reset: !1 },
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
@@ -166,13 +232,13 @@ temp_OPTIONS = {
 		// Check if "is BioRand" option is active
 		var checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked;
 		if (checkBioRand === !0){
-		
+
 			const randDataPath = APP.options.settingsData.gamePath + '/mod_biorand/description.txt';
 			if (APP.fs.existsSync(randDataPath) === !0){
 				const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
 				fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 			}
-		
+
 		}
 
 		// Check if file exists, is BioRand and if seed is the same
@@ -187,20 +253,8 @@ temp_OPTIONS = {
 				// Center map
 				APP.graphics.updatePlayerPos();
 
-				// Set GUI
-				TMS.css('MENU_TOP', {'height': '30px'});
-				
-				// Set labels
-				document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = '';
-				document.getElementById('LABEL_mapDragStatus').innerHTML = 'Map file was updated successfully! (' + fileName + ')';
-				
-				// Reset label after 1.8s
-				setTimeout(function(){
-					APP.graphics.updateGuiLabel();
-					if (APP.options.hideTopMenuOnSave === !0){
-						TMS.css('MENU_TOP', {'height': '0px'});
-					}
-				}, 1800);
+				// Display message
+				APP.graphics.displayTopMsg('Map file was updated successfully! [' + fileName + ']', 1800);
 
 			} catch (err) {
 				window.alert('ERROR - Unable to save map!\nPath: ' + APP.options.latestFile + '\n\n' + err);
@@ -208,11 +262,6 @@ temp_OPTIONS = {
 			}
 
 		} else {
-
-			// Reset top menu
-			if (APP.options.hideTopMenuOnSave === !1){
-				TMS.css('MENU_TOP', {'height': '30px'});
-			}
 
 			// Open save dialog
 			APP.filemanager.saveFile({
@@ -356,11 +405,11 @@ temp_OPTIONS = {
 
 		// Update hide top menu checkbox
 		if (localStorage.getItem('hideTopMenu') === null){
-			localStorage.setItem('hideTopMenu', APP.options.hideTopMenuOnSave);
+			localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
 		}
-		this.hideTopMenuOnSave = JSON.parse(localStorage.getItem('hideTopMenu'));
-		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenuOnSave;
-		this.togglehideTopMenuOnSave();
+		this.hideTopMenu = JSON.parse(localStorage.getItem('hideTopMenu'));
+		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenu;
+		this.togglehideTopMenu();
 
 		// Update canvas
 		TMS.css('APP_MAP_CANVAS', {'font-size': (this.settingsData.fontSize + 13) + 'px'});
@@ -372,7 +421,7 @@ temp_OPTIONS = {
 	saveSettings: function(){
 
 		try {
-			localStorage.setItem('hideTopMenu', APP.options.hideTopMenuOnSave);
+			localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
 			APP.fs.writeFileSync(APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json', JSON.stringify(this.settingsData), 'utf8');
 		} catch (err) {
 			window.alert('ERROR - Unable to save settings!\n' + err);

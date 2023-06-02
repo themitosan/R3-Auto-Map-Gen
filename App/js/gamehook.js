@@ -47,6 +47,11 @@ temp_GAMEHOOK = {
 					document.getElementById('BTN_STOP').disabled = '';
 					APP.gameHook.gameActive = !0;
 
+					// Check if needs to hide menu
+					if (APP.options.hideTopMenu === !0){
+						TMS.css('MENU_TOP', {'height': '0px'});
+					}
+
 					// Update labels
 					APP.graphics.updateGuiLabel();
 					
@@ -79,6 +84,9 @@ temp_GAMEHOOK = {
 		document.getElementById('BTN_START').disabled = '';
 		document.getElementById('BTN_SELECT_EXE').disabled = '';
 		document.getElementById('BTN_STOP').disabled = 'disabled';
+
+		// Reset top menu manually
+		TMS.css('MENU_TOP', {'height': '30px'});
 
 		// Remove on icon
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');

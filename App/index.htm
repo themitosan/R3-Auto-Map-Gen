@@ -16,7 +16,7 @@
 		<div class="APP_CANVAS" id="APP_CANVAS">
 
 			<!-- Top Menu BG -->
-			<div class="MENU_TOP_BG" id="MENU_TOP_BG" title='This border is only visible when red background is on and "Hide top menu after quick-save" option is active.'></div>
+			<div class="MENU_TOP_BG" id="MENU_TOP_BG" title='This border is only visible when red background is on and "Auto-hide top menu" option is active.'></div>
 
 			<!-- Top menu -->
 			<div class="APP_MENU MENU_TOP" id="MENU_TOP">
@@ -70,7 +70,7 @@
 
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_hideTopMenu">
-					<label class="cursor-pointer" title="Set this checkbox active if you want hide top menu after save." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu');APP.options.togglehideTopMenuOnSave();"> - Hide top menu after quick-save</label>
+					<label class="cursor-pointer" title="Set this checkbox active if you want hide top menu." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu');APP.options.togglehideTopMenu();"> - Auto-hide top menu</label>
 				</div>
 
 				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS">

@@ -240,6 +240,7 @@ const APP = {
 
 		} catch (err) {
 			window.alert('ERROR - Something happened on boot process!\n' + err);
+			console.error(err);
 			throw new Error(err);
 		}
 

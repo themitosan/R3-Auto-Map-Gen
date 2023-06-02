@@ -3,8 +3,8 @@
 	"version": "1.1.1",
 	"main": "App/index.htm",
 	"author": "TemmieHeartz",
-	"license": "GPL-2.0-only",
 	"name": "R3 Auto Map Gen",
+	"license": "GPL-2.0-only",
 	"description": "This app creates an node-conected map on the go for Resident Evil 3 classic.",
 	"window": {
 		"frame": true,

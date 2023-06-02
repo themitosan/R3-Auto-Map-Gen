@@ -145,12 +145,10 @@ label {
 	font-size: 13px;
 	height: 100000px;
 	overflow: hidden;
-	border-width: 2px;
 	position: absolute;
-	border-color: #f00;
-	border-style: solid;
 	background-color: #200;
 	transition-duration: 1s;
+	box-shadow: 0px 0px 0px 2px #f00 inset;
 	transition-timing-function: cubic-bezier(0,1,0,1);
 }
 .DIV_ROOM {

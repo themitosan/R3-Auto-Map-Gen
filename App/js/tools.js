@@ -61,10 +61,27 @@ temp_TOOLS = {
 
 		var res = 0;
 
-		if (value !== void 0 && parseInt(value) !== NaN){
-			const n = parseInt(value);
+		if (value !== void 0 && parseFloat(value) !== NaN){
+			const n = parseFloat(value);
 			res = ((n - n) - n);
 			if (res < 0){
+				res = ((res - res) - res);
+			}
+		}
+
+		return res;
+
+	},
+
+	// Parse negative
+	parseNegative: function(value){
+
+		var res = 0;
+
+		if (value !== void 0 && parseFloat(value) !== NaN){
+			const n = parseFloat(value);
+			res = ((n - n) - n);
+			if (res > -1){
 				res = ((res - res) - res);
 			}
 		}

@@ -10,10 +10,12 @@ temp_GRAPHICS = {
 	*/
 	addedMaps: {},
 	addedLines: {},
+	xFarestMap: '',
 	distanceFactor: 20,
 	addedMapHistory: [],
 	enabledDragList: [],
 	enableCanvasDrag: !1,
+	skipUpdateGuiLabel: !1,
 	disableCanvasBgColor: !0,
 
 	/*
@@ -23,25 +25,63 @@ temp_GRAPHICS = {
 	// Update current map label
 	updateGuiLabel: function(){
 
-		var cMap = '',
-			gameRunningStatus = '',
-			canvasDragStatus = 'INACTIVE',
-			lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
+		// Check if can update GUI labels
+		if (this.skipUpdateGuiLabel === !1){
 
-		// Check if latest map exists and if game is running
-		if (lMapHistory !== void 0 && APP.gameHook.gameActive === !0){
-			cMap = 'Map: ' + lMapHistory;
-			gameRunningStatus = ' - ';
+			var cMap = '',
+				gameRunningStatus = '',
+				canvasDragStatus = 'INACTIVE',
+				lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
+
+			// Reset top menu
+			if (APP.options.hideTopMenu === !1){
+				TMS.css('MENU_TOP', {'height': '30px'});
+			}
+
+			// Check if latest map exists and if game is running
+			if (lMapHistory !== void 0 && APP.gameHook.gameActive === !0){
+				cMap = 'Map: ' + lMapHistory;
+				gameRunningStatus = ' - ';
+			}
+
+			// Check canvas drag status
+			if (this.enableCanvasDrag === !0){
+				canvasDragStatus = 'ACTIVE';
+			}
+
+			// Set label strings
+			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
+			document.getElementById('LABEL_mapDragStatus').innerHTML = gameRunningStatus + 'Canvas drag is ' + canvasDragStatus;
+
 		}
 
-		// Check canvas drag status
-		if (this.enableCanvasDrag === !0){
-			canvasDragStatus = 'ACTIVE';
-		}
+	},
 
-		// Set label strings
-		document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
-		document.getElementById('LABEL_mapDragStatus').innerHTML = gameRunningStatus + 'Canvas drag is ' + canvasDragStatus;
+	// Display top message
+	displayTopMsg: function(msg, timeout){
+
+		// Set skip update label flag as true
+		this.skipUpdateGuiLabel = !0;
+
+		// Set GUI
+		TMS.css('MENU_TOP', {'height': '30px'});
+
+		// Set labels
+		document.getElementById('LABEL_mapDragStatus').innerHTML = msg;
+		document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = '';
+
+		// Reset skip label flag and update it after timeout
+		setTimeout(function(){
+
+			APP.graphics.skipUpdateGuiLabel = !1;
+			APP.graphics.updateGuiLabel();
+
+			// Check if need to hide top menu
+			if (APP.options.hideTopMenu === !0){
+				TMS.css('MENU_TOP', {'height': '0px'});
+			}
+
+		}, timeout);
 
 	},
 
@@ -50,7 +90,9 @@ temp_GRAPHICS = {
 
 		var canAdd = !0,
 			mList = this.addedMaps,
-			cMap = APP.gameHook.gameData.cMap;
+			cMap = APP.gameHook.gameData.cMap,
+			distanceFactor = this.distanceFactor,
+			fontSizeFactor = APP.options.settingsData.fontSize;
 
 		// Check if current map was added
 		if (document.getElementById('ROOM_' + mapName) !== null){
@@ -60,11 +102,9 @@ temp_GRAPHICS = {
 		if (canAdd === !0){
 
 			// Default coords
-			var posX = 50010,
-				posY = 50050,
+			var posX = 50000,
+				posY = 50000,
 				mapExtraClass = [],
-				distanceFactor = APP.graphics.distanceFactor,
-				fontSizeFactor = APP.options.settingsData.fontSize,
 				dPadding = (10 + fontSizeFactor),
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
@@ -98,27 +138,54 @@ temp_GRAPHICS = {
 			}
 
 			// Check if is save room
-			if (APP.database.rdtNames[mapName].saveRoom === !0){
+			if (APP.database.bio3.rdt[mapName].saveRoom === !0){
 				mapExtraClass.push('SAVE_ROOM');
 			}
 
-			// Check if is BioRand mod and if current map is an objective
-			if (isBioRandMod === !0 && APP.database.rdtNames[mapName].isBioRandObjective === !0){
-				mapExtraClass.push('BIORAND_OBJECTIVE');
+			// Check if "is BioRand" mode is active
+			if (isBioRandMod === !0){
+
+				// Update BioRand objective
+				if (parent !== void 0){
+					APP.options.updateBioRandObjective(mapName, parent);
+				}
+
+				// Check if reset objective flag is active
+				if (APP.options.bioRandObjectives.reset === !0){
+
+					// Get farest map coords
+					var fMap = TMS.getCoords('ROOM_' + APP.graphics.xFarestMap);
+
+					// Update X pos
+					posX = fMap.WL + (window.innerWidth / 2);
+
+					// Reset flag
+					APP.options.bioRandObjectives.reset = !1;
+
+				}
+
+				// Check if current map is an objective
+				if (APP.database.bio3.bioRandObjectives[mapName] !== void 0){
+					mapExtraClass.push('BIORAND_OBJECTIVE');
+				}
+
 			}
 
 			// Generate room html and append to canvas
-			const mapTemp = '<div id="ROOM_' + mapName + '" title="[' + mapName + ']\n' + APP.database.rdtNames[mapName].name + ', ' + APP.database.rdtNames[mapName].location +
-							'" class="DIV_ROOM ' + mapExtraClass.toString().replace(',', ' ') + '" style="top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' + APP.database.rdtNames[mapName].name +
-							'</div>';
+			const mapTemp = '<div id="ROOM_' + mapName + '" title="[' + mapName + ']\n' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location +
+							'" class="DIV_ROOM ' + mapExtraClass.toString().replace(',', ' ') + '" style="top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' + APP.database.bio3.rdt[mapName].name + '</div>';
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Push selected map to list
 			APP.graphics.addedMaps[mapName] = {x: posX, y: posY, doors: []};
 
-			// If map file isn't loading and there's a map parent, check if spawn position is over any other map
+			/*
+				If map file isn't loading and there's a map parent, check if spawn position is over any other map
+				and check what is the farest one in X coord.
+			*/
 			if (APP.options.isMapLoading === !1 && parent !== void 0){
 				APP.graphics.processMapColission(mapName, parent);
+				APP.graphics.checkForMapDistances();
 			} 
 
 		}
@@ -129,11 +196,39 @@ temp_GRAPHICS = {
 		// Enable drag
 		APP.graphics.enableDrag('ROOM_' + mapName);
 
-		// Push history
+		// Push map to history
 		this.addedMapHistory.push({mapName: mapName, parent: parent});
 
 		// Push line
 		APP.graphics.pushLine(parent, mapName);
+
+	},
+
+	// Check for map distances
+	checkForMapDistances: function(){
+
+		// Set variables
+		var distance = 0,
+			getMapCoords,
+			selectedMap = '',
+			mList = this.addedMaps;
+
+		// Check if there's added maps
+		if (Object.keys(mList).length !== 0){
+
+			// Process map list and seek for the farest.
+			Object.keys(mList).forEach(function(cMap){
+				getMapCoords = TMS.getCoords('ROOM_' + cMap);
+				if (getMapCoords.WL > distance){
+					distance = getMapCoords.WL;
+					selectedMap = cMap;
+				}
+			});
+
+		}
+
+		// Set selected map
+		this.xFarestMap = selectedMap;
 
 	},
 
@@ -208,6 +303,8 @@ temp_GRAPHICS = {
 							  6 |---O---| 0
 								|/__|__\|
 							  5 4   3   2 1
+
+							  Info: 0, 3, 6 and 9 will be skipped after first circle is completed
 							*/
 							switch (pointPos){
 
@@ -326,7 +423,7 @@ temp_GRAPHICS = {
 			runProcess();
 
 			// Log adittion
-			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.rdtNames[mapTarget].name + '] colissions was processed comparing with ' + Object.keys(APP.graphics.addedMaps).length + ' maps.');;
+			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.bio3.rdt[mapTarget].name + '] colissions was processed comparing with ' + Object.keys(APP.graphics.addedMaps).length + ' maps.');;
 
 		}
 
@@ -354,7 +451,7 @@ temp_GRAPHICS = {
 		if (parent === void 0){
 			canAdd = !1;
 		}
-		
+
 		if (canAdd === !0){
 
 			var pData = TMS.getRect('ROOM_' + parent),
@@ -367,8 +464,10 @@ temp_GRAPHICS = {
 
 			// Create HTML and render new lines
 			lineNames.forEach(function(lName){
+
 				const tempLine = '<svg id="' + lName + '"><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
 				TMS.append('APP_MAP_CANVAS', tempLine);
+
 			});
 
 			// Push to list
@@ -506,23 +605,23 @@ temp_GRAPHICS = {
 			Object.keys(this.addedMaps).forEach(function(cMap){
 				TMS.removeClass('ROOM_' + cMap, 'PLAYER_PRESENT');
 			});
-	
+
 			const newRoomId = 'ROOM_' + APP.gameHook.mapHistory.slice(-1);
-	
+
 			// Add class
 			TMS.addClass(newRoomId, 'PLAYER_PRESENT');
-	
+
 			var menuPos = TMS.getRect('MENU_RIGHT'),
 				playerRect = TMS.getRect(newRoomId),
 				roomData = {
 					x: parseFloat(TMS.getCssData(newRoomId, 'left').replace('px', '')),
 					y: parseFloat(TMS.getCssData(newRoomId, 'top').replace('px', ''))
 				},
-	
+
 				// Calc new pos.
 				nextX = parseFloat(roomData.x - (((window.innerWidth / 2) - playerRect.width / 2) - menuPos.width / 2)),
 				nextY = parseFloat(roomData.y - ((window.innerHeight / 2) - playerRect.height / 2));
-	
+
 			// Update canvas position
 			TMS.css('APP_MAP_CANVAS', {'left': APP.tools.parsePolarity(nextX) + 'px', 'top': APP.tools.parsePolarity(nextY) + 'px'});
 
@@ -535,11 +634,6 @@ temp_GRAPHICS = {
 
 		// Declare vars
 		var pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
-
-		// Reset top menu size
-		if (APP.options.hideTopMenuOnSave === !1){
-			TMS.css('MENU_TOP', {'height': '30px'});
-		}
 
 		// Check enable canvas drag
 		switch (APP.graphics.enableCanvasDrag){
