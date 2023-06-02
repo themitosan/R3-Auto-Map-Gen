@@ -187,6 +187,7 @@ temp_OPTIONS = {
 	resetMap: function(){
 
 		// Reset vars
+		APP.graphics.zIndexMap = 10;
 		APP.graphics.addedMaps = {};
 		APP.graphics.addedLines = {};
 		APP.graphics.xFarestMap = '';
