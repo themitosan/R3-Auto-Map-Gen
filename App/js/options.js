@@ -25,7 +25,9 @@ temp_OPTIONS = {
 	// Update BioRand objective
 	updateBioRandObjective: function(mapName, parent){
 
-		var cObjective,
+		var cPrev,
+			bRandDb,
+			cObjective,
 			canContinue = !0,
 			canSolveObjective = !1;
 
@@ -40,7 +42,9 @@ temp_OPTIONS = {
 		// Reset objective
 		if (canContinue === !0 && APP.options.bioRandObjectives.current !== null){
 
+			cPrev = APP.options.bioRandObjectives.parentMap;
 			cObjective = APP.options.bioRandObjectives.current;
+			bRandDb = APP.database.bio3.bioRandObjectives[cObjective];
 
 			// Solve objective process
 			const solveObjective = function(){
@@ -51,10 +55,10 @@ temp_OPTIONS = {
 			}
 
 			// Check if can solve current objective
-			if (APP.database.bio3.bioRandObjectives[cObjective].endsOn === null){
+			if (bRandDb.endsOn === null && parent === cObjective){
 				canSolveObjective = !0;
 			}
-			if (canSolveObjective === !1 && APP.database.bio3.bioRandObjectives[cObjective].endsOn === mapName){
+			if (canSolveObjective === !1 && bRandDb.endsOn === mapName && parent === cObjective){
 				canSolveObjective = !0;
 			}
 
