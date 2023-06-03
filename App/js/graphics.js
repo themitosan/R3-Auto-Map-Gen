@@ -147,7 +147,7 @@ temp_GRAPHICS = {
 			if (isBioRandMod === !0){
 
 				// Update BioRand objective
-				if (parent !== void 0){
+				if (parent !== void 0 && APP.options.isMapLoading === !1){
 					APP.options.updateBioRandObjective(mapName, parent);
 				}
 
@@ -198,14 +198,12 @@ temp_GRAPHICS = {
 			APP.graphics.enableDrag('ROOM_' + mapName);
 
 			// Push map to history
-			this.addedMapHistory.push({mapName: mapName, parent: parent});
-
-			// Push line
-			if (parent !== void 0){
-				APP.graphics.pushLine(parent, mapName);	
-			}
-
+			this.addedMapHistory.push({mapName: mapName, parent: parent});			
+			
 		}
+
+		// Push line
+		APP.graphics.pushLine(parent, mapName);
 
 		// Update labels
 		this.updateGuiLabel();
