@@ -138,7 +138,8 @@ const APP = {
 	runGame: function(){
 
 		// Get game path
-		const gPath = APP.options.settingsData.gamePath + '/' + APP.options.settingsData.exeName;
+		const settingsData = APP.options.settingsData,
+			gPath = settingsData.gamePath + '/' + settingsData.exeName;
 
 		// Check if game path exists
 		if (APP.fs.existsSync(gPath) === !0){
@@ -150,7 +151,7 @@ const APP = {
 				try {
 
 					// Update chdir
-					process.chdir(APP.options.settingsData.gamePath);
+					process.chdir(settingsData.gamePath);
 
 					// Run game
 					APP.spawnProcess = APP.childProcess.spawn(gPath, [], {
@@ -163,6 +164,7 @@ const APP = {
 					}, 50);
 
 				} catch (err) {
+					console.error(err);
 					window.alert('ERROR: Unable to start game process!\n\n' + err);
 					throw new Error(err);
 				}
@@ -170,7 +172,7 @@ const APP = {
 			}
 
 			// Check if game is running
-			var exeName = APP.options.settingsData.exeName,
+			var exeName = settingsData.exeName,
 				pList = Array.from(APP.memoryjs.getProcesses()),
 				gProcess = pList.filter(function(cProcess){
 					if (cProcess.szExeFile === exeName){

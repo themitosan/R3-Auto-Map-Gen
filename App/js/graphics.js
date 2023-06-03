@@ -104,7 +104,7 @@ temp_GRAPHICS = {
 
 			// Default coords
 			var posX = 50000,
-				posY = 50000,
+				posY = 50050,
 				mapExtraClass = [],
 				dPadding = (10 + fontSizeFactor),
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
