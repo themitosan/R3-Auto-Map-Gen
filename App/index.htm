@@ -23,9 +23,9 @@
 				
 				<div class="MENU_TOP_BTNS">
 					<div id="RE3_CAPTURE_ICON" class="RE3_CAPTURE_ICON"></div>
-					<input type="button" title="Global Shortcut: Ctrl+Shift+R" disabled="disabled" id="BTN_RUN_GAME" value="Start Game" onclick="APP.runGame();">
-					<input type="button" title="Global Shortcut: Ctrl+Shift+H" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
-					<input type="button" disabled="disabled" id="BTN_STOP" value="Stop" onclick="APP.gameHook.stop();">
+					<input type="button" class="BTN_MENU_TOP" title="Global Shortcut: Ctrl+Shift+R" disabled="disabled" id="BTN_RUN_GAME" value="Start Game" onclick="APP.runGame();">
+					<input type="button" class="BTN_MENU_TOP" title="Global Shortcut: Ctrl+Shift+H" disabled="disabled" id="BTN_START" value="Hook game process" onclick="APP.gameHook.seekGame();">
+					<input type="button" class="BTN_MENU_TOP" disabled="disabled" id="BTN_STOP" value="Stop" onclick="APP.gameHook.stop();">
 				</div>
 
 				<label id="LABEL_RE3_INFO_mapName"></label>
@@ -37,22 +37,22 @@
 			<div class="APP_MENU MENU_RIGHT" id="MENU_RIGHT">
 
 				<!-- Dev: Enable global shortcuts -->
-				<input type="button" value="[DEV] Enable shortcuts" id="BTN_DEV_KB_SH" disabled="disabled" onclick="APP.devStartShortCuts();" class="BTN_OPTIONS">
+				<input type="button" value="[DEV] Enable shortcuts" id="BTN_DEV_KB_SH" disabled="disabled" onclick="APP.devStartShortCuts();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM" title="Global shortcuts on dev mode are disabled by default. Click here to active it.">
 
 				Zoom: <label id="LABEL_mapCanvasZoom">1</label><br>
 				<input type="range" min="0.1" max="2" step="0.001" id="OPTION_mapCanvasZoom" oninput="APP.options.updateCanvasZoom();"><br>
-				<input type="button" title="Global Shortcut: Ctrl+F8" value="[F8] Reset zoom" onclick="APP.options.resetCanvasZoom();" class="BTN_OPTIONS">
+				<input type="button" title="Global Shortcut: Ctrl+F8" value="[F8] Reset zoom" onclick="APP.options.resetCanvasZoom();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
 				<br><br>
 
-				<input type="button" title="Global Shortcut: Ctrl++" value="[+] Increase font size" onclick="APP.options.adjustFontSize('plus');" class="BTN_OPTIONS">
+				<input type="button" title="Global Shortcut: Ctrl++" value="[+] Increase font size" onclick="APP.options.adjustFontSize('plus');" class="BTN_OPTIONS BTN_TOP">
 				<input type="button" title="Global Shortcut: Ctrl+-" value="[-] Decrease font size" onclick="APP.options.adjustFontSize('minus');" class="BTN_OPTIONS">
-				<input type="button" value="Reset font size" onclick="APP.options.adjustFontSize('reset');" class="BTN_OPTIONS">
+				<input type="button" value="Reset font size" onclick="APP.options.adjustFontSize('reset');" class="BTN_OPTIONS BTN_BOTTOM">
 				<br><br>
 
-				<input type="button" value="Toggle BG color" onclick="APP.graphics.toggleBgColor();" class="BTN_OPTIONS">
+				<input type="button" value="Toggle BG color" onclick="APP.graphics.toggleBgColor();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
 				<br><br>
 
-				<input type="button" title="Global Shortcut: Ctrl+F7" value="[F7] Center map" onclick="APP.graphics.updatePlayerPos();" class="BTN_OPTIONS">
+				<input type="button" title="Global Shortcut: Ctrl+F7" value="[F7] Center map" onclick="APP.graphics.updatePlayerPos();" class="BTN_OPTIONS BTN_TOP">
 				<input type="button" title="Global Shortcut: Ctrl+F9" value="[F9] Reset map" onclick="APP.options.resetMap();" class="BTN_OPTIONS">
 				<input type="button" value="[Alt] Toggle drag" onclick="APP.graphics.toggleDragMapCanvas();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+Shift+S" value="Save Map" onclick="APP.options.saveMap();" class="BTN_OPTIONS">
@@ -61,7 +61,7 @@
 				<input type="button" title="Global Shortcut: Ctrl+Del" value="[Del] Clear game save" onclick="APP.options.delGameSaveFiles();" class="BTN_OPTIONS" id="BTN_DEL_GAME_SAVES" disabled="disabled">
 
 				<!-- Run config -->
-				<input type="button" value="App Setup" onclick="APP.options.getGamePath();" class="BTN_OPTIONS" id="BTN_SELECT_EXE"><br>
+				<input type="button" class="BTN_OPTIONS BTN_BOTTOM" value="App Setup" onclick="APP.options.getGamePath();" id="BTN_SELECT_EXE"><br>
 
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_isBioRand">
@@ -73,7 +73,7 @@
 					<label class="cursor-pointer" title="Set this checkbox active if you want hide top menu." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu');APP.options.togglehideTopMenu();"> - Auto-hide top menu</label>
 				</div>
 
-				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS">
+				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
 
 				<!-- Room types -->
 				<div class="DIV_TITLE">
