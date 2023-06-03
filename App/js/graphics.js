@@ -121,6 +121,11 @@ temp_GRAPHICS = {
 				posX = rect.L + (rect.W / 2);
 				posY = rect.T;
 
+				// Check if farest map was defined
+				if (APP.graphics.xFarestMap === ''){
+					APP.graphics.checkForMapDistances();
+				}
+
 			}
 
 			// Change class depending on current map
@@ -147,18 +152,23 @@ temp_GRAPHICS = {
 			if (isBioRandMod === !0){
 
 				// Update BioRand objective
-				if (parent !== void 0 && APP.options.isMapLoading === !1){
+				if (parent !== void 0){
 					APP.options.updateBioRandObjective(mapName, parent);
 				}
 
 				// Check if reset objective flag is active
 				if (APP.options.bioRandObjectives.reset === !0){
 
-					// Get farest map coords
-					var fMap = TMS.getCoords('ROOM_' + APP.graphics.xFarestMap);
+					// Check if map is loading
+					if (APP.options.isMapLoading === !1){
 
-					// Update X pos
-					posX = fMap.WL + (window.innerWidth / 2);
+						// Get farest map coords
+						const fMap = TMS.getCoords('ROOM_' + APP.graphics.xFarestMap);
+
+						// Update X pos
+						posX = fMap.WL + (window.innerWidth / 2);
+
+					}
 
 					// Reset flag
 					APP.options.bioRandObjectives.reset = !1;

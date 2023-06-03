@@ -33,10 +33,15 @@ temp_OPTIONS = {
 
 		// Set objective
 		if (APP.database.bio3.bioRandObjectives[mapName] !== void 0 && APP.options.bioRandObjectives.current !== mapName){
+
 			canContinue = !1;
 			APP.options.bioRandObjectives.current = mapName;
 			APP.options.bioRandObjectives.parentMap = parent;
-			APP.graphics.displayTopMsg('New Objective: ' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location, 5200);
+			
+			if (APP.options.isMapLoading === !1){
+				APP.graphics.displayTopMsg('New Objective: ' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location, 5200);
+			}
+
 		}
 
 		// Reset objective
@@ -48,10 +53,15 @@ temp_OPTIONS = {
 
 			// Solve objective process
 			const solveObjective = function(){
+				
 				APP.options.bioRandObjectives.reset = !0;
 				APP.options.bioRandObjectives.current = null;
 				APP.options.bioRandObjectives.parentMap = null;
-				APP.graphics.displayTopMsg('Objective complete! - ' + APP.database.bio3.rdt[parent].name + ', ' + APP.database.bio3.rdt[parent].location, 5200);
+
+				if (APP.options.isMapLoading === !1){
+					APP.graphics.displayTopMsg('Objective complete! - ' + APP.database.bio3.rdt[parent].name + ', ' + APP.database.bio3.rdt[parent].location, 5200);
+				}
+
 			}
 
 			// Check if can solve current objective
@@ -210,77 +220,89 @@ temp_OPTIONS = {
 	// Save map
 	saveMap: function(quickSave){
 
-		// Set file name var
-		var fileName = 'GAME_MAP';
+		// Check if there's maps to save
+		if (Object.keys(APP.graphics.addedMaps).length !== 0){
 
-		// Update map locations
-		Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
+			// Update map locations
+			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 
-			var top = parseFloat(TMS.getCssData('ROOM_' + cMap, 'top').replace('px', '')),
-				left = parseFloat(TMS.getCssData('ROOM_' + cMap, 'left').replace('px', ''));
+				var top = parseFloat(TMS.getCssData('ROOM_' + cMap, 'top').replace('px', '')),
+					left = parseFloat(TMS.getCssData('ROOM_' + cMap, 'left').replace('px', ''));
 
-			APP.graphics.addedMaps[cMap].y = top;
-			APP.graphics.addedMaps[cMap].x = left;
+				APP.graphics.addedMaps[cMap].y = top;
+				APP.graphics.addedMaps[cMap].x = left;
 
-		});
-
-		const mPos = {
-				y: parseFloat(TMS.getCssData('APP_MAP_CANVAS', 'top').replace('px', '')),
-				x: parseFloat(TMS.getCssData('APP_MAP_CANVAS', 'left').replace('px', ''))
-			},
-			newData = JSON.stringify({
-				canvasPos: mPos,
-				addedList: APP.graphics.addedMaps,
-				history: APP.graphics.addedMapHistory,
 			});
 
-		// Check if "is BioRand" option is active
-		var checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked;
-		if (checkBioRand === !0){
-
-			const randDataPath = APP.options.settingsData.gamePath + '/mod_biorand/description.txt';
-			if (APP.fs.existsSync(randDataPath) === !0){
-				const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
-				fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
+			// Check if farest map was added
+			if (APP.graphics.xFarestMap === ''){
+				APP.graphics.checkForMapDistances();
 			}
 
-		}
+			// Set variables
+			var fileName = 'GAME_MAP',
+				checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked,
+				mPos = {
+					y: parseFloat(TMS.getCssData('APP_MAP_CANVAS', 'top').replace('px', '')),
+					x: parseFloat(TMS.getCssData('APP_MAP_CANVAS', 'left').replace('px', ''))
+				},
+				newData = JSON.stringify({
+					canvasPos: mPos,
+					addedList: APP.graphics.addedMaps,
+					xFarestMap: APP.graphics.xFarestMap,
+					history: APP.graphics.addedMapHistory,
+				});
 
-		// Check if file exists, is BioRand and if seed is the same
-		if (quickSave === !0 && APP.fs.existsSync(APP.options.latestFile) === !0 && APP.path.parse(APP.options.latestFile).name === fileName){
+			// Check if "is BioRand" option is active
+			if (checkBioRand === !0){
 
-			try {
+				const randDataPath = APP.options.settingsData.gamePath + '/mod_biorand/description.txt';
+				if (APP.fs.existsSync(randDataPath) === !0){
+					const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
+					fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
+				}
 
-				// Write file
-				APP.fs.writeFileSync(APP.options.latestFile, newData, 'utf8');
-				console.info('Map updated successfully!\n' + APP.options.latestFile);
+			}
 
-				// Center map
-				APP.graphics.updatePlayerPos();
+			// Check if file exists, if is BioRand and if it's seed is the same
+			if (quickSave === !0 && APP.fs.existsSync(APP.options.latestFile) === !0 && APP.path.parse(APP.options.latestFile).name === fileName){
 
-				// Display message
-				APP.graphics.displayTopMsg('Map file was updated successfully! [' + fileName + ']', 1800);
+				try {
 
-			} catch (err) {
-				window.alert('ERROR - Unable to save map!\nPath: ' + APP.options.latestFile + '\n\n' + err);
-				throw new Error(err);
+					// Write file
+					APP.fs.writeFileSync(APP.options.latestFile, newData, 'utf8');
+					console.info('Map updated successfully!\n' + APP.options.latestFile);
+
+					// Center map
+					APP.graphics.updatePlayerPos();
+
+					// Display message
+					APP.graphics.displayTopMsg('Map file was updated successfully! [ ' + fileName + ' ]', 1850);
+
+				} catch (err) {
+					window.alert('ERROR - Unable to save map!\nPath: ' + APP.options.latestFile + '\n\n' + err);
+					throw new Error(err);
+				}
+
+			} else {
+
+				// Open save dialog
+				APP.filemanager.saveFile({
+					ext: '.json',
+					mode: 'utf8',
+					content: newData,
+					fileName: fileName + '.json',
+					callback: function(path){
+						window.alert('INFO: Save successfull!\n\nPath: ' + path);
+						fileName = APP.path.parse(path).name;
+						APP.options.latestFile = path;
+					}
+				});
+
 			}
 
 		} else {
-
-			// Open save dialog
-			APP.filemanager.saveFile({
-				ext: '.json',
-				mode: 'utf8',
-				content: newData,
-				fileName: fileName + '.json',
-				callback: function(path){
-					window.alert('INFO: Save successfull!\n\nPath: ' + path);
-					fileName = APP.path.parse(path).name;
-					APP.options.latestFile = path;
-				}
-			});
-
+			window.alert('INFO - Unable to save file since there\'s no map added yet.');
 		}
 
 	},
@@ -301,6 +323,7 @@ temp_OPTIONS = {
 			// Set latest file
 			APP.options.latestFile = fPath;
 
+			// Check if game is active
 			if (APP.gameHook.gameActive === !0){
 				startHookAfter = !0;
 				APP.gameHook.stop();
@@ -309,11 +332,10 @@ temp_OPTIONS = {
 			// Reset map
 			APP.options.resetMap();
 
+			// Push all maps again and update it's previous location
 			saveData.history.forEach(function(cAction){
 				APP.graphics.pushMap(cAction.mapName, cAction.parent);
 			});
-
-			// Process maps
 			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 
 				// Update data
@@ -327,6 +349,14 @@ temp_OPTIONS = {
 				});
 
 			});
+
+			// Set farest map
+			APP.graphics.xFarestMap = saveData.xFarestMap;
+
+			// Check if farest data exists
+			if (saveData.xFarestMap === void 0 || saveData.xFarestMap === ''){
+				APP.graphics.checkForMapDistances();
+			}
 
 			// Update lines
 			APP.graphics.updateLines();
@@ -342,7 +372,7 @@ temp_OPTIONS = {
 
 			// Seek game process again
 			if (startHookAfter === !0){
-				APP.gameHook.seekGame();
+				APP.gameHook.seekGame(!0);
 			}
 
 			// Set map loading process as false
