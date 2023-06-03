@@ -100,11 +100,6 @@ temp_GRAPHICS = {
 			canAdd = !1;
 		}
 
-		// Check if game are running
-		if (APP.gameHook.gameActive === !1){
-			canAdd = !1;
-		}
-
 		if (canAdd === !0){
 
 			// Default coords
@@ -199,19 +194,21 @@ temp_GRAPHICS = {
 				APP.graphics.checkForMapDistances();
 			} 
 
+			// Enable drag
+			APP.graphics.enableDrag('ROOM_' + mapName);
+
+			// Push map to history
+			this.addedMapHistory.push({mapName: mapName, parent: parent});
+
+			// Push line
+			if (parent !== void 0){
+				APP.graphics.pushLine(parent, mapName);	
+			}
+
 		}
 
 		// Update labels
 		this.updateGuiLabel();
-
-		// Enable drag
-		APP.graphics.enableDrag('ROOM_' + mapName);
-
-		// Push map to history
-		this.addedMapHistory.push({mapName: mapName, parent: parent});
-
-		// Push line
-		APP.graphics.pushLine(parent, mapName);
 
 	},
 
@@ -551,7 +548,7 @@ temp_GRAPHICS = {
 		}
 
 		// Check if can enable drag
-		if (dList.indexOf(domName) === -1){
+		if (dList.indexOf(domName) === -1 && elmnt !== null){
 			document.getElementById(domName).onmousedown = dragMouseDown;
 			APP.graphics.enabledDragList.push(domName);
 		}
