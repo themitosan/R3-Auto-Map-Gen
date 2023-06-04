@@ -15,6 +15,9 @@ input[type="file"] {
 input[id="BTN_DEV_KB_SH"] {
 	margin: 0px 2px 8px 2px !important;
 }
+input[id="BTN_SELECT_EXE"] {
+	margin: 8px 2px 0px 2px !important;
+}
 input[type="button"] {
 	border: none;
 	outline: none;
