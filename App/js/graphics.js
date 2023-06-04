@@ -136,8 +136,18 @@ temp_GRAPHICS = {
 					mapExtraClass.push('GAME_START');
 					break;
 
+				// Mercs game start
+				case 'R70C':
+					mapExtraClass.push('GAME_START');
+					break;
+
 				// Game end
 				case 'R50E':
+					mapExtraClass.push('GAME_END');
+					break;
+
+				// Mercs game end
+				case 'R600':
 					mapExtraClass.push('GAME_END');
 					break;
 

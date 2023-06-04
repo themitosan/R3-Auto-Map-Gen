@@ -171,6 +171,13 @@ temp_GAMEHOOK = {
 						}
 						break;
 
+					// Mercs. game start
+					case 'R70C':
+						if (APP.gameHook.mapHistory.length > 1){
+							APP.options.resetMap();
+						}
+						break;
+
 					// Game end
 					case 'R50E':
 						if (APP.gameHook.mapHistory.length > 1){

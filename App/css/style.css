@@ -152,13 +152,12 @@ label {
 	top: 0px;
 	right: 0px;
 	width: 0px;
-	height: auto;
+	height: 100%;
 	overflow: hidden;
 	padding-top: 10px;
 	text-align: center;
 	padding-bottom: 10px;
 	box-shadow: 0px 0px 10px #000;
-	border-bottom-left-radius: 6px;
 }
 .APP_MAP_CANVAS {
 	z-index: 1;
