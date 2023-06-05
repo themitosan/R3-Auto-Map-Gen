@@ -164,18 +164,17 @@ temp_GRAPHICS = {
 				// Update BioRand objective
 				if (parent !== void 0){
 					APP.options.updateBioRandObjective(mapName, parent);
-				}
+				} 
 
 				// Check if reset objective flag is active
 				if (APP.options.bioRandObjectives.reset === !0){
 
-					// Check if map is loading
-					if (APP.options.isMapLoading === !1){
+					// Check if map is loading and if needs to apply distance from previous segment
+					if (APP.options.isMapLoading === !1 && APP.options.bioRandObjectives.applyDistance === !0){
 
-						// Get farest map coords
+						// Get farest map coords and update X pos.
 						const fMap = TMS.getCoords('ROOM_' + APP.graphics.xFarestMap);
-
-						// Update X pos
+						APP.options.bioRandObjectives.applyDistance = null;
 						posX = fMap.WL + (window.innerWidth / 2);
 
 					}

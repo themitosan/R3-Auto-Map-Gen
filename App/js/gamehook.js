@@ -179,8 +179,8 @@ temp_GAMEHOOK = {
 						break;
 
 					// Game end
-					case 'R50E':
-						if (APP.gameHook.mapHistory.length > 1){
+					case 'R100':
+						if (APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1] === 'R50E'){
 							APP.options.resetMap();
 						}
 						break;

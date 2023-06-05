@@ -15,7 +15,8 @@ temp_OPTIONS = {
 	bioRandObjectives: {
 		reset: !1,
 		current: null,
-		parentMap: null
+		parentMap: null,
+		applyDistance: null,
 	},
 
 	/*
@@ -37,6 +38,7 @@ temp_OPTIONS = {
 			canContinue = !1;
 			APP.options.bioRandObjectives.current = mapName;
 			APP.options.bioRandObjectives.parentMap = parent;
+			APP.options.bioRandObjectives.applyDistance = APP.database.bio3.bioRandObjectives[mapName].applyDistance;
 			
 			if (APP.options.isMapLoading === !1){
 				APP.graphics.displayTopMsg('New Objective: ' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location, 5200);
@@ -57,6 +59,7 @@ temp_OPTIONS = {
 				APP.options.bioRandObjectives.reset = !0;
 				APP.options.bioRandObjectives.current = null;
 				APP.options.bioRandObjectives.parentMap = null;
+				APP.options.bioRandObjectives.applyDistance = null;
 
 				if (APP.options.isMapLoading === !1){
 					APP.graphics.displayTopMsg('Objective complete! - ' + APP.database.bio3.rdt[parent].name + ', ' + APP.database.bio3.rdt[parent].location, 5200);
@@ -204,7 +207,7 @@ temp_OPTIONS = {
 		APP.gameHook.mapHistory = [];
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
-		this.bioRandObjectives = { current: null, parentMap: null, reset: !1 },
+		this.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null },
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;

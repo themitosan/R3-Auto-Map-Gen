@@ -11,12 +11,12 @@ temp_DATABASE = {
 
 		// BioRand Objectives
 		bioRandObjectives: {
-			'R20C': {endsOn: 'R215'},
-			'R30C': {endsOn: 'R30D'},
-			'R30D': {endsOn: null},
-			'R415': {endsOn: null},
-			'R50C': {endsOn: 'R50C'},
-			'R50D': {endsOn: null}
+			'R20C': {endsOn: 'R215', applyDistance: !0},
+			'R30C': {endsOn: 'R30D', applyDistance: !0},
+			'R30D': {endsOn: null, applyDistance: !0},
+			'R415': {endsOn: null, applyDistance: !0},
+			'R50C': {endsOn: 'R50D', applyDistance: !0},
+			'R50D': {endsOn: 'R50F', applyDistance: !1}
 		},
 
 		// Map list
