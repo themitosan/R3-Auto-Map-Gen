@@ -59,7 +59,6 @@ temp_OPTIONS = {
 				APP.options.bioRandObjectives.reset = !0;
 				APP.options.bioRandObjectives.current = null;
 				APP.options.bioRandObjectives.parentMap = null;
-				APP.options.bioRandObjectives.applyDistance = null;
 
 				if (APP.options.isMapLoading === !1){
 					APP.graphics.displayTopMsg('Objective complete! - ' + APP.database.bio3.rdt[parent].name + ', ' + APP.database.bio3.rdt[parent].location, 5200);

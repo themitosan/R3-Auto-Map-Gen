@@ -179,8 +179,9 @@ temp_GRAPHICS = {
 
 					}
 
-					// Reset flag
+					// Reset objective flags
 					APP.options.bioRandObjectives.reset = !1;
+					APP.options.bioRandObjectives.applyDistance = null;
 
 				}
 

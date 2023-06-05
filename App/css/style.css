@@ -79,6 +79,11 @@ label {
 	border-bottom-left-radius: 6px;
 	border-bottom-right-radius: 6px;
 }
+.BTN_LEFT {margin: 0px !important;border-radius: 6px 0px 0px 6px;}
+.BTN_RIGHT {
+	margin: 0px !important;
+	border-radius: 0px 6px 6px 0px;
+}
 .BTN_MENU_TOP {
 	border-radius: 4px;
 }
