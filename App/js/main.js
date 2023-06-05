@@ -64,14 +64,6 @@ const APP = {
 					APP.options.delGameSaveFiles();
 					break;
 
-				case '=':
-					APP.options.adjustFontSize('plus');
-					break;
-
-				case '-':
-					APP.options.adjustFontSize('minus');
-					break;
-
 			}
 
 		}
@@ -112,12 +104,6 @@ const APP = {
 		});
 		createGlobalShortcut('Ctrl+Delete', function(){
 			APP.options.delGameSaveFiles();
-		});
-		createGlobalShortcut('Ctrl+Equal', function(){
-			APP.options.adjustFontSize('plus');
-		});
-		createGlobalShortcut('Ctrl+-', function(){
-			APP.options.adjustFontSize('minus');
 		});
 		createGlobalShortcut('Ctrl+Shift+R', function(){
 			APP.runGame();

@@ -11,7 +11,6 @@ temp_OPTIONS = {
 	latestFile: '',
 	hideTopMenu: !1,
 	isMapLoading: !1,
-	adjustFontSizeTimeout: void 0,
 	bioRandObjectives: {
 		reset: !1,
 		current: null,
@@ -118,62 +117,6 @@ temp_OPTIONS = {
 
 	},
 
-	// Adjust room font size
-	adjustFontSize: function(mode){
-
-		// Clear timeout
-		clearTimeout(this.adjustFontSizeTimeout);
-
-		// Get font size and create update canvas function
-		var fSize = this.settingsData.fontSize;
-
-		if (mode === void 0 || typeof mode !== 'string'){
-			mode = 'plus';
-		}
-
-		// Check operation mode
-		switch (mode){
-
-			case 'plus':
-				fSize++;
-				break;
-
-			case 'minus':
-				fSize--;
-				break;
-
-			case 'reset':
-				fSize = 0;
-				break;
-
-		}
-
-		// Check if font are too small
-		if (fSize < 0){
-			fSize = 0;
-		}
-
-		// Update canvas font size
-		TMS.css('APP_MAP_CANVAS', {'font-size': (13 + fSize) + 'px'});
-
-		// Center screen
-		if (APP.graphics.enableCanvasDrag === !1){
-			APP.options.adjustFontSizeTimeout = setTimeout(function(){
-				APP.options.updateCanvasCss(fSize);
-				clearTimeout(APP.options.adjustFontSizeTimeout);
-			}, 1010);
-		} else {
-			this.updateCanvasCss(fSize);
-		}
-
-		// Update settings data
-		this.settingsData.fontSize = fSize;
-
-		// Update settings file
-		this.saveSettings();
-
-	},
-
 	// Update canvas css
 	updateCanvasCss: function(fSize){
 		document.getElementById('APP_STYLE').innerHTML = '.DIV_ROOM {padding: ' + (10 + fSize) + 'px;}\n.PLAYER_PRESENT {text-shadow: 0px 0px ' + (4 + fSize) + 'px #002d;}\n.SVG_CURRENT_FLOW {stroke-dasharray: ' +
@@ -186,7 +129,7 @@ temp_OPTIONS = {
 	updateCanvasZoom: function(){
 		const cZoom = document.getElementById('OPTION_mapCanvasZoom').value;
 		document.getElementById('LABEL_mapCanvasZoom').innerHTML = cZoom;
-		TMS.css('APP_MAP_CANVAS', {'zoom': cZoom});
+		TMS.css('APP_MAP_CANVAS', {'transform': 'scale(' + cZoom + ')'});
 	},
 
 	// Reset canvas zoom
@@ -406,7 +349,6 @@ temp_OPTIONS = {
 			stage: '0x00A673C6',
 			room: '0x00A673C8'
 		},
-		fontSize: 13,
 		gamePath: '',
 		exeName: 'BIOHAZARD(R) 3 PC.exe'
 	},
@@ -447,10 +389,6 @@ temp_OPTIONS = {
 		this.hideTopMenu = JSON.parse(localStorage.getItem('hideTopMenu'));
 		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenu;
 		this.togglehideTopMenu();
-
-		// Update canvas
-		TMS.css('APP_MAP_CANVAS', {'font-size': (this.settingsData.fontSize + 13) + 'px'});
-		document.getElementById('APP_STYLE').innerHTML = '.DIV_ROOM {padding: ' + (10 + this.settingsData.fontSize) + 'px;}';
 
 	},
 

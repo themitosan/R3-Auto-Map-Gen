@@ -92,8 +92,7 @@ temp_GRAPHICS = {
 		var canAdd = !0,
 			mList = this.addedMaps,
 			cMap = APP.gameHook.gameData.cMap,
-			distanceFactor = this.distanceFactor,
-			fontSizeFactor = APP.options.settingsData.fontSize;
+			distanceFactor = this.distanceFactor;
 
 		// Check if current map was added
 		if (document.getElementById('ROOM_' + mapName) !== null){
@@ -106,7 +105,6 @@ temp_GRAPHICS = {
 			var posX = 50000,
 				posY = 50050,
 				mapExtraClass = [],
-				dPadding = (10 + fontSizeFactor),
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
 			if (parent !== void 0){
