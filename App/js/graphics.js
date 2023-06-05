@@ -295,7 +295,7 @@ temp_GRAPHICS = {
 					if (cMap !== mapTarget){
 
 						// Adjust point factors
-						if (pointPos > 10){
+						if (pointPos > 11){
 							pointPos = 0;
 							point_factor++;
 						}
@@ -324,11 +324,11 @@ temp_GRAPHICS = {
 							/*
 								Seek next free location
 
-							  7 8_____2______9 10
+							 8  9_____2_____10 11
 								|			 |
-							    |   [R100]   | 0
+							 3  |   [R100]   | 0
 								|____________|
-							  6 5     1     4 3
+							 7  6     1      5 4
 
 							  Info: 0, 3, and 9 will be skipped after first circle is completed
 							*/
@@ -362,36 +362,38 @@ temp_GRAPHICS = {
 									break;
 
 								case 3:
+									if (point_factor === 0){
+										TMS.css('ROOM_' + mapTarget, {
+											'top': parentCoords.T + 'px',
+											'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
+										});
+									}
+									break;
+
+								case 4:
 									TMS.css('ROOM_' + mapTarget, {
 										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
 										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
 									});
 									break;
 
-								case 4:
+								case 5:
 									TMS.css('ROOM_' + mapTarget, {
 										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
 										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
 									});
 									break;
 
-								case 5:
+								case 6:
 									TMS.css('ROOM_' + mapTarget, {
 										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
 										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
 									});
 									break;
 
-								case 6:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
-									});
-									break;
-
 								case 7:
 									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
+										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
 										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
 									});
 									break;
@@ -399,18 +401,25 @@ temp_GRAPHICS = {
 								case 8:
 									TMS.css('ROOM_' + mapTarget, {
 										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
 									});
 									break;
 
 								case 9:
 									TMS.css('ROOM_' + mapTarget, {
 										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
 									});
 									break;
 
 								case 10:
+									TMS.css('ROOM_' + mapTarget, {
+										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
+										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									});
+									break;
+
+								case 11:
 									TMS.css('ROOM_' + mapTarget, {
 										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
 										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
