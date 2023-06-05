@@ -35,6 +35,8 @@ You can also see a live demo [here](https://twitter.com/themitosan/status/165931
 ## Where this thing can be helpful?
 _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca/biorand)**?_
 
+Also - You can visualize generated files using [R3 Auto Map View](https://themitosan.github.io/R3AMV/) on our browser!
+
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--/)
 
