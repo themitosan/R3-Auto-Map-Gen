@@ -45,8 +45,7 @@ module.exports = {
 		fs.unlinkSync('hash.inc');
 
 		// Log data before builder setup
-		console.info('INFO - Running compiler\n\nVersion: ' + this.nwVersion + '\nFlavor: ' + this.nwFlavor + '\n\npackage.json: ');
-		console.info(packageJson);
+		console.info('INFO - Running compiler\n\nVersion: ' + this.nwVersion + '\nFlavor: ' + this.nwFlavor);
 
 		// Setup nw-builder
 		const compileData = new this.nwBuilder({

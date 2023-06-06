@@ -24,7 +24,7 @@
 		"build": "node comp-main.js"
 	},
 	"dependencies": {
-		"nw": "^0.76.1-sdk"
+		"nw": "^0.77.0-sdk"
 	},
 	"devDependencies": {
 		"nw-builder": "^3.5.7"

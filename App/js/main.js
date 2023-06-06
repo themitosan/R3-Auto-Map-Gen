@@ -237,6 +237,7 @@ const APP = {
 	// DEV - Start global shortcuts button
 	devStartShortCuts: function(){
 		document.getElementById('BTN_DEV_KB_SH').disabled = 'disabled';
+		TMS.css('BTN_DEV_KB_SH', {'display': 'none'});
 		APP.startKbShortcuts(!1);
 	}
 
