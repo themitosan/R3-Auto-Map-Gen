@@ -134,19 +134,11 @@ span {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
-	justify-content: center;
+	align-content: center;
 	width: calc(100% - 196px);
 	padding: 0px 10px 0px 0px;
+	justify-content: flex-start;
 	border-radius: 0px 0px 8px 8px;
-}
-.MENU_TOP_BTNS {
-	left: 0px;
-	height: 30px;
-	display: flex;
-	flex-wrap: nowrap;
-	position: absolute;
-	align-items: center;
-	justify-content: center;
 }
 .MENU_TOP_BG {
 	top: 0px;
