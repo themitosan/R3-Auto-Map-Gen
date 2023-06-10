@@ -400,7 +400,7 @@ temp_OPTIONS = {
 			APP.fs.writeFileSync(APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json', JSON.stringify(this.settingsData), 'utf8');
 		} catch (err) {
 			window.alert('ERROR - Unable to save settings!\n' + err);
-			throw new Error(err);
+			console.error(err);
 		}
 
 	},
@@ -434,7 +434,7 @@ temp_OPTIONS = {
 
 				} catch (err) {
 					window.alert('ERROR: Unable to delete save files!\n' + err);
-					throw new Error(err);
+					console.error(err);
 				}
 				
 			}

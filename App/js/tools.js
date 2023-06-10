@@ -7,20 +7,20 @@ temp_TOOLS = {
 
 	// Solve Hex
 	solveHex: function(hex){
-
+		var res = '';
 		if (hex !== void 0){
-			return hex.toLowerCase().replace(RegExp(' ', 'gi'), '');
+			res = hex.toLowerCase().replace(RegExp(' ', 'gi'), '');
 		}
-
+		return res;
 	},
 
 	// Unsolve Hex
 	unsolveHex: function(hex){
-
+		var res = '';
 		if (hex !== void 0){
-			return hex.toUpperCase().match(/.{2,2}/g).toString().replace(RegExp(',', 'gi'), ' ')
+			res = hex.toUpperCase().match(/.{2,2}/g).toString().replace(RegExp(',', 'gi'), ' ')
 		}
-
+		return res;
 	},
 
 	// Parse endian values
@@ -90,27 +90,13 @@ temp_TOOLS = {
 
 	},
 
-	// Process checkbox status
-	processCheckbox: function(domName){
-
-		var res = !1,
-		    domId = document.getElementById(domName).checked;
-
-		if (domId === !1){
-			res = !0;
-		}
-
-		document.getElementById(domName).checked = res;
-
-	},
-
 	// Fix paths
 	fixPath: function(path){
-
+		var res = '';
 		if (path !== void 0 && path !== ''){
-			return path.replace(RegExp('\\\\', 'gi'), '/');
+			res = path.replace(RegExp('\\\\', 'gi'), '/');
 		}
-
+		return res;
 	},
 
 	/*
@@ -157,18 +143,16 @@ temp_TOOLS = {
 			}
 
 		} catch (err) {
-			throw new Error(err);
+			console.error(err);
 		}
 	},
 
 	// Convert array to string breaking lines
 	convertArrayToString: function(str){
 		var res = '';
-
 		if (str !== void 0 && str.length !== 0){
 			res = str.toString().replace(RegExp(',', 'gi'), '\n');
 		}
-
 		return res;
 	},
 
@@ -178,15 +162,13 @@ temp_TOOLS = {
 		var res = '';
 
 		if (str !== void 0 && arr !== void 0){
-
 			res = str;
 			arr.forEach(function(rep){
 				res = res.replace(RegExp(rep, 'gi'), '');
 			});
-
-			return res;
-
 		}
+
+		return res;
 
 	},
 
@@ -199,7 +181,7 @@ temp_TOOLS = {
 	fixVars: function(inp, v){
 
 		var c = 0,
-			size = parseInt(v),
+			size = Number(v),
 			input = inp.toString();
 
 		if (inp === void 0 || inp === ''){
@@ -373,7 +355,7 @@ temp_TOOLS = {
 			}
 
 			var fetchTest = await fetch(url);
-			return parseInt(fetchTest.status) > 199 && parseInt(fetchTest.status) < 300;
+			return Number(fetchTest.status) > 199 && Number(fetchTest.status) < 300;
 
 		} catch (err){
 			return !1;
