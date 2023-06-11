@@ -588,7 +588,7 @@ temp_GRAPHICS = {
 		if (Object.keys(lineList).length !== 0){
 
 			// Get default connected lines
-			const processList = Object.keys(lineList);
+			var processList = Object.keys(lineList);
 
 			// Check if room name was provided. If so, update only connected lines
 			if (roomName !== void 0){

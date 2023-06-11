@@ -54,6 +54,9 @@ temp_GAMEHOOK = {
 
 					// Update labels
 					APP.graphics.updateGuiLabel();
+
+					// Update top menu
+					APP.options.togglehideTopMenu();
 					
 					// Set interval
 					APP.gameHook.updateObject = setInterval(function(){

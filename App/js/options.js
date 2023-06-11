@@ -312,6 +312,9 @@ temp_OPTIONS = {
 				'left': saveData.canvasPos.x + 'px'
 			});
 
+			// Update top menu
+			APP.options.togglehideTopMenu();
+
 			// Release reload button
 			document.getElementById('BTN_MAP_RELOAD').disabled = '';
 
