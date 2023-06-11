@@ -62,7 +62,7 @@
 
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_hideTopMenu">
-					<label title="Set this checkbox active if you want hide top menu." for="CHECKBOX_hideTopMenu"> - Auto-hide top menu</label>
+					<label title="Set this checkbox active if you want hide top menu." for="CHECKBOX_hideTopMenu" onclick="APP.options.togglehideTopMenu();"> - Auto-hide top menu</label>
 				</div>
 
 				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
@@ -90,6 +90,7 @@
 
 		</div>
 
+		<!-- Script Work Area -->
 		<div class="none">
 
 			<!-- Set style globally -->
@@ -103,7 +104,10 @@
 			<!-- TMS.js -->
 			<script type="text/javascript" src="js/TMS.js"></script>
 
-			<!-- App modules -->
+		</div>
+
+		<!-- App modules -->
+		<div class="none" id="APP_MODULES_AREA">
 			<script type="text/javascript" src="js/tools.js"></script>
 			<script type="text/javascript" src="js/filemanager.js"></script>
 			<script type="text/javascript" src="js/options.js"></script>
@@ -113,7 +117,6 @@
 
 			<!-- Main Script -->
 			<script type="text/javascript" src="js/main.js"></script>
-
 		</div>
 
 	</body>
