@@ -142,7 +142,7 @@ const TMS = Object.freeze(Object.seal({
 
 		if (elId !== null){
 
-			if (sTimeout !== void 0 && parseInt(sTimeout) !== NaN){
+			if (sTimeout !== void 0 && Number(sTimeout) !== NaN){
 
 				setTimeout(function(){
 					elId.focus();
@@ -350,7 +350,7 @@ const TMS = Object.freeze(Object.seal({
 				eStyles = getComputedStyle(elId);
 
 			if (animationTime !== void 0 && animationTime !== NaN){
-				dTime = parseInt(animationTime);
+				dTime = Number(animationTime);
 				if (dTime < 0){
 					dTime = 1;
 				}
@@ -390,7 +390,7 @@ const TMS = Object.freeze(Object.seal({
 			var dTime = 1000;
 
 			if (animationTime !== void 0 && animationTime !== NaN){
-				dTime = parseInt(animationTime);
+				dTime = Number(animationTime);
 				if (dTime < 0){
 					dTime = 1;
 				}
@@ -421,7 +421,7 @@ const TMS = Object.freeze(Object.seal({
 				parentHeight = parentDom.offsetHeight,
 				elHeight = parseFloat(window.getComputedStyle(elId).height.replace('px', ''));
 
-			if (delay === void 0 || parseInt(delay) === NaN){
+			if (delay === void 0 || Number(delay) === NaN){
 				delay = 0;
 			}
 

@@ -90,7 +90,7 @@ temp_OPTIONS = {
 	togglehideTopMenu: function(){
 
 		// Get data and save it on localstorage
-		this.hideTopMenu = JSON.parse(document.getElementById('CHECKBOX_hideTopMenu').checked);
+		APP.options.hideTopMenu = document.getElementById('CHECKBOX_hideTopMenu').checked;
 		localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
 		
 		// Display menu by default
@@ -99,7 +99,7 @@ temp_OPTIONS = {
 		// Check if game is running
 		if (APP.gameHook.gameActive === !0){
 
-			switch (this.hideTopMenu){
+			switch (APP.options.hideTopMenu){
 
 				case !0:
 					TMS.css('MENU_TOP', {'height': '0px'});

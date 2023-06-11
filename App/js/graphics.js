@@ -588,7 +588,7 @@ temp_GRAPHICS = {
 		if (Object.keys(lineList).length !== 0){
 
 			// Get default connected lines
-			var processList = Object.keys(lineList);
+			const processList = Object.keys(lineList);
 
 			// Check if room name was provided. If so, update only connected lines
 			if (roomName !== void 0){
@@ -635,7 +635,7 @@ temp_GRAPHICS = {
 			// Add class
 			TMS.addClass(newRoomId, 'PLAYER_PRESENT');
 
-			var menuPos = TMS.getRect('MENU_RIGHT'),
+			const menuRightPos = TMS.getRect('MENU_RIGHT'),
 				playerRect = TMS.getRect(newRoomId),
 				roomData = {
 					x: parseFloat(TMS.getCssData(newRoomId, 'left').replace('px', '')),
@@ -643,7 +643,7 @@ temp_GRAPHICS = {
 				},
 
 				// Calc new pos.
-				nextX = parseFloat(roomData.x - (((window.innerWidth / 2) - playerRect.width / 2) - menuPos.width / 2)),
+				nextX = parseFloat(roomData.x - (((window.innerWidth / 2) - playerRect.width / 2) - menuRightPos.width / 2)),
 				nextY = parseFloat(roomData.y - ((window.innerHeight / 2) - playerRect.height / 2));
 
 			// Update canvas position
@@ -657,7 +657,7 @@ temp_GRAPHICS = {
 	toggleDragMapCanvas: function(){
 
 		// Declare vars
-		var pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
+		const pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
 
 		// Check enable canvas drag
 		switch (APP.graphics.enableCanvasDrag){

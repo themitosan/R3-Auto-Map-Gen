@@ -373,6 +373,24 @@ temp_TOOLS = {
 		}
 
 		return res;
+	},
+
+	// Process checkbox status
+	processCheckbox: function(domName, callback){
+
+		var res = !1,
+		    domId = document.getElementById(domName).checked;
+
+		if (domId === !1){
+			res = !0;
+		}
+
+		document.getElementById(domName).checked = res;
+
+		if (typeof callback === 'function'){
+			callback();
+		}
+
 	}
 
 }
