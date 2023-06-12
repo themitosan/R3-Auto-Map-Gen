@@ -175,7 +175,7 @@ const APP = {
 
 	},
 
-	// Init
+	// Start app function
 	init: function(){
 
 		try {
@@ -205,6 +205,7 @@ const APP = {
 				startKbDevMode = !0;
 			} else {
 				APP.memoryjs = require('node_modules/memoryjs');
+				TMS.css('BTN_DEV_KB_SH', {'display': 'none'});
 			}
 
 			// Reset chdir
@@ -224,7 +225,7 @@ const APP = {
 			setTimeout(function(){
 				TMS.css('MENU_TOP', {'height': '30px'});
 				TMS.css('MENU_RIGHT', {'width': '168px'});
-			}, 30);
+			}, 50);
 
 		} catch (err) {
 			window.alert('ERROR - Something happened on boot process!\n' + err);
