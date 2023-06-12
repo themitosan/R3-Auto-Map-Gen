@@ -126,34 +126,24 @@ temp_GRAPHICS = {
 
 			}
 
-			// Change class depending on current map
-			switch (mapName){
-
-				// Game start
-				case 'R10D':
-					mapExtraClass.push('GAME_START');
-					break;
-
-				// Mercs game start
-				case 'R70C':
-					mapExtraClass.push('GAME_START');
-					break;
-
-				// Game end
-				case 'R50E':
-					mapExtraClass.push('GAME_END');
-					break;
-
-				// Mercs game end
-				case 'R600':
-					mapExtraClass.push('GAME_END');
-					break;
-
+			// Check if is game start
+			if (APP.database.bio3.rdt[mapName].gameStart === !0){
+				mapExtraClass.push('GAME_START');
 			}
 
-			// Check if is save room
-			if (APP.database.bio3.rdt[mapName].saveRoom === !0){
-				mapExtraClass.push('SAVE_ROOM');
+			// Check if is game end
+			if (APP.database.bio3.rdt[mapName].gameEnd === !0){
+				mapExtraClass.push('GAME_END');
+			}
+
+			// Check if player can save on current map
+			if (APP.database.bio3.rdt[mapName].canSave === !0){
+				mapExtraClass.push('ROOM_CAN_SAVE');
+			}
+
+			// Check if current map have item box
+			if (APP.database.bio3.rdt[mapName].haveIconBox === !0){
+				mapExtraClass.push('ROOM_ITEM_BOX');
 			}
 
 			// Check if "is BioRand" mode is active
@@ -191,9 +181,8 @@ temp_GRAPHICS = {
 			}
 
 			// Generate room html and append to canvas
-			const mapTemp = '<div id="ROOM_' + mapName + '" title="[' + mapName + ']\n' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location +
-							'" class="DIV_ROOM ' + mapExtraClass.toString().replace(',', ' ') + '" style="z-index: ' + APP.graphics.zIndexMap + ';top: ' + posY + 'px;left: ' + posX +
-							'px;">[' + mapName + ']<br>' + APP.database.bio3.rdt[mapName].name + '</div>';
+			const mapTemp = '<div id="ROOM_' + mapName + '" title="[' + mapName + ']\n' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location + '" class="DIV_ROOM ' + mapExtraClass.toString().replace(',', ' ') +
+							'" style="z-index: ' + APP.graphics.zIndexMap + ';top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' + APP.database.bio3.rdt[mapName].name + '</div>';
 
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
