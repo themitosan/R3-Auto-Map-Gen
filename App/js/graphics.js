@@ -78,7 +78,7 @@ temp_GRAPHICS = {
 			APP.graphics.updateGuiLabel();
 
 			// Check if need to hide top menu
-			if (APP.options.hideTopMenu === !0){
+			if (APP.options.hideTopMenu === !0 && APP.gameHook.gameActive === !0){
 				TMS.css('MENU_TOP', {'height': '0px'});
 			}
 
