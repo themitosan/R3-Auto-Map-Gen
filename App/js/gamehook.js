@@ -164,30 +164,9 @@ temp_GAMEHOOK = {
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
 					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`;
 
-				// Switch game start / end
-				switch (cMap){
-
-					// Game start
-					case 'R10D':
-						if (APP.gameHook.mapHistory.length > 1){
-							APP.options.resetMap();
-						}
-						break;
-
-					// Mercs. game start
-					case 'R70C':
-						if (APP.gameHook.mapHistory.length > 1){
-							APP.options.resetMap();
-						}
-						break;
-
-					// Game end
-					case 'R100':
-						if (APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1] === 'R50E'){
-							APP.options.resetMap();
-						}
-						break;
-
+				// Check if needs to reset current map
+				if (APP.database.bio3.rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1){
+					APP.options.resetMap();
 				}
 
 				// Check if latest map is the current one

@@ -238,11 +238,11 @@ label {
 */
 .PLAYER_PRESENT {
 	animation-delay: 0s;
-	animation-duration: 4s !important;
 	animation-fill-mode: forwards;
 	text-shadow: 0px 0px 4px #002d;
-	animation-name: PLAYER_PRESENT !important;
 	background-image: none !important;
+	animation-duration: 4s !important;
+	animation-name: PLAYER_PRESENT !important;
 	animation-timing-function: linear !important;
 	animation-iteration-count: infinite !important;
 }
