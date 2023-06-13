@@ -9,10 +9,10 @@
 	"window": {
 		"frame": true,
 		"width": 1130,
-		"height": 692,
+		"height": 710,
 		"toolbar": false,
 		"min_width": 1130,
-		"min_height": 692,
+		"min_height": 710,
 		"fullscreen": false,
 		"position": "center",
 		"theme-color": "#200",

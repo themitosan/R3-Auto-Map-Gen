@@ -29,18 +29,19 @@ temp_OPTIONS = {
 			bRandDb,
 			cObjective,
 			canContinue = !0,
-			canSolveObjective = !1;
+			canSolveObjective = !1,
+			cGame = this.settingsData.currentGame;
 
 		// Set objective
-		if (APP.database.bio3.bioRandObjectives[mapName] !== void 0 && APP.options.bioRandObjectives.current !== mapName){
+		if (APP.database[cGame].bioRandObjectives[mapName] !== void 0 && APP.options.bioRandObjectives.current !== mapName){
 
 			canContinue = !1;
 			APP.options.bioRandObjectives.current = mapName;
 			APP.options.bioRandObjectives.parentMap = parent;
-			APP.options.bioRandObjectives.applyDistance = APP.database.bio3.bioRandObjectives[mapName].applyDistance;
+			APP.options.bioRandObjectives.applyDistance = APP.database[cGame].bioRandObjectives[mapName].applyDistance;
 			
 			if (APP.options.isMapLoading === !1){
-				APP.graphics.displayTopMsg(`New Objective: ${APP.database.bio3.rdt[mapName].name}, ${APP.database.bio3.rdt[mapName].location}`, 5200);
+				APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
 			}
 
 		}
@@ -50,7 +51,7 @@ temp_OPTIONS = {
 
 			cPrev = APP.options.bioRandObjectives.parentMap;
 			cObjective = APP.options.bioRandObjectives.current;
-			bRandDb = APP.database.bio3.bioRandObjectives[cObjective];
+			bRandDb = APP.database[cGame].bioRandObjectives[cObjective];
 
 			// Solve objective process
 			const solveObjective = function(){
@@ -60,7 +61,7 @@ temp_OPTIONS = {
 				APP.options.bioRandObjectives.parentMap = null;
 
 				if (APP.options.isMapLoading === !1){
-					APP.graphics.displayTopMsg(`Objective complete! - ${APP.database.bio3.rdt[parent].name}, ${APP.database.bio3.rdt[parent].location}`, 5200);
+					APP.graphics.displayTopMsg(`Objective complete! - ${APP.database[cGame].rdt[parent].name}, ${APP.database[cGame].rdt[parent].location}`, 5200);
 				}
 
 			}
@@ -86,56 +87,9 @@ temp_OPTIONS = {
 		Functions
 	*/
 
-	// Toggle hide top menu on quick-save
-	togglehideTopMenu: function(){
-
-		// Get data and save it on localstorage
-		APP.options.hideTopMenu = document.getElementById('CHECKBOX_hideTopMenu').checked;
-		localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
-		
-		// Display menu by default
-		TMS.css('MENU_TOP', {'height': '30px'});
-
-		// Check if game is running
-		if (APP.gameHook.gameActive === !0){
-
-			switch (APP.options.hideTopMenu){
-
-				case !0:
-					TMS.css('MENU_TOP', {'height': '0px'});
-					TMS.css('MENU_TOP_BG', {'display': 'inline'});
-					break;
-
-				case !1:
-					TMS.css('MENU_TOP', {'height': '30px'});
-					TMS.css('MENU_TOP_BG', {'display': 'none'});
-					break;
-
-			}
-
-		}
-
-	},
-
-	// Update canvas css
-	updateCanvasCss: function(fSize){
-		const newCss = `.DIV_ROOM {padding: ${(10 + fSize)}px;}\n.PLAYER_PRESENT {text-shadow: 0px 0px ${(4 + fSize)}px #002d;}\n.SVG_CURRENT_FLOW {stroke-dasharray: ${(6 + fSize)};}\n@keyframes CONNECTION_FLOW { 100% {stroke-dashoffset: -${(6 + fSize)}'0;}`;
-		document.getElementById('APP_STYLE').innerHTML = newCss;
-		APP.graphics.updatePlayerPos();
-		APP.graphics.updateLines();
-	},
-
-	// Update canvas zoom
-	updateCanvasZoom: function(){
-		const cZoom = document.getElementById('OPTION_mapCanvasZoom').value;
-		document.getElementById('LABEL_mapCanvasZoom').innerHTML = cZoom;
-		TMS.css('APP_MAP_CANVAS', {'transform': `scale(${cZoom})`});
-	},
-
-	// Reset canvas zoom
-	resetCanvasZoom: function(){
-		document.getElementById('OPTION_mapCanvasZoom').value = 1;
-		this.updateCanvasZoom();
+	// Update current game
+	updateSelectedGame: function(){
+		this.settingsData.currentGame = document.getElementById('SELECT_GAME').value;
 	},
 
 	// Reset map
@@ -323,7 +277,7 @@ temp_OPTIONS = {
 			});
 
 			// Update top menu
-			APP.options.togglehideTopMenu();
+			APP.graphics.togglehideTopMenu();
 
 			// Release reload button
 			document.getElementById('BTN_MAP_RELOAD').disabled = '';
@@ -358,12 +312,31 @@ temp_OPTIONS = {
 
 	// Settings data
 	settingsData: {
-		memoryData: {
-			room: '0x00A673C8',
-			stage: '0x00A673C6'
+		bio1: {
+			room: '',
+			stage: '',
+			exeName: '',
+			gamePath: '',
+			default_room: '',
+			default_stage: ''
 		},
-		gamePath: '',
-		exeName: 'BIOHAZARD(R) 3 PC.exe',
+		bio2: {
+			room: '',
+			stage: '',
+			exeName: '',
+			gamePath: '',
+			default_room: '',
+			default_stage: ''
+		},
+		bio3: {
+			gamePath: '',
+			room: '0x00A673C8',
+			stage: '0x00A673C6',
+			default_room: '0x00A673C8',
+			default_stage: '0x00A673C6',
+			exeName: 'BIOHAZARD(R) 3 PC.exe'
+		},
+		currentGame: 'bio3',
 		bgGradientColor: ['#000019', '#000020']
 	},
 
@@ -405,19 +378,22 @@ temp_OPTIONS = {
 
 		// Load file
 		this.settingsData = tempData;
+		
+		// Set current game
+		document.getElementById('SELECT_GAME').value = this.settingsData.currentGame;
 
 		// Check if game executable exists
-		if (APP.fs.existsSync(this.settingsData.gamePath + '/' + this.settingsData.exeName) === !0){
+		if (APP.fs.existsSync(this.settingsData[this.settingsData.currentGame].gamePath + '/' + this.settingsData[this.settingsData.currentGame].exeName) === !0){
 			document.getElementById('BTN_RUN_GAME').disabled = '';
 		}
 
 		// Check if has BioRand mod installed
-		if (APP.fs.existsSync(this.settingsData.gamePath + '/mod_biorand') === !0){
+		if (APP.fs.existsSync(this.settingsData[this.settingsData.currentGame].gamePath + '/mod_biorand') === !0){
 			document.getElementById('CHECKBOX_isBioRand').checked = !0;
 		}
 
 		// Check if savedata folder exists
-		if (APP.fs.existsSync(this.settingsData.gamePath + '/savedata') === !0){
+		if (APP.fs.existsSync(this.settingsData[this.settingsData.currentGame].gamePath + '/savedata') === !0){
 			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 		}
 
@@ -427,7 +403,7 @@ temp_OPTIONS = {
 		}
 		this.hideTopMenu = JSON.parse(localStorage.getItem('hideTopMenu'));
 		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenu;
-		this.togglehideTopMenu();
+		APP.graphics.togglehideTopMenu();
 
 		// Update gradient color
 		APP.graphics.updateBgColor();
@@ -466,7 +442,12 @@ temp_OPTIONS = {
 				try {
 
 					// Save extension list
-					const extList = ['.bio3', '.sav'];
+					const extList = [
+						'.sav', 
+						'.dat',
+						'.bio3',
+						'.biohazard2'
+					];
 
 					// Read directory and try to unlink all files with recognized save extensions
 					APP.fs.readdirSync(saveDataPath).filter(function(cFile){
@@ -505,22 +486,23 @@ temp_OPTIONS = {
 
 				// Get path data
 				var canSave = !0,
-					pData = APP.path.parse(path);
+					pData = APP.path.parse(path),
+					cGame = APP.options.settingsData.currentGame;
 
 				// Set game data
-				APP.options.settingsData.exeName = pData.base;
-				APP.options.settingsData.gamePath = pData.dir;
+				APP.options.settingsData[cGame].exeName = pData.base;
+				APP.options.settingsData[cGame].gamePath = pData.dir;
 
 				// Set ram pos.
-				var s = window.prompt('Please insert ram pos. for "Stage":\nExample: 0x00A673C6 for Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.'),
-					r = window.prompt('Please insert ram pos. for "Room":\nExample: 0x00A673C8 for Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.');
+				var s = window.prompt('Please insert ram pos. for "Stage":\nExample: 0x00A673C6 for RE3 Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.'),
+					r = window.prompt('Please insert ram pos. for "Room":\nExample: 0x00A673C8 for RE3 Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.');
 
 				// Check if is for default values
 				if (s === null){
-					s = '0x00A673C6';
+					s = APP.options.settingsData[cGame].default_stage;
 				}
 				if (r === null){
-					r = '0x00A673C8';
+					r = APP.options.settingsData[cGame].default_room;
 				}
 
 				if (s === '' || s.length !== 10){
@@ -534,8 +516,8 @@ temp_OPTIONS = {
 				if (canSave === !0){
 
 					// Set values
-					APP.options.settingsData.memoryData.stage = s;
-					APP.options.settingsData.memoryData.room = r;
+					APP.options.settingsData[cGame].stage = s;
+					APP.options.settingsData[cGame].room = r;
 
 					// Update settings file
 					APP.options.saveSettings();

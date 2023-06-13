@@ -37,8 +37,8 @@
 				<input type="button" value="[DEV] Enable shortcuts" id="BTN_DEV_KB_SH" disabled="disabled" onclick="APP.devStartShortCuts();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM" title="Global shortcuts on dev mode are disabled by default. Click here to active it.">
 
 				Zoom: <span id="LABEL_mapCanvasZoom">1</span><br>
-				<input type="range" min="0.1" max="2" step="0.001" id="OPTION_mapCanvasZoom" oninput="APP.options.updateCanvasZoom();"><br>
-				<input type="button" title="Global Shortcut: Ctrl+F8" value="[F8] Reset zoom" onclick="APP.options.resetCanvasZoom();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
+				<input type="range" min="0.1" max="2" step="0.001" id="OPTION_mapCanvasZoom" oninput="APP.graphics.updateCanvasZoom();"><br>
+				<input type="button" title="Global Shortcut: Ctrl+F8" value="[F8] Reset zoom" onclick="APP.graphics.resetCanvasZoom();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
 				<br><br>
 
 				<input type="button" value="Toggle BG" onclick="APP.graphics.toggleBgColor();" class="BTN_OPTIONS BTN_TOP">
@@ -60,8 +60,13 @@
 				<input type="button" title="Global Shortcut: Ctrl+F10" value="[F10] Reload Map" onclick="APP.options.loadLatestFile();" class="BTN_OPTIONS" id="BTN_MAP_RELOAD" disabled="disabled">
 				<input type="button" value="Load Map" onclick="APP.options.loadMapFile();" class="BTN_OPTIONS BTN_BOTTOM">
 
-				<!-- Run config -->
-				<input type="button" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM" value="App Setup" onclick="APP.options.getGamePath();" id="BTN_SELECT_EXE"><br>
+				<!-- App Setup -->
+				<input type="button" class="BTN_OPTIONS BTN_TOP" value="App Setup" onclick="APP.options.getGamePath();" id="BTN_SELECT_EXE">
+				<select class="BTN_OPTIONS BTN_BOTTOM center" id="SELECT_GAME" onchange="APP.options.updateSelectedGame();">
+					<option value="bio1" disabled>Resident Evil (WIP)</option>
+					<option value="bio2" disabled>Resident Evil 2 (WIP)</option>
+					<option value="bio3">Resident Evil 3: Nemesis</option>
+				</select><br>
 
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_isBioRand">
@@ -70,7 +75,7 @@
 
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_hideTopMenu">
-					<label title="Set this checkbox active if you want hide top menu." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu', APP.options.togglehideTopMenu);"> - Auto-hide top menu</label>
+					<label title="Set this checkbox active if you want hide top menu." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu', APP.graphics.togglehideTopMenu);"> - Auto-hide top menu</label>
 				</div>
 
 				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">

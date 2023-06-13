@@ -14,6 +14,17 @@
 
 temp_DATABASE = {
 
+	bio1: {
+		bioRandObjectives: {},
+		rdt: {}
+	},
+
+	bio2: {
+		bioRandObjectives: {},
+		rdt: {}
+	},
+
+	// BioHazard 3 - Last Escape
 	bio3: {
 
 		// BioRand Objectives

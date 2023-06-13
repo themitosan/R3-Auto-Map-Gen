@@ -52,7 +52,7 @@ const APP = {
 					break;
 
 				case 'F8':
-					APP.options.resetCanvasZoom();
+					APP.graphics.resetCanvasZoom();
 					break;
 
 				case 'F9':
@@ -97,7 +97,7 @@ const APP = {
 			APP.graphics.updatePlayerPos();
 		});
 		createGlobalShortcut('Ctrl+F8', function(){
-			APP.options.resetCanvasZoom();
+			APP.graphics.resetCanvasZoom();
 		});
 		createGlobalShortcut('Ctrl+F9', function(){
 			APP.options.resetMap();
@@ -133,7 +133,7 @@ const APP = {
 
 		// Get game path
 		const settingsData = APP.options.settingsData,
-			gPath = `${settingsData.gamePath}/${settingsData.exeName}`;
+			gPath = `${settingsData[settingsData.currentGame].gamePath}/${settingsData[settingsData.currentGame].exeName}`;
 
 		// Check if game path exists
 		if (APP.fs.existsSync(gPath) === !0){
@@ -144,7 +144,7 @@ const APP = {
 				try {
 
 					// Update chdir
-					process.chdir(settingsData.gamePath);
+					process.chdir(settingsData[settingsData.currentGame].gamePath);
 
 					// Run game
 					APP.spawnProcess = APP.childProcess.spawn(gPath, [], {
@@ -165,7 +165,7 @@ const APP = {
 			}
 
 			// Check if game is running
-			var exeName = settingsData.exeName,
+			var exeName = settingsData[settingsData.currentGame].exeName,
 				pList = Array.from(APP.memoryjs.getProcesses()),
 				gProcess = pList.filter(function(cProcess){
 					if (cProcess.szExeFile === exeName){

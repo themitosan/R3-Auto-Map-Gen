@@ -18,7 +18,7 @@ input[id="BTN_DEV_KB_SH"] {
 input[id="BTN_SELECT_EXE"] {
 	margin: 8px 2px 0px 2px !important;
 }
-button, input[type="button"] {
+select, button, input[type="button"] {
 	border: none;
 	outline: none;
 	cursor: pointer;
@@ -27,14 +27,14 @@ button, input[type="button"] {
 	margin: 0px 2px 0px 2px;
 	background-image: linear-gradient(180deg, #fff, #999);
 }
-button:active, input[type="button"]:active {
+select:active, button:active, input[type="button"]:active {
 	color: #666a;
 	filter: blur(0.6px);
 	text-shadow: 0px 0px 10px #0006;
 	box-shadow: 0px 0px 8px #000 inset;
 	background-image: linear-gradient(0deg, #fff, #999);
 }
-button:disabled, input[type="button"]:disabled {
+select:disabled, button:disabled, input[type="button"]:disabled {
 	color: #a9a9a9;
 	cursor: not-allowed;
 	box-shadow: 0px 0px 4px #000 inset;
@@ -43,8 +43,8 @@ button:disabled, input[type="button"]:disabled {
 input[type="range"] {
 	outline: none;
 	cursor: col-resize;
-	margin: 4px 0px 10px 0px;
 	width: calc(100% - 18px);
+	margin: 4px 0px 10px 0px;
 }
 input[type="checkbox"] {
 	cursor: pointer;

@@ -23,6 +23,50 @@ temp_GRAPHICS = {
 		Functions
 	*/
 
+	// Toggle hide top menu on quick-save
+	togglehideTopMenu: function(){
+
+		// Get data and save it on localstorage
+		APP.options.hideTopMenu = document.getElementById('CHECKBOX_hideTopMenu').checked;
+		localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
+		
+		// Display menu by default
+		TMS.css('MENU_TOP', {'height': '30px'});
+
+		// Check if game is running
+		if (APP.gameHook.gameActive === !0){
+
+			switch (APP.options.hideTopMenu){
+
+				case !0:
+					TMS.css('MENU_TOP', {'height': '0px'});
+					TMS.css('MENU_TOP_BG', {'display': 'inline'});
+					break;
+
+				case !1:
+					TMS.css('MENU_TOP', {'height': '30px'});
+					TMS.css('MENU_TOP_BG', {'display': 'none'});
+					break;
+
+			}
+
+		}
+
+	},
+
+	// Update canvas zoom
+	updateCanvasZoom: function(){
+		const cZoom = document.getElementById('OPTION_mapCanvasZoom').value;
+		document.getElementById('LABEL_mapCanvasZoom').innerHTML = cZoom;
+		TMS.css('APP_MAP_CANVAS', {'transform': `scale(${cZoom})`});
+	},
+
+	// Reset canvas zoom
+	resetCanvasZoom: function(){
+		document.getElementById('OPTION_mapCanvasZoom').value = 1;
+		APP.graphics.updateCanvasZoom();
+	},
+
 	// Update current map label
 	updateGuiLabel: function(){
 
@@ -117,6 +161,9 @@ temp_GRAPHICS = {
 				mapExtraClass = [],
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
+			// Get current game
+			const cGame = APP.options.settingsData.currentGame;
+
 			if (parent !== void 0){
 
 				// Update parent door counts
@@ -137,22 +184,22 @@ temp_GRAPHICS = {
 			}
 
 			// Check if is game start
-			if (APP.database.bio3.rdt[mapName].gameStart === !0){
+			if (APP.database[cGame].rdt[mapName].gameStart === !0){
 				mapExtraClass.push('GAME_START');
 			}
 
 			// Check if is game end
-			if (APP.database.bio3.rdt[mapName].gameEnd === !0){
+			if (APP.database[cGame].rdt[mapName].gameEnd === !0){
 				mapExtraClass.push('GAME_END');
 			}
 
 			// Check if player can save on current map
-			if (APP.database.bio3.rdt[mapName].canSave === !0){
+			if (APP.database[cGame].rdt[mapName].canSave === !0){
 				mapExtraClass.push('ROOM_CAN_SAVE');
 			}
 
 			// Check if current map have item box
-			if (APP.database.bio3.rdt[mapName].haveIconBox === !0){
+			if (APP.database[cGame].rdt[mapName].haveIconBox === !0){
 				mapExtraClass.push('ROOM_ITEM_BOX');
 			}
 
@@ -184,14 +231,14 @@ temp_GRAPHICS = {
 				}
 
 				// Check if current map is an objective
-				if (APP.database.bio3.bioRandObjectives[mapName] !== void 0){
+				if (APP.database[cGame].bioRandObjectives[mapName] !== void 0){
 					mapExtraClass.push('BIORAND_OBJECTIVE');
 				}
 
 			}
 
 			// Generate room html and append to canvas
-			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database.bio3.rdt[mapName].name}, ${APP.database.bio3.rdt[mapName].location}" class="DIV_ROOM ${mapExtraClass.toString().replace(',', ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;">[${mapName}]<br>${APP.database.bio3.rdt[mapName].name}</div>`;
+			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}" class="DIV_ROOM ${mapExtraClass.toString().replace(',', ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;">[${mapName}]<br>${APP.database[cGame].rdt[mapName].name}</div>`;
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Bump map z-index counter
@@ -263,6 +310,7 @@ temp_GRAPHICS = {
 			var cycles = 0,
 				pointPos = 0,
 				point_factor = 0,
+				cGame = APP.options.settingsData.currentGame,
 				distanceFactor = APP.graphics.distanceFactor;
 
 			// Calc point factor
@@ -444,7 +492,7 @@ temp_GRAPHICS = {
 			runProcess();
 
 			// Log adittion
-			console.info(`INFO - Map ${mapTarget} [${APP.database.bio3.rdt[mapTarget].name}] colissions was processed comparing with ${Object.keys(APP.graphics.addedMaps).length} maps.`);
+			console.info(`INFO - Map ${mapTarget} [${APP.database[cGame].rdt[mapTarget].name}] colissions was processed comparing with ${Object.keys(APP.graphics.addedMaps).length} maps.`);
 
 		}
 

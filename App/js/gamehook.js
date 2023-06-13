@@ -24,7 +24,8 @@ temp_GAMEHOOK = {
 		if (this.gameActive === !1){
 
 			// Check if game process exists
-			var exeName = APP.options.settingsData.exeName,
+			var cGame = APP.options.settingsData.currentGame,
+				exeName = APP.options.settingsData[cGame].exeName,
 				pList = Array.from(APP.memoryjs.getProcesses()),
 				gProcess = pList.filter(function(cProcess){
 					if (cProcess.szExeFile === exeName){
@@ -43,6 +44,7 @@ temp_GAMEHOOK = {
 					TMS.addClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
 					document.getElementById('BTN_SELECT_EXE').disabled = 'disabled';
 					document.getElementById('BTN_RUN_GAME').disabled = 'disabled';
+					document.getElementById('SELECT_GAME').disabled = 'disabled';
 					document.getElementById('BTN_START').disabled = 'disabled';
 					document.getElementById('BTN_STOP').disabled = '';
 					APP.gameHook.gameActive = !0;
@@ -56,7 +58,7 @@ temp_GAMEHOOK = {
 					APP.graphics.updateGuiLabel();
 
 					// Update top menu
-					APP.options.togglehideTopMenu();
+					APP.graphics.togglehideTopMenu();
 					
 					// Set interval
 					APP.gameHook.updateObject = setInterval(function(){
@@ -85,6 +87,7 @@ temp_GAMEHOOK = {
 
 		// Update buttons
 		document.getElementById('BTN_START').disabled = '';
+		document.getElementById('SELECT_GAME').disabled = '';
 		document.getElementById('BTN_SELECT_EXE').disabled = '';
 		document.getElementById('BTN_STOP').disabled = 'disabled';
 
@@ -95,7 +98,8 @@ temp_GAMEHOOK = {
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
 
 		// Check if game executable exists
-		if (APP.fs.existsSync(`${APP.options.settingsData.gamePath}/${APP.options.settingsData.exeName}`) === !0){
+		const cGame = APP.options.settingsData.currentGame;
+		if (APP.fs.existsSync(`${APP.options.settingsData[cGame].gamePath}/${APP.options.settingsData[cGame].exeName}`) === !0){
 			document.getElementById('BTN_RUN_GAME').disabled = '';
 		}
 
@@ -148,9 +152,10 @@ temp_GAMEHOOK = {
 	updateProcess: function(){
 
 		// Check if game process is available
-		const pList = Array.from(APP.memoryjs.getProcesses()),
+		const cGame = APP.options.settingsData.currentGame,
+			pList = Array.from(APP.memoryjs.getProcesses()),
 			gProcess = pList.filter(function(cProcess){
-				if (cProcess.szExeFile === APP.options.settingsData.exeName){
+				if (cProcess.szExeFile === APP.options.settingsData[cGame].exeName){
 					return cProcess;
 				}
 			});
@@ -160,12 +165,12 @@ temp_GAMEHOOK = {
 			try {
 
 				// Get memory positions and read
-				var memoryData = APP.options.settingsData.memoryData,
+				var memoryData = APP.options.settingsData[cGame],
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
 					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`;
 
 				// Check if needs to reset current map
-				if (APP.database.bio3.rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1){
+				if (APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1){
 					APP.options.resetMap();
 				}
 
