@@ -107,10 +107,10 @@ label {
 .DIV_CHECKBOX {
     display: flex;
     text-align: left;
+    align-items: center;
     white-space: nowrap;
     margin: 6px 0px 6px 0px;
     padding: 0px 6px 0px 6px;
-    align-items: center;
     justify-content: flex-start;
 }
 .DIV_TITLE {
