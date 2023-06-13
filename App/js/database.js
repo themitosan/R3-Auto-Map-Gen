@@ -94,7 +94,7 @@ temp_DATABASE = {
 			'R218': {name: 'Fire Hose Alley', location: 'Uptown', haveIconBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R219': {name: 'Press (1F)', location: 'Downtown', haveIconBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R21A': {name: 'Parasite Alley', location: 'Uptown', haveIconBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R21B': {name: 'Mechanic\'s Office', location: 'Downtown', haveIconBox: !1, canSave: !0, gameStart: !1, gameEnd: !1},
+			'R21B': {name: 'Mechanic\'s Office', location: 'Downtown', haveIconBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R300': {name: 'Chapel', location: 'Clock Tower', haveIconBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R301': {name: 'Piano Hall', location: 'Clock Tower', haveIconBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R302': {name: 'Dinner Room', location: 'Clock Tower', haveIconBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},

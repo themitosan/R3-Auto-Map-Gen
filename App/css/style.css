@@ -227,9 +227,9 @@ label {
 	width: 10px;
 	height: 10px;
 	margin-top: 2px;
+	position: absolute;
 	border-radius: 100px;
 	background-color: #000;
-	position: absolute;
 	box-shadow: 1px 1px 2px #0006;
 }
 
@@ -238,28 +238,32 @@ label {
 */
 .PLAYER_PRESENT {
 	animation-delay: 0s;
-	animation-duration: 4s;
+	animation-duration: 4s !important;
 	animation-fill-mode: forwards;
 	text-shadow: 0px 0px 4px #002d;
-	animation-name: PLAYER_PRESENT;
+	animation-name: PLAYER_PRESENT !important;
 	background-image: none !important;
-	animation-timing-function: linear;
-	animation-iteration-count: infinite;
+	animation-timing-function: linear !important;
+	animation-iteration-count: infinite !important;
 }
 .ROOM_CAN_SAVE {
 	background-image: linear-gradient(0deg, #7a66a5, #493c64);
 }
 .ROOM_ITEM_BOX {
+	animation-duration: 2s;
+	animation-iteration-count: 1;
 	border-radius: 4px 10px 4px 10px;
+	animation-name: ITEM_BOX_BORDER_RADIUS;
+	animation-timing-function: cubic-bezier(0,1,0,1);
 }
 .GAME_START {
 	border-radius: 14px 0px 0px 14px;
 }
 .GAME_END {
-	border-radius: 0px 14px 14px 0px;
 	animation-duration: 10s;
 	animation-name: HUE_CIRCLE;
 	text-shadow: 1px 1px 2px #000;
+	border-radius: 0px 14px 14px 0px;
 }
 .BIORAND_OBJECTIVE {
 	border-radius: 12px !important;
@@ -338,6 +342,14 @@ label {
 	100% {
 		background-color: #008;
 		filter: hue-rotate(359deg);
+	}
+}
+@keyframes ITEM_BOX_BORDER_RADIUS {
+	0% {
+		border-radius: 0px 0px 0px 0px;
+	}
+	100% {
+		border-radius: 4px 10px 4px 10px;
 	}
 }
 
