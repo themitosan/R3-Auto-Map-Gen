@@ -18,7 +18,7 @@ input[id="BTN_DEV_KB_SH"] {
 input[id="BTN_SELECT_EXE"] {
 	margin: 8px 2px 0px 2px !important;
 }
-input[type="button"] {
+button, input[type="button"] {
 	border: none;
 	outline: none;
 	cursor: pointer;
@@ -27,14 +27,14 @@ input[type="button"] {
 	margin: 0px 2px 0px 2px;
 	background-image: linear-gradient(180deg, #fff, #999);
 }
-input[type="button"]:active {
+button:active, input[type="button"]:active {
 	color: #666a;
 	filter: blur(0.6px);
 	text-shadow: 0px 0px 10px #0006;
 	box-shadow: 0px 0px 8px #000 inset;
 	background-image: linear-gradient(0deg, #fff, #999);
 }
-input[type="button"]:disabled {
+button:disabled, input[type="button"]:disabled {
 	color: #a9a9a9;
 	cursor: not-allowed;
 	box-shadow: 0px 0px 4px #000 inset;
@@ -48,6 +48,7 @@ input[type="range"] {
 }
 input[type="checkbox"] {
 	cursor: pointer;
+	margin-right: 6px;
 	vertical-align: middle;
 }
 img {
@@ -72,8 +73,6 @@ span {
 }
 label {
 	cursor: pointer;
-	margin-left: 4px;
-	margin-right: 2px;
 	font-family: monospace;
 	text-shadow: 2px 2px 2.8px #000a;
 }
@@ -106,7 +105,13 @@ label {
 	Main divs
 */
 .DIV_CHECKBOX {
+    display: flex;
+    text-align: left;
+    white-space: nowrap;
     margin: 6px 0px 6px 0px;
+    padding: 0px 6px 0px 6px;
+    align-items: center;
+    justify-content: flex-start;
 }
 .DIV_TITLE {
 	font-size: 16px;
@@ -128,9 +133,10 @@ label {
 	z-index: 100;
 	overflow: hidden;
 	position: absolute;
+	filter: blur(20px);
 	background-color: #0000;
-	transition-duration: 0.8s;
-	backdrop-filter: blur(4px);
+	transition-duration: 1.1s;
+	backdrop-filter: blur(6px);
 	box-shadow: 0px 0px 10px #000;
 	transition-timing-function: cubic-bezier(0,1,0,1);
 	background-image: linear-gradient(180deg, #706099aa, #3e2e67aa);
@@ -142,9 +148,7 @@ label {
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
-	align-content: center;
-	width: calc(100% - 196px);
-	padding: 0px 10px 0px 0px;
+	width: calc(100% - 216px);
 	justify-content: flex-start;
 	border-radius: 0px 0px 8px 8px;
 }
@@ -219,6 +223,15 @@ label {
 	box-shadow: 0px 0px 0px 2px #fff inset;
 	background-image: linear-gradient(180deg, #00642f, #0a0);
 }
+.DIV_ICON_PREVIEW_BG_COLOR {
+	width: 10px;
+	height: 10px;
+	margin-top: 2px;
+	border-radius: 100px;
+	background-color: #000;
+	position: absolute;
+	box-shadow: 1px 1px 2px #0006;
+}
 
 /*
 	DIV_ROOM Variants
@@ -274,7 +287,7 @@ label {
 	Options
 */
 .BTN_OPTIONS {
-	width: 148px;
+	width: calc(100% - 20px);
 }
 
 /*
@@ -336,6 +349,9 @@ label {
 }
 .cursor-pointer {
 	cursor: pointer;
+}
+.center {
+	text-align: center;
 }
 .SEPARATOR_0 {
 	height: 2px;

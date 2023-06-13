@@ -64,13 +64,13 @@ temp_GAMEHOOK = {
 					}, 200);
 
 				} catch (err) {
-					window.alert('ERROR: Unable to load game process!' + err + '\nCheck internal log to know more.');
+					window.alert(`ERROR - Unable to load game process!${err}\nCheck internal log to know more.`);
 					window.alert('IMPORTANT: If you are running the game process from BioRand, Don\'t use \"Start RE3\" button!\n\nInstead, run the game using \"Start Game\" at top-left corner or from explorer.');
 					console.error(err);
 				}
 	
 			} else {
-				window.alert('ERROR: Unable to find game process!\n(' + exeName + ')');
+				window.alert(`ERROR - Unable to find game process!\n(${exeName})`);
 			}
 		
 		}
@@ -95,7 +95,7 @@ temp_GAMEHOOK = {
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
 
 		// Check if game executable exists
-		if (APP.fs.existsSync(APP.options.settingsData.gamePath + '/' + APP.options.settingsData.exeName) === !0){
+		if (APP.fs.existsSync(`${APP.options.settingsData.gamePath}/${APP.options.settingsData.exeName}`) === !0){
 			document.getElementById('BTN_RUN_GAME').disabled = '';
 		}
 
@@ -162,7 +162,7 @@ temp_GAMEHOOK = {
 				// Get memory positions and read
 				var memoryData = APP.options.settingsData.memoryData,
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
-					cMap = 'R' + cStage + APP.gameHook.read(memoryData.room, 2, 'hex');
+					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`;
 
 				// Switch game start / end
 				switch (cMap){
@@ -207,7 +207,7 @@ temp_GAMEHOOK = {
 			} catch (err) {
 
 				APP.gameHook.stop();
-				window.alert('ERROR - Unable to read game data!\n' + err + '\n\nThis may happen due game process not being available anymore.');
+				window.alert(`ERROR - Unable to read game data!\n${err}\n\nThis may happen due game process not being available anymore.`);
 				console.error(err);
 
 			}

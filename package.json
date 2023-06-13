@@ -9,10 +9,10 @@
 	"window": {
 		"frame": true,
 		"width": 1130,
-		"height": 650,
+		"height": 692,
 		"toolbar": false,
 		"min_width": 1130,
-		"min_height": 650,
+		"min_height": 692,
 		"fullscreen": false,
 		"position": "center",
 		"theme-color": "#200",
@@ -21,7 +21,8 @@
 	},
 	"scripts": {
 		"dev": "nw -dev",
-		"build": "node comp-main.js"
+		"build": "node comp-main.js",
+		"build-debug": "node comp-debug.js"
 	},
 	"dependencies": {
 		"nw": "^0.77.0-sdk"

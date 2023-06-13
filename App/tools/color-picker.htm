@@ -1,0 +1,116 @@
+<div class="TMS_COLOR_PICKER" id="TMS_COLOR_PICKER">
+	<!-- TMS Color Picker -->
+	<style type="text/css">
+		.TMS_COLOR_PICKER {
+			top: 10px;
+			left: 10px;
+			padding: 10px;
+			position: absolute;
+			border-radius: 10px;
+			z-index: 999999999999999;
+			backdrop-filter: blur(6px);
+			background-color: #3e2e67aa;
+			box-shadow: 0px 0px 10px #000;
+		}
+		.DIV_TMS_COLOR_PICKER_PREVIEW {
+			width: 100%;
+    		height: 30px;
+			border-radius: 6px;
+			background-color: #000;
+		}
+		.DIV_TMS_COLOR_PICKER_RANGE {
+		    display: flex;
+		    flex-wrap: nowrap;
+		    align-items: center;
+		    margin: 6px 0px 6px 0px;
+		}
+		.BTN_TMS_COLOR_PICKER {
+			min-height: 30px;
+			width: calc(50% - 1px);
+			color: #fff !important;
+			font-family: monospace;
+			margin-top: 10px !important;
+			text-shadow: 1px 1px 1px #0006;
+			background-image: linear-gradient(180deg, #b1b1b1, #686868) !important;
+		}
+		.BTN_TMS_COLOR_PICKER:active {
+			box-shadow: 0px 0px 6px #0008 inset;
+		}
+		.TMS_COLOR_PICKER_RANGE {
+			outline: none;
+			margin: 0px 4px 0px 4px !important;
+			width: calc(100% - 60px) !important;
+		}
+		.TMS_COLOR_PICKER_NUMBER {
+		    width: 40px;
+		    color: #fff;
+		    border: none;
+		    outline: none;
+		    font-family: monospace;
+		    background-color: #0000;
+		}
+		.BTN_TMS_COLOR_PICKER_APPLY {
+    		margin-left: -5px !important;
+			border-radius: 0px 6px 6px 0px;
+		}
+		.BTN_TMS_COLOR_PICKER_APPLY:active {
+			background-image: linear-gradient(0deg, #0b0, #070) !important;
+		}
+		.BTN_TMS_COLOR_PICKER_APPLY:hover {
+			background-image: linear-gradient(180deg, #0b0, #070) !important;
+		}
+		.BTN_TMS_COLOR_PICKER_CANCEL {
+			margin-right: -5px !important;
+			border-radius: 6px 0px 0px 6px;
+		}
+		.BTN_TMS_COLOR_PICKER_CANCEL:active {
+			background-image: linear-gradient(0deg, #b00, #700) !important;
+		}
+		.BTN_TMS_COLOR_PICKER_CANCEL:hover {
+			background-image: linear-gradient(180deg, #b00, #700) !important;
+		}
+		#TMS_COLOR_PICKER_HEX {
+	    	color: #fff;
+	    	width: 44px;
+	    	border: none;
+			outline: none;
+	    	font-family: monospace;
+	    	background-color: #0000;
+	    	text-transform: uppercase;
+		}
+		#DIV_TMS_COLOR_PICKER_TOP_LABEL {
+			display: none;
+			text-align: center;
+			margin-bottom: 10px;
+			font-family: monospace;
+			text-shadow: 2px 2px 2px #0006;
+		}
+	</style>
+
+	<div id="DIV_TMS_COLOR_PICKER_TOP_LABEL"></div>
+
+	<div class="DIV_TMS_COLOR_PICKER_PREVIEW" id="DIV_TMS_COLOR_PICKER_PREVIEW"></div>
+
+	<div class="DIV_TMS_COLOR_PICKER_RANGE">
+		R: <input type="range" min="0" max="255" step="1" class="TMS_COLOR_PICKER_RANGE" id="TMS_COLOR_PICKER_RANGE_R" oninput="APP.tools.updateColorPicker('range');">
+		<input type="number" min="0" max="255" step="1" maxlength="3" class="TMS_COLOR_PICKER_NUMBER" placeholder="0" id="TMS_COLOR_PICKER_NUMBER_R" onkeyup="APP.tools.updateColorPicker('number');" onkeydown="APP.tools.updateColorPicker('number');" onclick="APP.tools.updateColorPicker('number');">
+	</div>
+
+	<div class="DIV_TMS_COLOR_PICKER_RANGE">
+		G: <input type="range" min="0" max="255" step="1" class="TMS_COLOR_PICKER_RANGE" id="TMS_COLOR_PICKER_RANGE_G" oninput="APP.tools.updateColorPicker('range');">
+		<input type="number" min="0" max="255" step="1" maxlength="3" class="TMS_COLOR_PICKER_NUMBER" placeholder="0" id="TMS_COLOR_PICKER_NUMBER_G" onkeyup="APP.tools.updateColorPicker('number');" onkeydown="APP.tools.updateColorPicker('number');" onclick="APP.tools.updateColorPicker('number');">
+	</div>
+
+	<div class="DIV_TMS_COLOR_PICKER_RANGE">
+		B: <input type="range" min="0" max="255" step="1" class="TMS_COLOR_PICKER_RANGE" id="TMS_COLOR_PICKER_RANGE_B" oninput="APP.tools.updateColorPicker('range');">
+		<input type="number" min="0" max="255" step="1" maxlength="3" class="TMS_COLOR_PICKER_NUMBER" placeholder="0" id="TMS_COLOR_PICKER_NUMBER_B" onkeyup="APP.tools.updateColorPicker('number');" onkeydown="APP.tools.updateColorPicker('number');" onclick="APP.tools.updateColorPicker('number');">
+	</div>
+
+	<div class="center">
+		Hex: #<input type="text" minlength="0" maxlength="6" id="TMS_COLOR_PICKER_HEX" placeholder="000000" onkeyup="APP.tools.updateColorPicker('hex');" onkeydown"APP.tools.updateColorPicker('hex');>
+	</div>
+
+	<input type="button" id="BTN_TMS_COLOR_PICKER_CANCEL" class="BTN_TMS_COLOR_PICKER BTN_TMS_COLOR_PICKER_CANCEL" value="Cancel">
+	<input type="button" id="BTN_TMS_COLOR_PICKER_APPLY" class="BTN_TMS_COLOR_PICKER BTN_TMS_COLOR_PICKER_APPLY" value="Apply">
+
+</div>

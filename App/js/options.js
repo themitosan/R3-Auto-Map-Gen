@@ -40,7 +40,7 @@ temp_OPTIONS = {
 			APP.options.bioRandObjectives.applyDistance = APP.database.bio3.bioRandObjectives[mapName].applyDistance;
 			
 			if (APP.options.isMapLoading === !1){
-				APP.graphics.displayTopMsg('New Objective: ' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location, 5200);
+				APP.graphics.displayTopMsg(`New Objective: ${APP.database.bio3.rdt[mapName].name}, ${APP.database.bio3.rdt[mapName].location}`, 5200);
 			}
 
 		}
@@ -60,7 +60,7 @@ temp_OPTIONS = {
 				APP.options.bioRandObjectives.parentMap = null;
 
 				if (APP.options.isMapLoading === !1){
-					APP.graphics.displayTopMsg('Objective complete! - ' + APP.database.bio3.rdt[parent].name + ', ' + APP.database.bio3.rdt[parent].location, 5200);
+					APP.graphics.displayTopMsg(`Objective complete! - ${APP.database.bio3.rdt[parent].name}, ${APP.database.bio3.rdt[parent].location}`, 5200);
 				}
 
 			}
@@ -119,8 +119,8 @@ temp_OPTIONS = {
 
 	// Update canvas css
 	updateCanvasCss: function(fSize){
-		document.getElementById('APP_STYLE').innerHTML = '.DIV_ROOM {padding: ' + (10 + fSize) + 'px;}\n.PLAYER_PRESENT {text-shadow: 0px 0px ' + (4 + fSize) + 'px #002d;}\n.SVG_CURRENT_FLOW {stroke-dasharray: ' +
-														 (6 + fSize) + ';}\n@keyframes CONNECTION_FLOW { 100% {stroke-dashoffset: -' + (6 + fSize) + '0;}';
+		const newCss = `.DIV_ROOM {padding: ${(10 + fSize)}px;}\n.PLAYER_PRESENT {text-shadow: 0px 0px ${(4 + fSize)}px #002d;}\n.SVG_CURRENT_FLOW {stroke-dasharray: ${(6 + fSize)};}\n@keyframes CONNECTION_FLOW { 100% {stroke-dashoffset: -${(6 + fSize)}'0;}`;
+		document.getElementById('APP_STYLE').innerHTML = newCss;
 		APP.graphics.updatePlayerPos();
 		APP.graphics.updateLines();
 	},
@@ -129,7 +129,7 @@ temp_OPTIONS = {
 	updateCanvasZoom: function(){
 		const cZoom = document.getElementById('OPTION_mapCanvasZoom').value;
 		document.getElementById('LABEL_mapCanvasZoom').innerHTML = cZoom;
-		TMS.css('APP_MAP_CANVAS', {'transform': 'scale(' + cZoom + ')'});
+		TMS.css('APP_MAP_CANVAS', {'transform': `scale(${cZoom})`});
 	},
 
 	// Reset canvas zoom
@@ -140,6 +140,9 @@ temp_OPTIONS = {
 
 	// Reset map
 	resetMap: function(){
+
+		// Close color picker menu
+		APP.tools.closeColorPicker();
 
 		// Reset vars
 		APP.graphics.zIndexMap = 10;
@@ -168,11 +171,14 @@ temp_OPTIONS = {
 		// Check if there's maps to save
 		if (Object.keys(APP.graphics.addedMaps).length !== 0){
 
+			// Close color picker menu
+			APP.tools.closeColorPicker();
+
 			// Update map locations
 			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 
-				var top = parseFloat(TMS.getCssData('ROOM_' + cMap, 'top').replace('px', '')),
-					left = parseFloat(TMS.getCssData('ROOM_' + cMap, 'left').replace('px', ''));
+				var top = parseFloat(TMS.getCssData(`ROOM_${cMap}`, 'top').replace('px', '')),
+					left = parseFloat(TMS.getCssData(`ROOM_${cMap}`, 'left').replace('px', ''));
 
 				APP.graphics.addedMaps[cMap].y = top;
 				APP.graphics.addedMaps[cMap].x = left;
@@ -201,7 +207,7 @@ temp_OPTIONS = {
 			// Check if "is BioRand" option is active
 			if (checkBioRand === !0){
 
-				const randDataPath = APP.options.settingsData.gamePath + '/mod_biorand/description.txt';
+				const randDataPath = `${APP.options.settingsData.gamePath}/mod_biorand/description.txt`;
 				if (APP.fs.existsSync(randDataPath) === !0){
 					const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
 					fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
@@ -216,16 +222,17 @@ temp_OPTIONS = {
 
 					// Write file
 					APP.fs.writeFileSync(APP.options.latestFile, newData, 'utf8');
-					console.info('Map updated successfully!\n' + APP.options.latestFile);
+					console.info(`Map updated successfully!\n${APP.options.latestFile}`);
 
 					// Center map
 					APP.graphics.updatePlayerPos();
 
 					// Display message
-					APP.graphics.displayTopMsg('Map file was updated successfully! [ ' + fileName + ' ]', 1850);
+					APP.graphics.displayTopMsg(`Map file was updated successfully! [ ${fileName} ]`, 1850);
 
 				} catch (err) {
-					window.alert('ERROR - Unable to save map!\nPath: ' + APP.options.latestFile + '\n\n' + err);
+					window.alert(`ERROR - Unable to save map!\nPath: ${APP.options.latestFile}\n\n${err}`);
+					console.error(err);
 					throw new Error(err);
 				}
 
@@ -236,9 +243,9 @@ temp_OPTIONS = {
 					ext: '.json',
 					mode: 'utf8',
 					content: newData,
-					fileName: fileName + '.json',
+					fileName: `${fileName}.json`,
 					callback: function(path){
-						window.alert('INFO: Save successfull!\n\nPath: ' + path);
+						window.alert(`INFO - Save successfull!\n\nPath: ${path}`);
 						fileName = APP.path.parse(path).name;
 						APP.options.latestFile = path;
 					}
@@ -260,6 +267,9 @@ temp_OPTIONS = {
 
 			// Set map loading process as true
 			APP.options.isMapLoading = !0;
+
+			// Close color picker menu
+			APP.tools.closeColorPicker();
 
 			// Start load process
 			var startHookAfter = !1,
@@ -288,9 +298,9 @@ temp_OPTIONS = {
 				APP.graphics.addedMaps[cMap].y = saveData.addedList[cMap].y;
 
 				// Update map positions
-				TMS.css('ROOM_' + cMap, {
-					'top': saveData.addedList[cMap].y + 'px',
-					'left': saveData.addedList[cMap].x + 'px'
+				TMS.css(`ROOM_${cMap}`, {
+					'top': `${saveData.addedList[cMap].y}px`,
+					'left': `${saveData.addedList[cMap].x}px`
 				});
 
 			});
@@ -308,8 +318,8 @@ temp_OPTIONS = {
 
 			// Update canvas pos.
 			TMS.css('APP_MAP_CANVAS', {
-				'top': saveData.canvasPos.y + 'px',
-				'left': saveData.canvasPos.x + 'px'
+				'top': `${saveData.canvasPos.y}px`,
+				'left': `${saveData.canvasPos.x}px`
 			});
 
 			// Update top menu
@@ -349,26 +359,52 @@ temp_OPTIONS = {
 	// Settings data
 	settingsData: {
 		memoryData: {
-			stage: '0x00A673C6',
-			room: '0x00A673C8'
+			room: '0x00A673C8',
+			stage: '0x00A673C6'
 		},
 		gamePath: '',
-		exeName: 'BIOHAZARD(R) 3 PC.exe'
+		exeName: 'BIOHAZARD(R) 3 PC.exe',
+		bgGradientColor: ['#000019', '#000020']
 	},
 
 	// Load app settings
 	loadSettings: function(){
 
+		// Close color picker menu
+		APP.tools.closeColorPicker();
+
 		// Get file path
-		const fPath = APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json';
+		const fPath = `${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`;
 
 		// Check if save file exists
 		if (APP.fs.existsSync(fPath) === !1){
 			APP.options.saveSettings();
 		}
 
+		// Check if all data maches from settings model
+		var requestSave = !1;
+			tempData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
+
+		// Process settings data
+		Object.keys(this.settingsData).forEach(function(cData){
+			if (tempData[cData] === void 0){
+				tempData[cData] = APP.options.settingsData[cData];
+				requestSave = !0;
+			}
+		});
+
+		// Check if needs to update settings file
+		if (requestSave === !0){
+			this.settingsData = tempData;
+			APP.options.saveSettings();
+		}
+
+		/*
+			Set variables
+		*/
+
 		// Load file
-		this.settingsData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
+		this.settingsData = tempData;
 
 		// Check if game executable exists
 		if (APP.fs.existsSync(this.settingsData.gamePath + '/' + this.settingsData.exeName) === !0){
@@ -393,6 +429,9 @@ temp_OPTIONS = {
 		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenu;
 		this.togglehideTopMenu();
 
+		// Update gradient color
+		APP.graphics.updateBgColor();
+
 	},
 
 	// Save app settings
@@ -400,9 +439,9 @@ temp_OPTIONS = {
 
 		try {
 			localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
-			APP.fs.writeFileSync(APP.tools.fixPath(APP.path.parse(process.execPath).dir) + '/Settings.json', JSON.stringify(this.settingsData), 'utf8');
+			APP.fs.writeFileSync(`${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`, JSON.stringify(this.settingsData), 'utf8');
 		} catch (err) {
-			window.alert('ERROR - Unable to save settings!\n' + err);
+			window.alert(`ERROR - Unable to save settings!\n${err}`);
 			console.error(err);
 		}
 
@@ -411,8 +450,11 @@ temp_OPTIONS = {
 	// Delete all save files
 	delGameSaveFiles: function(){
 
+		// Close color picker menu
+		APP.tools.closeColorPicker();
+
 		// Get save data folder
-		const saveDataPath = APP.options.settingsData.gamePath + '/savedata';
+		const saveDataPath = `${APP.options.settingsData.gamePath}/savedata`;
 
 		// Check if game save folder exists 
 		if (APP.fs.existsSync(saveDataPath) === !0){
@@ -433,10 +475,10 @@ temp_OPTIONS = {
 						}
 					});
 
-					window.alert('INFO: Process complete!');
+					window.alert('INFO - Process complete!');
 
 				} catch (err) {
-					window.alert('ERROR: Unable to delete save files!\n' + err);
+					window.alert(`ERROR - Unable to delete save files!\n${err}`);
 					console.error(err);
 				}
 				
@@ -451,6 +493,9 @@ temp_OPTIONS = {
 
 		// Check if game is running
 		if (APP.gameHook.gameActive === !1){
+
+			// Close color picker menu
+			APP.tools.closeColorPicker();
 
 			// Main popup
 			window.alert('INFO: After closing this message, select your main game executable.');
@@ -496,7 +541,7 @@ temp_OPTIONS = {
 					APP.options.saveSettings();
 
 					// Display success message
-					window.alert('INFO: Process complete!');
+					window.alert('INFO - Process complete!');
 
 					// Load new settings
 					APP.options.loadSettings();

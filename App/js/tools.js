@@ -316,7 +316,7 @@ temp_TOOLS = {
 	    		Require modules individually.
 	    		They will not be linked to main object due compat with other softwares
 	    	*/
-	    	var module_fs = require('fs'),
+	    	const module_fs = require('fs'),
 	    		module_path = require('path');
 
 	    	// Read dir
@@ -389,6 +389,292 @@ temp_TOOLS = {
 
 		if (typeof callback === 'function'){
 			callback();
+		}
+
+	},
+
+	/*
+		 Fix DOM number
+
+		 data: Object
+		 	domName: 	String 	- DOM ID name
+		 	def: 		Number 	- Default number if data is invalid
+		 	min: 		Number 	- Default number if data is lower than allowed
+		 	max: 		Number 	- Default number if data is higher than allowed
+		 	maxLength 	Number 	- Max characters allowed on input field
+	*/
+	fixDomNumber: function(data){
+
+		if (typeof data === 'object' && document.getElementById(data.domName) !== null){
+
+			const cValue = Number(document.getElementById(data.domName).value);
+		
+			if (data.maxLength === void 0){
+				data.maxLength = document.getElementById(data.domName).value.length;
+			}
+
+			if (cValue === NaN){
+				document.getElementById(data.domName).value = Number(data.def);
+			}
+			if (cValue < data.min){
+				document.getElementById(data.domName).value = Number(data.min);
+			}
+			if (cValue > data.max){
+				document.getElementById(data.domName).value = Number(data.max);
+			}
+			if (document.getElementById(data.domName).value.length > data.maxLength){
+				document.getElementById(data.domName).value = document.getElementById(data.domName).value.slice(0, data.maxLength);
+			}
+
+		}
+
+	},
+
+	/*
+		TMS Color Picker
+
+		data: Object
+
+			location: 			Object 		- Define where it should spawn
+				spawnLocation: 	String 		- DOM ID of where it should spawn
+				x: 				Number 		- X Coords of where it should spawn
+				y: 				Number 		- Y Coords of where it should spawn
+
+			title 				String 		- Text to be displayed at top
+			outputMode: 		String 		- Select how it will output data ['rgb' or 'hex']
+			color: 				String 		- Display current color on preview [hex: 00FF00 rgb: rgb(0 255 0)]
+			onOpen: 			Function 	- Action after Color picker is spawned
+			onCancel: 			Function 	- Action if user cancel
+			onApply: 			Function 	- Action if user apply
+	*/
+	callColorPicker: function(data){
+
+		if (typeof data === 'object'){
+
+			// Process error reason
+			var errorReason = [];
+			const addError = function(msg){
+				errorReason.push(msg);
+			}
+
+			if (data.title === void 0){
+				data.title = '';
+			}
+
+			// Check if user added location
+			if (typeof data.location !== 'object'){
+				addError('User didn\'t specified spawn location data');
+			}
+
+			// Check if apply action was provided
+			if (typeof data.onApply !== 'function'){
+				addError('User didn\'t specified onApply action');
+			}
+
+			// Check if color picker is already active
+			if (document.getElementById('TMS_COLOR_PICKER') !== null){
+				addError('Color picker is already opened!');
+			}
+
+			// Check if spawn location exists
+			if (document.getElementById(data.location.spawnLocation) === null){
+				addError('Unable to locate spawn location!');
+			}
+
+			// Check if can continue
+			if (errorReason.length === 0){
+
+				// Set variables
+				var updateMode = 'number',
+					xPos = data.location.x,
+					yPos = data.location.y,
+					htmlData = APP.fs.readFileSync(`${nw.__dirname}/${APP.pathPrefix}/tools/color-picker.htm`, 'utf8');
+
+				if (typeof data.location.x !== 'string'){
+					xPos = '10px';
+				}
+				if (typeof data.location.y !== 'string'){
+					yPos = '10px';
+				}
+				if (typeof data.outputMode === void 0){
+					data.outputMode = 'hex';
+				}
+
+				// Append form
+				TMS.append(data.location.spawnLocation, htmlData);
+				TMS.css('TMS_COLOR_PICKER', {'top': `${yPos}`, 'left': `${xPos}`});
+
+				// Update title
+				if (data.title !== ''){
+					document.getElementById('DIV_TMS_COLOR_PICKER_TOP_LABEL').innerHTML = data.title;
+					TMS.css('DIV_TMS_COLOR_PICKER_TOP_LABEL', {'display': 'block'});
+				}
+
+				// Set input data
+				switch (data.outputMode.toLowerCase()){
+
+					case 'rgb':
+						const colors = data.color.replace('rgb(', '').replace(')').split(' ');
+						document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value = Number(colors[0]);
+						document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value = Number(colors[1]);
+						document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value = Number(colors[2]);
+						break;
+
+					case 'hex':
+						document.getElementById('TMS_COLOR_PICKER_HEX').value = data.color.replace(RegExp('#', 'gi'), '');
+						updateMode = 'hex';
+						break;
+
+				}
+
+				// Set cancel action
+				document.getElementById('BTN_TMS_COLOR_PICKER_CANCEL').onclick = function(){
+					
+					// Remove color picker
+					TMS.removeDOM('TMS_COLOR_PICKER');
+
+					// Execute onCancel action
+					if (typeof data.onCancel === 'function'){
+						data.onCancel();
+					}
+
+				}
+
+				// Set onApply action
+				document.getElementById('BTN_TMS_COLOR_PICKER_APPLY').onclick = function(){
+
+					// Get variables
+					var colorR = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value),
+						colorG = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value),
+						colorB = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value),
+						colorHex = document.getElementById('TMS_COLOR_PICKER_HEX').value,
+						colorData = '';
+
+					// Check input
+					if (colorHex.length !== 6 || colorHex === ''){
+						colorHex = `#${APP.tools.fixVars(parseInt(colorR, 16))}${APP.tools.fixVars(parseInt(colorG, 16))}${APP.tools.fixVars(parseInt(colorB, 16))}`;
+					}
+
+					switch(data.outputMode.toLowerCase()){
+
+						case 'rgb':
+							colorData = `rgb(${colorR} ${colorG} ${colorB})`;
+							break;
+
+						case 'hex':
+							colorData = colorHex.toUpperCase();
+							break;
+					
+					}
+
+					// Output value
+					data.onApply(colorData);
+
+					// Remove color picker
+					TMS.removeDOM('TMS_COLOR_PICKER');
+
+				}
+
+				// Update color
+				APP.tools.updateColorPicker(updateMode);
+
+				// Execute onOpen action
+				if (typeof data.onOpen === 'function'){
+					data.onOpen();
+				}
+
+			} else {
+				const errMsg = `ERROR - Unable to open color picker!\nReason: ${errorReason.toString().replace(RegExp(',', 'gi'), '\n')}`;
+				console.error(errMsg);
+				window.alert(errMsg);
+			}
+
+		}
+
+	},
+
+	// Update selected color
+	updateColorPicker: function(inputSource){
+
+		if (document.getElementById('TMS_COLOR_PICKER') !== null){
+
+			if (typeof inputSource !== 'string'){
+				inputSource = 'hex';
+			}
+
+			var colorR,
+				colorG,
+				colorB,
+				bgColor = '000';
+
+			switch (inputSource){
+
+				case 'number':
+					
+					// Fix input field
+					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_R' });
+					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_G' });
+					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_B' });
+
+					colorR = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value);
+					colorG = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value);
+					colorB = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value);
+					document.getElementById('TMS_COLOR_PICKER_RANGE_R').value = colorR;
+					document.getElementById('TMS_COLOR_PICKER_RANGE_G').value = colorG;
+					document.getElementById('TMS_COLOR_PICKER_RANGE_B').value = colorB;
+					bgColor = APP.tools.fixVars(colorR.toString(16)) + APP.tools.fixVars(colorG.toString(16)) + APP.tools.fixVars(colorB.toString(16));
+					document.getElementById('TMS_COLOR_PICKER_HEX').value = bgColor;
+					break;
+
+				case 'range':
+					colorR = Number(document.getElementById('TMS_COLOR_PICKER_RANGE_R').value);
+					colorG = Number(document.getElementById('TMS_COLOR_PICKER_RANGE_G').value);
+					colorB = Number(document.getElementById('TMS_COLOR_PICKER_RANGE_B').value);
+					document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value = colorR;
+					document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value = colorG;
+					document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value = colorB;
+					bgColor = APP.tools.fixVars(colorR.toString(16)) + APP.tools.fixVars(colorG.toString(16)) + APP.tools.fixVars(colorB.toString(16));
+					document.getElementById('TMS_COLOR_PICKER_HEX').value = bgColor;
+					break;
+
+				case 'hex':
+
+					// Convert colors from hex to int
+					var hexColors,
+						rawData = document.getElementById('TMS_COLOR_PICKER_HEX').value.replace(RegExp('#', 'gi'), '');
+
+					if (rawData.length === 6){
+
+						hexColors = rawData.match(/.{2,2}/g);
+						colorR = hexColors[0];
+						colorG = hexColors[1];
+						colorB = hexColors[2];
+						bgColor = rawData;
+
+						document.getElementById('TMS_COLOR_PICKER_RANGE_R').value = parseInt(hexColors[0], 16);
+						document.getElementById('TMS_COLOR_PICKER_RANGE_G').value = parseInt(hexColors[1], 16);
+						document.getElementById('TMS_COLOR_PICKER_RANGE_B').value = parseInt(hexColors[2], 16);
+						document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value = parseInt(hexColors[0], 16);
+						document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value = parseInt(hexColors[1], 16);
+						document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value = parseInt(hexColors[2], 16);
+
+					}
+					break;
+
+			}
+
+			// Update BG
+			TMS.css('DIV_TMS_COLOR_PICKER_PREVIEW', {'background-color': `#${bgColor}`});
+
+		}
+
+	},
+
+	// Cancel Color Picker
+	closeColorPicker: function(){
+
+		if (document.getElementById('TMS_COLOR_PICKER') !== null){
+			TMS.triggerClick('BTN_TMS_COLOR_PICKER_CANCEL');
 		}
 
 	}

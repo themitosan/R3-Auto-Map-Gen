@@ -41,7 +41,7 @@ temp_GRAPHICS = {
 
 			// Check if latest map exists and if game is running
 			if (lMapHistory !== void 0 && APP.gameHook.gameActive === !0){
-				cMap = 'Map: ' + lMapHistory;
+				cMap = `Map: ${lMapHistory}`;
 				gameRunningStatus = ' - ';
 			}
 
@@ -52,7 +52,7 @@ temp_GRAPHICS = {
 
 			// Set label strings
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
-			document.getElementById('LABEL_mapDragStatus').innerHTML = gameRunningStatus + 'Canvas drag is ' + canvasDragStatus;
+			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is ${canvasDragStatus}`;
 
 		}
 
@@ -95,11 +95,21 @@ temp_GRAPHICS = {
 			distanceFactor = this.distanceFactor;
 
 		// Check if current map was added
-		if (document.getElementById('ROOM_' + mapName) !== null){
+		if (document.getElementById(`ROOM_${mapName}`) !== null){
 			canAdd = !1;
 		}
 
+		// Check if current map name was provided
+		if (mapName === void 0){
+			canAdd = !1;
+		}
+
+		// Check if can add map
 		if (canAdd === !0){
+
+			// Reset map drag
+			APP.graphics.enableCanvasDrag = !0;
+			APP.graphics.toggleDragMapCanvas();
 
 			// Default coords
 			var posX = 50000,
@@ -113,7 +123,7 @@ temp_GRAPHICS = {
 				APP.graphics.addedMaps[parent].doors.push(mapName);
 
 				// Get parent data
-				var rect = TMS.getCoords('ROOM_' + parent);
+				var rect = TMS.getCoords(`ROOM_${parent}`);
 
 				// Set default position
 				posX = rect.L + (rect.W / 2);
@@ -161,7 +171,7 @@ temp_GRAPHICS = {
 					if (APP.options.isMapLoading === !1 && APP.options.bioRandObjectives.applyDistance === !0){
 
 						// Get farest map coords and update X pos.
-						const fMap = TMS.getCoords('ROOM_' + APP.graphics.xFarestMap);
+						const fMap = TMS.getCoords(`ROOM_${APP.graphics.xFarestMap}`);
 						APP.options.bioRandObjectives.applyDistance = null;
 						posX = fMap.WL + (window.innerWidth / 2);
 
@@ -181,9 +191,7 @@ temp_GRAPHICS = {
 			}
 
 			// Generate room html and append to canvas
-			const mapTemp = '<div id="ROOM_' + mapName + '" title="[' + mapName + ']\n' + APP.database.bio3.rdt[mapName].name + ', ' + APP.database.bio3.rdt[mapName].location + '" class="DIV_ROOM ' + mapExtraClass.toString().replace(',', ' ') +
-							'" style="z-index: ' + APP.graphics.zIndexMap + ';top: ' + posY + 'px;left: ' + posX + 'px;">[' + mapName + ']<br>' + APP.database.bio3.rdt[mapName].name + '</div>';
-
+			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database.bio3.rdt[mapName].name}, ${APP.database.bio3.rdt[mapName].location}" class="DIV_ROOM ${mapExtraClass.toString().replace(',', ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;">[${mapName}]<br>${APP.database.bio3.rdt[mapName].name}</div>`;
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Bump map z-index counter
@@ -202,7 +210,7 @@ temp_GRAPHICS = {
 			} 
 
 			// Enable drag
-			APP.graphics.enableDrag('ROOM_' + mapName);
+			APP.graphics.enableDrag(`ROOM_${mapName}`);
 
 			// Push map to history
 			this.addedMapHistory.push({mapName: mapName, parent: parent});			
@@ -231,7 +239,7 @@ temp_GRAPHICS = {
 
 			// Process map list and seek for the farest.
 			Object.keys(mList).forEach(function(cMap){
-				getMapCoords = TMS.getCoords('ROOM_' + cMap);
+				getMapCoords = TMS.getCoords(`ROOM_${cMap}`);
 				if (getMapCoords.WL > distance){
 					distance = getMapCoords.WL;
 					selectedMap = cMap;
@@ -293,9 +301,9 @@ temp_GRAPHICS = {
 						var c_checks = [],
 							d_factor = (distanceFactor - 1),
 							
-							cMapCoords = TMS.getCoords('ROOM_' + cMap),
-							parentCoords = TMS.getCoords('ROOM_' + parent),
-							targetCoords = TMS.getCoords('ROOM_' + mapTarget);
+							cMapCoords = TMS.getCoords(`ROOM_${cMap}`),
+							parentCoords = TMS.getCoords(`ROOM_${parent}`),
+							targetCoords = TMS.getCoords(`ROOM_${mapTarget}`);
 
 						/*
 							Push conditions to check array
@@ -323,93 +331,93 @@ temp_GRAPHICS = {
 
 								case 0:
 									if (point_factor === 0){
-										TMS.css('ROOM_' + mapTarget, {
-											'top': parentCoords.T + 'px',
-											'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
+										TMS.css(`ROOM_${mapTarget}`, {
+											'top': `${parentCoords.T}px`,
+											'left': `${APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor))}px`
 										});
 									}
 									break;
 
 								case 1:
 									if (point_factor === 0){
-										TMS.css('ROOM_' + mapTarget, {
-											'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
-											'left': APP.tools.parsePositive(parentCoords.WL - (parentCoords.W / 2) - (targetCoords.W / 2)) + 'px'
+										TMS.css(`ROOM_${mapTarget}`, {
+											'top': `${APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor))}px`,
+											'left': `${APP.tools.parsePositive(parentCoords.WL - (parentCoords.W / 2) - (targetCoords.W / 2))}px`
 										});
 									}
 									break;
 
 								case 2:
 									if (point_factor === 0){
-										TMS.css('ROOM_' + mapTarget, {
-											'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
-											'left': APP.tools.parsePositive(parentCoords.WL - (parentCoords.W / 2) - (targetCoords.W / 2)) + 'px'
+										TMS.css(`ROOM_${mapTarget}`, {
+											'top': `${APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H))}px`,
+											'left': `${APP.tools.parsePositive(parentCoords.WL - (parentCoords.W / 2) - (targetCoords.W / 2))}px`
 										});
 									}
 									break;
 
 								case 3:
 									if (point_factor === 0){
-										TMS.css('ROOM_' + mapTarget, {
-											'top': parentCoords.T + 'px',
-											'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
+										TMS.css(`ROOM_${mapTarget}`, {
+											'top': `${parentCoords.T}px`,
+											'left': `${APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W))}px`
 										});
 									}
 									break;
 
 								case 4:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor))}px`
 									});
 									break;
 
 								case 5:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2))}px`
 									});
 									break;
 
 								case 6:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2))}px`
 									});
 									break;
 
 								case 7:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.TH + distanceFactor) + (targetCoords.H * point_factor))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W))}px`
 									});
 									break;
 
 								case 8:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W))}px`
 									});
 									break;
 
 								case 9:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.L - distanceFactor) - calcPointFactor(targetCoords.W / 2))}px`
 									});
 									break;
 
 								case 10:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.WL + distanceFactor) - calcPointFactor(targetCoords.W / 2))}px`
 									});
 									break;
 
 								case 11:
-									TMS.css('ROOM_' + mapTarget, {
-										'top': APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H)) + 'px',
-										'left': APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor)) + 'px'
+									TMS.css(`ROOM_${mapTarget}`, {
+										'top': `${APP.tools.parsePositive((parentCoords.T - distanceFactor) - calcPointFactor(targetCoords.H))}px`,
+										'left': `${APP.tools.parsePositive((parentCoords.WL + distanceFactor) + (targetCoords.W * point_factor))}px`
 									});
 									break;
 
@@ -436,7 +444,7 @@ temp_GRAPHICS = {
 			runProcess();
 
 			// Log adittion
-			console.info('INFO - Map ' + mapTarget + ' [' + APP.database.bio3.rdt[mapTarget].name + '] colissions was processed comparing with ' + Object.keys(APP.graphics.addedMaps).length + ' maps.');;
+			console.info(`INFO - Map ${mapTarget} [${APP.database.bio3.rdt[mapTarget].name}] colissions was processed comparing with ${Object.keys(APP.graphics.addedMaps).length} maps.`);
 
 		}
 
@@ -451,8 +459,8 @@ temp_GRAPHICS = {
 			reverseConnection,
 			lineList = this.addedLines,
 			lineNames = [
-				parent + '_' + newMap,
-				newMap + '_' + parent
+				`${parent}_${newMap}`,
+				`${newMap}_${parent}`
 			];
 
 		// Check if can add new lines to canvas
@@ -467,8 +475,8 @@ temp_GRAPHICS = {
 
 		if (canAdd === !0){
 
-			var pData = TMS.getRect('ROOM_' + parent),
-				nData = TMS.getRect('ROOM_' + newMap),
+			var pData = TMS.getRect(`ROOM_${parent}`),
+				nData = TMS.getRect(`ROOM_${newMap}`),
 				canvasData = TMS.getRect('APP_MAP_CANVAS'),
 				x1 = (pData.x + parseFloat(pData.width / 2)) - canvasData.x,
 				y1 = (pData.y + parseFloat(pData.height / 2)) - canvasData.y,
@@ -478,14 +486,14 @@ temp_GRAPHICS = {
 			// Create HTML and render new lines
 			lineNames.forEach(function(lName){
 
-				const tempLine = '<svg id="' + lName + '"><line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/></svg>';
+				const tempLine = `<svg id="${lName}"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff"/></svg>`;
 				TMS.append('APP_MAP_CANVAS', tempLine);
 
 			});
 
 			// Push to list
-			APP.graphics.addedLines[parent + '_' + newMap] = { p: parent, n: newMap };
-			APP.graphics.addedLines[newMap + '_' + parent] = { p: newMap, n: parent };
+			APP.graphics.addedLines[`${parent}_${newMap}`] = { p: parent, n: newMap };
+			APP.graphics.addedLines[`${newMap}_${parent}`] = { p: newMap, n: parent };
 
 		}
 
@@ -498,8 +506,8 @@ temp_GRAPHICS = {
 			});
 
 			// Add connection animation to current line and set backwards connection id
-			TMS.addClass(parent + '_' + newMap, 'SVG_CURRENT_FLOW');
-			reverseConnection = newMap + '_' + parent;
+			TMS.addClass(`${parent}_${newMap}`, 'SVG_CURRENT_FLOW');
+			reverseConnection = `${newMap}_${parent}`;
 
 			// Display only current line with animation
 			connectedLines = Object.keys(lineList).filter(function(cLine){
@@ -510,7 +518,7 @@ temp_GRAPHICS = {
 			TMS.css(reverseConnection, {'opacity': '0'});
 
 			// Update line after render
-			APP.graphics.updateLines('ROOM_' + newMap);
+			APP.graphics.updateLines(`ROOM_${newMap}`);
 
 		}
 
@@ -536,7 +544,7 @@ temp_GRAPHICS = {
 			finalY = (elmnt.offsetTop - pos2);
 
 			// Update CSS
-			TMS.css(domName, {'top': finalY + 'px', 'left': finalX + 'px'});
+			TMS.css(domName, {'top': `${finalY}px`, 'left': `${finalX}px`});
 
 			// Update Lines
 			if (domName !== 'APP_MAP_CANVAS'){
@@ -593,15 +601,15 @@ temp_GRAPHICS = {
 
 				// Set variables
 				var canvasData = TMS.getRect('APP_MAP_CANVAS'),
-					pData = TMS.getRect('ROOM_' + lineList[cLine].p),
-					nData = TMS.getRect('ROOM_' + lineList[cLine].n),
+					pData = TMS.getRect(`ROOM_${lineList[cLine].p}`),
+					nData = TMS.getRect(`ROOM_${lineList[cLine].n}`),
 					x1 = (pData.x + parseFloat(pData.width / 2)) - canvasData.x,
 					y1 = (pData.y + parseFloat(pData.height / 2)) - canvasData.y,
 					x2 = (nData.x + parseFloat(nData.width / 2)) - canvasData.x,
 					y2 = (nData.y + parseFloat(nData.height / 2)) - canvasData.y;
 
 				// Update line
-				document.getElementById(cLine).innerHTML = '<line x1="' + x1 + '" y1="' + y1 + '" x2="' + x2 + '" y2="' + y2 + '" stroke="#fff"/>';
+				document.getElementById(cLine).innerHTML = `<line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff"/>`;
 
 			});
 
@@ -616,10 +624,10 @@ temp_GRAPHICS = {
 		if (APP.gameHook.mapHistory.length !== 0){
 
 			Object.keys(this.addedMaps).forEach(function(cMap){
-				TMS.removeClass('ROOM_' + cMap, 'PLAYER_PRESENT');
+				TMS.removeClass(`ROOM_${cMap}`, 'PLAYER_PRESENT');
 			});
 
-			const newRoomId = 'ROOM_' + APP.gameHook.mapHistory.slice(-1);
+			const newRoomId = `ROOM_${APP.gameHook.mapHistory.slice(-1)}`;
 
 			// Add class
 			TMS.addClass(newRoomId, 'PLAYER_PRESENT');
@@ -636,7 +644,7 @@ temp_GRAPHICS = {
 				nextY = parseFloat(roomData.y - ((window.innerHeight / 2) - playerRect.height / 2));
 
 			// Update canvas position
-			TMS.css('APP_MAP_CANVAS', {'left': APP.tools.parsePolarity(nextX) + 'px', 'top': APP.tools.parsePolarity(nextY) + 'px'});
+			TMS.css('APP_MAP_CANVAS', {'left': `${APP.tools.parsePolarity(nextX)}px`, 'top': `${APP.tools.parsePolarity(nextY)}px`});
 
 		}
 
@@ -693,6 +701,82 @@ temp_GRAPHICS = {
 				break;
 
 		}
+
+	},
+
+	// Get bg color
+	pickGradientColor: function(colorPos){
+
+		// Check if data was provided
+		if (colorPos !== void 0){
+
+			var cColor,
+				colorIndex = 0;
+
+			// Get current color
+			if (colorPos === 'bottom'){
+				colorIndex++;
+			}
+			cColor = APP.options.settingsData.bgGradientColor[colorIndex];
+
+			// Prompt new color
+			APP.tools.callColorPicker({
+				title: `Change ${colorPos} color`,
+				location: {
+					x: 'calc(100% - 422px)',
+					spawnLocation: 'APP_CANVAS',
+					y: `${TMS.getCoords(`BTN_PICK_BG_COLOR_${colorPos.toUpperCase()}`).T}px`
+				},
+				color: cColor,
+				outputMode: 'hex',
+				onOpen: function(){
+
+					// Disable select colors gradient buttons
+					document.getElementById('BTN_PICK_BG_COLOR_TOP').disabled = 'disabled';
+					document.getElementById('BTN_PICK_BG_COLOR_BOTTOM').disabled = 'disabled';
+
+				},
+				onCancel: function(){
+
+					// Enable select color gradient buttons
+					document.getElementById('BTN_PICK_BG_COLOR_TOP').disabled = '';
+					document.getElementById('BTN_PICK_BG_COLOR_BOTTOM').disabled = '';
+
+				},
+				onApply: function(newColor){
+					
+					// Update color
+					APP.options.settingsData.bgGradientColor[colorIndex] = `#${newColor}`;
+
+					// Save settings
+					APP.options.saveSettings();
+
+					// Update GUI
+					APP.graphics.updateBgColor();
+
+					// Enable select color gradient buttons
+					document.getElementById('BTN_PICK_BG_COLOR_TOP').disabled = '';
+					document.getElementById('BTN_PICK_BG_COLOR_BOTTOM').disabled = '';
+
+				}
+			});
+
+		}
+
+	},
+
+	// Update BG color
+	updateBgColor: function(){
+
+		// Get colors array
+		const bgColors = APP.options.settingsData.bgGradientColor;
+
+		// Update preview icons
+		TMS.css('DIV_ICON_PREVIEW_BG_COLOR_TOP', {'background-color': bgColors[0]});
+		TMS.css('DIV_ICON_PREVIEW_BG_COLOR_BOTTOM', {'background-color': bgColors[1]});
+
+		// Update gradient
+		TMS.css('APP_CANVAS', {'background-image': `linear-gradient(180deg, ${bgColors[0]}, ${bgColors[1]})`});
 
 	}
 

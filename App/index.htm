@@ -41,7 +41,15 @@
 				<input type="button" title="Global Shortcut: Ctrl+F8" value="[F8] Reset zoom" onclick="APP.options.resetCanvasZoom();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
 				<br><br>
 
-				<input type="button" value="Toggle BG color" onclick="APP.graphics.toggleBgColor();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
+				<input type="button" value="Toggle BG" onclick="APP.graphics.toggleBgColor();" class="BTN_OPTIONS BTN_TOP">
+				<button id="BTN_PICK_BG_COLOR_TOP" onclick="APP.graphics.pickGradientColor('top');" class="BTN_OPTIONS">
+					<div id="DIV_ICON_PREVIEW_BG_COLOR_TOP" class="DIV_ICON_PREVIEW_BG_COLOR"></div>
+					Change top color
+				</button>
+				<button id="BTN_PICK_BG_COLOR_BOTTOM" onclick="APP.graphics.pickGradientColor('bottom');" class="BTN_OPTIONS BTN_BOTTOM">
+					<div id="DIV_ICON_PREVIEW_BG_COLOR_BOTTOM" class="DIV_ICON_PREVIEW_BG_COLOR"></div>
+					Change bottom color
+				</button>
 				<br><br>
 
 				<input type="button" title="Global Shortcut: Ctrl+F7" value="[F7] Center map" onclick="APP.graphics.updatePlayerPos();" class="BTN_OPTIONS BTN_TOP">

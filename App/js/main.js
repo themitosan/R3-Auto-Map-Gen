@@ -9,6 +9,9 @@ const APP = {
 	hash: nw.App.manifest.hash,
 	version: nw.App.manifest.version,
 
+	// Path prefix
+	pathPrefix: '',
+
 	// Modules
 	fs: void 0,
 	path: void 0,
@@ -116,8 +119,13 @@ const APP = {
 
 	// About screen
 	about: function(){
-		window.alert('R3 Auto Map Gen. - Version: ' + APP.version + '\nCreated by TemmieHeartz\nTwitter: @TemmieHeartz\n\nBuild Hash: ' + this.hash +
-					 '\n\nExternal plugins present on this project:\n\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs');
+		
+		// Close color picker
+		this.tools.closeColorPicker();
+
+		// Display about screen
+		window.alert(`R3 Auto Map Gen. - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs`);
+
 	},
 
 	// Run game
@@ -125,11 +133,10 @@ const APP = {
 
 		// Get game path
 		const settingsData = APP.options.settingsData,
-			gPath = settingsData.gamePath + '/' + settingsData.exeName;
+			gPath = `${settingsData.gamePath}/${settingsData.exeName}`;
 
 		// Check if game path exists
 		if (APP.fs.existsSync(gPath) === !0){
-
 			
 			// Start game
 			const doStartGamePlz = function(){
@@ -151,7 +158,7 @@ const APP = {
 
 				} catch (err) {
 					console.error(err);
-					window.alert('ERROR: Unable to start game process!\n\n' + err);
+					window.alert(`ERROR - Unable to start game process!\n\n${err}`);
 					throw new Error(err);
 				}
 
@@ -187,7 +194,7 @@ const APP = {
 
 			// Set vars
 			var startKbDevMode = !1,
-				appTitle = 'R3 Auto Map Gen. - Version: ' + APP.version + ' [' + APP.hash + ']'; 
+				appTitle = `R3 Auto Map Gen - Version: ${APP.version} [${APP.hash}]`; 
 
 			// Update log and app title
 			console.info(appTitle);
@@ -201,12 +208,14 @@ const APP = {
 			// Check if app is on dev mode
 			if (nw.App.argv.indexOf('-dev') !== -1){
 				document.getElementById('BTN_DEV_KB_SH').disabled = '';
-				APP.memoryjs = require('App/node_modules/memoryjs');
+				APP.pathPrefix = 'App/';
 				startKbDevMode = !0;
 			} else {
-				APP.memoryjs = require('node_modules/memoryjs');
 				TMS.css('BTN_DEV_KB_SH', {'display': 'none'});
 			}
+
+			// Require memoryjs
+			APP.memoryjs = require(`${APP.pathPrefix}node_modules/memoryjs`);
 
 			// Reset chdir
 			process.chdir(APP.tools.fixPath(APP.path.parse(process.execPath).dir));
@@ -223,12 +232,12 @@ const APP = {
 
 			// Display menus
 			setTimeout(function(){
-				TMS.css('MENU_TOP', {'height': '30px'});
-				TMS.css('MENU_RIGHT', {'width': '168px'});
+				TMS.css('MENU_TOP', {'height': '30px', 'filter': 'blur(0px)'});
+				TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)'});
 			}, 50);
 
 		} catch (err) {
-			window.alert('ERROR - Something happened on boot process!\n' + err);
+			window.alert(`ERROR - Something happened on boot process!\n${err}`);
 			console.error(err);
 			throw new Error(err);
 		}
