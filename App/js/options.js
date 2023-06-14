@@ -383,17 +383,17 @@ temp_OPTIONS = {
 		document.getElementById('SELECT_GAME').value = this.settingsData.currentGame;
 
 		// Check if game executable exists
-		if (APP.fs.existsSync(this.settingsData[this.settingsData.currentGame].gamePath + '/' + this.settingsData[this.settingsData.currentGame].exeName) === !0){
+		if (APP.fs.existsSync(`${this.settingsData[this.settingsData.currentGame].gamePath}/${this.settingsData[this.settingsData.currentGame].exeName}`) === !0){
 			document.getElementById('BTN_RUN_GAME').disabled = '';
 		}
 
 		// Check if has BioRand mod installed
-		if (APP.fs.existsSync(this.settingsData[this.settingsData.currentGame].gamePath + '/mod_biorand') === !0){
+		if (APP.fs.existsSync(`${this.settingsData[this.settingsData.currentGame].gamePath}/mod_biorand`) === !0){
 			document.getElementById('CHECKBOX_isBioRand').checked = !0;
 		}
 
 		// Check if savedata folder exists
-		if (APP.fs.existsSync(this.settingsData[this.settingsData.currentGame].gamePath + '/savedata') === !0){
+		if (APP.fs.existsSync(`${this.settingsData[this.settingsData.currentGame].gamePath}/savedata`) === !0){
 			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 		}
 
@@ -430,7 +430,8 @@ temp_OPTIONS = {
 		APP.tools.closeColorPicker();
 
 		// Get save data folder
-		const saveDataPath = `${APP.options.settingsData.gamePath}/savedata`;
+		const cGame = APP.options.settingsData.currentGame,
+			saveDataPath = `${APP.options.settingsData[cGame].gamePath}/savedata`;
 
 		// Check if game save folder exists 
 		if (APP.fs.existsSync(saveDataPath) === !0){
@@ -451,8 +452,8 @@ temp_OPTIONS = {
 
 					// Read directory and try to unlink all files with recognized save extensions
 					APP.fs.readdirSync(saveDataPath).filter(function(cFile){
-						if (extList.indexOf(APP.path.parse(saveDataPath + '/' + cFile).ext.toLowerCase()) !== -1){
-							APP.fs.unlinkSync(saveDataPath + '/' + cFile);
+						if (extList.indexOf(APP.path.parse(`${saveDataPath}/${cFile}`).ext.toLowerCase()) !== -1){
+							APP.fs.unlinkSync(`${saveDataPath}/${cFile}`);
 						}
 					});
 
