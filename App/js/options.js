@@ -146,7 +146,9 @@ temp_OPTIONS = {
 
 			// Set variables
 			var fileName = 'GAME_MAP',
+				cGame = APP.options.settingsData.currentGame,
 				checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked,
+				randDataPath = `${APP.options.settingsData[cGame].gamePath}/mod_biorand/description.txt`,
 				mPos = {
 					y: parseFloat(TMS.getCssData('APP_MAP_CANVAS', 'top').replace('px', '')),
 					x: parseFloat(TMS.getCssData('APP_MAP_CANVAS', 'left').replace('px', ''))
@@ -158,15 +160,10 @@ temp_OPTIONS = {
 					history: APP.graphics.addedMapHistory,
 				});
 
-			// Check if "is BioRand" option is active
-			if (checkBioRand === !0){
-
-				const randDataPath = `${APP.options.settingsData.gamePath}/mod_biorand/description.txt`;
-				if (APP.fs.existsSync(randDataPath) === !0){
-					const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
-					fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
-				}
-
+			// Check if "is BioRand" option is active and if description file exists
+			if (checkBioRand === !0 && APP.fs.existsSync(randDataPath) === !0){
+				const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
+				fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 			}
 
 			// Check if file exists, if is BioRand and if it's seed is the same
