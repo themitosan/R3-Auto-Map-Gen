@@ -206,7 +206,8 @@ label {
 	position: absolute;
 	background-color: #0000;
 	height: calc(100% - 20px);
-	border-radius: 0px 0px 6px 6px;
+	border-bottom-left-radius: 6px;
+	border-bottom-right-radius: 6px;
 	background-image: linear-gradient(180deg, #000019, #002);
 }
 .APP_MENU {
@@ -306,6 +307,7 @@ label {
 	width: 10px;
 	height: 10px;
 	margin-top: 2px;
+	margin-left: -2px;
 	position: absolute;
 	border-radius: 100px;
 	background-color: #000;

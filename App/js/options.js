@@ -115,7 +115,12 @@ temp_OPTIONS = {
 				// Update app drag bar and canvas
 				TMS.css('APP_DRAG_BAR', {'display': 'flex'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'flex'});
-				TMS.css('APP_CANVAS', {'height': 'calc(100% - 20px)', 'top': '20px'});
+				TMS.css('APP_CANVAS', {
+					'top': '20px',
+					'height': 'calc(100% - 20px)',
+					'border-top-left-radius': '0px',
+					'border-top-right-radius': '0px'
+				});
 
 				// Return right menu
 				APP.tools.createTimeout('returnRightMenu', function(){
@@ -144,7 +149,12 @@ temp_OPTIONS = {
 				// Update app drag bar and canvas
 				TMS.css('APP_DRAG_BAR', {'display': 'none'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'none'});
-				TMS.css('APP_CANVAS', {'height': '100%', 'top': '0px'});
+				TMS.css('APP_CANVAS', {
+					'top': '0px',
+					'height': '100%',
+					'border-top-left-radius': '6px',
+					'border-top-right-radius': '6px'
+				});
 
 				// Hide right menu
 				TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'block'});
