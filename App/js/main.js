@@ -39,6 +39,13 @@ const APP = {
 	// Start keyboard shortcuts
 	startKbShortcuts: function(disableGlobal){
 
+		// Prevent tab
+		document.addEventListener('keydown', function(event){
+			if (event.keyCode === 9){
+				event.preventDefault();
+			}
+		});
+
 		// Start keypress
 		window.onkeyup = function(evt){
 
@@ -66,10 +73,6 @@ const APP = {
 
 				case 'F10':
 					APP.options.loadLatestFile();
-					break;
-
-				case 'Delete':
-					APP.options.delGameSaveFiles();
 					break;
 
 			}

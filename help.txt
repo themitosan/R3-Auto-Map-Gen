@@ -6,7 +6,6 @@
 [F8] Reset canvas zoom
 [F9] Reset map
 [F10] Reload latest saved / loaded map
-[Delete] Delete saves from selected game
 
 -- Global Shortcuts
 
