@@ -88,12 +88,14 @@ module.exports = {
 
 			// Get licence and readme files
 			const license = fs.readFileSync('./LICENSE', 'utf8'),
-				readme = fs.readFileSync('./README.md', 'utf8');
+				readme = fs.readFileSync('./README.md', 'utf8'),
+				help = fs.readFileSync('./help.txt', 'utf8');
 
 			// Run nw-builder
 			compileData.build().then(function(){
 	
-				// Copy license and readme to build dir
+				// Copy required files to build dir
+				fs.writeFileSync('./build/R3 Auto Map Gen/win64/help.txt', help, 'utf8');
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/LICENSE', license, 'utf8');
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/README.md', readme, 'utf8');
 				fs.writeFileSync('./version.txt', 'Version: ' + packageJson.version, 'utf8');

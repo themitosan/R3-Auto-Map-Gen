@@ -37,6 +37,10 @@ _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca
 
 Also - You can visualize generated files using [R3 Auto Map View](https://themitosan.github.io/R3AMV/) on our browser!
 
+## Shortcuts
+
+You can find a list with all available shortcuts on `help.txt`.
+
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--/)
 
