@@ -12,8 +12,22 @@
 
 	<body>
 
+		<!-- App drag bar -->
+		<div id="APP_DRAG_BAR" class="APP_DRAG_BAR">
+			R3 Auto Map Gen. - Please wait...
+		</div>
+
+		<!-- App drag bar buttons -->
+		<div class="APP_DRAG_BAR_ACTIONS" id="APP_DRAG_BAR_ACTIONS">
+			<button class="BTN_APP_DRAG" title="Click here to minimize this window" onclick="APP.win.minimize();">-</button>
+			<button class="BTN_APP_DRAG BTN_CLOSE_APP_DRAG" title="Click here to close this window" onclick="APP.win.close();">X</button>
+		</div>
+
 		<!-- Main Canvas -->
 		<div class="APP_CANVAS" id="APP_CANVAS">
+
+			<!-- Show right menu -->
+			<input type="button" value="Open right menu" id="BTN_SHOW_RIGHT_MENU" onclick="APP.options.toggleRightMenu('open');" class="BTN_SHOW_RIGHT_MENU" title="[Global Shortcut: Ctrl+Shift+Q] Click here to open right menu.">
 
 			<!-- Top Menu BG -->
 			<div class="MENU_TOP_BG" id="MENU_TOP_BG" title='This border is only visible when red background is on and "Auto-hide top menu" option is active.'></div>
@@ -35,6 +49,9 @@
 
 				<!-- Dev: Enable global shortcuts -->
 				<input type="button" value="[DEV] Enable shortcuts" id="BTN_DEV_KB_SH" disabled="disabled" onclick="APP.devStartShortCuts();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM" title="Global shortcuts on dev mode are disabled by default. Click here to active it.">
+
+				<!-- Hide right menu -->
+				<input type="button" value="Close menu" id="BTN_CLOSE_MENU_RIGHT" onclick="APP.options.toggleRightMenu('close');" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM" title="Click here to close this menu">
 
 				Zoom: <span id="LABEL_mapCanvasZoom">1</span><br>
 				<input type="range" min="0.1" max="2" step="0.001" id="OPTION_mapCanvasZoom" oninput="APP.graphics.updateCanvasZoom();"><br>
@@ -78,6 +95,11 @@
 					<label title="Set this checkbox active if you want hide top menu." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu', APP.graphics.togglehideTopMenu);"> - Auto-hide top menu</label>
 				</div>
 
+				<div class="DIV_CHECKBOX">
+					<input type="checkbox" id="CHECKBOX_alwaysOnTop">
+					<label title="Set this checkbox active to make this window always at top." onclick="APP.tools.processCheckbox('CHECKBOX_alwaysOnTop', APP.options.toggleAlwaysOnTop);"> - Always on top</label>
+				</div>
+
 				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
 
 				<!-- Room types -->
@@ -96,7 +118,8 @@
 					Map have Item Box (Border)
 				</div>
 				<div class="RT BIORAND_OBJECTIVE">
-					BioRand current objective
+					BioRand current<br>
+					objective
 				</div>
 
 			</div>

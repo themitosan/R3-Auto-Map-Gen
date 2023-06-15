@@ -14,6 +14,7 @@ const APP = {
 
 	// Modules
 	fs: void 0,
+	win: void 0,
 	path: void 0,
 	memoryjs: void 0,
 	spawnProcess: void 0,
@@ -26,6 +27,10 @@ const APP = {
 	graphics: temp_GRAPHICS,
 	database: temp_DATABASE,
 	filemanager: temp_FILEMANAGER,
+
+	// Timeout and Interval database
+	timeoutDatabase: {},
+	intervalDatabase: {},
 
 	/*
 		Functions
@@ -48,7 +53,7 @@ const APP = {
 					break;
 
 				case 'F7':
-					APP.graphics.updatePlayerPos();
+					APP.graphics.updatePlayerPos(!0);
 					break;
 
 				case 'F8':
@@ -92,9 +97,7 @@ const APP = {
 			APP.options.saveMap(!0);
 		});
 		createGlobalShortcut('Ctrl+F7', function(){
-			APP.graphics.enableCanvasDrag = !0;
-			APP.graphics.toggleDragMapCanvas();
-			APP.graphics.updatePlayerPos();
+			APP.graphics.updatePlayerPos(!0);
 		});
 		createGlobalShortcut('Ctrl+F8', function(){
 			APP.graphics.resetCanvasZoom();
@@ -113,6 +116,9 @@ const APP = {
 		});
 		createGlobalShortcut('Ctrl+Shift+H', function(){
 			APP.gameHook.seekGame();
+		});
+		createGlobalShortcut('Ctrl+Shift+Q', function(){
+			APP.options.toggleRightMenu('open');
 		});
 
 	},
@@ -199,11 +205,7 @@ const APP = {
 			// Update log and app title
 			console.info(appTitle);
 			document.title = appTitle;
-
-			// Require modules
-			APP.fs = require('fs');
-			APP.path = require('path');
-			APP.childProcess = require('child_process');
+			document.getElementById('APP_DRAG_BAR').innerHTML = appTitle;
 
 			// Check if app is on dev mode
 			if (nw.App.argv.indexOf('-dev') !== -1){
@@ -214,7 +216,11 @@ const APP = {
 				TMS.css('BTN_DEV_KB_SH', {'display': 'none'});
 			}
 
-			// Require memoryjs
+			// Require modules
+			APP.fs = require('fs');
+			APP.win = nw.Window.get();
+			APP.path = require('path');
+			APP.childProcess = require('child_process');
 			APP.memoryjs = require(`${APP.pathPrefix}node_modules/memoryjs`);
 
 			// Reset chdir
@@ -229,6 +235,9 @@ const APP = {
 
 			// Load settings
 			APP.options.loadSettings();
+
+			// Set window actions
+			APP.graphics.startWinActions();
 
 			// Display menus
 			setTimeout(function(){

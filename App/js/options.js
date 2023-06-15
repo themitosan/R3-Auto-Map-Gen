@@ -10,6 +10,7 @@ temp_OPTIONS = {
 	*/
 	latestFile: '',
 	hideTopMenu: !1,
+	alwaysOnTop: !1,
 	isMapLoading: !1,
 	bioRandObjectives: {
 		reset: !1,
@@ -87,9 +88,93 @@ temp_OPTIONS = {
 		Functions
 	*/
 
+	// Toggle always on top function
+	toggleAlwaysOnTop: function(){
+		APP.options.alwaysOnTop = document.getElementById('CHECKBOX_alwaysOnTop').checked;
+		localStorage.setItem('alwaysOnTop', APP.options.alwaysOnTop);
+		APP.win.setAlwaysOnTop(APP.options.alwaysOnTop);
+	},
+
+	// Toggle right menu
+	toggleRightMenu: function(mode){
+
+		switch (mode){
+
+			case 'open':
+
+				// Clear timeouts
+				APP.tools.clearTimeoutList([
+					'hideRightMenu',
+					'showBackButton',
+					'hideOpenButton'
+				]);
+
+				// Update display mode
+				TMS.css('MENU_RIGHT', {'display': 'block'});
+
+				// Update app drag bar and canvas
+				TMS.css('APP_DRAG_BAR', {'display': 'flex'});
+				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'flex'});
+				TMS.css('APP_CANVAS', {'height': 'calc(100% - 20px)', 'top': '20px'});
+
+				// Return right menu
+				APP.tools.createTimeout('returnRightMenu', function(){
+					TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'opacity': '1'});
+					TMS.css('MENU_TOP', {'width': 'calc(100% - 196px)', 'border-bottom-right-radius': '0px'});
+					TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'none', 'opacity': '0', 'filter': 'blur(20px) opacity(0)', 'right': '2px'});
+				}, 100);
+
+				// Center map
+				APP.tools.createTimeout('updatePlayerPos', function(){
+					APP.graphics.updatePlayerPos(!0);
+				}, 1100);
+				break;
+
+			case 'close':
+
+				// Clear timeouts
+				APP.tools.clearTimeoutList([
+					'returnRightMenu',
+					'updatePlayerPos'					
+				]);
+
+				// Display message
+				APP.graphics.displayTopMsg('INFO - Use [ Ctrl+Shift+Q ] shorcut to open right menu again.', 5500);
+
+				// Update app drag bar and canvas
+				TMS.css('APP_DRAG_BAR', {'display': 'none'});
+				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'none'});
+				TMS.css('APP_CANVAS', {'height': '100%', 'top': '0px'});
+
+				// Hide right menu
+				TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'block'});
+				TMS.css('MENU_TOP', {'width': '100%', 'border-bottom-right-radius': '6px'});
+				TMS.css('MENU_RIGHT', {'width': '0px', 'filter': 'blur(20px)', 'opacity': '0'});
+
+				// Show back button
+				APP.tools.createTimeout('showBackButton', function(){
+					TMS.css('BTN_SHOW_RIGHT_MENU', {'opacity': '1', 'filter': 'blur(0px) opacity(0.5)', 'right': '10px'});
+				}, 560);
+
+				// Update right menu display mode and center map
+				APP.tools.createTimeout('hideRightMenu', function(){
+					TMS.css('MENU_RIGHT', {'display': 'none'});
+					APP.graphics.updatePlayerPos(!0);
+				}, 1150);
+
+				// Hide button
+				APP.tools.createTimeout('hideOpenButton', function(){
+					TMS.css('BTN_SHOW_RIGHT_MENU', {'opacity': '1', 'filter': 'blur(2px) opacity(0)', 'right': '10px'});
+				}, 5200);
+				break;
+
+		}
+
+	},
+
 	// Update current game
 	updateSelectedGame: function(){
-		this.settingsData.currentGame = document.getElementById('SELECT_GAME').value;
+		APP.options.settingsData.currentGame = document.getElementById('SELECT_GAME').value;
 	},
 
 	// Reset map
@@ -106,7 +191,7 @@ temp_OPTIONS = {
 		APP.gameHook.mapHistory = [];
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
-		this.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null },
+		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null },
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
@@ -334,7 +419,7 @@ temp_OPTIONS = {
 			exeName: 'BIOHAZARD(R) 3 PC.exe'
 		},
 		currentGame: 'bio3',
-		bgGradientColor: ['#000019', '#000020']
+		bgGradientColor: ['#26008728', '#000048C4']
 	},
 
 	// Load app settings
@@ -394,15 +479,36 @@ temp_OPTIONS = {
 			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 		}
 
-		// Update hide top menu checkbox
-		if (localStorage.getItem('hideTopMenu') === null){
-			localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
-		}
-		this.hideTopMenu = JSON.parse(localStorage.getItem('hideTopMenu'));
-		document.getElementById('CHECKBOX_hideTopMenu').checked = this.hideTopMenu;
-		APP.graphics.togglehideTopMenu();
+		/*
+			Get localStorage settings
+		*/
+		const lStorageSettingsList = [
+			'hideTopMenu',
+			'alwaysOnTop'
+		].forEach(function(cSettings){
 
-		// Update gradient color
+			// Check if settings exists
+			if (localStorage.getItem(cSettings) === null){
+				localStorage.setItem(cSettings, APP.options[cSettings]);
+			}
+
+			// Load settings
+			APP.options[cSettings] = JSON.parse(localStorage.getItem(cSettings));
+
+			// Check data type
+			switch (typeof APP.options[cSettings]){
+
+				case 'boolean':
+					document.getElementById(`CHECKBOX_${cSettings}`).checked = APP.options[cSettings];
+					break;
+
+			}
+
+		});
+
+		// Process post loading settings
+		APP.graphics.togglehideTopMenu();
+		APP.options.toggleAlwaysOnTop();
 		APP.graphics.updateBgColor();
 
 	},

@@ -21,7 +21,7 @@ temp_GRAPHICS = {
 
 	/*
 		Functions
-	*/
+	*/	
 
 	// Toggle hide top menu on quick-save
 	togglehideTopMenu: function(){
@@ -666,10 +666,16 @@ temp_GRAPHICS = {
 	},
 
 	// Update player position
-	updatePlayerPos: function(){
+	updatePlayerPos: function(disableCanvasDrag){
 
 		// Check if player map history
 		if (APP.gameHook.mapHistory.length !== 0){
+
+			// Check if needs to disable canvas drag
+			if (disableCanvasDrag === !0){
+				APP.graphics.enableCanvasDrag = !0;
+				APP.graphics.toggleDragMapCanvas();
+			}
 
 			Object.keys(this.addedMaps).forEach(function(cMap){
 				TMS.removeClass(`ROOM_${cMap}`, 'PLAYER_PRESENT');
@@ -825,6 +831,23 @@ temp_GRAPHICS = {
 
 		// Update gradient
 		TMS.css('APP_CANVAS', {'background-image': `linear-gradient(180deg, ${bgColors[0]}, ${bgColors[1]})`});
+
+	},
+
+	// Start window actions
+	startWinActions: function(){
+
+		APP.win.on('resize', function(){
+			APP.graphics.updatePlayerPos(!0);
+		});
+
+		APP.win.on('restore', function(){
+			APP.graphics.updatePlayerPos(!0);
+		});
+
+		APP.win.on('maximize', function(){
+			APP.graphics.updatePlayerPos(!0);
+		});
 
 	}
 

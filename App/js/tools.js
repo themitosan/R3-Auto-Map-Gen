@@ -176,16 +176,20 @@ temp_TOOLS = {
 		Fix vars
 		This function was obtained from R3V2 API
 
-		https://github.com/temmieheartz/r3ditor-v2
+		https://github.com/themitosan/R3ditor-v2
 	*/
-	fixVars: function(inp, v){
+	fixVars: function(inp, v, filler){
 
 		var c = 0,
 			size = Number(v),
 			input = inp.toString();
 
+		if (filler === void 0){
+			filler = '0';
+		}
+
 		if (inp === void 0 || inp === ''){
-			input = '00';
+			input = filler + filler;
 		}
 		if (v === void 0 || v === ''){
 			size = 2;
@@ -194,7 +198,7 @@ temp_TOOLS = {
 		if (input.length < size){
 
 			while (input.length !== size){
-				input = '0' + input;
+				input = filler + input;
 			}
 
 		} else {
@@ -513,6 +517,7 @@ temp_TOOLS = {
 				// Set input data
 				switch (data.outputMode.toLowerCase()){
 
+					// TODO: Fix alpha
 					case 'rgb':
 						const colors = data.color.replace('rgb(', '').replace(')').split(' ');
 						document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value = Number(colors[0]);
@@ -521,7 +526,11 @@ temp_TOOLS = {
 						break;
 
 					case 'hex':
-						document.getElementById('TMS_COLOR_PICKER_HEX').value = data.color.replace(RegExp('#', 'gi'), '');
+						var dataColor = data.color.replace(RegExp('#', 'gi'), '');
+						if (dataColor.length === 6){
+							dataColor = dataColor + 'ff';
+						}
+						document.getElementById('TMS_COLOR_PICKER_HEX').value = dataColor;
 						updateMode = 'hex';
 						break;
 
@@ -547,18 +556,19 @@ temp_TOOLS = {
 					var colorR = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value),
 						colorG = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value),
 						colorB = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value),
+						colorA = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_A').value),
 						colorHex = document.getElementById('TMS_COLOR_PICKER_HEX').value,
 						colorData = '';
 
 					// Check input
-					if (colorHex.length !== 6 || colorHex === ''){
-						colorHex = `#${APP.tools.fixVars(parseInt(colorR, 16))}${APP.tools.fixVars(parseInt(colorG, 16))}${APP.tools.fixVars(parseInt(colorB, 16))}`;
+					if (colorHex.length !== 8 || colorHex === ''){
+						colorHex = `#${APP.tools.fixVars(parseInt(colorR, 16))}${APP.tools.fixVars(parseInt(colorG, 16))}${APP.tools.fixVars(parseInt(colorB, 16))}${APP.tools.fixVars(parseInt(colorA, 16))}`;
 					}
 
 					switch(data.outputMode.toLowerCase()){
 
 						case 'rgb':
-							colorData = `rgb(${colorR} ${colorG} ${colorB})`;
+							colorData = `rgb(${colorR} ${colorG} ${colorB} / ${APP.tools.parsePercentage(colorA, 255)})`;
 							break;
 
 						case 'hex':
@@ -602,9 +612,7 @@ temp_TOOLS = {
 				inputSource = 'hex';
 			}
 
-			var colorR,
-				colorG,
-				colorB,
+			var colorR,	colorG,	colorB, colorA,
 				bgColor = '000';
 
 			switch (inputSource){
@@ -615,14 +623,17 @@ temp_TOOLS = {
 					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_R' });
 					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_G' });
 					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_B' });
+					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_A' });
 
 					colorR = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value);
 					colorG = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value);
 					colorB = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value);
+					colorA = Number(document.getElementById('TMS_COLOR_PICKER_NUMBER_A').value);
 					document.getElementById('TMS_COLOR_PICKER_RANGE_R').value = colorR;
 					document.getElementById('TMS_COLOR_PICKER_RANGE_G').value = colorG;
 					document.getElementById('TMS_COLOR_PICKER_RANGE_B').value = colorB;
-					bgColor = APP.tools.fixVars(colorR.toString(16)) + APP.tools.fixVars(colorG.toString(16)) + APP.tools.fixVars(colorB.toString(16));
+					document.getElementById('TMS_COLOR_PICKER_RANGE_A').value = colorA;
+					bgColor = APP.tools.fixVars(colorR.toString(16)) + APP.tools.fixVars(colorG.toString(16)) + APP.tools.fixVars(colorB.toString(16)) + APP.tools.fixVars(colorA.toString(16));
 					document.getElementById('TMS_COLOR_PICKER_HEX').value = bgColor;
 					break;
 
@@ -630,10 +641,12 @@ temp_TOOLS = {
 					colorR = Number(document.getElementById('TMS_COLOR_PICKER_RANGE_R').value);
 					colorG = Number(document.getElementById('TMS_COLOR_PICKER_RANGE_G').value);
 					colorB = Number(document.getElementById('TMS_COLOR_PICKER_RANGE_B').value);
+					colorA = Number(document.getElementById('TMS_COLOR_PICKER_RANGE_A').value);
 					document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value = colorR;
 					document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value = colorG;
 					document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value = colorB;
-					bgColor = APP.tools.fixVars(colorR.toString(16)) + APP.tools.fixVars(colorG.toString(16)) + APP.tools.fixVars(colorB.toString(16));
+					document.getElementById('TMS_COLOR_PICKER_NUMBER_A').value = colorA;
+					bgColor = APP.tools.fixVars(colorR.toString(16)) + APP.tools.fixVars(colorG.toString(16)) + APP.tools.fixVars(colorB.toString(16)) + APP.tools.fixVars(colorA.toString(16));
 					document.getElementById('TMS_COLOR_PICKER_HEX').value = bgColor;
 					break;
 
@@ -643,20 +656,23 @@ temp_TOOLS = {
 					var hexColors,
 						rawData = document.getElementById('TMS_COLOR_PICKER_HEX').value.replace(RegExp('#', 'gi'), '');
 
-					if (rawData.length === 6){
+					if (rawData.length === 8){
 
 						hexColors = rawData.match(/.{2,2}/g);
 						colorR = hexColors[0];
 						colorG = hexColors[1];
 						colorB = hexColors[2];
+						colorA = hexColors[3];
 						bgColor = rawData;
 
 						document.getElementById('TMS_COLOR_PICKER_RANGE_R').value = parseInt(hexColors[0], 16);
 						document.getElementById('TMS_COLOR_PICKER_RANGE_G').value = parseInt(hexColors[1], 16);
 						document.getElementById('TMS_COLOR_PICKER_RANGE_B').value = parseInt(hexColors[2], 16);
+						document.getElementById('TMS_COLOR_PICKER_RANGE_A').value = parseInt(hexColors[3], 16);
 						document.getElementById('TMS_COLOR_PICKER_NUMBER_R').value = parseInt(hexColors[0], 16);
 						document.getElementById('TMS_COLOR_PICKER_NUMBER_G').value = parseInt(hexColors[1], 16);
 						document.getElementById('TMS_COLOR_PICKER_NUMBER_B').value = parseInt(hexColors[2], 16);
+						document.getElementById('TMS_COLOR_PICKER_NUMBER_A').value = parseInt(hexColors[3], 16);
 
 					}
 					break;
@@ -672,10 +688,82 @@ temp_TOOLS = {
 
 	// Cancel Color Picker
 	closeColorPicker: function(){
-
 		if (document.getElementById('TMS_COLOR_PICKER') !== null){
 			TMS.triggerClick('BTN_TMS_COLOR_PICKER_CANCEL');
 		}
+	},
+
+	// Create setTimeout function with more control
+	createTimeout: function(name, action, timeout){
+
+		// Check if timeout was provided
+		if (timeout === void 0){
+			timeout = 0;
+		}
+
+		// Check if current timeout exists on database
+		if (APP.timeoutDatabase[name] !== void 0){
+			clearTimeout(APP.timeoutDatabase[name]);
+			delete APP.timeoutDatabase[name];
+		}
+
+		// Set timeout
+		APP.timeoutDatabase[name] = setTimeout(function(){
+			
+			// Execute action
+			if (typeof action === 'function'){
+				action();
+			}
+
+			// Remove timeout from database
+			delete APP.timeoutDatabase[name];
+
+		}, Number(timeout));
+
+	},
+
+	/*
+		Clear timeout
+			timeoutList: 	String | Boolean 	Timeout name or list to be cleared
+	*/
+	clearTimeoutList: function(timeoutList){
+
+		switch (typeof timeoutList){
+
+			case 'string':
+				if (APP.timeoutDatabase[timeoutList] !== void 0){
+					clearTimeout(APP.timeoutDatabase[timeoutList]);
+				}
+				break;
+
+			case 'object':
+				timeoutList.forEach(function(cTimeout){
+					if (APP.timeoutDatabase[cTimeout] !== void 0){
+						clearTimeout(APP.timeoutDatabase[cTimeout]);
+					}
+				});
+				break;
+
+		}
+
+	},
+
+	// Create setInterval function with more control
+	createInterval: function(name, action, interval){
+
+		// Check if timeout was provided
+		if (interval === void 0){
+			interval = 1000;
+		}
+
+		// Check if current interval exists on database
+		if (APP.intervalDatabase[name] !== void 0){
+			clearInterval(APP.intervalDatabase[name]);
+			delete APP.intervalDatabase[name];
+		}
+
+		// Set timeout
+		APP.intervalDatabase[name] = setInterval(action, Number(interval));
 
 	}
 

@@ -71,7 +71,7 @@
 		}
 		#TMS_COLOR_PICKER_HEX {
 	    	color: #fff;
-	    	width: 44px;
+	    	width: 64px;
 	    	border: none;
 			outline: none;
 	    	font-family: monospace;
@@ -106,8 +106,13 @@
 		<input type="number" min="0" max="255" step="1" maxlength="3" class="TMS_COLOR_PICKER_NUMBER" placeholder="0" id="TMS_COLOR_PICKER_NUMBER_B" onkeyup="APP.tools.updateColorPicker('number');" onkeydown="APP.tools.updateColorPicker('number');" onclick="APP.tools.updateColorPicker('number');">
 	</div>
 
+	<div class="DIV_TMS_COLOR_PICKER_RANGE">
+		A: <input type="range" min="0" max="255" step="1" class="TMS_COLOR_PICKER_RANGE" id="TMS_COLOR_PICKER_RANGE_A" oninput="APP.tools.updateColorPicker('range');">
+		<input type="number" min="0" max="255" step="1" maxlength="3" class="TMS_COLOR_PICKER_NUMBER" placeholder="0" id="TMS_COLOR_PICKER_NUMBER_A" onkeyup="APP.tools.updateColorPicker('number');" onkeydown="APP.tools.updateColorPicker('number');" onclick="APP.tools.updateColorPicker('number');">
+	</div>
+
 	<div class="center">
-		Hex: #<input type="text" minlength="0" maxlength="6" id="TMS_COLOR_PICKER_HEX" placeholder="000000" onkeyup="APP.tools.updateColorPicker('hex');" onkeydown"APP.tools.updateColorPicker('hex');>
+		Hex: #<input type="text" minlength="0" maxlength="8" id="TMS_COLOR_PICKER_HEX" placeholder="00000000" onkeyup="APP.tools.updateColorPicker('hex');" onkeydown="APP.tools.updateColorPicker('hex');">
 	</div>
 
 	<input type="button" id="BTN_TMS_COLOR_PICKER_CANCEL" class="BTN_TMS_COLOR_PICKER BTN_TMS_COLOR_PICKER_CANCEL" value="Cancel">

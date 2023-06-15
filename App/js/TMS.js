@@ -21,7 +21,7 @@ const TMS = Object.freeze(Object.seal({
 	// Warn if something go wrong
 	warn: function(warnText){
 		if (this.logWarnings === !0){
-			console.warn('[TMS] ' + warnText);
+			console.warn(`[TMS] ${warnText}`);
 		}
 	},
 
@@ -33,19 +33,14 @@ const TMS = Object.freeze(Object.seal({
 		Get element
 	*/
 	getElement: function(elementId){
-
 		var res = document.getElementById(elementId);
-
 		if (res === null){
 			res = document.getElementsByTagName(elementId)[0];
 		}
-
 		if (res === void 0){
 			res = null;
 		}
-
 		return res;
-
 	},
 
 	/*
@@ -53,17 +48,17 @@ const TMS = Object.freeze(Object.seal({
 	*/
 	css: function(elementId, cssChanges){
 
-		var eReason = '',
+		var eReason = [],
 			canStart = !0,
 			elId = TMS.getElement(elementId);
 
 		if (elId === null){
 			canStart = !1;
-			eReason = eReason + '\nDOM or Tag does not exist! (' + elementId + ')';
+			eReason.push(`DOM or Tag does not exist! (${elementId})`);
 		}
 		if (typeof cssChanges !== 'object'){
 			canStart = !1;
-			eReason = eReason + '\nYou must insert an object for CSS data (Current type: ' + typeof cssChanges + ')';
+			eReason.push(`You must insert an object for CSS data (Current type: ${typeof cssChanges})`);
 		}
 
 		// End
@@ -74,7 +69,7 @@ const TMS = Object.freeze(Object.seal({
 			});
 
 		} else {
-			TMS.warn('Unable to apply CSS data!' + eReason);
+			TMS.warn(`Unable to apply CSS data!\n${eReason.toString().replace(RegExp(',', 'gi'), '\n')}`);
 		}
 
 	},

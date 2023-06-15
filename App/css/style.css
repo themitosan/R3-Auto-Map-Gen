@@ -5,14 +5,15 @@
 
 body {
 	color: #fff;
+	overflow: hidden;
 	user-select: none;
 	font-family: monospace;
-	background-color: #000;
+	background-color: #0000;
 }
 input[type="file"] {
 	display: none !important;
 }
-input[id="BTN_DEV_KB_SH"] {
+input[id="BTN_CLOSE_MENU_RIGHT"], input[id="BTN_DEV_KB_SH"] {
 	margin: 0px 2px 8px 2px !important;
 }
 input[id="BTN_SELECT_EXE"] {
@@ -24,6 +25,7 @@ select, button, input[type="button"] {
 	cursor: pointer;
 	min-height: 24px;
 	max-height: 30px;
+	white-space: nowrap;
 	margin: 0px 2px 0px 2px;
 	background-image: linear-gradient(180deg, #fff, #999);
 }
@@ -68,6 +70,7 @@ svg {
 span {
 	margin-left: 4px;
 	margin-right: 2px;
+	white-space: nowrap;
 	font-family: monospace;
 	text-shadow: 2px 2px 2.8px #000a;
 }
@@ -77,10 +80,47 @@ label {
 	text-shadow: 2px 2px 2.8px #000a;
 }
 
+/*
+	App drag bar
+*/
+.APP_DRAG_BAR {
+	top: 0px;
+	left: 0px;
+	height: 20px;
+	z-index: 100;
+	display: flex;
+	app-region: drag;
+	position: absolute;
+	align-items: center;
+	white-space: nowrap;
+	justify-content: center;
+	width: calc(100% - 66px);
+	background-color: #706099aa;
+	text-shadow: 1px 1px 2px #000a;
+	border-radius: 6px 0px 0px 0px;
+}
+.APP_DRAG_BAR_ACTIONS {
+	top: 0px;
+	right: 0px;
+	width: 66px;
+	height: 20px;
+	z-index: 110;
+	display: flex;
+	overflow: hidden;
+	flex-wrap: nowrap;
+	position: absolute;
+	align-items: center;
+	justify-content: center;
+	background-color: #706099aa;
+	border-top-right-radius: 6px;
+}
 
 /*
 	Buttons
 */
+.BTN_OPTIONS {
+	width: calc(100% - 20px);
+}
 .BTN_TOP {
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;
@@ -99,6 +139,45 @@ label {
 }
 .BTN_MENU_TOP {
 	border-radius: 4px;
+}
+.BTN_SHOW_RIGHT_MENU {
+	top: 40px;
+	opacity: 0;
+	right: 2px;
+	width: 130px;
+	z-index: 1000;
+	display: none;
+	filter: blur(20px);
+	position: absolute;
+	border-radius: 6px;
+	transition-duration: 1.1s;
+	text-shadow: 1px 1px 2px #0002;
+	transition-timing-function: cubic-bezier(0,1,0,1);
+}
+.BTN_SHOW_RIGHT_MENU:hover {
+	filter: blur(0px) opacity(1) !important;
+}
+.BTN_APP_DRAG {
+	color: #eee;
+	margin: 0px;
+	height: 20px;
+	width: 33.33px;
+	max-height: 20px;
+	font-family: monospace;
+	background-image: none;
+	background-color: #0000;
+}
+.BTN_APP_DRAG:hover {
+	background-color: #fff3;
+	backdrop-filter: blur(4px);
+}
+.BTN_APP_DRAG:active {
+	color: #fff;
+	background-image: none;
+	box-shadow: 0px 0px 6px #000d inset;
+}
+.BTN_CLOSE_APP_DRAG:hover {
+	background-color: #f00a;
 }
 
 /*
@@ -119,14 +198,15 @@ label {
 	margin: 6px 0px 2px 0px;
 }
 .APP_CANVAS {
-	top: 0px;
+	top: 20px;
 	left: 0px;
 	z-index: 0;
 	width: 100%;
-	height: 100%;
 	overflow: hidden;
 	position: absolute;
-	background-color: #000;
+	background-color: #0000;
+	height: calc(100% - 20px);
+	border-radius: 0px 0px 6px 6px;
 	background-image: linear-gradient(180deg, #000019, #002);
 }
 .APP_MENU {
@@ -137,20 +217,19 @@ label {
 	background-color: #0000;
 	transition-duration: 1.1s;
 	backdrop-filter: blur(6px);
-	box-shadow: 0px 0px 10px #000;
 	transition-timing-function: cubic-bezier(0,1,0,1);
 	background-image: linear-gradient(180deg, #706099aa, #3e2e67aa);
 }
 .MENU_TOP {
 	top: 0px;
-	left: 10px;
+	left: 0px;
 	height: 0px;
 	display: flex;
 	flex-wrap: nowrap;
 	align-items: center;
-	width: calc(100% - 216px);
+	width: calc(100% - 196px);
 	justify-content: flex-start;
-	border-radius: 0px 0px 8px 8px;
+	border-radius: 0px 0px 0px 8px;
 }
 .MENU_TOP_BG {
 	top: 0px;
@@ -168,11 +247,10 @@ label {
 	right: 0px;
 	width: 0px;
 	height: 100%;
-	overflow: hidden;
+	overflow: scroll;
 	padding-top: 10px;
 	text-align: center;
 	padding-bottom: 10px;
-	box-shadow: 0px 0px 10px #000;
 }
 .APP_MAP_CANVAS {
 	z-index: 1;
@@ -209,9 +287,10 @@ label {
 	background-image: linear-gradient(180deg, #00642f, #0a0);
 }
 .RT {
+	height: 38px;
 	display: flex;
 	overflow: hidden;
-	min-height: 38px;
+	max-height: 38px;
 	flex-wrap: nowrap;
 	align-items: center;
 	flex-direction: row;
@@ -285,13 +364,6 @@ label {
 .RE3_CAPTURE_ICON_ON {
 	box-shadow: 0px 0px 6px #0f06;
 	background-image: linear-gradient(180deg, #0e0, #090);
-}
-
-/*
-	Options
-*/
-.BTN_OPTIONS {
-	width: calc(100% - 20px);
 }
 
 /*
