@@ -103,6 +103,9 @@ temp_GAMEHOOK = {
 			document.getElementById('BTN_RUN_GAME').disabled = '';
 		}
 
+		// Open right menu
+		APP.options.toggleRightMenu('open');
+
 		// Reset spawn variable
 		APP.spawnProcess = void 0;
 
