@@ -115,6 +115,7 @@ temp_OPTIONS = {
 				// Update app drag bar and canvas
 				TMS.css('APP_DRAG_BAR', {'display': 'flex'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'flex'});
+				TMS.css('MENU_TOP_BG', {'width': 'calc(100% - 196px)'});
 				TMS.css('APP_CANVAS', {
 					'top': '20px',
 					'height': 'calc(100% - 20px)',
@@ -161,6 +162,7 @@ temp_OPTIONS = {
 				});
 
 				// Hide right menu
+				TMS.css('MENU_TOP_BG', {'width': '100%'});
 				TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'block'});
 				TMS.css('MENU_TOP', {'width': '100%', 'border-bottom-right-radius': '6px'});
 				TMS.css('MENU_RIGHT', {'width': '0px', 'filter': 'blur(20px)', 'opacity': '0'});

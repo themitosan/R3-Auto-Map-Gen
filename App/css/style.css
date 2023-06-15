@@ -235,7 +235,6 @@ label {
 .MENU_TOP_BG {
 	top: 0px;
 	left: 0px;
-	width: 100%;
 	z-index: 90;
 	height: 30px;
 	cursor: help;
@@ -243,6 +242,7 @@ label {
 	app-region: drag;
 	position: absolute;
 	background-color: #200;
+	width: calc(100% - 196px);
 }
 .MENU_RIGHT {
 	top: 0px;
