@@ -119,7 +119,9 @@ temp_OPTIONS = {
 					'top': '20px',
 					'height': 'calc(100% - 20px)',
 					'border-top-left-radius': '0px',
-					'border-top-right-radius': '0px'
+					'border-top-right-radius': '0px',
+					'border-bottom-left-radius': '6px',
+					'border-bottom-right-radius': '6px',
 				});
 
 				// Return right menu
@@ -152,8 +154,10 @@ temp_OPTIONS = {
 				TMS.css('APP_CANVAS', {
 					'top': '0px',
 					'height': '100%',
-					'border-top-left-radius': '6px',
-					'border-top-right-radius': '6px'
+					'border-top-left-radius': '10px',
+					'border-top-right-radius': '10px',
+					'border-bottom-left-radius': '10px',
+					'border-bottom-right-radius': '10px',
 				});
 
 				// Hide right menu
@@ -209,7 +213,7 @@ temp_OPTIONS = {
 		document.getElementById('APP_MAP_CANVAS').onmousedown = null;
 
 		// Reset HTML
-		document.getElementById('APP_MAP_CANVAS').innerHTML = '';
+		document.getElementById('APP_MAP_CANVAS').innerHTML = '<div class="APP_MAP_CANVAS_BG" id="APP_MAP_CANVAS_BG"></div>';
 		TMS.css('APP_MAP_CANVAS', {'top': '-50000px', 'left': '-50000px'});
 
 	},

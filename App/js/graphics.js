@@ -695,10 +695,14 @@ temp_GRAPHICS = {
 
 				// Calc new pos.
 				nextX = parseFloat(roomData.x - (((window.innerWidth / 2) - playerRect.width / 2) - menuRightPos.width / 2)),
-				nextY = parseFloat(roomData.y - ((window.innerHeight / 2) - playerRect.height / 2));
+				nextY = parseFloat(roomData.y - ((window.innerHeight / 2) - playerRect.height / 2)),
 
-			// Update canvas position
-			TMS.css('APP_MAP_CANVAS', {'left': `${APP.tools.parsePolarity(nextX)}px`, 'top': `${APP.tools.parsePolarity(nextY)}px`});
+				// Fix polarity
+				finalX = APP.tools.parsePolarity(nextX),
+				finalY = APP.tools.parsePolarity(nextY);
+
+			// Update canvas
+			TMS.css('APP_MAP_CANVAS', {'left': `${finalX}px`, 'top': `${finalY}px`});
 
 		}
 
@@ -714,12 +718,14 @@ temp_GRAPHICS = {
 		switch (APP.graphics.enableCanvasDrag){
 
 			case !1:
+				TMS.css('APP_MAP_CANVAS_BG', {'transition-duration': '0s', 'transition-timing-function': 'cubic-bezier(0,0,1,1)'});
 				TMS.css('APP_MAP_CANVAS', {'cursor': 'move', 'transition-duration': '0s'});
 				APP.graphics.enableDrag('APP_MAP_CANVAS');
 				APP.graphics.enableCanvasDrag = !0;
 				break;
 
 			case !0:
+				TMS.css('APP_MAP_CANVAS_BG', {'transition-duration': '1s', 'transition-timing-function': 'cubic-bezier(0,1,0,1)'});
 				TMS.css('APP_MAP_CANVAS', {'cursor': 'auto', 'transition-duration': '1s'});
 				document.getElementById('APP_MAP_CANVAS').onmousedown = null;
 				if (pos !== -1){

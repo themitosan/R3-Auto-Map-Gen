@@ -240,6 +240,7 @@ label {
 	height: 30px;
 	cursor: help;
 	display: none;
+	app-region: drag;
 	position: absolute;
 	background-color: #200;
 }
@@ -264,7 +265,20 @@ label {
 	position: absolute;
 	background-color: #200;
 	transition-duration: 1s;
-	box-shadow: 0px 0px 0px 2px #f00 inset;
+	box-shadow: 0px 0px 0px 10px #f00 inset;
+	transition-timing-function: cubic-bezier(0,1,0,1);
+}
+.APP_MAP_CANVAS_BG {
+	z-index: 1;
+	width: 100%;
+	height: 100%;
+	opacity: 0.12;
+	filter: blur(2px);
+	position: absolute;
+	background-size: 50px;
+	transition-duration: 1s;
+	background-repeat: repeat;
+	background-image: url('../img/plus.webp');
 	transition-timing-function: cubic-bezier(0,1,0,1);
 }
 .DIV_ROOM {
