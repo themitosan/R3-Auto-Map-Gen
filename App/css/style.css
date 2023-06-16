@@ -112,6 +112,7 @@ label {
 	position: absolute;
 	align-items: center;
 	justify-content: center;
+	transition-duration: 1.1s;
 	backdrop-filter: blur(4px);
 	border-top-right-radius: 10px;
 	background-image: linear-gradient(180deg, #7c55e1aa, #706099aa);

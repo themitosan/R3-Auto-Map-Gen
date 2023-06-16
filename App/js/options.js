@@ -99,6 +99,9 @@ temp_OPTIONS = {
 	// Toggle right menu
 	toggleRightMenu: function(mode){
 
+		// Declare variables
+		var dragBarCss;
+
 		switch (mode){
 
 			case 'open':
@@ -123,8 +126,14 @@ temp_OPTIONS = {
 				TMS.css('MENU_RIGHT', {'display': 'block'});
 
 				// Update app drag bar and canvas
-				TMS.css('APP_DRAG_BAR', {'display': 'flex'});
-				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'flex'});
+				dragBarCss = {
+					'opacity': '1',
+					'height': '20px',
+					'filter': 'blur(0px)',
+					'transition-duration': '0.1s'
+				};
+				TMS.css('APP_DRAG_BAR', dragBarCss);
+				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
 				TMS.css('MENU_TOP_BG', {
 					'top': '20px',
 					'app-region': 'none',
@@ -166,8 +175,14 @@ temp_OPTIONS = {
 				APP.graphics.displayTopMsg('INFO - Use [ Ctrl+Shift+Q ] shorcut to open right menu again.', 5500);
 
 				// Update app drag bar and canvas
-				TMS.css('APP_DRAG_BAR', {'display': 'none'});
-				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'none'});
+				dragBarCss = {
+					'opacity': '0',
+					'height': '0px',
+					'filter': 'blur(50px)',
+					'transition-duration': '1s'
+				};
+				TMS.css('APP_DRAG_BAR', dragBarCss);
+				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
 
 				// Hide right menu
 				TMS.css('MENU_TOP', {
