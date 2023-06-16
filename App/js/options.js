@@ -116,6 +116,9 @@ temp_OPTIONS = {
 				// Disable span tag as app drag
 				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: none;}';
 
+				// Update top label message
+				APP.graphics.updateGuiLabel();
+
 				// Update display mode
 				TMS.css('MENU_RIGHT', {'display': 'block'});
 
@@ -230,6 +233,13 @@ temp_OPTIONS = {
 		// Reset HTML
 		document.getElementById('APP_MAP_CANVAS').innerHTML = '<div class="APP_MAP_CANVAS_BG" id="APP_MAP_CANVAS_BG"></div>';
 		TMS.css('APP_MAP_CANVAS', {'top': '-50000px', 'left': '-50000px'});
+
+		// Check background color status
+		APP.tools.createTimeout('checkCanvasGridOpacity', function(){
+			if (APP.graphics.disableCanvasBgColor === !1){
+				TMS.css('APP_MAP_CANVAS_BG', {'opacity': '0.12'});
+			}
+		}, 50);
 
 	},
 
