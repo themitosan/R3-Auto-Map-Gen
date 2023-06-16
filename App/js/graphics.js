@@ -74,8 +74,9 @@ temp_GRAPHICS = {
 		if (this.skipUpdateGuiLabel === !1){
 
 			var cMap = '',
+				labelDragMessage = '',
 				gameRunningStatus = '',
-				canvasDragStatus = 'INACTIVE',
+				canvasDragStatus = 'OFF',
 				lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
 
 			// Reset top menu
@@ -91,12 +92,17 @@ temp_GRAPHICS = {
 
 			// Check canvas drag status
 			if (this.enableCanvasDrag === !0){
-				canvasDragStatus = 'ACTIVE';
+				canvasDragStatus = 'ON';
+			}
+
+			// Check if right menu is closed
+			if (APP.options.isMenuRightClosed === !1){
+				labelDragMessage = ' [ You can use this label to drag app window ]';
 			}
 
 			// Set label strings
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
-			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is ${canvasDragStatus}`;
+			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
 
 		}
 
@@ -750,6 +756,7 @@ temp_GRAPHICS = {
 			case !0:
 				TMS.css('APP_MAP_CANVAS', {'background-color': '#0000'});
 				TMS.css('MENU_TOP_BG', {'background-color': '#0000'});
+				TMS.css('APP_MAP_CANVAS_BG', {'opacity': '0.12'});
 				APP.graphics.disableCanvasBgColor = !1;
 				break;
 
@@ -757,6 +764,7 @@ temp_GRAPHICS = {
 			case !1:
 				TMS.css('APP_MAP_CANVAS', {'background-color': '#200'});
 				TMS.css('MENU_TOP_BG', {'background-color': '#200'});
+				TMS.css('APP_MAP_CANVAS_BG', {'opacity': '0'});
 				APP.graphics.disableCanvasBgColor = !0;
 				break;
 

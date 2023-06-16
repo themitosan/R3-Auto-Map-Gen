@@ -12,6 +12,7 @@ temp_OPTIONS = {
 	hideTopMenu: !1,
 	alwaysOnTop: !1,
 	isMapLoading: !1,
+	isMenuRightClosed: !1,
 	bioRandObjectives: {
 		reset: !1,
 		current: null,
@@ -109,26 +110,32 @@ temp_OPTIONS = {
 					'hideOpenButton'
 				]);
 
+				// Disable isMenuRightClosed flag
+				APP.options.isMenuRightClosed = !0;
+
+				// Disable span tag as app drag
+				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: none;}';
+
 				// Update display mode
 				TMS.css('MENU_RIGHT', {'display': 'block'});
 
 				// Update app drag bar and canvas
 				TMS.css('APP_DRAG_BAR', {'display': 'flex'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'flex'});
-				TMS.css('MENU_TOP_BG', {'width': 'calc(100% - 196px)'});
-				TMS.css('APP_CANVAS', {
+				TMS.css('MENU_TOP_BG', {
 					'top': '20px',
-					'height': 'calc(100% - 20px)',
-					'border-top-left-radius': '0px',
-					'border-top-right-radius': '0px',
-					'border-bottom-left-radius': '6px',
-					'border-bottom-right-radius': '6px',
+					'app-region': 'none',
+					'width': 'calc(100% - 196px)'
 				});
 
 				// Return right menu
 				APP.tools.createTimeout('returnRightMenu', function(){
+					TMS.css('MENU_TOP', {
+						'top': '20px',
+						'width': 'calc(100% - 196px)',
+						'border-bottom-right-radius': '0px'
+					});
 					TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'opacity': '1'});
-					TMS.css('MENU_TOP', {'width': 'calc(100% - 196px)', 'border-bottom-right-radius': '0px'});
 					TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'none', 'opacity': '0', 'filter': 'blur(20px) opacity(0)', 'right': '2px'});
 				}, 100);
 
@@ -146,25 +153,31 @@ temp_OPTIONS = {
 					'updatePlayerPos'					
 				]);
 
+				// Enable isMenuRightClosed flag
+				APP.options.isMenuRightClosed = !1;
+
+				// Enable span tag as app drag
+				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: drag;}';
+
 				// Display message
 				APP.graphics.displayTopMsg('INFO - Use [ Ctrl+Shift+Q ] shorcut to open right menu again.', 5500);
 
 				// Update app drag bar and canvas
 				TMS.css('APP_DRAG_BAR', {'display': 'none'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', {'display': 'none'});
-				TMS.css('APP_CANVAS', {
-					'top': '0px',
-					'height': '100%',
-					'border-top-left-radius': '10px',
-					'border-top-right-radius': '10px',
-					'border-bottom-left-radius': '10px',
-					'border-bottom-right-radius': '10px',
-				});
 
 				// Hide right menu
-				TMS.css('MENU_TOP_BG', {'width': '100%'});
+				TMS.css('MENU_TOP', {
+					'top': '0px',
+					'width': '100%',
+					'border-bottom-right-radius': '10px'
+				});
+				TMS.css('MENU_TOP_BG', {
+					'top': '0px',
+					'width': '100%',
+					'app-region': 'drag'
+				});
 				TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'block'});
-				TMS.css('MENU_TOP', {'width': '100%', 'border-bottom-right-radius': '6px'});
 				TMS.css('MENU_RIGHT', {'width': '0px', 'filter': 'blur(20px)', 'opacity': '0'});
 
 				// Show back button
