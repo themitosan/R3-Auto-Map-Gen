@@ -445,6 +445,21 @@ label {
 }
 
 /*
+	Settings for window sizes
+*/
+@media only screen and (max-width: 720px){
+
+	.BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, #RE3_CAPTURE_ICON {
+		display: none;
+	}
+
+	.MENU_TOP {
+		justify-content: center;
+	}
+
+}
+
+/*
 	Misc.
 */
 .none {
