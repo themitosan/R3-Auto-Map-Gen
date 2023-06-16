@@ -277,8 +277,6 @@ temp_GRAPHICS = {
 		// Update labels
 		this.updateGuiLabel();
 
-		console.table(this.addedMaps);
-
 	},
 
 	// Check for map distances
