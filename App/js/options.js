@@ -111,7 +111,7 @@ temp_OPTIONS = {
 				]);
 
 				// Disable isMenuRightClosed flag
-				APP.options.isMenuRightClosed = !0;
+				APP.options.isMenuRightClosed = !1;
 
 				// Disable span tag as app drag
 				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: none;}';
@@ -157,7 +157,7 @@ temp_OPTIONS = {
 				]);
 
 				// Enable isMenuRightClosed flag
-				APP.options.isMenuRightClosed = !1;
+				APP.options.isMenuRightClosed = !0;
 
 				// Enable span tag as app drag
 				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: drag;}';

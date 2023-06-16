@@ -9,6 +9,7 @@ temp_GRAPHICS = {
 		Variables
 	*/
 	zIndexMap: 10,
+	currentMap: 0,
 	addedMaps: {},
 	addedLines: {},
 	xFarestMap: '',
@@ -96,7 +97,7 @@ temp_GRAPHICS = {
 			}
 
 			// Check if right menu is closed
-			if (APP.options.isMenuRightClosed === !1){
+			if (APP.options.isMenuRightClosed === !0){
 				labelDragMessage = ' [ You can use this label to drag app window ]';
 			}
 
@@ -251,7 +252,7 @@ temp_GRAPHICS = {
 			APP.graphics.zIndexMap++;
 
 			// Push selected map to list
-			APP.graphics.addedMaps[mapName] = {x: posX, y: posY, doors: []};
+			APP.graphics.addedMaps[mapName] = {x: posX, y: posY, mapId: APP.graphics.currentMap, doors: []};
 
 			/*
 				If map file isn't loading and there's a map parent, check if spawn position is over any other map
@@ -275,6 +276,8 @@ temp_GRAPHICS = {
 
 		// Update labels
 		this.updateGuiLabel();
+
+		console.table(this.addedMaps);
 
 	},
 
