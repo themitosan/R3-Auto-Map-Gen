@@ -98,7 +98,7 @@ label {
 	backdrop-filter: blur(4px);
 	border-radius: 10px 0px 0px 0px;
 	text-shadow: 2px 2px 2.8px #000a;
-	background-image: linear-gradient(180deg, #7c55e1aa, #706099aa);
+	background-image: linear-gradient(180deg, #967fcfaa, #706099aa);
 }
 .APP_DRAG_BAR_ACTIONS {
 	top: 0px;
@@ -115,7 +115,7 @@ label {
 	transition-duration: 1.1s;
 	backdrop-filter: blur(4px);
 	border-top-right-radius: 10px;
-	background-image: linear-gradient(180deg, #7c55e1aa, #706099aa);
+	background-image: linear-gradient(180deg, #967fcfaa, #706099aa);
 }
 
 /*

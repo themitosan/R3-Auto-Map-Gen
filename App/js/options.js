@@ -473,7 +473,7 @@ temp_OPTIONS = {
 			exeName: 'BIOHAZARD(R) 3 PC.exe'
 		},
 		currentGame: 'bio3',
-		bgGradientColor: ['#26008728', '#000048C4']
+		bgGradientColor: ['#00004650', '#00004650']
 	},
 
 	// Load app settings
