@@ -22,7 +22,7 @@ temp_GRAPHICS = {
 
 	/*
 		Functions
-	*/	
+	*/
 
 	// Toggle hide top menu on quick-save
 	togglehideTopMenu: function(){
@@ -72,17 +72,27 @@ temp_GRAPHICS = {
 	updateGuiLabel: function(){
 
 		// Check if can update GUI labels
-		if (this.skipUpdateGuiLabel === !1){
+		if (APP.graphics.skipUpdateGuiLabel === !1){
 
 			var cMap = '',
 				labelDragMessage = '',
 				gameRunningStatus = '',
 				canvasDragStatus = 'OFF',
-				lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
+				bioRandSeedName = 'Unknown',
+				cGame = APP.options.settingsData.currentGame,
+				checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked,
+				lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
+				seedFile = `${APP.options.settingsData[cGame].gamePath}/mod_biorand/description.txt`;
 
 			// Reset top menu
 			if (APP.options.hideTopMenu === !1){
 				TMS.css('MENU_TOP', {'height': '30px'});
+			}
+
+			// Check if "is BioRand" active
+			if (checkBioRand === !0 && APP.fs.existsSync(seedFile) === !0){
+				const randDesc = APP.fs.readFileSync(seedFile, 'utf8');
+				bioRandSeedName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 			}
 
 			// Check if latest map exists and if game is running
@@ -103,6 +113,7 @@ temp_GRAPHICS = {
 
 			// Set label strings
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
+			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
 
 		}
@@ -606,6 +617,12 @@ temp_GRAPHICS = {
 				APP.graphics.updateLines(domName);
 			}
 
+			// Update map label pos
+			if (domName === 'APP_MAP_CANVAS'){
+				document.getElementById('LABEL_map_X').innerHTML = APP.tools.parsePolarity(parseInt(finalX));
+				document.getElementById('LABEL_map_Y').innerHTML = APP.tools.parsePolarity(parseInt(finalY));
+			}
+
 		}
 
 		// Stop drag event
@@ -711,6 +728,10 @@ temp_GRAPHICS = {
 			// Update canvas
 			TMS.css('APP_MAP_CANVAS', {'left': `${finalX}px`, 'top': `${finalY}px`});
 
+			// Update map label pos.
+			document.getElementById('LABEL_map_X').innerHTML = parseInt(nextX);
+			document.getElementById('LABEL_map_Y').innerHTML = parseInt(nextY);
+
 		}
 
 	},
@@ -763,10 +784,37 @@ temp_GRAPHICS = {
 
 			// Disable background color
 			case !1:
+				
+				// Disable top info
+				APP.options.showGameData = !1;
+				document.getElementById('CHECKBOX_showGameData').checked = !1;
+				APP.graphics.toggleShowGameData();
+
 				TMS.css('APP_MAP_CANVAS', {'background-color': '#200'});
 				TMS.css('MENU_TOP_BG', {'background-color': '#200'});
 				TMS.css('APP_MAP_CANVAS_BG', {'opacity': '0'});
 				APP.graphics.disableCanvasBgColor = !0;
+				break;
+
+		}
+
+	},
+
+	// Toggle show game data
+	toggleShowGameData: function(){
+
+		// Get status
+		const getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
+		localStorage.setItem('showGameData', getShowGameData);
+
+		switch (getShowGameData) {
+
+			case !0:
+				TMS.css('APP_GAME_DATA', {'opacity': '1'});
+				break;
+
+			case !1:
+				TMS.css('APP_GAME_DATA', {'opacity': '0'});
 				break;
 
 		}

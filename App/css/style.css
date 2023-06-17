@@ -186,6 +186,20 @@ label {
 /*
 	Main divs
 */
+.APP_GAME_DATA {
+	top: 60px;
+	left: 10px;
+	z-index: 2;
+	opacity: 0;
+	width: auto;
+	padding: 10px;
+	position: absolute;
+	border-radius: 10px;
+	transition-duration: 0.2s;
+	backdrop-filter: blur(4px);
+	background-color: #706099aa;
+	text-shadow: 2px 2px 2.8px #000a;
+}
 .DIV_CHECKBOX {
     display: flex;
     text-align: left;
@@ -397,6 +411,15 @@ label {
 }
 
 /*
+	Labels
+*/
+.LABEL_appGameData {
+	left: 124px;
+	cursor: auto;
+	position: sticky;
+}
+
+/*
 	Animations
 */
 @keyframes PLAYER_PRESENT {
@@ -447,7 +470,7 @@ label {
 /*
 	Settings for window sizes
 */
-@media only screen and (max-width: 720px){
+@media only screen and (max-width: 800px){
 
 	.BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, #RE3_CAPTURE_ICON {
 		display: none;

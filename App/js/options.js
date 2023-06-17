@@ -12,6 +12,7 @@ temp_OPTIONS = {
 	hideTopMenu: !1,
 	alwaysOnTop: !1,
 	isMapLoading: !1,
+	showGameData: !1,
 	isMenuRightClosed: !1,
 	bioRandObjectives: {
 		reset: !1,
@@ -167,6 +168,11 @@ temp_OPTIONS = {
 
 				// Enable isMenuRightClosed flag
 				APP.options.isMenuRightClosed = !0;
+
+				// Hide game data info
+				APP.options.showGameData = !1;
+				document.getElementById('CHECKBOX_showGameData').checked = !1;
+				APP.graphics.toggleShowGameData();
 
 				// Enable span tag as app drag
 				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: drag;}';
@@ -538,7 +544,8 @@ temp_OPTIONS = {
 		*/
 		const lStorageSettingsList = [
 			'hideTopMenu',
-			'alwaysOnTop'
+			'alwaysOnTop',
+			'showGameData'
 		].forEach(function(cSettings){
 
 			// Check if settings exists
@@ -561,8 +568,10 @@ temp_OPTIONS = {
 		});
 
 		// Process post loading settings
+		APP.graphics.toggleShowGameData();
 		APP.graphics.togglehideTopMenu();
 		APP.options.toggleAlwaysOnTop();
+		APP.graphics.updateGuiLabel();
 		APP.graphics.updateBgColor();
 
 	},

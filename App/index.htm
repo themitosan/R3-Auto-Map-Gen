@@ -87,7 +87,7 @@
 
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_isBioRand">
-					<label title="Set this checkbox active if you are playing BioRand mod." for="CHECKBOX_isBioRand"> - Is BioRand?</label>
+					<label title="Set this checkbox active if you are playing BioRand mod." onclick="APP.tools.processCheckbox('CHECKBOX_isBioRand', APP.graphics.updateGuiLabel);"> - Is BioRand?</label>
 				</div>
 
 				<div class="DIV_CHECKBOX">
@@ -98,6 +98,11 @@
 				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_alwaysOnTop">
 					<label title="Set this checkbox active to make this window always at top." onclick="APP.tools.processCheckbox('CHECKBOX_alwaysOnTop', APP.options.toggleAlwaysOnTop);"> - Always on top</label>
+				</div>
+
+				<div class="DIV_CHECKBOX">
+					<input type="checkbox" id="CHECKBOX_showGameData">
+					<label title="Set this checkbox active to make this window always at top." onclick="APP.tools.processCheckbox('CHECKBOX_showGameData', APP.graphics.toggleShowGameData);"> - Show top info</label>
 				</div>
 
 				<input type="button" value="[F1] About" onclick="APP.about();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
@@ -122,6 +127,13 @@
 					objective
 				</div>
 
+			</div>
+
+			<!-- Game data -->
+			<div class="APP_GAME_DATA" id="APP_GAME_DATA">
+				BioRand Seed: <span class="LABEL_appGameData" id="LABEL_bioRandSeed">Unknown</span><br>
+				Map X: <span class="LABEL_appGameData" id="LABEL_map_X">50000</span><br>
+				Map Y: <span class="LABEL_appGameData" id="LABEL_map_Y">50000</span>
 			</div>
 
 			<!-- Map Canvas -->
