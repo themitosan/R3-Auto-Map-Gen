@@ -1,9 +1,11 @@
 <h1 align="center">
     <img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/App/img/icon.png?raw=true" alt="R3_auto_map_gen_icon" title="R3 Auto Map Gen." width="200"/>
-  <br>R3 Auto Map Gen.
+    <br>R3 Auto Map Gen.<br>
+    <p align="center">
+        <img alt="license" src="https://img.shields.io/github/license/themitosan/R3-Auto-Map-Gen">
+        <img alt="workflow_status" src="https://img.shields.io/github/actions/workflow/status/themitosan/R3-Auto-Map-Gen/main.yaml?style=plastic">
+    </p>
 </h1>
-
-![GitHub Workflow Status](https://img.shields.io/github/actions/workflow/status/themitosan/R3-Auto-Map-Gen/main.yaml?style=plastic)
   
 This app creates an node-conected map on the go for Resident Evil 3 classic.
 
