@@ -75,8 +75,8 @@ module.exports = {
 				'ProductShortName': packageJson.name,
 				'CompanyShortName': packageJson.author,
 				'FileDescription': packageJson.description,
-				'LegalCopyright': '2023, ' + date.getFullYear() + ' - TemmieHeartz',
-				'FileVersion': 'Ver. ' + packageJson.version + ', nwjs: ' + nwVersion
+				'FileVersion': 'Ver. ' + packageJson.version + ', nwjs: ' + nwVersion,
+				'LegalCopyright': '2023, ' + date.getFullYear() + ' - TheMitoSan (TemmieHeartz)'
 			}
 
 		});
