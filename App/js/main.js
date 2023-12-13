@@ -51,6 +51,13 @@ const APP = {
 
 			switch (evt.key){
 
+				// Debug: Reload app
+				case 'F5':
+					if (disableGlobal === !0){
+						location.reload(!0);
+					}
+					break;
+
 				case 'F1':
 					APP.about();
 					break;
@@ -241,6 +248,9 @@ const APP = {
 
 			// Set window actions
 			APP.graphics.startWinActions();
+
+			// Alternate graphics
+			APP.graphics.toggleBgColor();
 
 			// Display menus
 			setTimeout(function(){

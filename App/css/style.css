@@ -284,6 +284,7 @@ label {
 	height: 100000px;
 	overflow: hidden;
 	position: absolute;
+	border-radius: 100px;
 	background-color: #200;
 	transition-duration: 1s;
 	box-shadow: 0px 0px 0px 10px #f00 inset;
@@ -421,6 +422,7 @@ label {
 	left: 124px;
 	cursor: auto;
 	position: sticky;
+	user-select: all;
 }
 
 /*
