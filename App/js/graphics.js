@@ -723,7 +723,7 @@ temp_GRAPHICS = {
 				},
 
 				// Calc new pos.
-				nextX = parseFloat(roomData.x - ((window.innerWidth / 2) - playerRect.width / 2) - menuRightPos.width / 2),
+				nextX = parseFloat(roomData.x - (((window.innerWidth / 2) - playerRect.width / 2) - menuRightPos.width / 2)),
 				nextY = parseFloat(roomData.y - (window.innerHeight / 2) - playerRect.height / 2),
 
 				// Fix polarity
