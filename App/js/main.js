@@ -51,6 +51,13 @@ const APP = {
 
 			switch (evt.key){
 
+				// Debug: Reload app
+				case 'F5':
+					if (disableGlobal === !0){
+						location.reload(!0);
+					}
+					break;
+
 				case 'F1':
 					APP.about();
 					break;
@@ -226,20 +233,17 @@ const APP = {
 			APP.childProcess = require('child_process');
 			APP.memoryjs = require(`${APP.pathPrefix}node_modules/memoryjs`);
 
-			// Reset chdir
+			// Reset chdir and enable start
 			process.chdir(APP.tools.fixPath(APP.path.parse(process.execPath).dir));
-
-			// Enable start
 			document.getElementById('BTN_START').disabled = '';
 			document.getElementById('BTN_START').focus();
 
-			// Start keyboard shortcuts
+			// Start keyboard shortcuts and alternate BG
 			APP.startKbShortcuts(startKbDevMode);
+			APP.graphics.toggleBgColor();
 
-			// Load settings
+			// Load settings and set window actions
 			APP.options.loadSettings();
-
-			// Set window actions
 			APP.graphics.startWinActions();
 
 			// Display menus
