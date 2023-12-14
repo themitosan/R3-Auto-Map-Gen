@@ -163,27 +163,40 @@ temp_GAMEHOOK = {
 				}
 			});
 
+		// Check if process was found
 		if (gProcess.length !== 0){
 
 			try {
 
-				// Get memory positions and read
+				// Get memory positions and read data
 				var memoryData = APP.options.settingsData[cGame],
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
 					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`;
 
+				console.info(`${cStage}\n${APP.gameHook.read(memoryData.room, 2, 'hex')}`);
+
+				// Reset conditions
+				const resetConditions = [
+
+					// Bio 1
+					cGame === 'bio1' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1] === 'R100',
+
+					// Bio 3
+					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1
+
+				];
+
 				// Check if needs to reset current map
-				if (APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1){
+				if (resetConditions.indexOf(!0) !== -1){
 					APP.options.resetMap();
 				}
 
 				// Check if latest map is the current one
 				if (this.mapHistory[(this.mapHistory.length - 1)] !== cMap){
 
+					// Push room to map
 					APP.gameHook.mapHistory.push(cMap);
 					const mHistory = APP.gameHook.mapHistory;
-
-					// Push room to map
 					APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)]);
 
 					// Update player pos.

@@ -59,7 +59,7 @@ temp_GRAPHICS = {
 	updateCanvasZoom: function(){
 		const cZoom = document.getElementById('OPTION_mapCanvasZoom').value;
 		document.getElementById('LABEL_mapCanvasZoom').innerHTML = cZoom;
-		TMS.css('APP_MAP_CANVAS', {'transform': `scale(${cZoom})`});
+		TMS.css('APP_MAP_CANVAS', {'zoom': `${cZoom}`});
 	},
 
 	// Reset canvas zoom
@@ -152,17 +152,24 @@ temp_GRAPHICS = {
 	pushMap: function(mapName, parent){
 
 		var canAdd = !0,
+			errorReason = '',
 			mList = this.addedMaps,
 			cMap = APP.gameHook.gameData.cMap,
 			distanceFactor = this.distanceFactor;
 
-		// Check if current map was added
+		// Get current game and check if current map was added
+		const cGame = APP.options.settingsData.currentGame;
 		if (document.getElementById(`ROOM_${mapName}`) !== null){
 			canAdd = !1;
 		}
 
 		// Check if current map name was provided
 		if (mapName === void 0){
+			canAdd = !1;
+		}
+
+		// Check if map exists on database
+		if (APP.database[cGame].rdt[mapName] === void 0){
 			canAdd = !1;
 		}
 
@@ -178,9 +185,6 @@ temp_GRAPHICS = {
 				posY = 50050,
 				mapExtraClass = [],
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
-
-			// Get current game
-			const cGame = APP.options.settingsData.currentGame;
 
 			if (parent !== void 0){
 
@@ -282,10 +286,8 @@ temp_GRAPHICS = {
 			
 		}
 
-		// Push line
+		// Push line and update labels
 		APP.graphics.pushLine(parent, mapName);
-
-		// Update labels
 		this.updateGuiLabel();
 
 	},

@@ -290,8 +290,8 @@ temp_OPTIONS = {
 			}
 
 			// Set variables
-			var fileName = 'GAME_MAP',
-				cGame = APP.options.settingsData.currentGame,
+			var cGame = APP.options.settingsData.currentGame,
+				fileName = `${cGame.toUpperCase()}_GAME_MAP`,
 				checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked,
 				randDataPath = `${APP.options.settingsData[cGame].gamePath}/mod_biorand/description.txt`,
 				mPos = {
@@ -318,7 +318,7 @@ temp_OPTIONS = {
 
 					// Write file
 					APP.fs.writeFileSync(APP.options.latestFile, newData, 'utf8');
-					console.info(`Map updated successfully!\n${APP.options.latestFile}`);
+					console.info(`INFO - Map updated successfully!\n${APP.options.latestFile}`);
 
 					// Center map
 					APP.graphics.updatePlayerPos();
@@ -656,13 +656,14 @@ temp_OPTIONS = {
 					pData = APP.path.parse(path),
 					cGame = APP.options.settingsData.currentGame;
 
-				// Set game data
+				// Set game data and create game settings var
 				APP.options.settingsData[cGame].exeName = pData.base;
 				APP.options.settingsData[cGame].gamePath = pData.dir;
+				const cGameSettings = APP.options.settingsData[cGame];
 
 				// Set ram pos.
-				var s = window.prompt('Please insert ram pos. for "Stage":\nExample: 0x00A673C6 for RE3 Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.'),
-					r = window.prompt('Please insert ram pos. for "Room":\nExample: 0x00A673C8 for RE3 Classic REbirth 1.1.0 SourceNext patch.\nYou can leave this box empty to use this value above.');
+				var s = window.prompt(`Please insert ram pos. for \"Stage\":\nExample: \"${cGameSettings.default_stage}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`),
+					r = window.prompt(`Please insert ram pos. for \"Room\":\nExample: \"${cGameSettings.default_room}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`);
 
 				// Check if is for default values
 				if (s === null){
