@@ -38,8 +38,12 @@ _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca
 Also - You can visualize generated files using [R3 Auto Map View](https://themitosan.github.io/R3AMV/) on our browser!
 
 ## Shortcuts
-
 You can find a list with all available shortcuts on `help.txt`.
+
+## How to build
+- Make sure to have latest [node.js](https://nodejs.org/) version installed!
+- Run `npm run build` for common build or `npm run build-debug` for debug build.
+- If everything is okay, binaries will be available on `build/R3 Auto Map Gen/`.
 
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--/)
