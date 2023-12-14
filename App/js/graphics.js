@@ -59,8 +59,7 @@ temp_GRAPHICS = {
 	updateCanvasZoom: function(){
 		const cZoom = document.getElementById('OPTION_mapCanvasZoom').value;
 		document.getElementById('LABEL_mapCanvasZoom').innerHTML = cZoom;
-		TMS.css('APP_MAP_CANVAS', {'zoom': cZoom});
-		this.updatePlayerPos(this.enableCanvasDrag);
+		TMS.css('APP_MAP_CANVAS', {'transform': `scale(${cZoom})`});
 	},
 
 	// Reset canvas zoom
@@ -654,6 +653,7 @@ temp_GRAPHICS = {
 	updateLines: function(roomName){
 
 		const lineList = this.addedLines;
+
 		if (Object.keys(lineList).length !== 0){
 
 			// Get default connected lines
@@ -701,21 +701,16 @@ temp_GRAPHICS = {
 				APP.graphics.toggleDragMapCanvas();
 			}
 
-			// Remove current map class from all maps
 			Object.keys(this.addedMaps).forEach(function(cMap){
 				TMS.removeClass(`ROOM_${cMap}`, 'PLAYER_PRESENT');
 			});
 
-			// Consts
-			const
-				newRoomId = `ROOM_${APP.gameHook.mapHistory.slice(-1)}`,
-				zoomFactor = Number(document.getElementById('OPTION_mapCanvasZoom').value);
+			const newRoomId = `ROOM_${APP.gameHook.mapHistory.slice(-1)}`;
 
-			// Add current map class to new room
+			// Add class
 			TMS.addClass(newRoomId, 'PLAYER_PRESENT');
 
-			const
-				menuRightPos = TMS.getRect('MENU_RIGHT'),
+			const menuRightPos = TMS.getRect('MENU_RIGHT'),
 				playerRect = TMS.getRect(newRoomId),
 				roomData = {
 					x: parseFloat(TMS.getCssData(newRoomId, 'left').replace('px', '')),
@@ -724,7 +719,7 @@ temp_GRAPHICS = {
 
 				// Calc new pos.
 				nextX = parseFloat(roomData.x - (((window.innerWidth / 2) - playerRect.width / 2) - menuRightPos.width / 2)),
-				nextY = parseFloat(roomData.y - (window.innerHeight / 2) - playerRect.height / 2),
+				nextY = parseFloat(roomData.y - ((window.innerHeight / 2) - playerRect.height / 2)),
 
 				// Fix polarity
 				finalX = APP.tools.parsePolarity(nextX),
@@ -734,8 +729,8 @@ temp_GRAPHICS = {
 			TMS.css('APP_MAP_CANVAS', {'left': `${finalX}px`, 'top': `${finalY}px`});
 
 			// Update map label pos.
-			document.getElementById('LABEL_map_X').innerHTML = APP.tools.parsePolarity(finalX);
-			document.getElementById('LABEL_map_Y').innerHTML = APP.tools.parsePolarity(finalY);
+			document.getElementById('LABEL_map_X').innerHTML = parseInt(nextX);
+			document.getElementById('LABEL_map_Y').innerHTML = parseInt(nextY);
 
 		}
 

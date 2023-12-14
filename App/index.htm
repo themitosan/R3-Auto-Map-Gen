@@ -54,7 +54,7 @@
 				<input type="button" value="Close menu" id="BTN_CLOSE_MENU_RIGHT" onclick="APP.options.toggleRightMenu('close');" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM" title="Click here to close this menu">
 
 				Zoom: <span id="LABEL_mapCanvasZoom">1</span><br>
-				<input type="range" min="1" max="4" step="0.01" value="1" id="OPTION_mapCanvasZoom" oninput="APP.graphics.updateCanvasZoom();"><br>
+				<input type="range" min="0.1" max="2" step="0.001" id="OPTION_mapCanvasZoom" oninput="APP.graphics.updateCanvasZoom();"><br>
 				<input type="button" title="Global Shortcut: Ctrl+F8" value="[F8] Reset zoom" onclick="APP.graphics.resetCanvasZoom();" class="BTN_OPTIONS BTN_TOP BTN_BOTTOM">
 				<br><br>
 
@@ -161,8 +161,6 @@
 
 		<!-- App modules -->
 		<div class="none" id="APP_MODULES_AREA">
-
-			<!-- App files -->
 			<script type="text/javascript" src="js/tools.js"></script>
 			<script type="text/javascript" src="js/filemanager.js"></script>
 			<script type="text/javascript" src="js/options.js"></script>
@@ -172,7 +170,6 @@
 
 			<!-- Main Script -->
 			<script type="text/javascript" src="js/main.js"></script>
-
 		</div>
 
 	</body>
