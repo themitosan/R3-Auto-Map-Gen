@@ -401,11 +401,11 @@ temp_TOOLS = {
 		 Fix DOM number
 
 		 data: Object
-		 	domName: 	String 	- DOM ID name
-		 	def: 		Number 	- Default number if data is invalid
-		 	min: 		Number 	- Default number if data is lower than allowed
-		 	max: 		Number 	- Default number if data is higher than allowed
-		 	maxLength 	Number 	- Max characters allowed on input field
+		 	domName: 	String - DOM ID name
+		 	def: 		Number - Default number if data is invalid
+		 	min: 		Number - Default number if data is lower than allowed
+		 	max: 		Number - Default number if data is higher than allowed
+		 	maxLength 	Number - Max characters allowed on input field
 	*/
 	fixDomNumber: function(data){
 
@@ -439,17 +439,17 @@ temp_TOOLS = {
 
 		data: Object
 
-			location: 			Object 		- Define where it should spawn
-				spawnLocation: 	String 		- DOM ID of where it should spawn
-				x: 				Number 		- X Coords of where it should spawn
-				y: 				Number 		- Y Coords of where it should spawn
+			location: 			Object - Define where it should spawn
+				spawnLocation: 	String - DOM ID of where it should spawn
+				x: 				Number - X Coords of where it should spawn
+				y: 				Number - Y Coords of where it should spawn
 
-			title 				String 		- Text to be displayed at top
-			outputMode: 		String 		- Select how it will output data ['rgb' or 'hex']
-			color: 				String 		- Display current color on preview [hex: 00FF00 rgb: rgb(0 255 0)]
-			onOpen: 			Function 	- Action after Color picker is spawned
-			onCancel: 			Function 	- Action if user cancel
-			onApply: 			Function 	- Action if user apply
+			title 				String 	 - Text to be displayed at top
+			outputMode: 		String 	 - Select how it will output data ['rgb' or 'hex']
+			color: 				String 	 - Display current color on preview [hex: 00FF00 rgb: rgb(0 255 0)]
+			onOpen: 			Function - Action after Color picker is spawned
+			onCancel: 			Function - Action if user cancel
+			onApply: 			Function - Action if user apply
 	*/
 	callColorPicker: function(data){
 

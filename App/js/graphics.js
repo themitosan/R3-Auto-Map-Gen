@@ -217,7 +217,7 @@ temp_GRAPHICS = {
 			}
 
 			// Check if current map have item box
-			if (APP.database[cGame].rdt[mapName].haveIconBox === !0){
+			if (APP.database[cGame].rdt[mapName].haveItemBox === !0){
 				mapExtraClass.push('ROOM_ITEM_BOX');
 			}
 

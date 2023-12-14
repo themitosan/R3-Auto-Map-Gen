@@ -455,12 +455,12 @@ temp_OPTIONS = {
 	// Settings data
 	settingsData: {
 		bio1: {
-			room: '',
-			stage: '',
-			exeName: '',
 			gamePath: '',
-			default_room: '',
-			default_stage: ''
+			room: '0x00AA9014',
+			stage: '0x00AA9010',
+			default_room: '0x00AA9014',
+			default_stage: '0x00AA9010',
+			exeName: 'Biohazard.exe'
 		},
 		bio2: {
 			room: '',
