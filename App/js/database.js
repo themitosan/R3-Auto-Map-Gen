@@ -57,7 +57,7 @@ temp_DATABASE = {
 			'R202': {name: 'Dining Room 2F', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R203': {name: 'Mansion Hall 2F', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R204': {name: '2F Red Corridor', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R205': {name: 'Armor Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R205': {name: 'Armor Puzzle Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R206': {name: 'Botany Book (Doll) Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R207': {name: '2F Right Stairs', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R208': {name: 'Deer Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -87,8 +87,8 @@ temp_DATABASE = {
 			'R302': {name: 'Waterfall', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R303': {name: 'Heliport', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !0},
 			'R304': {name: 'Guardhouse Passage', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R305': {name: 'Fountain', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R306': {name: 'Item Passage', location: 'Courtyard B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R305': {name: 'Courtyard Fountain', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R306': {name: 'Doom Book Puzzle', location: 'Courtyard B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R307': {name: 'Ladder Passage', location: 'Courtyard B1', haveItemBox: !1, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R308': {name: 'Branch Passage', location: 'Courtyard B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R309': {name: 'Darkness Passage', location: 'Courtyard B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -117,6 +117,7 @@ temp_DATABASE = {
 			'R40F': {name: 'Plant 42 Roots', location: 'Guardhouse B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R410': {name: 'Arms. Storehouse', location: 'Guardhouse B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R411': {name: 'Control Room', location: 'Guardhouse B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			
 			'R500': {name: 'Under Fountain', location: 'Laboratory B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R501': {name: 'Heliport Passage', location: 'Laboratory B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R502': {name: 'Ladder Room', location: 'Laboratory B2', haveItemBox: !0, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -130,14 +131,14 @@ temp_DATABASE = {
 			'R50A': {name: 'Private Room B', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R50B': {name: 'Cell Corridor', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R50C': {name: 'Elevator Hallway', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R50D': {name: 'Escape Elevator', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R50D': {name: 'Heliport Elevator', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R50E': {name: 'Lab Save Room', location: 'Laboratory B3', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R50F': {name: 'Maze A', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R510': {name: 'Maze B', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R511': {name: 'Engine Room', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R512': {name: 'Cell Room', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R513': {name: 'Tyrant Room', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R514': {name: 'Front of Tyrant', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R513': {name: 'Tyrant Lab', location: 'Laboratory B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R514': {name: 'L Corridor', location: 'Laboratory B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R515': {name: 'B4 Elevator', location: 'Laboratory B3 / B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 
 			'R600': {name: 'Serum Save Room', location: 'Mansion 1F', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
@@ -175,7 +176,7 @@ temp_DATABASE = {
 			'R702': {name: 'Dining Room 2F', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R703': {name: 'Mansion Hall 2F', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R704': {name: '2F Red Corridor', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R705': {name: 'Armor Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R705': {name: 'Armor Puzzle Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R706': {name: 'Botany Book (Doll) Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R707': {name: '2F Right Stairs', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R708': {name: 'Deer Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -199,6 +200,7 @@ temp_DATABASE = {
 			'R71A': {name: 'Under Passage', location: 'Mansion B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R71B': {name: 'Under Passage 2', location: 'Mansion B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R71C': {name: 'B1 Kitchen', location: 'Mansion B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1}
+
 		}
 	},
 
