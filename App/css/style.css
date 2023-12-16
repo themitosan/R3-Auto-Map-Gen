@@ -4,6 +4,31 @@
 */
 
 /*
+    Scrollbar
+*/
+::-webkit-scrollbar {
+    width: 8px;
+    border-radius: 4px;
+	height: calc(100% + 20px);
+}
+::-webkit-scrollbar-track {
+    border-radius: 4px;
+    margin: 6px 0px 14px 0px;
+}
+::-webkit-scrollbar-thumb {
+    border-radius: 4px;
+    background: #7f74a3;
+}
+::-webkit-scrollbar-thumb:hover {
+    border-radius: 4px;
+    background: #8a80a9;
+}
+::-webkit-scrollbar-thumb:active {
+    background: #b9b1d4;
+    border-radius: 4px;
+}
+
+/*
 	HTML Tags
 */
 body {

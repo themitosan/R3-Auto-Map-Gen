@@ -211,11 +211,11 @@ temp_DATABASE = {
 
 			'0000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 
-			'R100': {name: 'Backstreet A', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1},
+			'R100': {name: 'Backstreet (Left)', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1},
 			'R101': {name: 'Kendo\'s gun shop', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R102': {name: 'Basketball Alley', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R103': {name: 'R.P.D. Courtyard', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R104': {name: 'Backstreet B', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1},
+			'R104': {name: 'Backstreet (Right)', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1},
 			'R105': {name: 'R.P.D. Back', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R106': {name: 'R.P.D. Cabin', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R107': {name: 'R.P.D. East', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -344,6 +344,7 @@ temp_DATABASE = {
 			'R704': {name: 'Galaxie 5000 Cargo Car', location: 'Laboratory B5', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1}
 
 		}
+
 	},
 
 	// BioHazard 3 - Last Escape
@@ -542,6 +543,7 @@ temp_DATABASE = {
 			'R718': {name: '(Merc) Fire Hose Alley', location: 'Uptown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R71A': {name: '(Merc) Parasite Alley4', location: 'Uptown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R71B': {name: '(Merc) Mechanic\'s Office', location: 'Downtown', haveItemBox: !1, saveRoom: !1, gameStart: !1, gameEnd: !1}
+
 		}
 
 	}
