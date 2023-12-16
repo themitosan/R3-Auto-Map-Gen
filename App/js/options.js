@@ -9,6 +9,7 @@ temp_OPTIONS = {
 		Variables
 	*/
 	latestFile: '',
+	enableGrid: !0,
 	hideTopMenu: !1,
 	alwaysOnTop: !1,
 	isMapLoading: !1,
@@ -250,8 +251,8 @@ temp_OPTIONS = {
 		APP.graphics.zIndexMap = 10;
 		APP.graphics.addedMaps = {};
 		APP.graphics.addedLines = {};
-		APP.graphics.xFarestMap = '';
 		APP.gameHook.mapHistory = [];
+		APP.graphics.xFarestMap = '';
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
 		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null },
@@ -280,10 +281,8 @@ temp_OPTIONS = {
 		// Check if there's maps to save
 		if (Object.keys(APP.graphics.addedMaps).length !== 0){
 
-			// Close color picker menu
+			// Close color picker menu and update map locations
 			APP.tools.closeColorPicker();
-
-			// Update map locations
 			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 
 				var top = parseFloat(TMS.getCssData(`ROOM_${cMap}`, 'top').replace('px', '')),
@@ -496,10 +495,8 @@ temp_OPTIONS = {
 	// Load app settings
 	loadSettings: function(){
 
-		// Close color picker menu
+		// Close color picker menu and get file path
 		APP.tools.closeColorPicker();
-
-		// Get file path
 		const fPath = `${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`;
 
 		// Check if save file exists
@@ -554,7 +551,8 @@ temp_OPTIONS = {
 		const lStorageSettingsList = [
 			'hideTopMenu',
 			'alwaysOnTop',
-			'showGameData'
+			'showGameData',
+			'enableGrid'
 		].forEach(function(cSettings){
 
 			// Check if settings exists
@@ -582,6 +580,7 @@ temp_OPTIONS = {
 		APP.options.toggleAlwaysOnTop();
 		APP.graphics.updateGuiLabel();
 		APP.graphics.updateBgColor();
+		APP.graphics.toggleBgGrid();
 
 	},
 

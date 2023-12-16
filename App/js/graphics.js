@@ -790,6 +790,22 @@ temp_GRAPHICS = {
 
 	},
 
+	// Toggle BG grid
+	toggleBgGrid: function(){
+
+		// Create bg var and check if grid is enabled
+		var bgOpacity = 0;
+		APP.options.enableGrid = document.getElementById('CHECKBOX_enableGrid').checked;
+		if (APP.options.enableGrid === !0){
+			bgOpacity = 0.12;
+		}
+
+		// Apply CSS
+		localStorage.setItem('enableGrid', APP.options.enableGrid);
+		TMS.css('APP_MAP_CANVAS_BG', {'opacity': bgOpacity});
+
+	},
+
 	// Toggle canvas bg color
 	toggleBgColor: function(){
 
@@ -799,7 +815,6 @@ temp_GRAPHICS = {
 			case !0:
 				TMS.css('APP_MAP_CANVAS', {'background-color': '#0000'});
 				TMS.css('MENU_TOP_BG', {'background-color': '#0000'});
-				TMS.css('APP_MAP_CANVAS_BG', {'opacity': '0.12'});
 				APP.graphics.disableCanvasBgColor = !1;
 				break;
 
@@ -813,11 +828,13 @@ temp_GRAPHICS = {
 
 				TMS.css('APP_MAP_CANVAS', {'background-color': '#200'});
 				TMS.css('MENU_TOP_BG', {'background-color': '#200'});
-				TMS.css('APP_MAP_CANVAS_BG', {'opacity': '0'});
 				APP.graphics.disableCanvasBgColor = !0;
 				break;
 
 		}
+
+		// Check BG grid
+		this.toggleBgGrid();
 
 	},
 

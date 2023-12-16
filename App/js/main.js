@@ -240,11 +240,11 @@ const APP = {
 
 			// Start keyboard shortcuts and alternate BG
 			APP.startKbShortcuts(startKbDevMode);
-			APP.graphics.toggleBgColor();
 
 			// Load settings and set window actions
 			APP.options.loadSettings();
 			APP.graphics.startWinActions();
+			APP.graphics.toggleBgColor();
 
 			// Display menus
 			setTimeout(function(){
