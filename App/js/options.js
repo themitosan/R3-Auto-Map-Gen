@@ -227,7 +227,17 @@ temp_OPTIONS = {
 
 	// Update current game
 	updateSelectedGame: function(){
-		APP.options.settingsData.currentGame = document.getElementById('SELECT_GAME').value;
+
+		// Get current game, update it's variable and scenario and update gui labels
+		const cGame = document.getElementById('SELECT_GAME').value;
+		APP.options.settingsData.scenario = document.getElementById('SELECT_SCENARIO').value;
+		APP.options.settingsData.currentGame = cGame;
+		APP.graphics.updateGuiLabel();
+
+		// Get current data and check if current game executable is available
+		const cData = APP.options.settingsData;
+		document.getElementById('BTN_RUN_GAME').disabled = APP.fs.existsSync(`${cData[cGame].gamePath}/${cData[cGame].exeName}`) !== !0;
+
 	},
 
 	// Reset map
@@ -458,17 +468,17 @@ temp_OPTIONS = {
 			gamePath: '',
 			room: '0x00AA9014',
 			stage: '0x00AA9010',
+			exeName: 'Biohazard.exe',
 			default_room: '0x00AA9014',
-			default_stage: '0x00AA9010',
-			exeName: 'Biohazard.exe'
+			default_stage: '0x00AA9010'
 		},
 		bio2: {
-			room: '',
-			stage: '',
-			exeName: '',
 			gamePath: '',
-			default_room: '',
-			default_stage: ''
+			room: '0x0098EB16',
+			stage: '0x0098EB14',
+			exeName: 'bio2 1.10.exe',
+			default_room: '0x0098EB16',
+			default_stage: '0x0098EB14'
 		},
 		bio3: {
 			gamePath: '',
@@ -479,6 +489,7 @@ temp_OPTIONS = {
 			exeName: 'BIOHAZARD(R) 3 PC.exe'
 		},
 		currentGame: 'bio3',
+		scenario: 'scenario_a',
 		bgGradientColor: ['#00004650', '#00004650']
 	},
 
@@ -518,10 +529,8 @@ temp_OPTIONS = {
 			Set variables
 		*/
 
-		// Load file
+		// Load file and set current game
 		this.settingsData = tempData;
-		
-		// Set current game
 		document.getElementById('SELECT_GAME').value = this.settingsData.currentGame;
 
 		// Check if game executable exists

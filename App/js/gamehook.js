@@ -37,16 +37,22 @@ temp_GAMEHOOK = {
 	
 				try {
 
-					// Open process
-					APP.gameHook.gameObject = APP.memoryjs.openProcess(exeName);
+					// Disable Enable lists
+					const
+						disableList = [
+							'BTN_START',
+							'SELECT_GAME',
+							'BTN_RUN_GAME',
+							'BTN_SELECT_EXE',
+							'SELECT_SCENARIO'
+						],
+						enableList = ['BTN_STOP'];
 
-					// Update GUI
+					// Open process and update GUI
+					APP.gameHook.gameObject = APP.memoryjs.openProcess(exeName);
 					TMS.addClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
-					document.getElementById('BTN_SELECT_EXE').disabled = 'disabled';
-					document.getElementById('BTN_RUN_GAME').disabled = 'disabled';
-					document.getElementById('SELECT_GAME').disabled = 'disabled';
-					document.getElementById('BTN_START').disabled = 'disabled';
-					document.getElementById('BTN_STOP').disabled = '';
+					APP.graphics.processDisableList(disableList);
+					APP.graphics.processEnableList(enableList);
 					APP.gameHook.gameActive = !0;
 
 					// Check if needs to hide menu
@@ -54,20 +60,16 @@ temp_GAMEHOOK = {
 						TMS.css('MENU_TOP', {'height': '0px'});
 					}
 
-					// Update labels
+					// Update labels, top menu and set interval
 					APP.graphics.updateGuiLabel();
-
-					// Update top menu
 					APP.graphics.togglehideTopMenu();
-					
-					// Set interval
 					APP.gameHook.updateObject = setInterval(function(){
 						APP.gameHook.updateProcess();
 					}, 200);
 
 				} catch (err) {
-					window.alert(`ERROR - Unable to load game process!${err}\nCheck internal log to know more.`);
-					window.alert('IMPORTANT: If you are running the game process from BioRand, Don\'t use \"Start RE3\" button!\n\nInstead, run the game using \"Start Game\" at top-left corner or from explorer.');
+					window.alert(`ERROR - Unable to load game process!\n${err}\n\nCheck internal log to know more.`);
+					window.alert('IMPORTANT: If you are running the game process from BioRand itself, Don\'t use \"Start RE?\" button!\n\nInstead, run the game using \"Start Game\" [CTRL + Shift + R] at top-left corner - or from file explorer.');
 					console.error(err);
 				}
 	
@@ -82,34 +84,27 @@ temp_GAMEHOOK = {
 	// Stop reading game
 	stop: function(){
 
-		// Clear game interval
+		// Clear game interval and create var for GUI
 		clearInterval(this.updateObject);
+		const
+			disableList = ['BTN_STOP'],
+			enableList = [
+				'BTN_START',
+				'SELECT_GAME',
+				'BTN_SELECT_EXE',
+				'SELECT_SCENARIO'
+			];
 
-		// Update buttons
-		document.getElementById('BTN_START').disabled = '';
-		document.getElementById('SELECT_GAME').disabled = '';
-		document.getElementById('BTN_SELECT_EXE').disabled = '';
-		document.getElementById('BTN_STOP').disabled = 'disabled';
-
-		// Reset top menu manually
+		// Update buttons, reset top menu manually and remove on icon
 		TMS.css('MENU_TOP', {'height': '30px'});
-
-		// Remove on icon
+		APP.graphics.processEnableList(enableList);
+		APP.graphics.processDisableList(disableList);
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
 
-		// Check if game executable exists
-		const cGame = APP.options.settingsData.currentGame;
-		if (APP.fs.existsSync(`${APP.options.settingsData[cGame].gamePath}/${APP.options.settingsData[cGame].exeName}`) === !0){
-			document.getElementById('BTN_RUN_GAME').disabled = '';
-		}
-
-		// Open right menu
+		// Update selected game / check if current game exists, open right menu, reset spawn variable and set running flag as false
+		APP.options.updateSelectedGame();
 		APP.options.toggleRightMenu('open');
-
-		// Reset spawn variable
 		APP.spawnProcess = void 0;
-
-		// Set running flag as false
 		this.gameActive = !1;
 
 		// Reset labels
@@ -120,9 +115,8 @@ temp_GAMEHOOK = {
 
 	// Read data
 	read: function(ramPos, limit, mode){
-		
-		var res = '00';
 
+		var res = '00';
 		if (ramPos !== void 0 && this.gameActive === !0){
 			
 			if (limit === void 0 || parseInt(limit) === NaN){
@@ -168,18 +162,22 @@ temp_GAMEHOOK = {
 
 			try {
 
-				// Get memory positions and read data
-				var memoryData = APP.options.settingsData[cGame],
+				// Variables
+				var isBioRandActive = document.getElementById('CHECKBOX_isBioRand').checked,
+					memoryData = APP.options.settingsData[cGame],
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
 					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`;
 
-				console.info(`${cStage}\n${APP.gameHook.read(memoryData.room, 2, 'hex')}`);
+				// console.info(`${cStage}\n${APP.gameHook.read(memoryData.room, 2, 'hex')}`);
 
 				// Reset conditions
 				const resetConditions = [
 
 					// Bio 1
-					cGame === 'bio1' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1] === 'R100',
+					cGame === 'bio1' && isBioRandActive === !1 && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1] === 'R100',
+
+					// Bio 2
+					cGame === 'bio2' && isBioRandActive === !1 && cMap !== 'R104' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
 
 					// Bio 3
 					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1

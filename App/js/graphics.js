@@ -84,9 +84,12 @@ temp_GRAPHICS = {
 				lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
 				seedFile = `${APP.options.settingsData[cGame].gamePath}/mod_biorand/description.txt`;
 
-			// Reset top menu
+			// Reset top menu and update if select scenario should be active (or not)
 			if (APP.options.hideTopMenu === !1){
 				TMS.css('MENU_TOP', {'height': '30px'});
+			}
+			if (APP.gameHook.gameActive === !1){
+				document.getElementById('SELECT_SCENARIO').disabled = APP.options.settingsData.currentGame !== 'bio2';
 			}
 
 			// Check if "is BioRand" active
@@ -123,19 +126,16 @@ temp_GRAPHICS = {
 	// Display top message
 	displayTopMsg: function(msg, timeout){
 
-		// Set skip update label flag as true
+		// Set skip update label flag as true and set GUI
 		this.skipUpdateGuiLabel = !0;
-
-		// Set GUI
 		TMS.css('MENU_TOP', {'height': '30px'});
 
-		// Set labels
+		// Set labels, reset skip label flag and update it after timeout
 		document.getElementById('LABEL_mapDragStatus').innerHTML = msg;
 		document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = '';
-
-		// Reset skip label flag and update it after timeout
 		setTimeout(function(){
 
+			// Set skip update label and call update label function
 			APP.graphics.skipUpdateGuiLabel = !1;
 			APP.graphics.updateGuiLabel();
 
@@ -151,6 +151,7 @@ temp_GRAPHICS = {
 	// Add room to map
 	pushMap: function(mapName, parent){
 
+		// Variables
 		var canAdd = !0,
 			errorReason = '',
 			mList = this.addedMaps,
@@ -184,6 +185,7 @@ temp_GRAPHICS = {
 			var posX = 50000,
 				posY = 50050,
 				mapExtraClass = [],
+				cGameScenario = document.getElementById('SELECT_SCENARIO').value,
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
 			if (parent !== void 0){
@@ -212,7 +214,28 @@ temp_GRAPHICS = {
 
 			// Check if is game end
 			if (APP.database[cGame].rdt[mapName].gameEnd === !0){
-				mapExtraClass.push('GAME_END');
+
+				// Create check var and check if current game isn't RE2
+				var canAddGameEnd = !1;
+				if (cGame !== 'bio2'){
+					canAddGameEnd = !0;
+				}
+
+				// Check if is RE2 and is scenario a
+				if (cGame === 'bio2' && mapName === 'R700' && cGameScenario === 'scenario_a'){
+					canAddGameEnd = !0;
+				}
+
+				// Check if is RE2 and is scenario b
+				if (cGame === 'bio2' && mapName === 'R704' && cGameScenario === 'scenario_b'){
+					canAddGameEnd = !0;
+				}
+
+				// Check if can add
+				if (canAddGameEnd === !0){
+					mapExtraClass.push('GAME_END');
+				}
+
 			}
 
 			// Check if player can save on current map
@@ -263,10 +286,8 @@ temp_GRAPHICS = {
 			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}" class="DIV_ROOM ${mapExtraClass.toString().replace(RegExp(',', 'gi'), ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;">[${mapName}]<br>${APP.database[cGame].rdt[mapName].name}</div>`;
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
-			// Bump map z-index counter
+			// Bump map z-index counter and push selected map to list
 			APP.graphics.zIndexMap++;
-
-			// Push selected map to list
 			APP.graphics.addedMaps[mapName] = {x: posX, y: posY, mapId: APP.graphics.currentMap, doors: []};
 
 			/*
@@ -278,10 +299,8 @@ temp_GRAPHICS = {
 				APP.graphics.checkForMapDistances();
 			} 
 
-			// Enable drag
+			// Enable drag and push map to history
 			APP.graphics.enableDrag(`ROOM_${mapName}`);
-
-			// Push map to history
 			this.addedMapHistory.push({mapName: mapName, parent: parent});			
 			
 		}
@@ -655,7 +674,6 @@ temp_GRAPHICS = {
 	updateLines: function(roomName){
 
 		const lineList = this.addedLines;
-
 		if (Object.keys(lineList).length !== 0){
 
 			// Get default connected lines
@@ -703,15 +721,16 @@ temp_GRAPHICS = {
 				APP.graphics.toggleDragMapCanvas();
 			}
 
+			// Remove present class from all maps and get new room id
 			Object.keys(this.addedMaps).forEach(function(cMap){
 				TMS.removeClass(`ROOM_${cMap}`, 'PLAYER_PRESENT');
 			});
-
 			const newRoomId = `ROOM_${APP.gameHook.mapHistory.slice(-1)}`;
 
 			// Add class
 			TMS.addClass(newRoomId, 'PLAYER_PRESENT');
 
+			// Calculate positions
 			const menuRightPos = TMS.getRect('MENU_RIGHT'),
 				playerRect = TMS.getRect(newRoomId),
 				roomData = {
@@ -809,7 +828,7 @@ temp_GRAPHICS = {
 		const getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
 		localStorage.setItem('showGameData', getShowGameData);
 
-		switch (getShowGameData) {
+		switch (getShowGameData){
 
 			case !0:
 				TMS.css('APP_GAME_DATA', {'opacity': '1'});
@@ -864,13 +883,9 @@ temp_GRAPHICS = {
 				},
 				onApply: function(newColor){
 					
-					// Update color
+					// Update color, save settings and update GUI
 					APP.options.settingsData.bgGradientColor[colorIndex] = `#${newColor}`;
-
-					// Save settings
 					APP.options.saveSettings();
-
-					// Update GUI
 					APP.graphics.updateBgColor();
 
 					// Enable select color gradient buttons
@@ -887,14 +902,10 @@ temp_GRAPHICS = {
 	// Update BG color
 	updateBgColor: function(){
 
-		// Get colors array
+		// Get colors array, update preview icons and update gradient
 		const bgColors = APP.options.settingsData.bgGradientColor;
-
-		// Update preview icons
 		TMS.css('DIV_ICON_PREVIEW_BG_COLOR_TOP', {'background-color': bgColors[0]});
 		TMS.css('DIV_ICON_PREVIEW_BG_COLOR_BOTTOM', {'background-color': bgColors[1]});
-
-		// Update gradient
 		TMS.css('APP_CANVAS', {'background-image': `linear-gradient(180deg, ${bgColors[0]}, ${bgColors[1]})`});
 
 	},
@@ -914,6 +925,20 @@ temp_GRAPHICS = {
 			APP.graphics.updatePlayerPos(!0);
 		});
 
+	},
+
+	// Disable GUI list
+	processDisableList: function(list){
+		list.forEach(function(cItem){
+			document.getElementById(cItem).disabled = 'disabled';
+		});
+	},
+
+	// Enable GUI list
+	processEnableList: function(list){
+		list.forEach(function(cItem){
+			document.getElementById(cItem).disabled = '';
+		});
 	}
 
 }

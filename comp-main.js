@@ -4,11 +4,11 @@
 */
 
 // Get compiler
-var COMPILER = require('./compile.js');
+const COMPILER = require('./compile.js');
 
 // Set values
 COMPILER.nwFlavor = 'normal';
-COMPILER.nwVersion = '0.72.0';
+COMPILER.nwVersion = '0.77.0';
 
 // Start process
 COMPILER.run();

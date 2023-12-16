@@ -577,18 +577,14 @@ temp_TOOLS = {
 					
 					}
 
-					// Output value
+					// Output value and remove color picker
 					data.onApply(colorData);
-
-					// Remove color picker
 					TMS.removeDOM('TMS_COLOR_PICKER');
 
 				}
 
-				// Update color
+				// Update color and execute onOpen action
 				APP.tools.updateColorPicker(updateMode);
-
-				// Execute onOpen action
 				if (typeof data.onOpen === 'function'){
 					data.onOpen();
 				}
