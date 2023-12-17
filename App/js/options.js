@@ -357,26 +357,18 @@ temp_OPTIONS = {
 		// Check if current path exists
 		if (APP.fs.existsSync(fPath) === !0){
 
-			// Set map loading process as true
-			APP.options.isMapLoading = !0;
-
-			// Close color picker menu
-			APP.tools.closeColorPicker();
-
-			// Start load process
+			// Create vars, set map loading process as true and start load process
 			var startHookAfter = !1,
 				saveData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
 
-			// Set latest file
-			APP.options.latestFile = fPath;
+			APP.options.isMapLoading = !0;
 
-			// Check if game is active
+			// Set latest file, check if game is active and reset map
+			APP.options.latestFile = fPath;
 			if (APP.gameHook.gameActive === !0){
 				startHookAfter = !0;
-				APP.gameHook.stop();
+				APP.gameHook.stop(!0);
 			}
-
-			// Reset map
 			APP.options.resetMap();
 
 			// Push all maps again and update it's previous location
@@ -397,30 +389,22 @@ temp_OPTIONS = {
 
 			});
 
-			// Set farest map
+			// Set farest map and check if it's data exists
 			APP.graphics.xFarestMap = saveData.xFarestMap;
-
-			// Check if farest data exists
 			if (saveData.xFarestMap === void 0 || saveData.xFarestMap === ''){
 				APP.graphics.checkForMapDistances();
 			}
 
-			// Update lines
+			// Update lines and canvas position
 			APP.graphics.updateLines();
-
-			// Update canvas pos.
 			TMS.css('APP_MAP_CANVAS', {
 				'top': `${saveData.canvasPos.y}px`,
 				'left': `${saveData.canvasPos.x}px`
 			});
 
-			// Update top menu
+			// Update top menu, release reload button and seek game process again
 			APP.graphics.togglehideTopMenu();
-
-			// Release reload button
 			document.getElementById('BTN_MAP_RELOAD').disabled = '';
-
-			// Seek game process again
 			if (startHookAfter === !0){
 				APP.gameHook.seekGame(!0);
 			}

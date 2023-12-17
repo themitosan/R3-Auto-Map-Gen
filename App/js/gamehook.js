@@ -82,7 +82,7 @@ temp_GAMEHOOK = {
 	},
 
 	// Stop reading game
-	stop: function(){
+	stop: function(skipOpenRightMenu){
 
 		// Clear game interval and create var for GUI
 		clearInterval(this.updateObject);
@@ -103,7 +103,9 @@ temp_GAMEHOOK = {
 
 		// Update selected game / check if current game exists, open right menu, reset spawn variable and set running flag as false
 		APP.options.updateSelectedGame();
-		APP.options.toggleRightMenu('open');
+		if (skipOpenRightMenu !== !0){
+			APP.options.toggleRightMenu('open');
+		}
 		APP.spawnProcess = void 0;
 		this.gameActive = !1;
 
