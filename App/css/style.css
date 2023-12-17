@@ -222,6 +222,7 @@ label {
 	width: auto;
 	padding: 10px;
 	position: absolute;
+	min-width: 190px;
 	border-radius: 10px;
 	transition-duration: 0.2s;
 	backdrop-filter: blur(4px);
@@ -443,10 +444,9 @@ label {
 	Labels
 */
 .LABEL_appGameData {
-	left: 124px;
+	left: 152px;
 	cursor: auto;
 	position: sticky;
-	user-select: all;
 }
 
 /*
@@ -513,8 +513,19 @@ label {
 }
 
 /*
+    Color labels
+*/
+.LBL_COLOR_X {
+    color: #baffba;
+}
+.LBL_COLOR_Y {
+    color: #ffc1c1;
+}
+
+/*
 	Misc.
 */
+
 .none {
 	display: none !important;
 }

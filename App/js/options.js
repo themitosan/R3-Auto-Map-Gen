@@ -361,9 +361,8 @@ temp_OPTIONS = {
 			var startHookAfter = !1,
 				saveData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
 
+			// Set map loading var, set latest file, check if game is active and reset map
 			APP.options.isMapLoading = !0;
-
-			// Set latest file, check if game is active and reset map
 			APP.options.latestFile = fPath;
 			if (APP.gameHook.gameActive === !0){
 				startHookAfter = !0;
@@ -571,10 +570,8 @@ temp_OPTIONS = {
 	// Delete all save files
 	delGameSaveFiles: function(){
 
-		// Close color picker menu
+		// Close color picker menu and get save data folder
 		APP.tools.closeColorPicker();
-
-		// Get save data folder
 		const cGame = APP.options.settingsData.currentGame,
 			saveDataPath = `${APP.options.settingsData[cGame].gamePath}/savedata`;
 
@@ -658,17 +655,11 @@ temp_OPTIONS = {
 				// Check if can save settings
 				if (canSave === !0){
 
-					// Set values
+					// Set values, update settings file, display message and load new settings
 					APP.options.settingsData[cGame].stage = s;
 					APP.options.settingsData[cGame].room = r;
-
-					// Update settings file
 					APP.options.saveSettings();
-
-					// Display success message
 					window.alert('INFO - Process complete!');
-
-					// Load new settings
 					APP.options.loadSettings();
 
 				}

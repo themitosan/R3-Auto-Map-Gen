@@ -27,11 +27,9 @@ temp_GRAPHICS = {
 	// Toggle hide top menu on quick-save
 	togglehideTopMenu: function(){
 
-		// Get data and save it on localstorage
+		// Get data, save it on localstorage and display menu by default
 		APP.options.hideTopMenu = document.getElementById('CHECKBOX_hideTopMenu').checked;
 		localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
-		
-		// Display menu by default
 		TMS.css('MENU_TOP', {'height': '30px'});
 
 		// Check if game is running
@@ -119,6 +117,9 @@ temp_GRAPHICS = {
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
+
+			// Update top info GUI
+			APP.graphics.toggleShowGameData();
 
 		}
 
@@ -850,17 +851,20 @@ temp_GRAPHICS = {
 		const getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
 		localStorage.setItem('showGameData', getShowGameData);
 
-		switch (getShowGameData){
+		// Create opacity and min width vars
+		var sGameDataOpacity = 1,
+			sGameDataMinWidth = 190;
 
-			case !0:
-				TMS.css('APP_GAME_DATA', {'opacity': '1'});
-				break;
-
-			case !1:
-				TMS.css('APP_GAME_DATA', {'opacity': '0'});
-				break;
-
+		// Check if can display game data and update min width size
+		if (getShowGameData === !1){
+			sGameDataOpacity = 0;
 		}
+		if (document.getElementById('CHECKBOX_isBioRand').checked === !0){
+			sGameDataMinWidth = 560;
+		}
+
+		// Set final CSS
+		TMS.css('APP_GAME_DATA', {'opacity': sGameDataOpacity, 'min-width': `${sGameDataMinWidth}px`});
 
 	},
 

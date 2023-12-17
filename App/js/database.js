@@ -217,7 +217,7 @@ temp_DATABASE = {
 			'R103': {name: 'R.P.D. Courtyard', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R104': {name: 'Backstreet (Right)', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1},
 			'R105': {name: 'R.P.D. Back', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R106': {name: 'R.P.D. Cabin', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R106': {name: 'R.P.D. Cabin', location: 'City Area', haveItemBox: !1, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R107': {name: 'R.P.D. East', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R108': {name: 'R.P.D. Helipad', location: 'Police Station 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R109': {name: '2F Backdoor', location: 'Police Station 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},

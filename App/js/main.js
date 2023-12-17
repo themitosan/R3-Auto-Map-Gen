@@ -238,10 +238,8 @@ const APP = {
 			document.getElementById('BTN_START').disabled = '';
 			document.getElementById('BTN_START').focus();
 
-			// Start keyboard shortcuts and alternate BG
+			// Start keyboard shortcuts, load settings, set windows actions and toggle bg colot
 			APP.startKbShortcuts(startKbDevMode);
-
-			// Load settings and set window actions
 			APP.options.loadSettings();
 			APP.graphics.startWinActions();
 			APP.graphics.toggleBgColor();
