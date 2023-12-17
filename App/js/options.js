@@ -10,6 +10,7 @@ temp_OPTIONS = {
 	*/
 	latestFile: '',
 	enableGrid: !0,
+	doorTrigger: 0,
 	hideTopMenu: !1,
 	alwaysOnTop: !1,
 	isMapLoading: !1,
@@ -101,7 +102,7 @@ temp_OPTIONS = {
 	// Toggle right menu
 	toggleRightMenu: function(mode){
 
-		// Declare variables
+		// Declare variables and switch mode
 		var dragBarCss;
 
 		switch (mode){
@@ -115,19 +116,13 @@ temp_OPTIONS = {
 					'hideOpenButton'
 				]);
 
-				// Disable isMenuRightClosed flag
+				// Disable isMenuRightClosed flag, disable span tag as app drag and update top label message
 				APP.options.isMenuRightClosed = !1;
-
-				// Disable span tag as app drag
 				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: none;}';
-
-				// Update top label message
 				APP.graphics.updateGuiLabel();
 
-				// Update display mode
+				// Update display mode, app drag bar and canvas
 				TMS.css('MENU_RIGHT', {'display': 'block'});
-
-				// Update app drag bar and canvas
 				dragBarCss = {
 					'opacity': '1',
 					'height': '20px',
@@ -167,18 +162,9 @@ temp_OPTIONS = {
 					'updatePlayerPos'					
 				]);
 
-				// Enable isMenuRightClosed flag
+				// Enable isMenuRightClosed flag, span tah as app drag and update it's message
 				APP.options.isMenuRightClosed = !0;
-
-				// Hide game data info
-				APP.options.showGameData = !1;
-				document.getElementById('CHECKBOX_showGameData').checked = !1;
-				APP.graphics.toggleShowGameData();
-
-				// Enable span tag as app drag
 				document.getElementById('APP_STYLE').innerHTML = 'span {app-region: drag;}';
-
-				// Display message
 				APP.graphics.displayTopMsg('INFO - Use [ Ctrl+Shift+Q ] shorcut to open right menu again.', 5500);
 
 				// Update app drag bar and canvas
@@ -248,6 +234,7 @@ temp_OPTIONS = {
 		APP.tools.closeColorPicker();
 
 		// Reset vars
+		this.doorTrigger = 0;
 		APP.graphics.zIndexMap = 10;
 		APP.graphics.addedMaps = {};
 		APP.graphics.addedLines = {};
@@ -255,7 +242,7 @@ temp_OPTIONS = {
 		APP.graphics.xFarestMap = '';
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
-		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null },
+		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null };
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
@@ -269,7 +256,7 @@ temp_OPTIONS = {
 		// Check background color status
 		APP.tools.createTimeout('checkCanvasGridOpacity', function(){
 			if (APP.graphics.disableCanvasBgColor === !1){
-				TMS.css('APP_MAP_CANVAS_BG', {'opacity': '0.12'});
+				APP.graphics.toggleBgGrid();
 			}
 		}, 50);
 
@@ -650,13 +637,9 @@ temp_OPTIONS = {
 		// Check if game is running
 		if (APP.gameHook.gameActive === !1){
 
-			// Close color picker menu
+			// Close color picker menu, display popup and call select file dialog
 			APP.tools.closeColorPicker();
-
-			// Main popup
 			window.alert('INFO: After closing this message, select your main game executable.');
-
-			// Select game executable
 			APP.filemanager.selectFile('.exe', function(path){
 
 				// Get path data

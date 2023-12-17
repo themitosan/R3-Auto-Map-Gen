@@ -237,7 +237,7 @@ temp_DATABASE = {
 			'R117': {name: 'R.P.D. Hall 3F', location: 'Police Station 3F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R118': {name: 'Stairs Alley', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R119': {name: 'Liquors Street', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R11A': {name: 'Bus', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R11A': {name: 'Midtown Bus', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R11B': {name: 'R.P.D. Street', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R11C': {name: 'Bonus Heliport', location: 'Police Station 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R11D': {name: 'Basketball Alley (Demo)', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -352,12 +352,12 @@ temp_DATABASE = {
 
 		// BioRand Objectives
 		bioRandObjectives: {
-			'R20C': {endsOn: 'R215', applyDistance: !0},
-			'R30C': {endsOn: 'R30D', applyDistance: !0},
-			'R30D': {endsOn: null, applyDistance: !0},
-			'R415': {endsOn: null, applyDistance: !0},
-			'R50C': {endsOn: 'R50D', applyDistance: !0},
-			'R50D': {endsOn: 'R50F', applyDistance: !1}
+			'R20C': { endsOn: 'R215', applyDistance: !0 },
+			'R30C': { endsOn: 'R30D', applyDistance: !0 },
+			'R30D': { endsOn: null,   applyDistance: !0 },
+			'R415': { endsOn: null,   applyDistance: !0 },
+			'R50C': { endsOn: 'R50D', applyDistance: !0 },
+			'R50D': { endsOn: 'R50F', applyDistance: !1 }
 		},
 
 		// Map list

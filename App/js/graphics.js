@@ -117,6 +117,7 @@ temp_GRAPHICS = {
 			// Set label strings
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
+			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
 
 		}
@@ -305,8 +306,9 @@ temp_GRAPHICS = {
 			
 		}
 
-		// Push line and update labels
+		// Push line, bump door trigger var and update labels
 		APP.graphics.pushLine(parent, mapName);
+		APP.options.doorTrigger++;
 		this.updateGuiLabel();
 
 	},
@@ -790,19 +792,22 @@ temp_GRAPHICS = {
 
 	},
 
-	// Toggle BG grid
+	// Toggle BG grid and app box shadow
 	toggleBgGrid: function(){
 
-		// Create bg var and check if grid is enabled
-		var bgOpacity = 0;
+		// Create vars and check if grid is enabled
+		var bgOpacity = 0,
+			appBoxShadow = '0px 0px 10px #0000 inset';
 		APP.options.enableGrid = document.getElementById('CHECKBOX_enableGrid').checked;
 		if (APP.options.enableGrid === !0){
 			bgOpacity = 0.12;
+			appBoxShadow = '0px 0px 10px #000 inset';
 		}
 
 		// Apply CSS
 		localStorage.setItem('enableGrid', APP.options.enableGrid);
 		TMS.css('APP_MAP_CANVAS_BG', {'opacity': bgOpacity});
+		TMS.css('APP_CANVAS', {'box-shadow': appBoxShadow});
 
 	},
 
