@@ -30,6 +30,7 @@ temp_OPTIONS = {
 	// Update BioRand objective
 	updateBioRandObjective: function(mapName, parent){
 
+		// Variables
 		var cPrev,
 			bRandDb,
 			cObjective,
@@ -129,6 +130,7 @@ temp_OPTIONS = {
 					'transition-duration': '0.1s'
 				};
 				TMS.css('APP_DRAG_BAR', dragBarCss);
+				TMS.css('APP_GAME_DATA', {'top': '60px'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
 				TMS.css('MENU_TOP_BG', {
 					'top': '20px',
@@ -174,6 +176,7 @@ temp_OPTIONS = {
 					'transition-duration': '1s'
 				};
 				TMS.css('APP_DRAG_BAR', dragBarCss);
+				TMS.css('APP_GAME_DATA', {'top': '74px'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
 
 				// Hide right menu

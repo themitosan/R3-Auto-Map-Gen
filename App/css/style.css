@@ -200,7 +200,7 @@ label {
 }
 .BTN_APP_DRAG:hover {
 	background-color: #fff3;
-	backdrop-filter: blur(4px);
+	backdrop-filter: blur(10px);
 }
 .BTN_APP_DRAG:active {
 	color: #fff;
@@ -220,6 +220,7 @@ label {
 	z-index: 2;
 	opacity: 0;
 	width: auto;
+	app-region: drag;
 	padding: 10px;
 	min-width: 190px;
 	position: absolute;

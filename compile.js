@@ -7,15 +7,13 @@
 
 module.exports = {
 
-	// Get JSON files
-	packageJson: require('./package.json'),
-
 	// Compiler data
 	nwFlavor: void 0,
 	nwVersion: void 0,
 
-	// Require nw-builder
+	// Require nw-builder and get JSON files
 	nwBuilder: require('nw-builder'),
+	packageJson: require('./package.json'),
 
 	// Start compiler
 	run: function(){
@@ -45,7 +43,7 @@ module.exports = {
 		fs.unlinkSync('hash.inc');
 
 		// Log data before builder setup
-		console.info('INFO - Running compiler\n\nVersion: ' + this.nwVersion + '\nFlavor: ' + this.nwFlavor);
+		console.info(`INFO - Running compiler\n\nVersion: ${this.nwVersion}\nFlavor: ${this.nwFlavor}`);
 
 		// Setup nw-builder
 		const compileData = new this.nwBuilder({
@@ -87,8 +85,9 @@ module.exports = {
 			fs.writeFileSync('hash.inc', '', 'utf8');
 
 			// Get licence and readme files
-			const license = fs.readFileSync('./LICENSE', 'utf8'),
+			const
 				readme = fs.readFileSync('./README.md', 'utf8'),
+				license = fs.readFileSync('./LICENSE', 'utf8'),
 				help = fs.readFileSync('./help.txt', 'utf8');
 
 			// Run nw-builder
