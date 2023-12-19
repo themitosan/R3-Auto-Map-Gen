@@ -44,7 +44,6 @@ temp_OPTIONS = {
 			APP.options.bioRandObjectives.current = mapName;
 			APP.options.bioRandObjectives.parentMap = parent;
 			APP.options.bioRandObjectives.applyDistance = APP.database[cGame].bioRandObjectives[mapName].applyDistance;
-			
 			if (APP.options.isMapLoading === !1){
 				APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
 			}
@@ -298,7 +297,7 @@ temp_OPTIONS = {
 					canvasPos: mPos,
 					addedList: APP.graphics.addedMaps,
 					xFarestMap: APP.graphics.xFarestMap,
-					history: APP.graphics.addedMapHistory,
+					history: APP.graphics.addedMapHistory
 				});
 
 			// Check if "is BioRand" option is active and if description file exists
@@ -312,14 +311,10 @@ temp_OPTIONS = {
 
 				try {
 
-					// Write file
+					// Write file, center map on screen and display message
 					APP.fs.writeFileSync(APP.options.latestFile, newData, 'utf8');
 					console.info(`INFO - Map updated successfully!\n${APP.options.latestFile}`);
-
-					// Center map
 					APP.graphics.updatePlayerPos();
-
-					// Display message
 					APP.graphics.displayTopMsg(`Map file was updated successfully! [ ${fileName} ]`, 1850);
 
 				} catch (err) {
@@ -374,18 +369,15 @@ temp_OPTIONS = {
 			saveData.history.forEach(function(cAction){
 				APP.graphics.pushMap(cAction.mapName, cAction.parent);
 			});
-			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 
-				// Update data
+			// Update data and map positions
+			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 				APP.graphics.addedMaps[cMap].x = saveData.addedList[cMap].x;
 				APP.graphics.addedMaps[cMap].y = saveData.addedList[cMap].y;
-
-				// Update map positions
 				TMS.css(`ROOM_${cMap}`, {
 					'top': `${saveData.addedList[cMap].y}px`,
 					'left': `${saveData.addedList[cMap].x}px`
 				});
-
 			});
 
 			// Set farest map and check if it's data exists

@@ -35,19 +35,17 @@ temp_GRAPHICS = {
 		// Check if game is running
 		if (APP.gameHook.gameActive === !0){
 
-			switch (APP.options.hideTopMenu){
-
-				case !0:
-					TMS.css('MENU_TOP', {'height': '0px'});
-					TMS.css('MENU_TOP_BG', {'display': 'inline'});
-					break;
-
-				case !1:
-					TMS.css('MENU_TOP', {'height': '30px'});
-					TMS.css('MENU_TOP_BG', {'display': 'none'});
-					break;
-
+			// Create CSS vars and check if hide top menu is active
+			var bgCssData = {'display': 'none'},
+				menuCssData = {'height': '30px'};
+			if (APP.options.hideTopMenu === !0){
+				menuCssData = {'height': '0px'};
+				bgCssData = {'display': 'inline'};
 			}
+
+			// Apply CSS
+			TMS.css('MENU_TOP', {'height': menuCssData});
+			TMS.css('MENU_TOP_BG', {'display': bgCssData});
 
 		}
 

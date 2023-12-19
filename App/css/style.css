@@ -24,8 +24,8 @@
     background: #8a80a9;
 }
 ::-webkit-scrollbar-thumb:active {
-    background: #b9b1d4;
     border-radius: 4px;
+    background: #b9b1d4;
 }
 
 /*
@@ -221,8 +221,8 @@ label {
 	opacity: 0;
 	width: auto;
 	padding: 10px;
-	position: absolute;
 	min-width: 190px;
+	position: absolute;
 	border-radius: 10px;
 	transition-duration: 0.2s;
 	backdrop-filter: blur(4px);

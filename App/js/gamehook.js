@@ -39,14 +39,14 @@ temp_GAMEHOOK = {
 
 					// Disable Enable lists
 					const
+						enableList = ['BTN_STOP'],
 						disableList = [
 							'BTN_START',
 							'SELECT_GAME',
 							'BTN_RUN_GAME',
 							'BTN_SELECT_EXE',
 							'SELECT_SCENARIO'
-						],
-						enableList = ['BTN_STOP'];
+						];
 
 					// Open process and update GUI
 					APP.gameHook.gameObject = APP.memoryjs.openProcess(exeName);
