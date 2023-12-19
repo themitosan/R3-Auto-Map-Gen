@@ -206,9 +206,7 @@ temp_DATABASE = {
 
 	// BioHazard 2
 	bio2: {
-		bioRandObjectives: {
-			'R505': { endsOn: 'R509', applyDistance: !0 }
-		},
+		bioRandObjectives: {},
 		rdt: {
 
 			'0000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
