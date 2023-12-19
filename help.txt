@@ -9,12 +9,12 @@
 
 -- Global Shortcuts
 
-[Ctrl+Shift+S] Save current map (if map already exists on destination folder, it will update it)
+[Ctrl+Shift+S] Save / update current map
 [Ctrl+F7] Center current map
 [Ctrl+F8] Reset canvas zoom
 [Ctrl+F9] Reset map
 [Ctrl+F10] Reload latest saved / loaded map
-[Ctrl+Delete] APP.options.delGameSaveFiles();
+[Ctrl+Delete] Delete all saves from selected game
 [Ctrl+Shift+R] Run game
 [Ctrl+Shift+H] Hook game process
 [Ctrl+Shift+Q] Restore right menu

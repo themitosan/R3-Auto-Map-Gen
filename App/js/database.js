@@ -206,7 +206,9 @@ temp_DATABASE = {
 
 	// BioHazard 2
 	bio2: {
-		bioRandObjectives: {},
+		bioRandObjectives: {
+			'R505': { endsOn: 'R509', applyDistance: !0 }
+		},
 		rdt: {
 
 			'0000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -499,9 +501,6 @@ temp_DATABASE = {
 			'R50F': {name: 'Elevator to Extraction Point', location: 'Dead Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R510': {name: 'Bridge to Dead Factory', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 
-			/*
-				Mercs. Maps
-			*/
 			'R600': {name: '(Merc) Warehouse Save Room', location: 'Uptown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !0},
 			'R601': {name: '(Merc) Warehouse', location: 'Uptown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R607': {name: '(Merc) Bar Jack', location: 'Uptown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},

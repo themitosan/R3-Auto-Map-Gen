@@ -194,12 +194,10 @@ temp_GAMEHOOK = {
 				// Check if latest map is the current one
 				if (this.mapHistory[(this.mapHistory.length - 1)] !== cMap){
 
-					// Push room to map
+					// Push room to map and update player pos.
 					APP.gameHook.mapHistory.push(cMap);
 					const mHistory = APP.gameHook.mapHistory;
 					APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)]);
-
-					// Update player pos.
 					APP.graphics.updatePlayerPos();
 
 				}

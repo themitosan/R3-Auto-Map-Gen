@@ -148,7 +148,8 @@ const APP = {
 	runGame: function(){
 
 		// Get game path
-		const settingsData = APP.options.settingsData,
+		const
+			settingsData = APP.options.settingsData,
 			gPath = `${settingsData[settingsData.currentGame].gamePath}/${settingsData[settingsData.currentGame].exeName}`;
 
 		// Check if game path exists
@@ -159,10 +160,8 @@ const APP = {
 
 				try {
 
-					// Update chdir
+					// Update chdir and run game
 					process.chdir(settingsData[settingsData.currentGame].gamePath);
-
-					// Run game
 					APP.spawnProcess = APP.childProcess.spawn(gPath, [], {
 						detached: !0
 					});

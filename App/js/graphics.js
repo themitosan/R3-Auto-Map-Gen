@@ -110,13 +110,11 @@ temp_GRAPHICS = {
 				labelDragMessage = ' [ You can use this label to drag app window ]';
 			}
 
-			// Set label strings
+			// Set label strings and update top info GUI
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
-
-			// Update top info GUI
 			APP.graphics.toggleShowGameData();
 
 		}
@@ -365,10 +363,8 @@ temp_GRAPHICS = {
 			// Process
 			const runProcess = function(){
 
-				// Bump cycle counter
+				// Bump cycle counter and set reset flag
 				cycles++;
-
-				// Set reset flag
 				var reRun = !1;
 
 				// Start processing
@@ -677,10 +673,8 @@ temp_GRAPHICS = {
 		const lineList = this.addedLines;
 		if (Object.keys(lineList).length !== 0){
 
-			// Get default connected lines
+			// Get default connected lines and check if room name was provided. If so, update only connected lines
 			var processList = Object.keys(lineList);
-
-			// Check if room name was provided. If so, update only connected lines
 			if (roomName !== void 0){
 				processList = Object.keys(lineList).filter(function(cLine){
 					if (cLine.indexOf(roomName.replace('ROOM_', '')) !== -1){
@@ -747,10 +741,8 @@ temp_GRAPHICS = {
 				finalX = APP.tools.parsePolarity(nextX),
 				finalY = APP.tools.parsePolarity(nextY);
 
-			// Update canvas
+			// Update canvas and map label pos.
 			TMS.css('APP_MAP_CANVAS', {'left': `${finalX}px`, 'top': `${finalY}px`});
-
-			// Update map label pos.
 			document.getElementById('LABEL_map_X').innerHTML = parseInt(nextX);
 			document.getElementById('LABEL_map_Y').innerHTML = parseInt(nextY);
 
