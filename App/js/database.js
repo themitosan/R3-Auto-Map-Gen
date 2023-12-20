@@ -210,6 +210,7 @@ temp_DATABASE = {
 			'R505': { endsOn: 'R607', applyDistance: !1 },
 			'R111': { endsOn: null,   applyDistance: !1 },
 			'R303': { endsOn: null,   applyDistance: !1 },
+			'R617': { endsOn: 'R700', applyDistance: !1 }
 		},
 		rdt: {
 
@@ -276,8 +277,8 @@ temp_DATABASE = {
 			'R300': {name: 'Chief Secret Lab', location: 'Police Station B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R301': {name: 'Detention Cells', location: 'Police Station B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R302': {name: 'Septic Passage', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R303': {name: 'XD-R 10A H” Room (Boss)', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R304': {name: 'XD-R 10A H” Exit', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R303': {name: 'XD-R 10A ‟H” Room (Boss)', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R304': {name: 'XD-R 10A ‟H” Exit', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R305': {name: 'Septic Pool', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R306': {name: 'Septic Box Room', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R307': {name: 'Construction Site', location: 'Sewage Disposal', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -312,7 +313,7 @@ temp_DATABASE = {
 			'R504': {name: 'Trailer Station (With Trailer)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R505': {name: 'Trailer', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R506': {name: 'Trailer Station (Without Trailer)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R507': {name: 'Factory Hidden Room', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R507': {name: 'Factory Monitor Room', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R508': {name: 'Underground Passage (Right)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R509': {name: 'Trailer (Boss)', location: 'Vacant Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 
