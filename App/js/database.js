@@ -7,7 +7,7 @@
 	name: 			String 		Map Name
 	location: 		String		Map location
 	canSave: 		Boolean		Player can save
-	haveItemBox: 	Boolean 	Map have icon box
+	haveItemBox: 	Boolean 	Map have item box
 	gameStart: 		Boolean 	Map where game starts
 	gameEnd: 		Boolean 	Map where game ends
 */
@@ -293,7 +293,7 @@ temp_DATABASE = {
 			'R401': {name: 'South Office Save Room', location: 'Sewer B1', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R402': {name: 'Sewer L-Passageway', location: 'Sewer B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R403': {name: 'North Office Save Room', location: 'Sewer B1', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
-			'R404': {name: '‟T” Passageway', location: 'Sewer B2', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R404': {name: 'Sewer ‟T” Passageway', location: 'Sewer B2', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R405': {name: 'Sewer Left Canal', location: 'Sewer B2', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R407': {name: 'Sewer Right Canal', location: 'Sewer B2', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R408': {name: 'Bridge 1F', location: 'Sewer B2', haveItemBox: !1, canSave: !0, gameStart: !1, gameEnd: !1},
@@ -337,7 +337,7 @@ temp_DATABASE = {
 			'R611': {name: 'Main Shaft (Escape)', location: 'Laboratory B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R612': {name: 'Lab Control Room', location: 'Laboratory B5', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R613': {name: 'Lab Server Room', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R614': {name: '‟T” Passageway', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R614': {name: 'Laboratory ‟T” Passageway', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R615': {name: 'P-4 Laboratory', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R616': {name: 'Warehouse Front', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R617': {name: '‟G” Warehouse', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},

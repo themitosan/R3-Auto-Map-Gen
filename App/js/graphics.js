@@ -188,10 +188,8 @@ temp_GRAPHICS = {
 
 			if (parent !== void 0){
 
-				// Update parent door counts
+				// Update parent door counts and get parent data
 				APP.graphics.addedMaps[parent].doors.push(mapName);
-
-				// Get parent data
 				var rect = TMS.getCoords(`ROOM_${parent}`);
 
 				// Set default position
@@ -207,7 +205,23 @@ temp_GRAPHICS = {
 
 			// Check if is game start
 			if (APP.database[cGame].rdt[mapName].gameStart === !0){
-				mapExtraClass.push('GAME_START');
+				
+				// Can add message var
+				var canAddGameStart = !0;
+
+				// Check if is Bio 2 and current map is start from other scenario (Start from B on A and vice-versa)
+				if (cGame === 'bio2' && cGameScenario === 'scenario_a' && mapName === 'R104'){
+					canAddGameStart = !1;
+				}
+				if (cGame === 'bio2' && cGameScenario === 'scenario_b' && mapName === 'R100'){
+					canAddGameStart = !1;
+				}
+
+				// Check if can add
+				if (canAddGameStart === !0){
+					mapExtraClass.push('GAME_START');
+				}
+
 			}
 
 			// Check if is game end
