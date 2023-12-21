@@ -805,13 +805,18 @@ temp_GRAPHICS = {
 
 		// Variables
 		var btnCssData = {'height': 'auto', 'max-height': '30px'},
-			divCheckBox = {'margin': '6px 0px 6px 0px'},
+			marginCss = {'margin': '6px 0px 6px 0px'},
+			marginClassList = [
+				'DIV_CHECKBOX',
+				'DIV_TMS_COLOR_PICKER_RANGE'
+			],
 			btnClassList = [
 				'BTN_LEFT',
 				'BTN_RIGHT',
 				'BTN_OPTIONS',
 				'BTN_MENU_TOP',
-				'BTN_SHOW_RIGHT_MENU'
+				'BTN_SHOW_RIGHT_MENU',
+				'BTN_TMS_COLOR_PICKER'
 			];
 
 		// Set default data and check if tablet mode is enabled. If so, update CSS
@@ -819,7 +824,7 @@ temp_GRAPHICS = {
 		APP.options.enableTabletMode = document.getElementById('CHECKBOX_enableTabletMode').checked;
 		if (APP.options.enableTabletMode === !0){
 			APP.graphics.maxHeight = 40;
-			divCheckBox = {'margin': '16px 0px 16px 0px'};
+			marginCss = {'margin': '16px 0px 16px 0px'};
 			btnCssData = {'height': '40px', 'max-height': '40px !important'};
 		}
 
@@ -829,11 +834,15 @@ temp_GRAPHICS = {
 			TMS.appendCustomClass(cClass, btnCssData);
 		});
 
+		// Process margin class list
+		marginClassList.forEach(function(cClass){
+			TMS.removeCustomClass(cClass);
+			TMS.appendCustomClass(cClass, marginCss);
+		});
+
 		// Update GUI, open right menu, update checkbox class and update localstorage var
 		APP.graphics.updateGuiLabel();
 		APP.options.toggleRightMenu('open');
-		TMS.removeCustomClass('DIV_CHECKBOX');
-		TMS.appendCustomClass('DIV_CHECKBOX', divCheckBox);
 		localStorage.setItem('enableTabletMode', APP.options.enableTabletMode);
 
 	},
