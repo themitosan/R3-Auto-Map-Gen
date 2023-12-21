@@ -151,6 +151,7 @@ label {
 */
 .BTN_OPTIONS {
 	width: calc(100% - 20px);
+	height: auto;
 }
 .BTN_TOP {
 	border-top-left-radius: 6px;
@@ -161,10 +162,12 @@ label {
 	border-bottom-right-radius: 6px;
 }
 .BTN_LEFT {
+	height: auto;
 	margin: 0px !important;
 	border-radius: 6px 0px 0px 6px;
 }
 .BTN_RIGHT {
+	height: auto;
 	border-radius: 0px 6px 6px 0px;
 	margin: 0px 4px 0px 0px !important;
 }
@@ -311,7 +314,7 @@ label {
 	overflow: hidden;
 	position: absolute;
 	border-radius: 100px;
-	background-color: #200;
+	background-color: #0000;
 	transition-duration: 1s;
 	box-shadow: 0px 0px 0px 10px #f00 inset;
 	transition-timing-function: cubic-bezier(0,1,0,1);

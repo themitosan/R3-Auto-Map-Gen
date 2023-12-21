@@ -16,7 +16,11 @@ temp_DATABASE = {
 
 	// BioHazard
 	bio1: {
-		bioRandObjectives: {},
+		bioRandObjectives: {
+			'R305': { endsOn: 'R310', applyDistance: !1 },
+			'R11A': { endsOn: null  , applyDistance: !1 },
+			'R70C ': { endsOn: null  , applyDistance: !1 },
+		},
 		rdt: {
 			
 			'0000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -44,7 +48,7 @@ temp_DATABASE = {
 			'R113': {name: 'Bathroom', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R114': {name: 'Boiler Corridor', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R115': {name: 'Ceiling Trap (Sandwitch)', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R116': {name: 'Living Room', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R116': {name: 'Living Room (Shotgun)', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R117': {name: 'Large Gallery', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R118': {name: 'Room under stairs', location: 'Mansion 1F', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R119': {name: 'Study Office', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -98,7 +102,7 @@ temp_DATABASE = {
 			'R30D': {name: 'Straight Passage', location: 'Courtyard B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R30E': {name: 'Courtyard B1 Save Room', location: 'Courtyard B1', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
 			'R30F': {name: 'Crank Passage', location: 'Courtyard B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R310': {name: 'Court. / Lab Cutscene', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R310': {name: 'Court. / Lab Transition', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R400': {name: 'Guardhouse Entrance', location: 'Guardhouse 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R401': {name: 'Room 001', location: 'Guardhouse 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R402': {name: 'Room 001 - Bathroom', location: 'Guardhouse 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
@@ -133,8 +137,8 @@ temp_DATABASE = {
 			'R50C': {name: 'Elevator Hallway', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R50D': {name: 'Heliport Elevator', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R50E': {name: 'Lab Save Room', location: 'Laboratory B3', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1},
-			'R50F': {name: 'Maze A', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
-			'R510': {name: 'Maze B', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R50F': {name: 'Lab Maze A', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
+			'R510': {name: 'Lab Maze B', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R511': {name: 'Engine Room', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R512': {name: 'Cell Room', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},
 			'R513': {name: 'Tyrant Lab', location: 'Laboratory B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1},

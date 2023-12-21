@@ -15,6 +15,7 @@ temp_OPTIONS = {
 	alwaysOnTop: !1,
 	isMapLoading: !1,
 	showGameData: !1,
+	enableTabletMode: !1,
 	isMenuRightClosed: !1,
 	bioRandObjectives: {
 		reset: !1,
@@ -130,8 +131,8 @@ temp_OPTIONS = {
 					'transition-duration': '0.1s'
 				};
 				TMS.css('APP_DRAG_BAR', dragBarCss);
-				TMS.css('APP_GAME_DATA', {'top': '60px'});
 				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
+				TMS.css('APP_GAME_DATA', {'top': `${APP.graphics.maxHeight + 30}px`});
 				TMS.css('MENU_TOP_BG', {
 					'top': '20px',
 					'app-region': 'none',
@@ -143,7 +144,8 @@ temp_OPTIONS = {
 					TMS.css('MENU_TOP', {
 						'top': '20px',
 						'width': 'calc(100% - 196px)',
-						'border-bottom-right-radius': '0px'
+						'border-bottom-right-radius': '0px',
+						'height': `${APP.graphics.maxHeight}px`
 					});
 					TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'opacity': '1'});
 					TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'none', 'opacity': '0', 'filter': 'blur(20px) opacity(0)', 'right': '2px'});
@@ -190,8 +192,8 @@ temp_OPTIONS = {
 					'width': '100%',
 					'app-region': 'drag'
 				});
-				TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'block'});
 				TMS.css('MENU_RIGHT', {'width': '0px', 'filter': 'blur(20px)', 'opacity': '0'});
+				TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'block', 'top': `${APP.graphics.maxHeight + 10}px`});
 
 				// Show back button
 				APP.tools.createTimeout('showBackButton', function(){
@@ -517,7 +519,8 @@ temp_OPTIONS = {
 			'hideTopMenu',
 			'alwaysOnTop',
 			'showGameData',
-			'enableGrid'
+			'enableGrid',
+			'enableTabletMode'
 		].forEach(function(cSettings){
 
 			// Check if settings exists
@@ -542,6 +545,7 @@ temp_OPTIONS = {
 		// Process post loading settings
 		APP.graphics.toggleShowGameData();
 		APP.graphics.togglehideTopMenu();
+		APP.graphics.toggleTabletMode();
 		APP.options.toggleAlwaysOnTop();
 		APP.graphics.updateGuiLabel();
 		APP.graphics.updateBgColor();

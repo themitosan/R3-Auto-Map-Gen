@@ -44,6 +44,48 @@ const TMS = Object.freeze(Object.seal({
 	},
 
 	/*
+		Append custom class
+	*/
+	appendCustomClass: function(name, css){
+
+		// Check if can add custom class
+		if (Object.keys(css).length !== 0){
+
+			// Check if document has the class holder
+			if (TMS.getElement('TMS_JS_CLASS_LIST') === null){
+				TMS.append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>');
+			}
+
+			// Create custom class
+			var finalHtml = `.${name} { `;
+			Object.keys(css).forEach(function(cKey){
+				finalHtml = `${finalHtml}${cKey}: ${css[cKey]}; `;
+			});
+			finalHtml = `${finalHtml.slice(0, (finalHtml.length - 1))} }`;
+
+			// Append class
+			if (TMS.getElement(`TMS_JS_CLASS_${name}`) !== null){
+				TMS.getElement(`TMS_JS_CLASS_${name}`).innerHTML = finalHtml;
+			} else {
+				TMS.append('TMS_JS_CLASS_LIST', `<style id="TMS_JS_CLASS_${name}">${finalHtml}</style>`);
+			}
+
+		} else {
+			TMS.warn('Unable to append new CSS class because no items were provided!');
+		}
+
+	},
+
+	/**
+		* Remove custom class
+	*/
+	removeCustomClass: function(name){
+		if (TMS.getElement(`TMS_JS_CLASS_${name}`) !== null){
+			TMS.removeDOM(`TMS_JS_CLASS_${name}`);
+		}
+	},
+
+	/*
 		CSS
 	*/
 	css: function(elementId, cssChanges){

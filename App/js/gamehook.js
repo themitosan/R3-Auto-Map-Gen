@@ -96,10 +96,10 @@ temp_GAMEHOOK = {
 			];
 
 		// Update buttons, reset top menu manually and remove on icon
-		TMS.css('MENU_TOP', {'height': '30px'});
 		APP.graphics.processEnableList(enableList);
 		APP.graphics.processDisableList(disableList);
 		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
+		TMS.css('MENU_TOP', {'height': `${APP.graphics.maxHeight}px`});
 
 		// Update selected game / check if current game exists, open right menu, reset spawn variable and set running flag as false
 		APP.options.updateSelectedGame();
@@ -168,7 +168,8 @@ temp_GAMEHOOK = {
 				var isBioRandActive = document.getElementById('CHECKBOX_isBioRand').checked,
 					memoryData = APP.options.settingsData[cGame],
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
-					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`;
+					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`,
+					previousMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
 
 				// console.info(`${cStage}\n${APP.gameHook.read(memoryData.room, 2, 'hex')}`);
 
@@ -176,7 +177,8 @@ temp_GAMEHOOK = {
 				const resetConditions = [
 
 					// Bio 1
-					cGame === 'bio1' && isBioRandActive === !1 && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1] === 'R100',
+					cGame === 'bio1' && isBioRandActive === !1 && APP.database[cGame].rdt[cMap].gameStart === !0 && previousMap === 'R100',
+					cGame === 'bio1' && APP.database[cGame].rdt[cMap].gameStart === !0 && previousMap === 'R11F',
 
 					// Bio 2
 					cGame === 'bio2' && isBioRandActive === !1 && cMap !== 'R104' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,

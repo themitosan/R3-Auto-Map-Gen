@@ -8,6 +8,7 @@ temp_GRAPHICS = {
 	/*
 		Variables
 	*/
+	maxHeight: 30,
 	zIndexMap: 10,
 	currentMap: 0,
 	addedMaps: {},
@@ -28,16 +29,17 @@ temp_GRAPHICS = {
 	togglehideTopMenu: function(){
 
 		// Get data, save it on localstorage and display menu by default
+		const maxHeight = this.maxHeight;
 		APP.options.hideTopMenu = document.getElementById('CHECKBOX_hideTopMenu').checked;
 		localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
-		TMS.css('MENU_TOP', {'height': '30px'});
+		TMS.css('MENU_TOP', {'height': `${maxHeight}px`});
 
 		// Check if game is running
 		if (APP.gameHook.gameActive === !0){
 
 			// Create CSS vars and check if hide top menu is active
 			var bgCssData = {'display': 'none'},
-				menuCssData = {'height': '30px'};
+				menuCssData = {'height': `${maxHeight}px`};
 			if (APP.options.hideTopMenu === !0){
 				menuCssData = {'height': '0px'};
 				bgCssData = {'display': 'inline'};
@@ -67,7 +69,8 @@ temp_GRAPHICS = {
 	// Update current map label
 	updateGuiLabel: function(){
 
-		// Check if can update GUI labels
+		// Get max height value and check if can update GUI labels
+		const maxHeight = this.maxHeight;
 		if (APP.graphics.skipUpdateGuiLabel === !1){
 
 			var cMap = '',
@@ -82,7 +85,7 @@ temp_GRAPHICS = {
 
 			// Reset top menu and update if select scenario should be active (or not)
 			if (APP.options.hideTopMenu === !1){
-				TMS.css('MENU_TOP', {'height': '30px'});
+				TMS.css('MENU_TOP', {'height': `${maxHeight}px`});
 			}
 			if (APP.gameHook.gameActive === !1){
 				document.getElementById('SELECT_SCENARIO').disabled = APP.options.settingsData.currentGame !== 'bio2';
@@ -126,7 +129,7 @@ temp_GRAPHICS = {
 
 		// Set skip update label flag as true and set GUI
 		this.skipUpdateGuiLabel = !0;
-		TMS.css('MENU_TOP', {'height': '30px'});
+		TMS.css('MENU_TOP', {'height': `${this.maxHeight}px`});
 
 		// Set labels, reset skip label flag and update it after timeout
 		document.getElementById('LABEL_mapDragStatus').innerHTML = msg;
@@ -794,6 +797,44 @@ temp_GRAPHICS = {
 
 		// Update labels
 		this.updateGuiLabel();
+
+	},
+
+	// Toggle tablet mode
+	toggleTabletMode: function(){
+
+		// Variables
+		var btnCssData = {'height': 'auto', 'max-height': '30px'},
+			divCheckBox = {'margin': '6px 0px 6px 0px'},
+			btnClassList = [
+				'BTN_LEFT',
+				'BTN_RIGHT',
+				'BTN_OPTIONS',
+				'BTN_MENU_TOP',
+				'BTN_SHOW_RIGHT_MENU'
+			];
+
+		// Set default data and check if tablet mode is enabled. If so, update CSS
+		APP.graphics.maxHeight = 30;
+		APP.options.enableTabletMode = document.getElementById('CHECKBOX_enableTabletMode').checked;
+		if (APP.options.enableTabletMode === !0){
+			APP.graphics.maxHeight = 40;
+			divCheckBox = {'margin': '16px 0px 16px 0px'};
+			btnCssData = {'height': '40px', 'max-height': '40px !important'};
+		}
+
+		// Process button class list
+		btnClassList.forEach(function(cClass){
+			TMS.removeCustomClass(cClass);
+			TMS.appendCustomClass(cClass, btnCssData);
+		});
+
+		// Update GUI, open right menu, update checkbox class and update localstorage var
+		APP.graphics.updateGuiLabel();
+		APP.options.toggleRightMenu('open');
+		TMS.removeCustomClass('DIV_CHECKBOX');
+		TMS.appendCustomClass('DIV_CHECKBOX', divCheckBox);
+		localStorage.setItem('enableTabletMode', APP.options.enableTabletMode);
 
 	},
 
