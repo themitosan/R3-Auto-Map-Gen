@@ -150,8 +150,8 @@ label {
 	Buttons
 */
 .BTN_OPTIONS {
-	width: calc(100% - 20px);
 	height: auto;
+	width: calc(100% - 20px);
 }
 .BTN_TOP {
 	border-top-left-radius: 6px;
