@@ -739,11 +739,10 @@ temp_GRAPHICS = {
 			});
 			const newRoomId = `ROOM_${APP.gameHook.mapHistory.slice(-1)}`;
 
-			// Add class
+			// Add class and calculate positions
 			TMS.addClass(newRoomId, 'PLAYER_PRESENT');
-
-			// Calculate positions
-			const menuRightPos = TMS.getRect('MENU_RIGHT'),
+			const
+				menuRightPos = TMS.getRect('MENU_RIGHT'),
 				playerRect = TMS.getRect(newRoomId),
 				roomData = {
 					x: parseFloat(TMS.getCssData(newRoomId, 'left').replace('px', '')),
@@ -770,10 +769,8 @@ temp_GRAPHICS = {
 	// Toggle drag map
 	toggleDragMapCanvas: function(){
 
-		// Declare vars
+		// Declare vars and check enable canvas drag
 		const pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
-
-		// Check enable canvas drag
 		switch (APP.graphics.enableCanvasDrag){
 
 			case !1:
@@ -804,8 +801,8 @@ temp_GRAPHICS = {
 	toggleTabletMode: function(){
 
 		// Variables
-		var btnCssData = {'height': 'auto', 'max-height': '30px'},
-			marginCss = {'margin': '6px 0px 6px 0px'},
+		var marginCss = {'margin': '6px 0px 6px 0px'},
+			btnCssData = {'height': 'auto', 'max-height': '30px', 'min-width': 'auto'},
 			marginClassList = [
 				'DIV_CHECKBOX',
 				'DIV_TMS_COLOR_PICKER_RANGE'
@@ -825,7 +822,7 @@ temp_GRAPHICS = {
 		if (APP.options.enableTabletMode === !0){
 			APP.graphics.maxHeight = 40;
 			marginCss = {'margin': '16px 0px 16px 0px'};
-			btnCssData = {'height': '40px', 'max-height': '40px !important'};
+			btnCssData = {'height': '40px', 'max-height': '40px !important', 'min-width': '80px !important'};
 		}
 
 		// Process button class list
@@ -840,7 +837,7 @@ temp_GRAPHICS = {
 			TMS.appendCustomClass(cClass, marginCss);
 		});
 
-		// Update GUI, open right menu, update checkbox class and update localstorage var
+		// Update GUI, open right menu, update checkbox class and update localstorage data
 		APP.graphics.updateGuiLabel();
 		APP.options.toggleRightMenu('open');
 		localStorage.setItem('enableTabletMode', APP.options.enableTabletMode);
@@ -859,7 +856,7 @@ temp_GRAPHICS = {
 			appBoxShadow = '0px 0px 10px #000 inset';
 		}
 
-		// Apply CSS
+		// Set data on localStorage and apply css
 		localStorage.setItem('enableGrid', APP.options.enableGrid);
 		TMS.css('APP_MAP_CANVAS_BG', {'opacity': bgOpacity});
 		TMS.css('APP_CANVAS', {'box-shadow': appBoxShadow});
