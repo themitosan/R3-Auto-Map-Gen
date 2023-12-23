@@ -19,7 +19,7 @@ temp_DATABASE = {
 		bioRandObjectives: {
 			'R305': { endsOn: 'R310', applyDistance: !1 },
 			'R11A': { endsOn: null  , applyDistance: !1 },
-			'R70C ': { endsOn: null  , applyDistance: !1 },
+			'R70C': { endsOn: null  , applyDistance: !1 },
 		},
 		rdt: {
 			
