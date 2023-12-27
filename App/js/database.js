@@ -20,6 +20,7 @@ temp_DATABASE = {
 			'R305': { endsOn: 'R310', applyDistance: !1 },
 			'R11A': { endsOn: null  , applyDistance: !1 },
 			'R70C': { endsOn: null  , applyDistance: !1 },
+			'R501': { endsOn: 'R50D', applyDistance: !1 }
 		},
 		rdt: {
 			

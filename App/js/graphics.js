@@ -802,7 +802,7 @@ temp_GRAPHICS = {
 
 		// Variables
 		var marginCss = {'margin': '6px 0px 6px 0px'},
-			btnCssData = {'height': 'auto', 'max-height': '30px', 'min-width': 'auto'},
+			btnCssData = {'height': 'auto', 'max-height': '30px', 'min-width': 'auto', 'font-size': '13px'},
 			marginClassList = [
 				'DIV_CHECKBOX',
 				'DIV_TMS_COLOR_PICKER_RANGE'
@@ -822,7 +822,7 @@ temp_GRAPHICS = {
 		if (APP.options.enableTabletMode === !0){
 			APP.graphics.maxHeight = 40;
 			marginCss = {'margin': '16px 0px 16px 0px'};
-			btnCssData = {'height': '40px', 'max-height': '40px !important', 'min-width': '80px !important'};
+			btnCssData = {'height': '40px', 'max-height': '40px !important', 'min-width': '80px !important', 'font-size': '15px'};
 		}
 
 		// Process button class list
