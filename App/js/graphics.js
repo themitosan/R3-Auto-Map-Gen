@@ -904,14 +904,14 @@ temp_GRAPHICS = {
 
 		// Create opacity and min width vars
 		var sGameDataOpacity = 1,
-			sGameDataMinWidth = 190;
+			sGameDataMinWidth = 220;
 
 		// Check if can display game data and update min width size
 		if (getShowGameData === !1){
 			sGameDataOpacity = 0;
 		}
 		if (document.getElementById('CHECKBOX_isBioRand').checked === !0){
-			sGameDataMinWidth = 560;
+			sGameDataMinWidth = 590;
 		}
 
 		// Set final CSS
