@@ -53,6 +53,7 @@ You can find a list with all available shortcuts on `help.txt`.
 <sup>
 
 _Some parts from this project was obtained from [R3ditor V2](https://github.com/themitosan/R3ditor-V2) and [R3V3](https://github.com/themitosan/R3V3-ARCHIVE)._
-[BioRand](https://github.com/IntelOrca/biorand) is a Classic Resident Evil Randomizer created by [IntelOrca](https://github.com/IntelOrca).
+
+_[BioRand](https://github.com/IntelOrca/biorand) is a Classic Resident Evil Randomizer created by [IntelOrca](https://github.com/IntelOrca)._
 
 </sup>
