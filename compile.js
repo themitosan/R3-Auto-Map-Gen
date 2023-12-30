@@ -93,6 +93,12 @@ module.exports = {
 			// Run nw-builder
 			compileData.build().then(function(){
 	
+				// Remove package dir
+				if (fs.existsSync('./build/R3 Auto Map Gen/win64/package.nw') === !0){
+					const rimraf = require('rimraf');
+					rimraf.sync('./build/R3 Auto Map Gen/win64/package.nw');
+				}
+
 				// Copy required files to build dir
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/help.txt', help, 'utf8');
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/LICENSE', license, 'utf8');
