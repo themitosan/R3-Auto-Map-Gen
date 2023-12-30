@@ -8,7 +8,7 @@ const COMPILER = require('./compile.js');
 
 // Set values
 COMPILER.nwFlavor = 'sdk';
-COMPILER.nwVersion = '0.77.0';
+COMPILER.nwVersion = '0.82.0';
 
 // Start process
 COMPILER.run();

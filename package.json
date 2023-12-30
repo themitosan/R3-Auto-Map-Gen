@@ -26,7 +26,7 @@
 		"build-debug": "node comp-debug.js"
 	},
 	"dependencies": {
-		"nw": "^0.77.0-sdk"
+		"nw": "^0.82.0-sdk"
 	},
 	"devDependencies": {
 		"nw-builder": "^3.5.7"
