@@ -8,7 +8,7 @@ const COMPILER = require('./compile.js');
 
 // Set values
 COMPILER.nwFlavor = 'normal';
-COMPILER.nwVersion = '0.82.0';
+COMPILER.nwVersion = '0.77.0';
 
 // Start process
 COMPILER.run();
