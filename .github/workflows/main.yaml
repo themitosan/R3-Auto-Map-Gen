@@ -37,7 +37,7 @@ jobs:
       run: echo %GITHUB_SHA% > hash.inc
 
     - name: Build
-      run: npm run build-debug --if-present
+      run: npm run build --if-present
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
