@@ -47,7 +47,7 @@ You can find a list with all available shortcuts on `help.txt`.
 
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--/)
-- [TMS.js](https://github.com/themitosan/TMS.js) from [TheMitoSan](https://github.com/themitosan/) <sup>Hi!</sup>
+- [TMS.js](https://github.com/themitosan/TMS.js) from [TheMitoSan](https://github.com/themitosan/) <sup>_Hi!_</sup>
 
 <br>
 <sup>
