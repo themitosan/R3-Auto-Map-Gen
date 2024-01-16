@@ -554,6 +554,17 @@ temp_DATABASE = {
 
 		}
 
+	},
+
+	// BioHazard: Code: Veronica
+	'bio_cv': {
+
+		// BioRand Objectives
+		bioRandObjectives: {},
+
+		// Map List
+		rdt: {} 
+
 	}
 
 }
