@@ -11,6 +11,7 @@ temp_GAMEHOOK = {
 	gameData: {},
 	mapHistory: [],
 	gameActive: !1,
+	currentCamera: 0,
 	gameObject: void 0,
 	updateObject: void 0,
 
@@ -169,11 +170,20 @@ temp_GAMEHOOK = {
 					memoryData = APP.options.settingsData[cGame],
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
 					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`,
-					previousMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1];
+					previousMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
+					cCamera = parseInt(APP.gameHook.read(memoryData.cam, 2, 'hex'), 16),
+					needUpdateCam = !1;
 
-				// console.info(`${cStage}\n${APP.gameHook.read(memoryData.room, 2, 'hex')}`);
+				// Check if needs to update label GUI and update current cam var
+				if (cCamera !== APP.gameHook.currentCamera){
+					needUpdateCam = !0;
+				}
+				APP.gameHook.currentCamera = cCamera;
+				if (needUpdateCam === !0){
+					APP.graphics.updateGuiLabel();
+				}
 
-				// Reset conditions
+				// Create reset conditions var
 				const resetConditions = [
 
 					// Bio 1

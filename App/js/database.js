@@ -557,7 +557,7 @@ temp_DATABASE = {
 	},
 
 	// BioHazard: Code: Veronica
-	'bio_cv': {
+	'biocv': {
 
 		// BioRand Objectives
 		bioRandObjectives: {},

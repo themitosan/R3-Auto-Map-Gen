@@ -455,27 +455,43 @@ temp_OPTIONS = {
 	settingsData: {
 		bio1: {
 			gamePath: '',
+			cam: '0x00C386F2',
 			room: '0x00AA9014',
 			stage: '0x00AA9010',
 			exeName: 'Biohazard.exe',
+			default_cam: '0x00C386F2',
 			default_room: '0x00AA9014',
-			default_stage: '0x00AA9010'
+			default_stage: '0x00AA9010',
 		},
 		bio2: {
 			gamePath: '',
+			cam: '0x0098EB18',
 			room: '0x0098EB16',
 			stage: '0x0098EB14',
 			exeName: 'bio2 1.10.exe',
+			default_cam: '0x0098EB18',
 			default_room: '0x0098EB16',
-			default_stage: '0x0098EB14'
+			default_stage: '0x0098EB14',
 		},
 		bio3: {
 			gamePath: '',
+			cam: '0x00A673CA',
 			room: '0x00A673C8',
 			stage: '0x00A673C6',
+			default_cam: '0x00A673CA',
 			default_room: '0x00A673C8',
 			default_stage: '0x00A673C6',
 			exeName: 'BIOHAZARD(R) 3 PC.exe'
+		},
+		biocv: {
+			cam: '',
+			room: '',
+			stage: '',
+			exeName: '',
+			gamePath: '',
+			default_cam: '',
+			default_room: '',
+			default_stage: ''
 		},
 		currentGame: 'bio3',
 		scenario: 'scenario_a',

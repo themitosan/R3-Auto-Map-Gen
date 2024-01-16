@@ -40,6 +40,7 @@ temp_GRAPHICS = {
 			// Create CSS vars and check if hide top menu is active
 			var bgCssData = {'display': 'none'},
 				menuCssData = {'height': `${maxHeight}px`};
+
 			if (APP.options.hideTopMenu === !0){
 				menuCssData = {'height': '0px'};
 				bgCssData = {'display': 'inline'};
@@ -117,6 +118,7 @@ temp_GRAPHICS = {
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
+			document.getElementById('LABEL_currentCamera').innerHTML = APP.gameHook.currentCamera;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
 			APP.graphics.toggleShowGameData();
 
@@ -775,6 +777,11 @@ temp_GRAPHICS = {
 			document.getElementById('LABEL_map_Y').innerHTML = parseInt(nextY);
 
 		}
+
+	},
+
+	// Process current cameras
+	processCameras: function(){
 
 	},
 
