@@ -36,18 +36,29 @@ temp_OPTIONS = {
 			bRandDb,
 			cObjective,
 			canContinue = !0,
+			canSetObjective = !0,
 			canSolveObjective = !1,
-			cGame = this.settingsData.currentGame;
+			cGame = this.settingsData.currentGame,
+			cScenario = document.getElementById('SELECT_SCENARIO').value,
+			cObjectiveData = APP.database[cGame].bioRandObjectives[mapName];
 
-		// Set objective
-		if (APP.database[cGame].bioRandObjectives[mapName] !== void 0 && APP.options.bioRandObjectives.current !== mapName){
+		// Check main variables to see if can set objective
+		if (cObjectiveData !== void 0 && APP.options.bioRandObjectives.current !== mapName){
 
-			canContinue = !1;
-			APP.options.bioRandObjectives.current = mapName;
-			APP.options.bioRandObjectives.parentMap = parent;
-			APP.options.bioRandObjectives.applyDistance = APP.database[cGame].bioRandObjectives[mapName].applyDistance;
-			if (APP.options.isMapLoading === !1){
-				APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
+			// Check if current game is BioHazard 2 and if current objecte belongs to current scenario
+			if (cGame === 'bio2' && cObjectiveData.requiredScenario !== void 0 && cObjectiveData.requiredScenario !== cScenario){
+				canSetObjective = !1;
+			}
+
+			// Check if can set objective
+			if (canSetObjective === !0){
+				canContinue = !1;
+				APP.options.bioRandObjectives.current = mapName;
+				APP.options.bioRandObjectives.parentMap = parent;
+				APP.options.bioRandObjectives.applyDistance = cObjectiveData.applyDistance;
+				if (APP.options.isMapLoading === !1){
+					APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
+				}
 			}
 
 		}

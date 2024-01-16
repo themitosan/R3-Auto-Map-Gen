@@ -187,6 +187,7 @@ temp_GRAPHICS = {
 				posY = 50050,
 				mapExtraClass = [],
 				cGameScenario = document.getElementById('SELECT_SCENARIO').value,
+				cBioRandObjective = APP.database[cGame].bioRandObjectives[mapName],
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
 			if (parent !== void 0){
@@ -291,8 +292,19 @@ temp_GRAPHICS = {
 				}
 
 				// Check if current map is an objective
-				if (APP.database[cGame].bioRandObjectives[mapName] !== void 0){
-					mapExtraClass.push('BIORAND_OBJECTIVE');
+				if (cBioRandObjective !== void 0){
+
+					// Set can add BioRand objective var and check current game
+					var canAddBioRandObjective = !0;
+					if (cGame === 'bio2' && cBioRandObjective.requiredScenario !== void 0 && cBioRandObjective.requiredScenario !== cGameScenario){
+						canAddBioRandObjective = !1;
+					}
+
+					// Check if can add BioRand objective
+					if (canAddBioRandObjective === !0){
+						mapExtraClass.push('BIORAND_OBJECTIVE');
+					}
+
 				}
 
 			}
@@ -312,12 +324,12 @@ temp_GRAPHICS = {
 			if (APP.options.isMapLoading === !1 && parent !== void 0){
 				APP.graphics.processMapColission(mapName, parent);
 				APP.graphics.checkForMapDistances();
-			} 
+			}
 
 			// Enable drag and push map to history
 			APP.graphics.enableDrag(`ROOM_${mapName}`);
 			this.addedMapHistory.push({mapName: mapName, parent: parent});			
-			
+
 		}
 
 		// Push line, bump door trigger var and update labels
