@@ -307,8 +307,20 @@ temp_OPTIONS = {
 
 			// Check if "is BioRand" option is active and if description file exists
 			if (checkBioRand === !0 && APP.fs.existsSync(randDataPath) === !0){
-				const randDesc = APP.fs.readFileSync(randDataPath, 'utf8');
+
+				// Create variables and set new file name
+				const
+					cGame = document.getElementById('SELECT_GAME').value,
+					randDesc = APP.fs.readFileSync(randDataPath, 'utf8'),
+					cScenario = document.getElementById('SELECT_SCENARIO').value;
+
 				fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
+
+				// Check if is Bio 2. If so, append scenario at filename
+				if (cGame === 'bio2'){
+					fileName = `${fileName}-${cScenario.slice(cScenario.length - 1).toUpperCase()}`;
+				}
+
 			}
 
 			// Check if file exists, if is BioRand and if it's seed is the same

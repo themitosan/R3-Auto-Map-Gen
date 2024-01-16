@@ -25,10 +25,10 @@
 		"build": "node comp-main.js",
 		"build-debug": "node comp-debug.js"
 	},
-	"dependencies": {
-		"nw": "^0.82.0-sdk"
-	},
 	"devDependencies": {
 		"nw-builder": "^3.5.7"
+	},
+	"dependencies": {
+		"nw": "^0.82.0-sdk"
 	}
 }
