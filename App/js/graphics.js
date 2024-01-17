@@ -825,6 +825,7 @@ temp_GRAPHICS = {
 
 		// Set current feature status
 		APP.options.enableCamHint = document.getElementById('CHECKBOX_enableCamHint').checked;
+		localStorage.setItem('enableCamHint', APP.options.enableCamHint);
 		for (var i = 0; i < APP.gameHook.mapHistory.length; i++){
 			TMS.removeDOM(`CAM_HINT_${i}`);
 		}
