@@ -10,7 +10,9 @@ temp_GAMEHOOK = {
 	*/
 	gameData: {},
 	mapHistory: [],
+	camHistory: [],
 	gameActive: !1,
+	currentMap: '',
 	currentCamera: 0,
 	gameObject: void 0,
 	updateObject: void 0,
@@ -166,21 +168,25 @@ temp_GAMEHOOK = {
 			try {
 
 				// Variables
-				var isBioRandActive = document.getElementById('CHECKBOX_isBioRand').checked,
+				var needUpdateCam = !1,
 					memoryData = APP.options.settingsData[cGame],
+					isBioRandActive = document.getElementById('CHECKBOX_isBioRand').checked,
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
 					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`,
 					previousMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
-					cCamera = parseInt(APP.gameHook.read(memoryData.cam, 2, 'hex'), 16),
-					needUpdateCam = !1;
+					cCamera = parseInt(APP.gameHook.read(memoryData.cam, 2, 'hex'), 16);
 
-				// Check if needs to update label GUI and update current cam var
+				// Set current map and check if needs to update label GUI
+				APP.gameHook.currentMap = cMap;
 				if (cCamera !== APP.gameHook.currentCamera){
 					needUpdateCam = !0;
+					APP.gameHook.camHistory.push(cCamera);
 				}
 				APP.gameHook.currentCamera = cCamera;
-				if (needUpdateCam === !0){
-					APP.graphics.updateGuiLabel();
+
+				// Check if needs to trim cam history
+				if (APP.gameHook.camHistory.length > 9){
+					APP.gameHook.camHistory.splice(0, 7);
 				}
 
 				// Create reset conditions var
@@ -206,12 +212,26 @@ temp_GAMEHOOK = {
 				// Check if latest map is the current one
 				if (this.mapHistory[(this.mapHistory.length - 1)] !== cMap){
 
+					// Push current cam to prevent bugs
+					if (needUpdateCam === !1){
+						APP.gameHook.camHistory.push(cCamera);
+					}
+
 					// Push room to map and update player pos.
 					APP.gameHook.mapHistory.push(cMap);
 					const mHistory = APP.gameHook.mapHistory;
 					APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)]);
 					APP.graphics.updatePlayerPos();
 
+					// Add Cam Hint
+					APP.graphics.processAddCamHint(cMap);
+
+				}
+
+				// Update current cam var
+				if (needUpdateCam === !0){
+					APP.graphics.processCamHint();
+					APP.graphics.updateGuiLabel();
 				}
 
 			} catch (err) {

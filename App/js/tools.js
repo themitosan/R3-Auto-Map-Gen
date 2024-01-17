@@ -614,7 +614,7 @@ temp_TOOLS = {
 			switch (inputSource){
 
 				case 'number':
-					
+
 					// Fix input field
 					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_R' });
 					APP.tools.fixDomNumber({ def: 0, min: 0, max: 255, maxLength: 3, domName: 'TMS_COLOR_PICKER_NUMBER_G' });
@@ -705,7 +705,7 @@ temp_TOOLS = {
 
 		// Set timeout
 		APP.timeoutDatabase[name] = setTimeout(function(){
-			
+
 			// Execute action
 			if (typeof action === 'function'){
 				action();

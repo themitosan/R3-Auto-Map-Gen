@@ -18,6 +18,7 @@ temp_GRAPHICS = {
 	addedMapHistory: [],
 	enabledDragList: [],
 	enableCanvasDrag: !1,
+	availableCamHints: 0,
 	skipUpdateGuiLabel: !1,
 	disableCanvasBgColor: !0,
 
@@ -79,6 +80,7 @@ temp_GRAPHICS = {
 				gameRunningStatus = '',
 				canvasDragStatus = 'OFF',
 				bioRandSeedName = 'Unknown',
+				availableCamHints = 'Unknown',
 				cGame = APP.options.settingsData.currentGame,
 				checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked,
 				lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
@@ -109,6 +111,11 @@ temp_GRAPHICS = {
 				canvasDragStatus = 'ON';
 			}
 
+			// Check if available cam hints is available
+			if (APP.options.enableCamHint === !0){
+				availableCamHints = APP.graphics.availableCamHints;
+			}
+
 			// Check if right menu is closed
 			if (APP.options.isMenuRightClosed === !0){
 				labelDragMessage = ' [ You can use this label to drag app window ]';
@@ -117,6 +124,7 @@ temp_GRAPHICS = {
 			// Set label strings and update top info GUI
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
+			document.getElementById('LABEL_availableCamHints').innerHTML = availableCamHints;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
 			document.getElementById('LABEL_currentCamera').innerHTML = APP.gameHook.currentCamera;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
@@ -194,11 +202,8 @@ temp_GRAPHICS = {
 
 			if (parent !== void 0){
 
-				// Update parent door counts and get parent data
-				APP.graphics.addedMaps[parent].doors.push(mapName);
-				var rect = TMS.getCoords(`ROOM_${parent}`);
-
 				// Set default position
+				var rect = TMS.getCoords(`ROOM_${parent}`);
 				posX = rect.L + (rect.W / 2);
 				posY = rect.T;
 
@@ -316,8 +321,8 @@ temp_GRAPHICS = {
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Bump map z-index counter and push selected map to list
+			APP.graphics.addedMaps[mapName] = { x: posX, y: posY, mapId: APP.graphics.currentMap, cams: {} };
 			APP.graphics.zIndexMap++;
-			APP.graphics.addedMaps[mapName] = {x: posX, y: posY, mapId: APP.graphics.currentMap, doors: []};
 
 			/*
 				If map file isn't loading and there's a map parent, check if spawn position is over any other map
@@ -330,12 +335,13 @@ temp_GRAPHICS = {
 
 			// Enable drag and push map to history
 			APP.graphics.enableDrag(`ROOM_${mapName}`);
-			this.addedMapHistory.push({mapName: mapName, parent: parent});			
+			this.addedMapHistory.push({ mapName: mapName, parent: parent });			
 
 		}
 
 		// Push line, bump door trigger var and update labels
 		APP.graphics.pushLine(parent, mapName);
+		APP.graphics.processCamHint();
 		APP.options.doorTrigger++;
 		this.updateGuiLabel();
 
@@ -555,10 +561,8 @@ temp_GRAPHICS = {
 
 			}
 
-			// Start process
+			// Start process and log
 			runProcess();
-
-			// Log adittion
 			console.info(`INFO - Map ${mapTarget} [${APP.database[cGame].rdt[mapTarget].name}] colissions was processed comparing with ${Object.keys(APP.graphics.addedMaps).length} maps.`);
 
 		}
@@ -780,8 +784,97 @@ temp_GRAPHICS = {
 
 	},
 
-	// Process current cameras
-	processCameras: function(){
+	// Add cam hint
+	processAddCamHint: function(mapName){
+
+		// Get previous maps / cams and check if exists. if not, return null map / cam 0
+		var prevMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 2],
+			prevCam = APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2];
+
+		if (prevCam === void 0){
+			prevCam = 0;
+		}
+
+		// Check if current cam exist on current map
+		if (APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)] === void 0){
+			APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)] = [];
+		}
+
+		// Check if can add previous map connection to dataabase
+		if (prevMap !== void 0){
+
+			// Check if previous cams on previous maps contains current map
+			if (APP.graphics.addedMaps[prevMap].cams[prevCam].indexOf(mapName) === -1){
+				APP.graphics.addedMaps[prevMap].cams[prevCam].push(mapName);
+			}
+
+			// Check if previous map exists on current cam
+			if (APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)].indexOf(prevMap) === -1){
+				APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)].push(prevMap);
+			}
+
+		}
+
+		APP.graphics.processCamHint();
+		console.info(APP.graphics.addedMaps);
+
+	},
+
+	// Process cam hint
+	processCamHint: function(){
+
+		// Set current feature status
+		APP.options.enableCamHint = document.getElementById('CHECKBOX_enableCamHint').checked;
+		for (var i = 0; i < APP.gameHook.mapHistory.length; i++){
+			TMS.removeDOM(`CAM_HINT_${i}`);
+		}
+		APP.graphics.availableCamHints = 0;
+
+		// Get current map and current game
+		const
+			currentMap = APP.gameHook.currentMap,
+			currentCam = APP.gameHook.currentCamera,
+			cGame = document.getElementById('SELECT_GAME').value;
+
+		// Check if current cam exists on database
+		if (APP.graphics.addedMaps[currentMap] !== void 0 && APP.graphics.addedMaps[currentMap].cams[currentCam] === void 0){
+			APP.graphics.addedMaps[currentMap].cams[currentCam] = [];
+		}
+
+		// Check if have maps
+		if (Object.keys(APP.graphics.addedMaps).length !== 0){
+
+			// Requirements to render hint
+			const hintRequirements = [
+				APP.options.enableCamHint === !0,
+				APP.graphics.addedMaps[currentMap] !== void 0,
+				APP.graphics.addedMaps[currentMap].cams[currentCam].length !== 0
+			];
+
+			// Check if can render cam hint
+			if (hintRequirements.indexOf(!1) === -1){
+
+				// Set current cam hints and process cam list
+				APP.graphics.availableCamHints = APP.graphics.addedMaps[currentMap].cams[currentCam].length;
+				APP.graphics.addedMaps[currentMap].cams[currentCam].forEach(function(mapTarget, cIndex){
+
+					// Check if map can be processed
+					if (APP.database[cGame].rdt[mapTarget].skipCamHint === !1){
+
+						// Get map coords and append hint on map
+						const cMapCoords = TMS.getCoords(`ROOM_${mapTarget}`);
+						TMS.append('APP_MAP_CANVAS', `<div id="CAM_HINT_${cIndex}" class="DIV_CAM_HINT" style="z-index: ${(APP.graphics.addedMapHistory.length * 2)};top: ${(cMapCoords.T - 6)}px;left: ${(cMapCoords.L - 6)}px;width: ${(cMapCoords.W + 6)}px;height: ${(cMapCoords.H + 6)}px;"></div>`);
+
+					}
+
+				});
+
+			}
+
+		}
+
+		// Update labels GUI
+		APP.graphics.updateGuiLabel();
 
 	},
 

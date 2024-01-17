@@ -98,6 +98,11 @@
 				</div>
 
 				<div class="DIV_CHECKBOX">
+					<input type="checkbox" id="CHECKBOX_enableCamHint">
+					<label title="Set this checkbox active to show a hint where all doors on your current location can lead to." onclick="APP.tools.processCheckbox('CHECKBOX_enableCamHint', APP.graphics.processCamHint);"> - Enable Cam Hint</label>
+				</div>
+
+				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_hideTopMenu">
 					<label title="Set this checkbox active if you want hide top menu." onclick="APP.tools.processCheckbox('CHECKBOX_hideTopMenu', APP.graphics.togglehideTopMenu);"> - Auto-hide top menu</label>
 				</div>
@@ -150,6 +155,7 @@
 				Map X: <span class="LABEL_appGameData LBL_COLOR_X" id="LABEL_map_X">50000</span><br>
 				Map Y: <span class="LABEL_appGameData LBL_COLOR_Y" id="LABEL_map_Y">50000</span><br>
 				Current camera: <span class="LABEL_appGameData" id="LABEL_currentCamera">0</span><br>
+				Available Cam Hints: <span class="LABEL_appGameData" id="LABEL_availableCamHints">Unknown</span><br>
 				Avg. Room Transition: <span class="LABEL_appGameData" id="LABEL_doorCounter">0</span>
 			</div>
 

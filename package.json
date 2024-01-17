@@ -1,11 +1,11 @@
 {
 	"hash": "",
-	"version": "1.2.2",
+	"version": "1.2.3",
 	"author": "TheMitoSan",
 	"main": "App/index.htm",
 	"name": "R3 Auto Map Gen",
 	"license": "GPL-2.0-only",
-	"description": "This app creates an node-conected map on the go for Resident Evil classic games.",
+	"description": "This app creates an node-conected map on the go for classic Resident Evil games.",
 	"window": {
 		"width": 1130,
 		"height": 740,

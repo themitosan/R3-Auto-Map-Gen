@@ -410,10 +410,29 @@ label {
 	animation-name: HUE_CIRCLE;
 	text-shadow: 1px 1px 2px #000;
 	border-radius: 0px 14px 14px 0px;
+	animation-iteration-count: infinite !important;
 }
 .BIORAND_OBJECTIVE {
 	border-radius: 12px !important;
 	background-image: linear-gradient(180deg, #005c64, #0094aa);
+}
+
+/*
+	Map Hint
+*/
+.DIV_CAM_HINT {
+	border-width: 3px;
+	position: absolute;
+	border-radius: 6px;
+	border-style: solid;
+	border-color: #0000;
+	animation-duration: 3s;
+	animation-name: HINT_BLINK;
+	background-color: #0000 !important;
+	box-shadow: 0px 0px 10px 0px #f006 inset;
+	animation-iteration-count: infinite !important;
+	border-image: linear-gradient(180deg, #f00, #c00);
+	border-image-slice: 1;
 }
 
 /*
@@ -490,6 +509,26 @@ label {
 	100% {
 		background-color: #008;
 		filter: hue-rotate(359deg);
+	}
+}
+@keyframes HINT_BLINK {
+	0% {
+		opacity: 1;
+		padding: 0px;
+		filter: blur(0px);
+		transform: translate(0px, 0px);
+	}
+	50% {
+		padding: 2px;
+		opacity: 0.6;
+		filter: blur(0.8px);
+		transform: translate(-2px, -2px);
+	}
+	100% {
+		opacity: 1;
+		padding: 0px;
+		filter: blur(0px);
+		transform: translate(0px, 0px);
 	}
 }
 @keyframes ITEM_BOX_BORDER_RADIUS {

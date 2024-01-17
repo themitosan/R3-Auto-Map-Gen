@@ -118,7 +118,7 @@ const TMS = Object.freeze(Object.seal({
 
 	/*
 		Animate
-	
+
 		elementId     = HTML DOM id
 		cssChanges    = Object {width: x, height, y}
 		animationTime = Number (Min: 0)
@@ -130,7 +130,7 @@ const TMS = Object.freeze(Object.seal({
 			canStart = !0,
 			transitionString = '';
 			elId = TMS.getElement(elementId);
-		
+
 		if (elId === null){
 			canStart = !1;
 			eReason.push(`\nDOM does not exist! (${elementId})`);
@@ -143,7 +143,7 @@ const TMS = Object.freeze(Object.seal({
 			canStart = !1;
 			eReason.push(`\nYou must insert a number on animation time (Current type: ${typeof animationTime})`);
 		}
-		
+
 		// End
 		if (canStart === !0){
 
@@ -490,7 +490,7 @@ const TMS = Object.freeze(Object.seal({
 			elId = TMS.getElement(elementId);
 
 		if (elId !== null){
-			
+
 			var top = elId.offsetTop,
 				left = elId.offsetLeft,
 				width = elId.getBoundingClientRect().width,

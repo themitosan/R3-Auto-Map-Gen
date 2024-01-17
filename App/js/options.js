@@ -15,6 +15,7 @@ temp_OPTIONS = {
 	alwaysOnTop: !1,
 	isMapLoading: !1,
 	showGameData: !1,
+	enableCamHint: !0,
 	enableTabletMode: !1,
 	isMenuRightClosed: !1,
 	bioRandObjectives: {
@@ -254,9 +255,11 @@ temp_OPTIONS = {
 		APP.graphics.addedMaps = {};
 		APP.graphics.addedLines = {};
 		APP.gameHook.mapHistory = [];
+		APP.gameHook.camHistory = [];
 		APP.graphics.xFarestMap = '';
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
+		APP.graphics.availableCamHints = 0;
 		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null };
 
 		// Reset drag
@@ -555,10 +558,11 @@ temp_OPTIONS = {
 			Get localStorage settings
 		*/
 		const lStorageSettingsList = [
+			'enableGrid',
 			'hideTopMenu',
 			'alwaysOnTop',
 			'showGameData',
-			'enableGrid',
+			'enableCamHint',
 			'enableTabletMode'
 		].forEach(function(cSettings){
 
@@ -674,6 +678,7 @@ temp_OPTIONS = {
 				// Set ram pos.
 				var s = window.prompt(`Please insert ram pos. for \"Stage\":\nExample: \"${cGameSettings.default_stage}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`),
 					r = window.prompt(`Please insert ram pos. for \"Room\":\nExample: \"${cGameSettings.default_room}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`);
+					c = window.prompt(`Please insert ram pos. for current camera:\nExample: \"${cGameSettings.default_cam}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`);
 
 				// Check if is for default values
 				if (s === null){
@@ -682,11 +687,17 @@ temp_OPTIONS = {
 				if (r === null){
 					r = APP.options.settingsData[cGame].default_room;
 				}
+				if (c === null){
+					c = APP.options.settingsData[cGame].default_cam;
+				}
 
 				if (s === '' || s.length !== 10){
 					canSave = !1;
 				}
 				if (r === '' || r.length !== 10){
+					canSave = !1;
+				}
+				if (c === '' || c.length !== 10){
 					canSave = !1;
 				}
 
@@ -696,6 +707,7 @@ temp_OPTIONS = {
 					// Set values, update settings file, display message and load new settings
 					APP.options.settingsData[cGame].stage = s;
 					APP.options.settingsData[cGame].room = r;
+					APP.options.settingsData[cGame].cam = c;
 					APP.options.saveSettings();
 					window.alert('INFO - Process complete!');
 					APP.options.loadSettings();

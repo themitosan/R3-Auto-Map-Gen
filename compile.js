@@ -73,8 +73,8 @@ module.exports = {
 				'ProductShortName': packageJson.name,
 				'CompanyShortName': packageJson.author,
 				'FileDescription': packageJson.description,
-				'FileVersion': 'Ver. ' + packageJson.version + ', nwjs: ' + nwVersion,
-				'LegalCopyright': '2023, ' + date.getFullYear() + ' - TheMitoSan (TemmieHeartz)'
+				'FileVersion': `Ver. ${packageJson.version}, nwjs: ${nwVersion}`,
+				'LegalCopyright': `2023, ${date.getFullYear()} - TheMitoSan (TemmieHeartz)`
 			}
 
 		});
@@ -86,20 +86,20 @@ module.exports = {
 
 			// Get licence and readme files
 			const
-				readme = fs.readFileSync('./README.md', 'utf8'),
+				help = fs.readFileSync('./help.txt', 'utf8'),
 				license = fs.readFileSync('./LICENSE', 'utf8'),
-				help = fs.readFileSync('./help.txt', 'utf8');
+				readme = fs.readFileSync('./README.md', 'utf8');
 
 			// Run nw-builder
 			compileData.build().then(function(){
-	
+
 				// Copy required files to build dir
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/help.txt', help, 'utf8');
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/LICENSE', license, 'utf8');
 				fs.writeFileSync('./build/R3 Auto Map Gen/win64/README.md', readme, 'utf8');
-				fs.writeFileSync('./version.txt', 'Version: ' + packageJson.version, 'utf8');
-				fs.writeFileSync('./build/R3 Auto Map Gen/win64/version.txt', 'Version: ' + packageJson.version, 'utf8');
-	
+				fs.writeFileSync('./version.txt', `Version: ${packageJson.version}`, 'utf8');
+				fs.writeFileSync('./build/R3 Auto Map Gen/win64/version.txt', `Version: ${packageJson.version}`, 'utf8');
+
 			});
 
 		} catch (err) {
