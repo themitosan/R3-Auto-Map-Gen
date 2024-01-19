@@ -543,9 +543,9 @@ label {
 /*
 	Settings for window sizes
 */
-@media only screen and (max-width: 800px){
+@media only screen and (max-width: 826px){
 
-	.BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, #RE_CAPTURE_ICON, .APP_GAME_DATA {
+	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, .APP_GAME_DATA {
 		display: none;
 	}
 
