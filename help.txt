@@ -1,20 +1,20 @@
 -- General Shortcuts
 
-[F1] Show about window
+[F1]  Show about window
 [Alt] Toggle between drag canvas or current map
-[F7] Center current map
-[F8] Reset canvas zoom
-[F9] Reset map
+[F7]  Center current map
+[F8]  Reset canvas zoom
+[F9]  Reset map
 [F10] Reload latest saved / loaded map
 
 -- Global Shortcuts
 
 [Ctrl+Shift+S] Save / update current map
-[Ctrl+F7] Center current map
-[Ctrl+F8] Reset canvas zoom
-[Ctrl+F9] Reset map
-[Ctrl+F10] Reload latest saved / loaded map
-[Ctrl+Delete] Delete all saves from selected game
+[Ctrl+F7]      Center current map
+[Ctrl+F8]      Reset canvas zoom
+[Ctrl+F9]      Reset map
+[Ctrl+F10]     Reload latest saved / loaded map
+[Ctrl+Delete]  Delete all saves from selected game
 [Ctrl+Shift+R] Run game
 [Ctrl+Shift+H] Hook game process
 [Ctrl+Shift+Q] Restore right menu
