@@ -53,7 +53,7 @@ temp_GAMEHOOK = {
 
 					// Open process and update GUI
 					APP.gameHook.gameObject = APP.memoryjs.openProcess(exeName);
-					TMS.addClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
+					TMS.addClass('RE_CAPTURE_ICON', 'RE_CAPTURE_ICON_ON');
 					APP.graphics.processDisableList(disableList);
 					APP.graphics.processEnableList(enableList);
 					APP.gameHook.gameActive = !0;
@@ -101,7 +101,7 @@ temp_GAMEHOOK = {
 		// Update buttons, reset top menu manually and remove on icon
 		APP.graphics.processEnableList(enableList);
 		APP.graphics.processDisableList(disableList);
-		TMS.removeClass('RE3_CAPTURE_ICON', 'RE3_CAPTURE_ICON_ON');
+		TMS.removeClass('RE_CAPTURE_ICON', 'RE_CAPTURE_ICON_ON');
 		TMS.css('MENU_TOP', {'height': `${APP.graphics.maxHeight}px`});
 
 		// Update selected game / check if current game exists, open right menu, reset spawn variable and set running flag as false

@@ -843,7 +843,7 @@ temp_GRAPHICS = {
 		}
 
 		// Check if have maps
-		if (Object.keys(APP.graphics.addedMaps).length !== 0){
+		if (Object.keys(APP.graphics.addedMaps).length !== 0 && APP.options.isMapLoading === !1){
 
 			// Requirements to render hint
 			const hintRequirements = [
