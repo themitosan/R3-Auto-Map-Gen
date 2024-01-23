@@ -17,13 +17,13 @@ temp_DATABASE = {
 	// BioHazard
 	bio1: {
 		bioRandObjectives: {
-			'R305': { endsOn: 'R310', applyDistance: !1 },
-			'R11A': { endsOn: null  , applyDistance: !1 },
-			'R70C': { endsOn: null  , applyDistance: !1 },
-			'R501': { endsOn: 'R50D', applyDistance: !1 }
+			'R305': { endsOn: 'R310', applyDistance: !1, requiredCam: [], requiredScenario: null },
+			'R11A': { endsOn: null  , applyDistance: !1, requiredCam: [], requiredScenario: null },
+			'R70C': { endsOn: null  , applyDistance: !1, requiredCam: [], requiredScenario: null },
+			'R501': { endsOn: 'R50D', applyDistance: !1, requiredCam: [], requiredScenario: null }
 		},
 		rdt: {
-			
+
 			'R000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0},
 			'R11F': {name: 'Demo Scene', location: 'If you are seeing this message, it means you are on demo mode!', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0},
 
@@ -56,7 +56,7 @@ temp_DATABASE = {
 			'R11A': {name: 'Courtyard Passage', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R11B': {name: 'Store Room', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R11C': {name: 'Wardrobe Closet', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
-			
+
 			'R200': {name: 'Mansion Elevator', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R201': {name: '2F Left Stairs', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R202': {name: 'Dining Room 2F', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
@@ -104,6 +104,7 @@ temp_DATABASE = {
 			'R30E': {name: 'Courtyard B1 Save Room', location: 'Courtyard B1', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R30F': {name: 'Crank Passage', location: 'Courtyard B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R310': {name: 'Court. / Lab Transition', location: 'Courtyard 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
+
 			'R400': {name: 'Guardhouse Entrance', location: 'Guardhouse 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R401': {name: 'Room 001', location: 'Guardhouse 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R402': {name: 'Room 001 - Bathroom', location: 'Guardhouse 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
@@ -122,7 +123,7 @@ temp_DATABASE = {
 			'R40F': {name: 'Plant 42 Roots', location: 'Guardhouse B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R410': {name: 'Arms. Storehouse', location: 'Guardhouse B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R411': {name: 'Control Room', location: 'Guardhouse B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
-			
+
 			'R500': {name: 'Under Fountain', location: 'Laboratory B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R501': {name: 'Heliport Passage', location: 'Laboratory B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R502': {name: 'Ladder Room', location: 'Laboratory B2', haveItemBox: !0, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
@@ -212,11 +213,11 @@ temp_DATABASE = {
 	// BioHazard 2
 	bio2: {
 		bioRandObjectives: {
-			'R505': { endsOn: 'R607', applyDistance: !1 },
-			'R111': { endsOn: null,   applyDistance: !1 },
-			'R303': { endsOn: null,   applyDistance: !1, requiredScenario: 'scenario_a' },
-			'R617': { endsOn: 'R700', applyDistance: !1 },
-			'R21B': { endsOn: 'R300', applyDistance: !1, requiredScenario: 'scenario_b' }
+			'R505': { endsOn: 'R607', applyDistance: !1, requiredCam: [], requiredScenario: null },
+			'R111': { endsOn: null,   applyDistance: !1, requiredCam: [], requiredScenario: null },
+			'R303': { endsOn: null,   applyDistance: !1, requiredCam: [], requiredScenario: 'scenario_a' },
+			'R617': { endsOn: 'R700', applyDistance: !1, requiredCam: [], requiredScenario: null },
+			'R21B': { endsOn: null,   applyDistance: !1, requiredCam: [], requiredScenario: 'scenario_b' }
 		},
 		rdt: {
 
@@ -363,12 +364,12 @@ temp_DATABASE = {
 
 		// BioRand Objectives
 		bioRandObjectives: {
-			'R20C': { endsOn: 'R215', applyDistance: !0 },
-			'R30C': { endsOn: 'R30D', applyDistance: !0 },
-			'R30D': { endsOn: null,   applyDistance: !0 },
-			'R415': { endsOn: null,   applyDistance: !0 },
-			'R50C': { endsOn: 'R50D', applyDistance: !0 },
-			'R50D': { endsOn: 'R50F', applyDistance: !1 }
+			'R20C': { endsOn: 'R215', applyDistance: !0, requiredCam: [], requiredScenario: null },
+			'R30C': { endsOn: 'R30D', applyDistance: !0, requiredCam: [], requiredScenario: null },
+			'R30D': { endsOn: null,   applyDistance: !0, requiredCam: [], requiredScenario: null },
+			'R415': { endsOn: null,   applyDistance: !0, requiredCam: [], requiredScenario: null },
+			'R50C': { endsOn: 'R50D', applyDistance: !0, requiredCam: [], requiredScenario: null },
+			'R50D': { endsOn: 'R50F', applyDistance: !1, requiredCam: [], requiredScenario: null }
 		},
 
 		// Map list

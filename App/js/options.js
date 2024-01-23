@@ -47,7 +47,7 @@ temp_OPTIONS = {
 		if (cObjectiveData !== void 0 && APP.options.bioRandObjectives.current !== mapName){
 
 			// Check if current game is BioHazard 2 and if current objecte belongs to current scenario
-			if (cGame === 'bio2' && cObjectiveData.requiredScenario !== void 0 && cObjectiveData.requiredScenario !== cScenario){
+			if (cGame === 'bio2' && cObjectiveData.requiredScenario !== null && cObjectiveData.requiredScenario !== cScenario){
 				canSetObjective = !1;
 			}
 
@@ -73,26 +73,39 @@ temp_OPTIONS = {
 
 			// Solve objective process
 			const solveObjective = function(){
-				
+
+				// Reset BioRand objective variables
 				APP.options.bioRandObjectives.reset = !0;
 				APP.options.bioRandObjectives.current = null;
 				APP.options.bioRandObjectives.parentMap = null;
 
+				// Check if can display message
 				if (APP.options.isMapLoading === !1){
 					APP.graphics.displayTopMsg(`Objective complete! - ${APP.database[cGame].rdt[parent].name}, ${APP.database[cGame].rdt[parent].location}`, 5200);
 				}
 
 			}
 
-			// Check if can solve current objective
+			/*
+				Check if can resolve BioRand Objective
+			*/
+
+			// Check if current objective can be resolved in any other map
 			if (bRandDb.endsOn === null && parent === cObjective){
-				canSolveObjective = !0;
+
+				// Check if current objective requires a player being in a specific camera
+				if (bRandDb.requiredCam.length === 0 || bRandDb.requiredCam.indexOf(APP.gameHook.currentCamera) !== -1){
+					canSolveObjective = !0;
+				}
+
 			}
+
+			// Check if current map is the resoluction from current objective (on BioRand log files, it is labelled as "always")
 			if (canSolveObjective === !1 && bRandDb.endsOn === mapName && parent === cObjective){
 				canSolveObjective = !0;
 			}
 
-			// End
+			// Check if can resolve
 			if (canSolveObjective === !0){
 				solveObjective();
 			}

@@ -292,7 +292,7 @@ temp_GRAPHICS = {
 
 					}
 
-					// Reset objective flags
+					// Reset objective vars
 					APP.options.bioRandObjectives.reset = !1;
 					APP.options.bioRandObjectives.applyDistance = null;
 
@@ -303,7 +303,7 @@ temp_GRAPHICS = {
 
 					// Set can add BioRand objective var and check current game
 					var canAddBioRandObjective = !0;
-					if (cGame === 'bio2' && cBioRandObjective.requiredScenario !== void 0 && cBioRandObjective.requiredScenario !== cGameScenario){
+					if (cGame === 'bio2' && cBioRandObjective.requiredScenario !== null && cBioRandObjective.requiredScenario !== cGameScenario){
 						canAddBioRandObjective = !1;
 					}
 
