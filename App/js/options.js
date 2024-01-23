@@ -265,6 +265,7 @@ temp_OPTIONS = {
 		const cGame = document.getElementById('SELECT_GAME').value;
 		APP.options.settingsData.scenario = document.getElementById('SELECT_SCENARIO').value;
 		APP.options.settingsData.currentGame = cGame;
+		localStorage.setItem('currentGame', cGame);
 		APP.graphics.updateGuiLabel();
 
 		// Get current data and check if current game executable is available
@@ -567,7 +568,11 @@ temp_OPTIONS = {
 
 		// Load file and set current game
 		this.settingsData = tempData;
-		document.getElementById('SELECT_GAME').value = this.settingsData.currentGame;
+		var cGame = localStorage.getItem('currentGame');
+		if (cGame === null){
+			cGame = 'bio3';
+		}
+		document.getElementById('SELECT_GAME').value = cGame;
 
 		// Check if game executable exists
 		if (APP.fs.existsSync(`${this.settingsData[this.settingsData.currentGame].gamePath}/${this.settingsData[this.settingsData.currentGame].exeName}`) === !0){
@@ -618,6 +623,7 @@ temp_OPTIONS = {
 
 		// Process post loading settings
 		APP.graphics.toggleBgObjectiveAnimation();
+		APP.options.updateSelectedGame();
 		APP.graphics.toggleShowGameData();
 		APP.graphics.togglehideTopMenu();
 		APP.graphics.toggleTabletMode();
