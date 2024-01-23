@@ -18,11 +18,13 @@ temp_OPTIONS = {
 	enableCamHint: !0,
 	enableTabletMode: !1,
 	isMenuRightClosed: !1,
+	enableBgObjectiveAnimation: !0,
 	bioRandObjectives: {
 		reset: !1,
 		current: null,
 		parentMap: null,
 		applyDistance: null,
+		clearedObjectives: 0
 	},
 
 	/*
@@ -53,10 +55,19 @@ temp_OPTIONS = {
 
 			// Check if can set objective
 			if (canSetObjective === !0){
+
+				// Set variables
 				canContinue = !1;
 				APP.options.bioRandObjectives.current = mapName;
 				APP.options.bioRandObjectives.parentMap = parent;
 				APP.options.bioRandObjectives.applyDistance = cObjectiveData.applyDistance;
+
+				// Check if can display background animation
+				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0){
+					APP.graphics.playBgObjetiveAnimation('findObjective');
+				}
+
+				// Check if can display message
 				if (APP.options.isMapLoading === !1){
 					APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
 				}
@@ -74,10 +85,16 @@ temp_OPTIONS = {
 			// Solve objective process
 			const solveObjective = function(){
 
-				// Reset BioRand objective variables
+				// Reset BioRand objective and bump cleared objectives
 				APP.options.bioRandObjectives.reset = !0;
 				APP.options.bioRandObjectives.current = null;
 				APP.options.bioRandObjectives.parentMap = null;
+				APP.options.bioRandObjectives.clearedObjectives++;
+
+				// Check if can display background animation
+				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0){
+					APP.graphics.playBgObjetiveAnimation('clearObjective');
+				}
 
 				// Check if can display message
 				if (APP.options.isMapLoading === !1){
@@ -187,7 +204,7 @@ temp_OPTIONS = {
 				// Clear timeouts
 				APP.tools.clearTimeoutList([
 					'returnRightMenu',
-					'updatePlayerPos'					
+					'updatePlayerPos'
 				]);
 
 				// Enable isMenuRightClosed flag, span tah as app drag and update it's message
@@ -273,7 +290,7 @@ temp_OPTIONS = {
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
 		APP.graphics.availableCamHints = 0;
-		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null };
+		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null, clearedObjectives: 0 };
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
@@ -576,7 +593,8 @@ temp_OPTIONS = {
 			'alwaysOnTop',
 			'showGameData',
 			'enableCamHint',
-			'enableTabletMode'
+			'enableTabletMode',
+			'enableBgObjectiveAnimation'
 		].forEach(function(cSettings){
 
 			// Check if settings exists
@@ -599,6 +617,7 @@ temp_OPTIONS = {
 		});
 
 		// Process post loading settings
+		APP.graphics.toggleBgObjectiveAnimation();
 		APP.graphics.toggleShowGameData();
 		APP.graphics.togglehideTopMenu();
 		APP.graphics.toggleTabletMode();

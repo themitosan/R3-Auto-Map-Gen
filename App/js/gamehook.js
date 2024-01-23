@@ -23,7 +23,7 @@ temp_GAMEHOOK = {
 
 	// Seek game
 	seekGame: function(skipCheck){
-		
+
 		if (this.gameActive === !1){
 
 			// Check if game process exists
@@ -35,9 +35,9 @@ temp_GAMEHOOK = {
 						return cProcess;
 					}
 				});
-	
+
 			if (gProcess.length !== 0 || skipCheck === !0){
-	
+
 				try {
 
 					// Disable Enable lists
@@ -75,7 +75,7 @@ temp_GAMEHOOK = {
 					window.alert('IMPORTANT: If you are running the game process from BioRand itself, Don\'t use \"Start RE?\" button!\n\nInstead, run the game using \"Start Game\" [CTRL + Shift + R] at top-left corner - or from file explorer.');
 					console.error(err);
 				}
-	
+
 			} else {
 				window.alert(`ERROR - Unable to find game process!\n(${exeName})`);
 			}
@@ -123,7 +123,7 @@ temp_GAMEHOOK = {
 
 		var res = '00';
 		if (ramPos !== void 0 && this.gameActive === !0){
-			
+
 			if (limit === void 0 || parseInt(limit) === NaN){
 				limit = 2;
 			}

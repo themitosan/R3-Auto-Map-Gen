@@ -436,6 +436,29 @@ label {
 }
 
 /*
+	Objetive animations
+*/
+.APP_MAP_OBJECTIVE_ANIMATION_findObjective {
+	z-index: 1;
+	opacity: 0;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	transition-duration: 1s;
+	background-color: #00798820;
+}
+.APP_MAP_OBJECTIVE_ANIMATION_clearObjective {
+	z-index: 0;
+	left: 100%;
+	width: 100%;
+	height: 100%;
+	position: absolute;
+	transition-duration: 1s;
+	background-color: #007280;
+	-webkit-mask-image: linear-gradient(90deg, #0000, #0008, #0000);
+}
+
+/*
 	Process capture status
 */
 .RE_CAPTURE_ICON {

@@ -382,14 +382,18 @@ temp_TOOLS = {
 	// Process checkbox status
 	processCheckbox: function(domName, callback){
 
-		var res = !1,
-		    domId = document.getElementById(domName).checked;
+		if (document.getElementById(domName).disabled === !1){
 
-		if (domId === !1){
-			res = !0;
+			var res = !1,
+			    domId = document.getElementById(domName).checked;
+
+			if (domId === !1){
+				res = !0;
+			}
+
+			document.getElementById(domName).checked = res;
+
 		}
-
-		document.getElementById(domName).checked = res;
 
 		if (typeof callback === 'function'){
 			callback();
@@ -412,7 +416,7 @@ temp_TOOLS = {
 		if (typeof data === 'object' && document.getElementById(data.domName) !== null){
 
 			const cValue = Number(document.getElementById(data.domName).value);
-		
+
 			if (data.maxLength === void 0){
 				data.maxLength = document.getElementById(data.domName).value.length;
 			}

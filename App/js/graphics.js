@@ -81,6 +81,7 @@ temp_GRAPHICS = {
 				canvasDragStatus = 'OFF',
 				bioRandSeedName = 'Unknown',
 				availableCamHints = 'Unknown',
+				clearedObjectives = 'Unknown',
 				cGame = APP.options.settingsData.currentGame,
 				checkBioRand = document.getElementById('CHECKBOX_isBioRand').checked,
 				lMapHistory = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
@@ -98,6 +99,7 @@ temp_GRAPHICS = {
 			if (checkBioRand === !0 && APP.fs.existsSync(seedFile) === !0){
 				const randDesc = APP.fs.readFileSync(seedFile, 'utf8');
 				bioRandSeedName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
+				clearedObjectives = APP.options.bioRandObjectives.clearedObjectives;
 			}
 
 			// Check if latest map exists and if game is running
@@ -124,6 +126,7 @@ temp_GRAPHICS = {
 			// Set label strings and update top info GUI
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
+			document.getElementById('LABEL_clearedObjectives').innerHTML = clearedObjectives;
 			document.getElementById('LABEL_availableCamHints').innerHTML = availableCamHints;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
 			document.getElementById('LABEL_currentCamera').innerHTML = APP.gameHook.currentCamera;
@@ -421,7 +424,7 @@ temp_GRAPHICS = {
 						*/
 						var c_checks = [],
 							d_factor = (distanceFactor - 1),
-							
+
 							cMapCoords = TMS.getCoords(`ROOM_${cMap}`),
 							parentCoords = TMS.getCoords(`ROOM_${parent}`),
 							targetCoords = TMS.getCoords(`ROOM_${mapTarget}`);
@@ -816,7 +819,7 @@ temp_GRAPHICS = {
 		}
 
 		APP.graphics.processCamHint();
-		console.info(APP.graphics.addedMaps);
+		// console.info(APP.graphics.addedMaps);
 
 	},
 
@@ -877,6 +880,84 @@ temp_GRAPHICS = {
 		// Update labels GUI
 		APP.graphics.updateGuiLabel();
 
+	},
+
+	// Play background objective animation
+	playBgObjetiveAnimation: function(animationName){
+		
+		// Create log and play animation
+		console.info(`INFO - Playing objective animation: ${animationName}`);
+		switch (animationName){
+
+			// Find objective
+			case 'findObjective':
+
+				// Start animation by disabling toggle and appending HTML
+				document.getElementById('CHECKBOX_enableBgObjectiveAnimation').disabled = !0;
+				TMS.append('APP_CANVAS', `<div id="APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}" class="APP_MAP_OBJECTIVE_ANIMATION_${animationName}"></div>`);
+
+				// Fade in
+				APP.tools.createTimeout(`animation_${animationName}_start`, function(){
+					TMS.css(`APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}`, { 'opacity': 1 });
+				}, 10);
+
+				// Fade out
+				APP.tools.createTimeout(`animation_${animationName}_fadeOut`, function(){
+					TMS.css(`APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}`, { 'opacity': 0 });
+				}, 1010);
+
+				// Clear animation
+				APP.tools.createTimeout(`animation_${animationName}_end`, function(){
+					APP.graphics.clearBgObjectiveAnimation();
+					document.getElementById('CHECKBOX_enableBgObjectiveAnimation').disabled = !1;
+				}, 2050);
+				break;
+
+			// Clear objective
+			case 'clearObjective':
+
+				// Start animation by disabling toggle and appending HTML
+				document.getElementById('CHECKBOX_enableBgObjectiveAnimation').disabled = !0;
+				TMS.append('APP_CANVAS', `<div id="APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}" class="APP_MAP_OBJECTIVE_ANIMATION_${animationName}"></div>`);
+
+				// Transition fade position
+				APP.tools.createTimeout(`animation_${animationName}_start`, function(){
+					TMS.css(`APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}`, { 'left': '-100%' });
+				}, 10);
+
+				// Clear animation
+				APP.tools.createTimeout(`animation_${animationName}_end`, function(){
+					APP.graphics.clearBgObjectiveAnimation();
+					document.getElementById('CHECKBOX_enableBgObjectiveAnimation').disabled = !1;
+				}, 1050);
+				break;
+
+			// Unknown animation
+			default:
+				console.warn(`WARN - Unable to play objective animation: ${animationName}`);
+				break;
+
+		}
+
+	},
+
+	// Toggle enable objective background animation
+	toggleBgObjectiveAnimation: function(){
+
+		// Set variables
+		APP.options.enableBgObjectiveAnimation = document.getElementById('CHECKBOX_enableBgObjectiveAnimation').checked;
+		localStorage.setItem('enableBgObjectiveAnimation', APP.options.enableBgObjectiveAnimation);
+		if (APP.options.enableBgObjectiveAnimation === !1){
+			APP.graphics.clearBgObjectiveAnimation();
+		}
+
+	},
+
+	// Clear objective background animation
+	clearBgObjectiveAnimation: function(){
+		for (var i = 0; i < 20; i++){
+			TMS.removeDOM(`APP_MAP_OBJECTIVE_ANIMATION_${i}`);
+		}
 	},
 
 	// Toggle drag map
@@ -1072,7 +1153,7 @@ temp_GRAPHICS = {
 
 				},
 				onApply: function(newColor){
-					
+
 					// Update color, save settings and update GUI
 					APP.options.settingsData.bgGradientColor[colorIndex] = `#${newColor}`;
 					APP.options.saveSettings();

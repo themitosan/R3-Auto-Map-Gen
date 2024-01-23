@@ -135,11 +135,9 @@ const APP = {
 
 	// About screen
 	about: function(){
-		
-		// Close color picker
-		this.tools.closeColorPicker();
 
-		// Display about screen
+		// Close color picker and display about screen
+		this.tools.closeColorPicker();
 		window.alert(`R3 Auto Map Gen. - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/`);
 
 	},
@@ -154,7 +152,7 @@ const APP = {
 
 		// Check if game path exists
 		if (APP.fs.existsSync(gPath) === !0){
-			
+
 			// Start game
 			const doStartGamePlz = function(){
 

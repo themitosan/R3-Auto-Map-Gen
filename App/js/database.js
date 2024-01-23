@@ -566,7 +566,9 @@ temp_DATABASE = {
 
 		// Map List
 		rdt: {
-			'R000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0},
+
+			'R000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0}
+
 		} 
 
 	}
