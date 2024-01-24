@@ -696,6 +696,8 @@ temp_TOOLS = {
 	// Create setTimeout function with more control
 	createTimeout: function(name, action, timeout){
 
+		console.info(`INFO - Creating timeout: ${name}`);
+		
 		// Check if timeout was provided
 		if (timeout === void 0){
 			timeout = 0;

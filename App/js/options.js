@@ -38,45 +38,14 @@ temp_OPTIONS = {
 		var cPrev,
 			bRandDb,
 			cObjective,
-			canContinue = !0,
 			canSetObjective = !0,
 			canSolveObjective = !1,
 			cGame = this.settingsData.currentGame,
 			cScenario = document.getElementById('SELECT_SCENARIO').value,
 			cObjectiveData = APP.database[cGame].bioRandObjectives[mapName];
 
-		// Check main variables to see if can set objective
-		if (cObjectiveData !== void 0 && APP.options.bioRandObjectives.current !== mapName){
-
-			// Check if current game is BioHazard 2 and if current objecte belongs to current scenario
-			if (cGame === 'bio2' && cObjectiveData.requiredScenario !== null && cObjectiveData.requiredScenario !== cScenario){
-				canSetObjective = !1;
-			}
-
-			// Check if can set objective
-			if (canSetObjective === !0){
-
-				// Set variables
-				canContinue = !1;
-				APP.options.bioRandObjectives.current = mapName;
-				APP.options.bioRandObjectives.parentMap = parent;
-				APP.options.bioRandObjectives.applyDistance = cObjectiveData.applyDistance;
-
-				// Check if can display background animation
-				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0){
-					APP.graphics.playBgObjetiveAnimation('findObjective');
-				}
-
-				// Check if can display message
-				if (APP.options.isMapLoading === !1){
-					APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
-				}
-			}
-
-		}
-
 		// Reset objective
-		if (canContinue === !0 && APP.options.bioRandObjectives.current !== null){
+		if (APP.options.bioRandObjectives.current !== null){
 
 			cPrev = APP.options.bioRandObjectives.parentMap;
 			cObjective = APP.options.bioRandObjectives.current;
@@ -93,7 +62,7 @@ temp_OPTIONS = {
 
 				// Check if can display background animation
 				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0){
-					APP.graphics.playBgObjetiveAnimation('clearObjective');
+					APP.graphics.playBgObjetiveAnimation('clearObjective', cPrev);
 				}
 
 				// Check if can display message
@@ -111,20 +80,50 @@ temp_OPTIONS = {
 			if (bRandDb.endsOn === null && parent === cObjective){
 
 				// Check if current objective requires a player being in a specific camera
-				if (bRandDb.requiredCam.length === 0 || bRandDb.requiredCam.indexOf(APP.gameHook.currentCamera) !== -1){
+				if (bRandDb.requiredCam.length === 0 || bRandDb.requiredCam.indexOf(APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2]) !== -1){
 					canSolveObjective = !0;
 				}
 
 			}
 
 			// Check if current map is the resoluction from current objective (on BioRand log files, it is labelled as "always")
-			if (canSolveObjective === !1 && bRandDb.endsOn === mapName && parent === cObjective){
+			if (canSolveObjective === !1 && bRandDb.endsOn !== null && bRandDb.endsOn.indexOf(mapName) !== -1 && parent === cObjective){
 				canSolveObjective = !0;
 			}
 
 			// Check if can resolve
 			if (canSolveObjective === !0){
 				solveObjective();
+			}
+
+		}
+
+		// Check main variables to see if can set objective
+		if (cObjectiveData !== void 0 && APP.options.bioRandObjectives.current !== mapName){
+
+			// Check if current game is BioHazard 2 and if current objecte belongs to current scenario
+			if (cGame === 'bio2' && cObjectiveData.requiredScenario !== null && cObjectiveData.requiredScenario !== cScenario){
+				canSetObjective = !1;
+			}
+
+			// Check if can set objective
+			if (canSetObjective === !0){
+
+				// Set variables and update gui labels
+				APP.options.bioRandObjectives.current = mapName;
+				APP.options.bioRandObjectives.parentMap = parent;
+				APP.options.bioRandObjectives.applyDistance = cObjectiveData.applyDistance;
+				APP.graphics.updateGuiLabel();
+
+				// Check if can display background animation
+				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0){
+					APP.graphics.playBgObjetiveAnimation('foundObjective', mapName);
+				}
+
+				// Check if can display message
+				if (APP.options.isMapLoading === !1){
+					APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
+				}
 			}
 
 		}
@@ -623,8 +622,8 @@ temp_OPTIONS = {
 
 		// Process post loading settings
 		APP.graphics.toggleBgObjectiveAnimation();
-		APP.options.updateSelectedGame();
 		APP.graphics.toggleShowGameData();
+		APP.options.updateSelectedGame();
 		APP.graphics.togglehideTopMenu();
 		APP.graphics.toggleTabletMode();
 		APP.options.toggleAlwaysOnTop();

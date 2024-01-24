@@ -80,6 +80,7 @@ temp_GRAPHICS = {
 				gameRunningStatus = '',
 				canvasDragStatus = 'OFF',
 				bioRandSeedName = 'Unknown',
+				currentObjective = 'Unknown',
 				availableCamHints = 'Unknown',
 				clearedObjectives = 'Unknown',
 				cGame = APP.options.settingsData.currentGame,
@@ -100,6 +101,9 @@ temp_GRAPHICS = {
 				const randDesc = APP.fs.readFileSync(seedFile, 'utf8');
 				bioRandSeedName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 				clearedObjectives = APP.options.bioRandObjectives.clearedObjectives;
+				if (APP.options.bioRandObjectives.current !== null){
+					currentObjective = `[${APP.options.bioRandObjectives.current}] ${APP.database[cGame].rdt[APP.options.bioRandObjectives.current].name}`;
+				}
 			}
 
 			// Check if latest map exists and if game is running
@@ -126,6 +130,7 @@ temp_GRAPHICS = {
 			// Set label strings and update top info GUI
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
+			document.getElementById('LABEL_currentObjective').innerHTML = currentObjective;
 			document.getElementById('LABEL_clearedObjectives').innerHTML = clearedObjectives;
 			document.getElementById('LABEL_availableCamHints').innerHTML = availableCamHints;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
@@ -883,34 +888,34 @@ temp_GRAPHICS = {
 	},
 
 	// Play background objective animation
-	playBgObjetiveAnimation: function(animationName){
+	playBgObjetiveAnimation: function(animationName, mapName){
 		
 		// Create log and play animation
-		console.info(`INFO - Playing objective animation: ${animationName}`);
+		console.info(`INFO - Playing objective animation: ${animationName} for Map ${mapName}`);
 		switch (animationName){
 
-			// Find objective
-			case 'findObjective':
+			// Found objective
+			case 'foundObjective':
 
 				// Start animation by disabling toggle and appending HTML
 				document.getElementById('CHECKBOX_enableBgObjectiveAnimation').disabled = !0;
 				TMS.append('APP_CANVAS', `<div id="APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}" class="APP_MAP_OBJECTIVE_ANIMATION_${animationName}"></div>`);
 
 				// Fade in
-				APP.tools.createTimeout(`animation_${animationName}_start`, function(){
+				APP.tools.createTimeout(`animation_${animationName}_${APP.options.bioRandObjectives.clearedObjectives}_start`, function(){
 					TMS.css(`APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}`, { 'opacity': 1 });
-				}, 10);
+				}, 100);
 
 				// Fade out
-				APP.tools.createTimeout(`animation_${animationName}_fadeOut`, function(){
+				APP.tools.createTimeout(`animation_${animationName}_${APP.options.bioRandObjectives.clearedObjectives}_fadeOut`, function(){
 					TMS.css(`APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}`, { 'opacity': 0 });
-				}, 1010);
+				}, 1110);
 
 				// Clear animation
-				APP.tools.createTimeout(`animation_${animationName}_end`, function(){
+				APP.tools.createTimeout(`animation_${animationName}_${APP.options.bioRandObjectives.clearedObjectives}_end`, function(){
 					APP.graphics.clearBgObjectiveAnimation();
 					document.getElementById('CHECKBOX_enableBgObjectiveAnimation').disabled = !1;
-				}, 2050);
+				}, 2150);
 				break;
 
 			// Clear objective
@@ -921,12 +926,12 @@ temp_GRAPHICS = {
 				TMS.append('APP_CANVAS', `<div id="APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}" class="APP_MAP_OBJECTIVE_ANIMATION_${animationName}"></div>`);
 
 				// Transition fade position
-				APP.tools.createTimeout(`animation_${animationName}_start`, function(){
+				APP.tools.createTimeout(`animation_${animationName}_${APP.options.bioRandObjectives.clearedObjectives}_start`, function(){
 					TMS.css(`APP_MAP_OBJECTIVE_ANIMATION_${APP.options.bioRandObjectives.clearedObjectives}`, { 'left': '-100%' });
 				}, 10);
 
 				// Clear animation
-				APP.tools.createTimeout(`animation_${animationName}_end`, function(){
+				APP.tools.createTimeout(`animation_${animationName}_${APP.options.bioRandObjectives.clearedObjectives}_end`, function(){
 					APP.graphics.clearBgObjectiveAnimation();
 					document.getElementById('CHECKBOX_enableBgObjectiveAnimation').disabled = !1;
 				}, 1050);

@@ -220,9 +220,9 @@ label {
 .APP_GAME_DATA {
 	top: 60px;
 	left: 10px;
-	z-index: 2;
 	opacity: 0;
 	width: auto;
+	z-index: 1000;
 	padding: 10px;
 	min-width: 190px;
 	app-region: drag;
@@ -305,7 +305,7 @@ label {
 	height: calc(100% - 20px);
 }
 .APP_MAP_CANVAS {
-	z-index: 1;
+	z-index: 10;
 	top: -50000px;
 	left: -50000px;
 	width: 100000px;
@@ -438,7 +438,7 @@ label {
 /*
 	Objetive animations
 */
-.APP_MAP_OBJECTIVE_ANIMATION_findObjective {
+.APP_MAP_OBJECTIVE_ANIMATION_foundObjective {
 	z-index: 1;
 	opacity: 0;
 	width: 100%;
@@ -499,7 +499,6 @@ label {
 	Animations
 */
 @keyframes PLAYER_PRESENT {
-
 	0% {
 		background-color: #008;
 	}
@@ -511,14 +510,11 @@ label {
 	100% {
 		background-color: #008;
 	}
-
 }
 @keyframes CONNECTION_FLOW {
-
 	100% {
 		stroke-dashoffset: -60;
 	}
-
 }
 @keyframes HUE_CIRCLE {
 	0% {
@@ -571,7 +567,6 @@ label {
 	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, .APP_GAME_DATA {
 		display: none;
 	}
-
 	.MENU_TOP {
 		justify-content: center;
 	}
