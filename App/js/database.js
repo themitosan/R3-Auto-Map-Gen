@@ -18,13 +18,17 @@ temp_DATABASE = {
 	// BioHazard
 	bio1: {
 
+		// BioRand Objectives
 		bioRandObjectives: {
+
 			'R305': { endsOn: ['R310'], applyDistance: !1, requiredCam: [], requiredScenario: null },
 			'R11A': { endsOn: null, 	applyDistance: !1, requiredCam: [], requiredScenario: null },
 			'R70C': { endsOn: null, 	applyDistance: !1, requiredCam: [], requiredScenario: null },
 			'R501': { endsOn: ['R50D'], applyDistance: !1, requiredCam: [], requiredScenario: null }
+
 		},
 
+		// Map list
 		rdt: {
 
 			'R000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0},
@@ -216,15 +220,49 @@ temp_DATABASE = {
 	// BioHazard 2
 	bio2: {
 
+		// BioRand Objectives
 		bioRandObjectives: {
-			'R505': { endsOn: ['R607', 'R600'], applyDistance: !1, requiredCam: [], requiredScenario: null },
-			'R111': { endsOn: null,				applyDistance: !1, requiredCam: [], requiredScenario: null },
-			'R407': { endsOn: null,				applyDistance: !1, requiredCam: [0], requiredScenario: null },
-			'R303': { endsOn: null,				applyDistance: !1, requiredCam: [], requiredScenario: 'scenario_a' },
-			'R617': { endsOn: ['R700'], 		applyDistance: !1, requiredCam: [], requiredScenario: null },
-			'R21B': { endsOn: null,				applyDistance: !1, requiredCam: [], requiredScenario: 'scenario_b' }
+
+			'R111': {
+				endsOn: null,
+				applyDistance: !1,
+				requiredCam: [],
+				requiredScenario: 'scenario_a'
+			},
+			'R303': {
+				endsOn: null,
+				applyDistance: !1,
+				requiredCam: [],
+				requiredScenario: 'scenario_a'
+			},
+			'R407': {
+				endsOn: null,
+				applyDistance: !1,
+				requiredCam: [0],
+				requiredScenario: null
+			},
+			'R505': {
+				endsOn: ['R607', 'R600'],
+				applyDistance: !1,
+				requiredCam: [],
+				requiredScenario: null
+			},
+			'R617': {
+				endsOn: ['R700'],
+				applyDistance: !1,
+				requiredCam: [],
+				requiredScenario: null
+			},
+			'R21B': {
+				endsOn: null,
+				applyDistance: !1,
+				requiredCam: [6, 15],
+				requiredScenario: 'scenario_b'
+			}
+
 		},
 
+		// Map list
 		rdt: {
 
 			'R000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0},
@@ -370,16 +408,19 @@ temp_DATABASE = {
 
 		// BioRand Objectives
 		bioRandObjectives: {
+
 			'R20C': { endsOn: ['R215'], applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R30C': { endsOn: ['R30D'], applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R30D': { endsOn: null,		applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R415': { endsOn: null,		applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R50C': { endsOn: ['R50D'], applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R50D': { endsOn: ['R50F'], applyDistance: !1, requiredCam: [], requiredScenario: null }
+
 		},
 
 		// Map list
 		rdt: {
+
 			'R000': {name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0},
 
 			'R100': {name: 'Warehouse Save Room', location: 'Uptown', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1},
