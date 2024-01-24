@@ -395,7 +395,7 @@ temp_DATABASE = {
 
 			'R700': {name: 'Train Station Entrance', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !0, skipCamHint: !1},
 			'R701': {name: 'Train Station Platform', location: 'Laboratory B5', haveItemBox: !0, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
-			'R702': {name: 'Train S. Tyrant Bossfight', location: 'Laboratory B5', haveItemBox: !0, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
+			'R702': {name: 'Train S. Tyrant Bossfight', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1},
 			'R703': {name: 'Galaxie 5000 Main Car', location: 'Laboratory B5', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !0, skipCamHint: !1},
 			'R704': {name: 'Galaxie 5000 Cargo Car', location: 'Laboratory B5', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1}
 

@@ -423,7 +423,6 @@ label {
 .DIV_CAM_HINT {
 	border-width: 3px;
 	position: absolute;
-	border-radius: 6px;
 	border-style: solid;
 	border-color: #0000;
 	animation-duration: 3s;
@@ -500,15 +499,13 @@ label {
 */
 @keyframes PLAYER_PRESENT {
 	0% {
-		background-color: #008;
+		background-color: #007;
 	}
-
 	50% {
 		background-color: #00c;
 	}
-
 	100% {
-		background-color: #008;
+		background-color: #007;
 	}
 }
 @keyframes CONNECTION_FLOW {
