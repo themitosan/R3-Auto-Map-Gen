@@ -30,12 +30,8 @@ This app creates an node-conected map on the go for classic Resident Evil games.
 <img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/example.png?raw=true" alt="R3_Example" width="800"/>
 </p>
 
-*You can also see a live demo [here](https://twitter.com/themitosan/status/1659312625384140802).*
-
 ## Where this thing can be helpful?
 _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca/biorand)**?_
-
-Also - You can visualize generated files using [R3 Auto Map View](https://themitosan.github.io/R3AMV/) on our browser!
 
 ## Shortcuts
 You can find a list with all available shortcuts on `help.txt`.
