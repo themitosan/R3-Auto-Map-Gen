@@ -16,7 +16,7 @@ This app creates an node-conected map on the go for classic Resident Evil games.
 </sup>
 
 ## How to install
-- Download latest build from [GitHub Actions](https://github.com/themitosan/R3-Auto-Map-Gen/actions)
+- Download [latest release](https://github.com/themitosan/R3-Auto-Map-Gen/releases) (or the latest build from [GitHub Actions](https://github.com/themitosan/R3-Auto-Map-Gen/actions))
 - Extract the zip on a _cool-looking_ place
 - Run `R3 Auto Map Gen.exe`
 - Click on `App Setup`, select your game executable and then insert ram positions for current stage and room.
