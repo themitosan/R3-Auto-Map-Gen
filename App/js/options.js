@@ -494,7 +494,7 @@ temp_OPTIONS = {
 			exeName: 'Biohazard.exe',
 			default_cam: '0x00C386F2',
 			default_room: '0x00AA9014',
-			default_stage: '0x00AA9010',
+			default_stage: '0x00AA9010'
 		},
 		bio2: {
 			gamePath: '',
@@ -504,7 +504,7 @@ temp_OPTIONS = {
 			exeName: 'bio2 1.10.exe',
 			default_cam: '0x0098EB18',
 			default_room: '0x0098EB16',
-			default_stage: '0x0098EB14',
+			default_stage: '0x0098EB14'
 		},
 		bio3: {
 			gamePath: '',

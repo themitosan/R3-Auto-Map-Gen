@@ -1,5 +1,5 @@
 <h1 align="center">
-    <img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/App/img/icon.png?raw=true" alt="R3_auto_map_gen_icon" title="R3 Auto Map Gen." width="200"/>
+    <img src="App/img/icon.png" alt="R3_auto_map_gen_icon" title="R3 Auto Map Gen." width="200"/>
     <br>R3 Auto Map Gen.<br>
     <p align="center">
         <img alt="license" src="https://img.shields.io/github/license/themitosan/R3-Auto-Map-Gen">
