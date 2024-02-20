@@ -153,6 +153,15 @@ label {
 	height: auto;
 	width: calc(100% - 20px);
 }
+.BTN_OPTIONS_RED:hover {
+	color: #fff;
+	background-image: linear-gradient(180deg, #ff0000, #a00) !important;
+}
+.BTN_OPTIONS_RED:active {
+	color: #fff;
+	filter: blur(0px);
+	background-image: linear-gradient(0deg, #ff0000, #a00) !important;
+}
 .BTN_TOP {
 	border-top-left-radius: 6px;
 	border-top-right-radius: 6px;

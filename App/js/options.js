@@ -267,9 +267,20 @@ temp_OPTIONS = {
 		localStorage.setItem('currentGame', cGame);
 		APP.graphics.updateGuiLabel();
 
-		// Get current data and check if current game executable is available
+		// Get current data and check if can enable run game button
 		const cData = APP.options.settingsData;
-		document.getElementById('BTN_RUN_GAME').disabled = APP.fs.existsSync(`${cData[cGame].gamePath}/${cData[cGame].exeName}`) !== !0;
+		if (cGame !== 'biocv'){
+			document.getElementById('BTN_RUN_GAME').disabled = APP.fs.existsSync(`${cData[cGame].gamePath}/${cData[cGame].exeName}`) !== !0;
+		} else {
+
+			// Create var to check if current game is biocv
+			const runGameCV = [
+				APP.fs.existsSync(`${cData[cGame].gamePath}/${cData[cGame].exeName}`) === !0,
+				APP.fs.existsSync(cData[cGame].dumpPath) === !0
+			];
+			document.getElementById('BTN_RUN_GAME').disabled = runGameCV.indexOf(!1) !== -1;
+
+		}
 
 	},
 
@@ -517,14 +528,17 @@ temp_OPTIONS = {
 			exeName: 'BIOHAZARD(R) 3 PC.exe'
 		},
 		biocv: {
-			cam: '',
-			room: '',
-			stage: '',
-			exeName: '',
 			gamePath: '',
-			default_cam: '',
-			default_room: '',
-			default_stage: ''
+			dumpPath: '',
+			cam: '0x204328EC',
+			room: '0x204339B5',
+			stage: '0x204339B4',
+			exeName: 'pcsx2.exe',
+			variant: '0x204339B7',
+			default_cam: '0x204328EC',
+			default_room: '0x204339B5',
+			default_stage: '0x204339B4',
+			default_variant: '0x204339B7'
 		},
 		currentGame: 'bio3',
 		scenario: 'scenario_a',
@@ -574,17 +588,17 @@ temp_OPTIONS = {
 		document.getElementById('SELECT_GAME').value = cGame;
 
 		// Check if game executable exists
-		if (APP.fs.existsSync(`${this.settingsData[this.settingsData.currentGame].gamePath}/${this.settingsData[this.settingsData.currentGame].exeName}`) === !0){
+		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/${this.settingsData[cGame].exeName}`) === !0){
 			document.getElementById('BTN_RUN_GAME').disabled = '';
 		}
 
 		// Check if has BioRand mod installed
-		if (APP.fs.existsSync(`${this.settingsData[this.settingsData.currentGame].gamePath}/mod_biorand`) === !0){
+		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/mod_biorand`) === !0 || cGame === 'biocv' && APP.fs.existsSync(`${APP.path.parse(this.settingsData[cGame].dumpPath).dir}/mod_biorand`) === !0){
 			document.getElementById('CHECKBOX_isBioRand').checked = !0;
 		}
 
 		// Check if savedata folder exists
-		if (APP.fs.existsSync(`${this.settingsData[this.settingsData.currentGame].gamePath}/savedata`) === !0){
+		if (APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/savedata`) === !0){
 			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 		}
 
@@ -651,11 +665,12 @@ temp_OPTIONS = {
 
 		// Close color picker menu and get save data folder
 		APP.tools.closeColorPicker();
-		const cGame = APP.options.settingsData.currentGame,
+		const
+			cGame = APP.options.settingsData.currentGame,
 			saveDataPath = `${APP.options.settingsData[cGame].gamePath}/savedata`;
 
 		// Check if game save folder exists 
-		if (APP.fs.existsSync(saveDataPath) === !0){
+		if (cGame !== 'biocv' && APP.fs.existsSync(saveDataPath) === !0){
 
 			// Confirm action
 			const conf = window.confirm('WARN: Are you sure about this action?\nIt\'s kinda obvious, but this will delete all your save files!');
@@ -674,10 +689,9 @@ temp_OPTIONS = {
 					// Read directory and try to unlink all files with recognized save extensions
 					APP.fs.readdirSync(saveDataPath).filter(function(cFile){
 						if (extList.indexOf(APP.path.parse(`${saveDataPath}/${cFile}`).ext.toLowerCase()) !== -1){
-							APP.fs.unlinkSync(`${saveDataPath}/${cFile}`);
+							APP.fs.rm(`${saveDataPath}/${cFile}`, { force: !0 });
 						}
 					});
-
 					window.alert('INFO - Process complete!');
 
 				} catch (err) {
@@ -697,25 +711,57 @@ temp_OPTIONS = {
 		// Check if game is running
 		if (APP.gameHook.gameActive === !1){
 
+			// Create main vars
+			var gMode = 'main game',
+				gVersion = 'Classic REbirth',
+				cGame = APP.options.settingsData.currentGame;
+
+			// Check if current game is biocv
+			if (cGame === 'biocv'){
+				gMode = 'emulator';
+				gVersion = 'PCSX2 Version 1.6.0';
+			}
+
 			// Close color picker menu, display popup and call select file dialog
 			APP.tools.closeColorPicker();
-			window.alert('INFO: After closing this message, select your main game executable.');
+			window.alert(`INFO: After closing this message, select your ${gMode} executable.`);
 			APP.filemanager.selectFile('.exe', function(path){
 
-				// Get path data
+				// Create vars
 				var canSave = !0,
-					pData = APP.path.parse(path),
-					cGame = APP.options.settingsData.currentGame;
+					pData = APP.path.parse(path);
 
 				// Set game data and create game settings var
 				APP.options.settingsData[cGame].exeName = pData.base;
 				APP.options.settingsData[cGame].gamePath = pData.dir;
 				const cGameSettings = APP.options.settingsData[cGame];
 
+				// Create check save function
+				const checkSaveFunction = function(){
+
+					// Check if can save settings
+					if (canSave === !0){
+
+						// Set values, update settings file, display message and load new settings
+						if (cGame === 'biocv'){
+							APP.options.settingsData[cGame].variant = v;
+						}
+						APP.options.settingsData[cGame].stage = s;
+						APP.options.settingsData[cGame].room = r;
+						APP.options.settingsData[cGame].cam = c;
+						APP.options.saveSettings();
+						window.alert('INFO - Process complete!');
+						APP.options.loadSettings();
+
+					}
+
+				}
+
 				// Set ram pos.
-				var s = window.prompt(`Please insert ram pos. for \"Stage\":\nExample: \"${cGameSettings.default_stage}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`),
-					r = window.prompt(`Please insert ram pos. for \"Room\":\nExample: \"${cGameSettings.default_room}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`);
-					c = window.prompt(`Please insert ram pos. for current camera:\nExample: \"${cGameSettings.default_cam}\" (without quotes) for ${cGame.toUpperCase()} Classic REbirth.\nYou can leave this box empty to use this value above.`);
+				var v,
+					s = window.prompt(`Please insert ram pos. for \"Stage\":\nExample: \"${cGameSettings.default_stage}\" (without quotes) for ${cGame.toUpperCase()} ${gVersion}.\nYou can leave this box empty to use this value above.`),
+					r = window.prompt(`Please insert ram pos. for \"Room\":\nExample: \"${cGameSettings.default_room}\" (without quotes) for ${cGame.toUpperCase()} ${gVersion}.\nYou can leave this box empty to use this value above.`),
+					c = window.prompt(`Please insert ram pos. for current camera:\nExample: \"${cGameSettings.default_cam}\" (without quotes) for ${cGame.toUpperCase()} ${gVersion}.\nYou can leave this box empty to use this value above.`);
 
 				// Check if is for default values
 				if (s === null){
@@ -738,21 +784,53 @@ temp_OPTIONS = {
 					canSave = !1;
 				}
 
-				// Check if can save settings
-				if (canSave === !0){
+				// Check if current game is code veronica
+				if (cGame === 'biocv'){
 
-					// Set values, update settings file, display message and load new settings
-					APP.options.settingsData[cGame].stage = s;
-					APP.options.settingsData[cGame].room = r;
-					APP.options.settingsData[cGame].cam = c;
-					APP.options.saveSettings();
-					window.alert('INFO - Process complete!');
-					APP.options.loadSettings();
+					// Set code veronica vars and check if can save
+					v = window.prompt(`PLease insert ram pos. for \"variant\":\nExample \"${cGameSettings.default_variant}\" (without quotes) on ${cGame.toUpperCase()} ${gVersion}\nYou can leave this box empty to use this value above`);
+					if (v === null){
+						v = APP.options.settingsData[cGame].default_variant;
+					}
+					if (v === '' || v.length !== 10){
+						canSave = !1;
+					}
+					checkSaveFunction();
 
+				} else {
+					checkSaveFunction();
 				}
 
 			});
 
+		}
+
+	},
+
+	// Set game dump path
+	setGameDumpPath: function(){
+		const cGame = APP.options.settingsData.currentGame;
+		window.alert('After closing this message, select your game iso.');
+		APP.filemanager.selectFile('.iso', function(path){
+			APP.options.settingsData[cGame].dumpPath = path;
+			APP.options.saveSettings();
+			window.alert('INFO - Process complete!');
+			APP.options.loadSettings();
+		});
+	},
+
+	// Reset app settings
+	resetAppSettings: function(){
+
+		// Confirm action
+		const conf = window.confirm('WARN - This option will remove / reset all your configs.\nDo you confirm this action?');
+		if (conf === !0){
+			APP.gameHook.stop();
+			localStorage.clear();
+			sessionStorage.clear();
+			APP.fs.rm(`${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`, { force: !0 }, function(){
+				chrome.runtime.reload();
+			});
 		}
 
 	}

@@ -37,6 +37,12 @@ temp_FILEMANAGER = {
 	// Select file
 	selectFile: function(ext, postAction){
 
+		// Reset file loader
+		document.getElementById('APP_FILE_LOADER').value = '';
+		document.getElementById('APP_FILE_LOADER').files = null;
+		document.getElementById('APP_FILE_LOADER').accept = ext;
+		document.getElementById('APP_FILE_LOADER').onchange = null;
+
 		// Check if data was provided
 		if (ext !== void 0 && typeof postAction === 'function'){
 
@@ -45,16 +51,11 @@ temp_FILEMANAGER = {
 				ext = '*.*';
 			}
 
-			// Reset file loader
-			document.getElementById('APP_FILE_LOADER').value = '';
-			document.getElementById('APP_FILE_LOADER').files = null;
-			document.getElementById('APP_FILE_LOADER').accept = ext;
-
 			// Call load file popup and start reading
-			TMS.triggerClick('APP_FILE_LOADER');
 			document.getElementById('APP_FILE_LOADER').onchange = function(){
 				postAction(APP.tools.fixPath(document.getElementById('APP_FILE_LOADER').files[0].path));
 			}
+			TMS.triggerClick('APP_FILE_LOADER');
 
 		}
 

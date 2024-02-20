@@ -81,16 +81,18 @@
 
 				<!-- App Setup -->
 				<input type="button" class="BTN_OPTIONS BTN_TOP" value="App Setup" onclick="APP.options.getGamePath();" id="BTN_SELECT_EXE">
+				<input type="button" class="BTN_OPTIONS" value="Select Game ISO" onclick="APP.options.setGameDumpPath();" id="BTN_SELECT_ISO">
 				<select class="BTN_OPTIONS center" id="SELECT_SCENARIO" onchange="APP.options.updateSelectedGame();">
 					<option value="scenario_a">Scenario A</option>
 					<option value="scenario_b">Scenario B</option>
 				</select>
-				<select class="BTN_OPTIONS BTN_BOTTOM center" id="SELECT_GAME" onchange="APP.options.updateSelectedGame();">
+				<select class="BTN_OPTIONS center" id="SELECT_GAME" onchange="APP.options.updateSelectedGame();">
 					<option value="bio1">Resident Evil</option>
 					<option value="bio2">Resident Evil 2</option>
 					<option value="bio3">Resi. Evil 3: Nemesis</option>
-					<option value="biocv" disabled>RE: Code Veronica</option>
-				</select><br><br>
+					<option value="biocv">RE: Code Veronica [WIP]</option>
+				</select>
+				<input type="button" class="BTN_OPTIONS BTN_OPTIONS_RED BTN_BOTTOM" value="Reset App Settings" onclick="APP.options.resetAppSettings();" id="BTN_RESET_CONFIGS"><br><br>
 
 				<!-- Options -->
 				<div class="DIV_TITLE">

@@ -148,7 +148,8 @@ const APP = {
 		// Get game path
 		const
 			settingsData = APP.options.settingsData,
-			gPath = `${settingsData[settingsData.currentGame].gamePath}/${settingsData[settingsData.currentGame].exeName}`;
+			cGame = APP.options.settingsData.currentGame,
+			gPath = `${settingsData[cGame].gamePath}/${settingsData[cGame].exeName}`;
 
 		// Check if game path exists
 		if (APP.fs.existsSync(gPath) === !0){
@@ -158,16 +159,27 @@ const APP = {
 
 				try {
 
+					// Create vars
+					var execArgs = [],
+						hookTimeout = 50;
+
+					// Check if current game is biocv
+					if (cGame === 'biocv'){
+						execArgs.push(`${settingsData[cGame].dumpPath}`);
+						hookTimeout = 2000;
+					}
+
 					// Update chdir and run game
 					process.chdir(settingsData[settingsData.currentGame].gamePath);
-					APP.spawnProcess = APP.childProcess.spawn(gPath, [], {
+					console.info(execArgs);
+					APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, {
 						detached: !0
 					});
 
 					// Seek game process
 					setTimeout(function(){
 						APP.gameHook.seekGame(!0);
-					}, 50);
+					}, hookTimeout);
 
 				} catch (err) {
 					console.error(err);

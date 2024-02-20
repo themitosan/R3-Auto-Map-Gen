@@ -96,9 +96,40 @@ temp_GRAPHICS = {
 				document.getElementById('SELECT_SCENARIO').disabled = APP.options.settingsData.currentGame !== 'bio2';
 			}
 
+			// Check if current game is RE: Code veronica
+			if (cGame === 'biocv'){
+				availableCamHints = 'This option is not available for this game... <b>Yet!</b>';
+				seedFile = `${APP.path.parse(APP.options.settingsData[cGame].dumpPath).dir}/mod_biorand/description.txt`;
+			}
+
+			// Disable some options if current game is biocv
+			document.getElementById('CHECKBOX_enableCamHint').disabled = cGame === 'biocv';
+
+			// Hide elements depending of which game is selected
+			var btnDisplayIso = { 'display': 'inline' },
+				selectScenario = { 'display': 'inline' };
+
+			// Hide current scenario if current game isn't bio2
+			if (cGame !== 'bio2'){
+				selectScenario =  { 'display': 'none' };
+			}
+
+			// Hide select iso button if current game is biocv
+			if (cGame !== 'biocv'){
+				btnDisplayIso = { 'display': 'none' };
+			}
+
+			// Update options css
+			TMS.css('BTN_SELECT_ISO', btnDisplayIso);
+			TMS.css('SELECT_SCENARIO', selectScenario);			
+
+			// Disable buttons is game is running
+			document.getElementById('BTN_SELECT_ISO').disabled = APP.gameHook.gameActive === !0;
+			document.getElementById('BTN_RESET_CONFIGS').disabled = APP.gameHook.gameActive === !0;
+
 			// Check if "is BioRand" active
 			if (checkBioRand === !0 && APP.fs.existsSync(seedFile) === !0){
-				const randDesc = APP.fs.readFileSync(seedFile, 'utf8');
+				const randDesc = APP.fs.readFileSync(seedFile, 'utf-8');
 				bioRandSeedName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 				clearedObjectives = APP.options.bioRandObjectives.clearedObjectives;
 				if (APP.options.bioRandObjectives.current !== null){
@@ -118,7 +149,7 @@ temp_GRAPHICS = {
 			}
 
 			// Check if available cam hints is available
-			if (APP.options.enableCamHint === !0){
+			if (APP.options.enableCamHint === !0 && cGame !== 'biocv'){
 				availableCamHints = APP.graphics.availableCamHints;
 			}
 
@@ -349,7 +380,9 @@ temp_GRAPHICS = {
 
 		// Push line, bump door trigger var and update labels
 		APP.graphics.pushLine(parent, mapName);
-		APP.graphics.processCamHint();
+		if (cGame !== 'biocv'){
+			APP.graphics.processCamHint();
+		}
 		APP.options.doorTrigger++;
 		this.updateGuiLabel();
 
@@ -843,7 +876,7 @@ temp_GRAPHICS = {
 		const
 			currentMap = APP.gameHook.currentMap,
 			currentCam = APP.gameHook.currentCamera,
-			cGame = document.getElementById('SELECT_GAME').value;
+			cGame = APP.options.settingsData.currentGame;
 
 		// Check if current cam exists on database
 		if (APP.graphics.addedMaps[currentMap] !== void 0 && APP.graphics.addedMaps[currentMap].cams[currentCam] === void 0){
@@ -1097,11 +1130,13 @@ temp_GRAPHICS = {
 	// Toggle show game data
 	toggleShowGameData: function(){
 
-		// Get status
-		const getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
-		localStorage.setItem('showGameData', getShowGameData);
+		// Get variables
+		const
+			cGame = APP.options.settingsData.currentGame,
+			getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
 
-		// Create opacity and min width vars
+		// Update show game data var, create opacity and min width vars
+		localStorage.setItem('showGameData', getShowGameData);
 		var sGameDataOpacity = 1,
 			sGameDataMinWidth = 220;
 
@@ -1109,8 +1144,15 @@ temp_GRAPHICS = {
 		if (getShowGameData === !1){
 			sGameDataOpacity = 0;
 		}
+
+		// Check current game is biocv
+		if (cGame === 'biocv'){
+			sGameDataMinWidth = 530;
+		}
+
+		// Check if BioRand mod is active
 		if (document.getElementById('CHECKBOX_isBioRand').checked === !0){
-			sGameDataMinWidth = 590;
+			sGameDataMinWidth = 612;
 		}
 
 		// Set final CSS

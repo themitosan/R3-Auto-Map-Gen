@@ -68,7 +68,7 @@ temp_GAMEHOOK = {
 					APP.graphics.togglehideTopMenu();
 					APP.gameHook.updateObject = setInterval(function(){
 						APP.gameHook.updateProcess();
-					}, 200);
+					}, 100);
 
 				} catch (err) {
 					window.alert(`ERROR - Unable to load game process!\n${err}\n\nCheck internal log to know more.`);
@@ -119,9 +119,12 @@ temp_GAMEHOOK = {
 	},
 
 	// Read data
-	read: function(ramPos, limit, mode){
+	read: function(ramPos, limit, mode, length){
 
 		var res = '00';
+		if (length === void 0){
+			length = 1;
+		}
 		if (ramPos !== void 0 && this.gameActive === !0){
 
 			if (limit === void 0 || parseInt(limit) === NaN){
@@ -135,11 +138,18 @@ temp_GAMEHOOK = {
 			switch (mode){
 
 				case 'int':
-					res = APP.memoryjs.readMemory(APP.gameHook.gameObject.handle, parseInt(ramPos), APP.memoryjs.BYTE);
+					var temp = '';
+					for (var i = 0; i < length; i++){
+						temp = `${temp}${res = APP.tools.fixVars(APP.memoryjs.readMemory(APP.gameHook.gameObject.handle, (parseInt(ramPos.replace('0x', ''), 16) + i), APP.memoryjs.BYTE).toString(16), limit).toUpperCase()}`;
+					}
+					res = parseInt(temp, 16);
 					break;
 
 				case 'hex':
-					res = APP.tools.fixVars(APP.memoryjs.readMemory(APP.gameHook.gameObject.handle, parseInt(ramPos.toString().replace('0x', ''), 16), APP.memoryjs.BYTE).toString(16), limit).toUpperCase();
+					res = '';
+					for (var i = 0; i < length; i++){
+						res = `${res}${APP.tools.fixVars(APP.memoryjs.readMemory(APP.gameHook.gameObject.handle, (parseInt(ramPos.replace('0x', ''), 16) + i), APP.memoryjs.BYTE).toString(16), limit).toUpperCase()}`;
+					}
 					break;
 
 			}
@@ -154,7 +164,8 @@ temp_GAMEHOOK = {
 	updateProcess: function(){
 
 		// Check if game process is available
-		const cGame = APP.options.settingsData.currentGame,
+		const
+			cGame = APP.options.settingsData.currentGame,
 			pList = Array.from(APP.memoryjs.getProcesses()),
 			gProcess = pList.filter(function(cProcess){
 				if (cProcess.szExeFile === APP.options.settingsData[cGame].exeName){
@@ -168,13 +179,25 @@ temp_GAMEHOOK = {
 			try {
 
 				// Variables
-				var needUpdateCam = !1,
+				var cVariant,
+					needUpdateCam = !1,
 					memoryData = APP.options.settingsData[cGame],
+					cRoom = APP.gameHook.read(memoryData.room, 2, 'hex'),
+					cCamera = parseInt(APP.gameHook.read(memoryData.cam, 2, 'hex'), 16),
 					isBioRandActive = document.getElementById('CHECKBOX_isBioRand').checked,
-					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
-					cMap = `R${cStage}${APP.gameHook.read(memoryData.room, 2, 'hex')}`,
 					previousMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
-					cCamera = parseInt(APP.gameHook.read(memoryData.cam, 2, 'hex'), 16);
+					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
+					cMap = `R${cStage}${cRoom}`;
+
+				// Fixes for RE:CV
+				if (cGame === 'biocv'){
+
+					// Get current map and camera
+					cVariant = APP.gameHook.read(memoryData.variant, 2, 'hex');
+					cMap = `R${cStage}${cRoom}_V${cVariant}`;
+					cCamera = parseInt(APP.tools.parseEndian(APP.gameHook.read(memoryData.cam, 2, 'hex', 4)), 16);
+
+				}
 
 				// Set current map and check if needs to update label GUI
 				APP.gameHook.currentMap = cMap;
@@ -182,9 +205,9 @@ temp_GAMEHOOK = {
 					needUpdateCam = !0;
 					APP.gameHook.camHistory.push(cCamera);
 				}
-				APP.gameHook.currentCamera = cCamera;
 
-				// Check if needs to trim cam history
+				// Update current camera and check if needs to trim cam history
+				APP.gameHook.currentCamera = cCamera;
 				if (APP.gameHook.camHistory.length > 9){
 					APP.gameHook.camHistory.splice(0, 7);
 				}
@@ -200,7 +223,10 @@ temp_GAMEHOOK = {
 					cGame === 'bio2' && isBioRandActive === !1 && cMap !== 'R104' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
 
 					// Bio 3
-					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1
+					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
+
+					// RE:CV
+					cGame === 'biocv' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1
 
 				];
 
@@ -224,13 +250,17 @@ temp_GAMEHOOK = {
 					APP.graphics.updatePlayerPos();
 
 					// Add Cam Hint
-					APP.graphics.processAddCamHint(cMap);
+					if (cGame !== 'biocv'){
+						APP.graphics.processAddCamHint(cMap);
+					}
 
 				}
 
 				// Update current cam var
 				if (needUpdateCam === !0){
-					APP.graphics.processCamHint();
+					if (cGame !== 'biocv'){
+						APP.graphics.processCamHint();
+					}
 					APP.graphics.updateGuiLabel();
 				}
 
