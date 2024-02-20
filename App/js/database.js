@@ -2,7 +2,11 @@
 	R3 Auto Map Gen.
 	database.js
 
-	Original database was imported from R3V2 / R3V3
+	Original Bio3 / RE3 database was imported from R3V2 / R3V3.
+	(https://github.com/themitosan/R3ditor-V2)
+
+	CVX Map was written using "Evil Resource" as guide.
+	(https://www.evilresource.com/resident-evil-code-veronica/maps)
 
 	name: 			String 		Map Name
 	location: 		String		Map location
@@ -614,19 +618,19 @@ temp_DATABASE = {
 		// Map List
 		rdt: {
 
-			'R000_V00': { name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0 },
+			'R000': { name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0 },
 
-			'R100_V00': { name: 'Prision Basement', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1, skipCamHint: !1 },
-			'R101_V00': { name: 'Prision \"L\" Corridor', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R102_V01': { name: 'Graveyard', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R103_V01': { name: 'Prision Entrance', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R104_V00': { name: 'Surveillance Room', location: 'Prision', haveItemBox: !1, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R105_V00': { name: 'Prision Dining Room (Outside)', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R106_V00': { name: 'Prision Dining Room', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R107_V00': { name: 'Prision Dormitory', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R108_V00': { name: 'Guillotine Corridor', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R108_V00': { name: 'Guillotine Corridor', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R109_V00': { name: '3D Printer Room', location: 'Prision', haveItemBox: !0, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R100': { name: 'Prision Cells', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1, skipCamHint: !1 },
+			'R101': { name: 'Prision Entrance', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R102': { name: 'Graveyard', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R102': { name: 'Graveyard', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R103': { name: 'Prision Yard', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R104': { name: 'Surveillance Room', location: 'Prision', haveItemBox: !1, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R105': { name: 'Barracks Yard', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R106': { name: 'Barracks', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R107': { name: 'Barracks Bunkhouse', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R108': { name: 'Execution Yard', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R109': { name: 'Security Corridor', location: 'Prision', haveItemBox: !0, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 
 		} 
 

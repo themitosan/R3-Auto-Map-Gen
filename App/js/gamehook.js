@@ -189,12 +189,11 @@ temp_GAMEHOOK = {
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
 					cMap = `R${cStage}${cRoom}`;
 
-				// Fixes for RE:CV
+				// Fixes for biocv
 				if (cGame === 'biocv'){
 
-					// Get current map and camera
+					// Get variant and camera
 					cVariant = APP.gameHook.read(memoryData.variant, 2, 'hex');
-					cMap = `R${cStage}${cRoom}_V${cVariant}`;
 					cCamera = parseInt(APP.tools.parseEndian(APP.gameHook.read(memoryData.cam, 2, 'hex', 4)), 16);
 
 				}
@@ -223,10 +222,7 @@ temp_GAMEHOOK = {
 					cGame === 'bio2' && isBioRandActive === !1 && cMap !== 'R104' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
 
 					// Bio 3
-					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
-
-					// RE:CV
-					cGame === 'biocv' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1
+					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1
 
 				];
 
@@ -246,7 +242,7 @@ temp_GAMEHOOK = {
 					// Push room to map and update player pos.
 					APP.gameHook.mapHistory.push(cMap);
 					const mHistory = APP.gameHook.mapHistory;
-					APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)]);
+					APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)], cVariant);
 					APP.graphics.updatePlayerPos();
 
 					// Add Cam Hint
