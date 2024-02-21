@@ -199,20 +199,18 @@ temp_GRAPHICS = {
 	},
 
 	// Add room to map
-	pushMap: function(mapName, parent, cVariant){
+	pushMap: function(mapName, parent){
 
 		// Variables
 		var canAdd = !0,
 			errorReason = '',
-			roomVariant = '',
 			mList = this.addedMaps,
-			domMapName = `ROOM_${mapName}`,
 			cMap = APP.gameHook.gameData.cMap,
 			distanceFactor = this.distanceFactor;
 
 		// Get current game and check if current map was added
 		const cGame = APP.options.settingsData.currentGame;
-		if (document.getElementById(domMapName) !== null){
+		if (document.getElementById(`ROOM_${mapName}`) !== null){
 			canAdd = !1;
 		}
 
@@ -357,15 +355,10 @@ temp_GRAPHICS = {
 
 			}
 
-			// Check if current game is biocv
-			if (cGame === 'biocv' && cVariant !== void 0){
-				roomVariant = `_V${cVariant}`;
-			}
-
 			// Generate room html and append to canvas
-			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}${roomVariant}]\n${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}" 
+			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}" 
 							class="DIV_ROOM ${mapExtraClass.toString().replace(RegExp(',', 'gi'), ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;">
-							[${mapName}${roomVariant}]<br>${APP.database[cGame].rdt[mapName].name}</div>`;
+							[${mapName}]<br>${APP.database[cGame].rdt[mapName].name}</div>`;
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Bump map z-index counter and push selected map to list
