@@ -166,7 +166,7 @@ const APP = {
 					// Check if current game is biocv
 					if (cGame === 'biocv'){
 						execArgs.push(`${settingsData[cGame].dumpPath}`);
-						hookTimeout = 2000;
+						hookTimeout = 3000;
 					}
 
 					// Update chdir and run game
@@ -255,6 +255,7 @@ const APP = {
 
 			// Display menus
 			setTimeout(function(){
+				TMS.css('MENU_RIGHT_BG', {'width': '196px'});
 				TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)'});
 				TMS.css('MENU_TOP', {'width': 'calc(100% - 196px)', 'height': '30px', 'filter': 'blur(0px)'});
 			}, 50);

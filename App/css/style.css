@@ -29,14 +29,19 @@
 }
 
 /*
+	Right menu custom scrollbar css
+*/
+div.MENU_RIGHT::-webkit-scrollbar-track {
+	margin: 30px 0px 14px 0px;
+}
+
+/*
 	HTML Tags
 */
 body {
 	color: #fff;
-	overflow: hidden;
 	user-select: none;
 	font-family: monospace;
-	background-color: #0000;
 }
 input[type="file"] {
 	display: none !important;
@@ -126,7 +131,7 @@ label {
 	backdrop-filter: blur(4px);
 	border-radius: 10px 0px 0px 0px;
 	text-shadow: 2px 2px 2.8px #000a;
-	background-image: linear-gradient(180deg, #967fcfaa, #706099aa);
+	background-image: linear-gradient(180deg, #967fcfaa, #5a4a81aa);
 }
 .APP_DRAG_BAR_ACTIONS {
 	top: 0px;
@@ -143,7 +148,7 @@ label {
 	transition-duration: 1.1s;
 	backdrop-filter: blur(4px);
 	border-top-right-radius: 10px;
-	background-image: linear-gradient(180deg, #967fcfaa, #706099aa);
+	background-image: linear-gradient(180deg, #967fcfaa, #5a4a81aa);
 }
 
 /*
@@ -231,7 +236,7 @@ label {
 	left: 10px;
 	opacity: 0;
 	width: auto;
-	z-index: 1000;
+	z-index: 997;
 	padding: 10px;
 	min-width: 190px;
 	app-region: drag;
@@ -239,7 +244,7 @@ label {
 	border-radius: 10px;
 	transition-duration: 0.2s;
 	backdrop-filter: blur(4px);
-	background-color: #706099aa;
+	background-color: #5a4a81aa;
 	text-shadow: 2px 2px 2.8px #000a;
 }
 .DIV_CHECKBOX {
@@ -277,7 +282,6 @@ label {
 	transition-duration: 1.1s;
 	backdrop-filter: blur(4px);
 	transition-timing-function: cubic-bezier(0,1,0,1);
-	background-image: linear-gradient(180deg, #706099aa, #3e2e67aa);
 }
 .MENU_TOP {
 	top: 20px;
@@ -289,7 +293,7 @@ label {
 	align-items: center;
 	background-image: none;
 	justify-content: flex-start;
-	background-color: #706099aa;
+	background-color: #5a4a81aa;
 	border-radius: 0px 0px 0px 10px;
 }
 .MENU_TOP_BG {
@@ -304,14 +308,28 @@ label {
 	width: calc(100% - 196px);
 }
 .MENU_RIGHT {
-	top: 20px;
+	top: 0px;
 	right: 0px;
 	width: 0px;
+	height: 100%;
+	z-index: 1000;
 	overflow: scroll;
 	padding-top: 10px;
 	text-align: center;
 	padding-bottom: 10px;
+	backdrop-filter: blur(0px);
+}
+.MENU_RIGHT_BG {
+	top: 20px;
+	right: 0px;
+	width: 0px;
+	z-index: 998;
+	position: absolute;
 	height: calc(100% - 20px);
+	transition-duration: 1.1s;
+    backdrop-filter: blur(4px);
+	background-color: #5a4a817d;
+    transition-timing-function: cubic-bezier(0,1,0,1);
 }
 .APP_MAP_CANVAS {
 	z-index: 10;
