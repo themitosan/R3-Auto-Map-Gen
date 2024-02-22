@@ -311,16 +311,16 @@ label {
 	top: 60px;
 	right: 0px;
 	width: 0px;
-	height: calc(100% - 88px);
 	z-index: 1000;
-	overflow-x: hidden;
 	overflow-y: auto;
 	padding-top: 10px;
 	text-align: center;
-	backdrop-filter: blur(4px);
-	background-color: #5a4a81aa;
+	overflow-x: hidden;
 	border-radius: 6px;
 	padding-bottom: 10px;
+	height: calc(100% - 88px);
+	backdrop-filter: blur(4px);
+	background-color: #5a4a81aa;
 }
 .MENU_RIGHT_BG {
 	top: 20px;
