@@ -138,7 +138,7 @@ const APP = {
 
 		// Close color picker and display about screen
 		this.tools.closeColorPicker();
-		window.alert(`R3 Auto Map Gen. - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/`);
+		window.alert(`R3 Auto Map Gen. - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/\n\nLoading gif was generated on loading.io:\nhttps://loading.io`);
 
 	},
 
@@ -165,7 +165,9 @@ const APP = {
 
 					// Check if current game is biocv
 					if (cGame === 'biocv'){
+						TMS.css('DIV_LOADING_PLEASE_WAIT', { 'display': 'flex' });
 						execArgs.push(`${settingsData[cGame].dumpPath}`);
+						TMS.css('APP_GAME_DATA', { 'display': 'none' });
 						hookTimeout = 3000;
 					}
 
@@ -179,6 +181,11 @@ const APP = {
 					// Seek game process
 					setTimeout(function(){
 						APP.gameHook.seekGame(!0);
+						APP.graphics.updateGuiLabel();
+						if (JSON.parse(localStorage.getItem('showGameData')) === !0){
+							TMS.css('APP_GAME_DATA', { 'display': 'block' });
+						}
+						TMS.css('DIV_LOADING_PLEASE_WAIT', { 'display': 'none' });
 					}, hookTimeout);
 
 				} catch (err) {

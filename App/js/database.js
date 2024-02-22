@@ -5,7 +5,8 @@
 	Original Bio3 / RE3 database was imported from R3V2 / R3V3.
 	(https://github.com/themitosan/R3ditor-V2)
 
-	CVX Map was written using "Evil Resource" as guide.
+	CVX maps was created using the same rule for all other games (Current Stage Value + 1)
+	It also was done by using "Evil Resource" as guide:
 	(https://www.evilresource.com/resident-evil-code-veronica/maps)
 
 	name: 			String 		Map Name
