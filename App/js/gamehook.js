@@ -185,7 +185,7 @@ temp_GAMEHOOK = {
 					cCamera = parseInt(APP.gameHook.read(memoryData.cam, 2, 'hex'), 16),
 					isBioRandActive = document.getElementById('CHECKBOX_isBioRand').checked,
 					previousMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
-					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(),
+					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(16).toUpperCase(),
 					cMap = `R${cStage}${cRoom}`;
 
 				// Fixes for biocv
