@@ -842,6 +842,7 @@ temp_GRAPHICS = {
 		var prevMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 2],
 			prevCam = APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2];
 
+		// Fix if cam doesn't exists yet!
 		if (prevCam === void 0){
 			prevCam = 0;
 		}
@@ -1148,16 +1149,11 @@ temp_GRAPHICS = {
 		// Update show game data var, create opacity and min width vars
 		localStorage.setItem('showGameData', getShowGameData);
 		var sGameDataOpacity = 1,
-			sGameDataMinWidth = 220;
+			sGameDataMinWidth = 240;
 
 		// Check if can display game data and update min width size
 		if (getShowGameData === !1){
 			sGameDataOpacity = 0;
-		}
-
-		// Check current game is biocv
-		if (cGame === 'biocv'){
-			sGameDataMinWidth = 530;
 		}
 
 		// Check if BioRand mod is active
@@ -1176,6 +1172,7 @@ temp_GRAPHICS = {
 		// Check if data was provided
 		if (colorPos !== void 0){
 
+			// Declare main vars
 			var cColor,
 				colorIndex = 0;
 
@@ -1241,14 +1238,13 @@ temp_GRAPHICS = {
 	// Start window actions
 	startWinActions: function(){
 
+		// Define actions for resize, restore and maximize
 		APP.win.on('resize', function(){
 			APP.graphics.updatePlayerPos(!0);
 		});
-
 		APP.win.on('restore', function(){
 			APP.graphics.updatePlayerPos(!0);
 		});
-
 		APP.win.on('maximize', function(){
 			APP.graphics.updatePlayerPos(!0);
 		});
