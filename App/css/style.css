@@ -29,10 +29,10 @@
 }
 
 /*
-	Right menu custom scrollbar css
+	Custom scrollbar for right menu
 */
 div.MENU_RIGHT::-webkit-scrollbar-track {
-	margin: 30px 0px 14px 0px;
+	margin: 14px 0px 14px 0px;
 }
 
 /*
@@ -294,7 +294,7 @@ label {
 	background-image: none;
 	justify-content: flex-start;
 	background-color: #5a4a81aa;
-	border-radius: 0px 0px 0px 10px;
+	border-radius: 0px 0px 10px 10px;
 }
 .MENU_TOP_BG {
 	top: 0px;
@@ -308,16 +308,19 @@ label {
 	width: calc(100% - 196px);
 }
 .MENU_RIGHT {
-	top: 0px;
+	top: 60px;
 	right: 0px;
 	width: 0px;
-	height: 100%;
+	height: calc(100% - 88px);
 	z-index: 1000;
-	overflow: scroll;
+	overflow-x: hidden;
+	overflow-y: auto;
 	padding-top: 10px;
 	text-align: center;
+	backdrop-filter: blur(4px);
+	background-color: #5a4a81aa;
+	border-radius: 6px;
 	padding-bottom: 10px;
-	backdrop-filter: blur(0px);
 }
 .MENU_RIGHT_BG {
 	top: 20px;
@@ -327,9 +330,9 @@ label {
 	position: absolute;
 	height: calc(100% - 20px);
 	transition-duration: 1.1s;
-    backdrop-filter: blur(4px);
-	background-color: #5a4a817d;
-    transition-timing-function: cubic-bezier(0,1,0,1);
+	backdrop-filter: blur(4px);
+	background-color: #564977b3;
+	transition-timing-function: cubic-bezier(0,1,0,1);
 }
 .APP_MAP_CANVAS {
 	z-index: 10;
@@ -586,7 +589,7 @@ label {
 /*
 	Settings for window sizes
 */
-@media only screen and (max-width: 826px){
+@media only screen and (max-width: 863px){
 
 	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, .APP_GAME_DATA {
 		display: none;

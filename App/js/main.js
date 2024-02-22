@@ -255,9 +255,8 @@ const APP = {
 
 			// Display menus
 			setTimeout(function(){
-				TMS.css('MENU_RIGHT_BG', {'width': '196px'});
-				TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)'});
-				TMS.css('MENU_TOP', {'width': 'calc(100% - 196px)', 'height': '30px', 'filter': 'blur(0px)'});
+				TMS.css('MENU_TOP', {'height': '30px', 'filter': 'blur(0px)'});
+				TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'right': '14px'});
 			}, 50);
 
 		} catch (err) {

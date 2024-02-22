@@ -165,7 +165,6 @@ temp_OPTIONS = {
 
 				// Update display mode, app drag bar and canvas
 				TMS.css('MENU_RIGHT', {'display': 'block'});
-				TMS.css('MENU_RIGHT_BG', {'display': 'block'});
 				dragBarCss = {
 					'opacity': '1',
 					'height': '20px',
@@ -183,14 +182,8 @@ temp_OPTIONS = {
 
 				// Return right menu
 				APP.tools.createTimeout('returnRightMenu', function(){
-					TMS.css('MENU_TOP', {
-						'top': '20px',
-						'width': 'calc(100% - 196px)',
-						'border-bottom-right-radius': '0px',
-						'height': `${APP.graphics.maxHeight}px`
-					});
-					TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'opacity': '1'});
-					TMS.css('MENU_RIGHT_BG', {'width': '196px', 'filter': 'blur(0px)', 'opacity': '1'});
+					TMS.css('MENU_TOP', { 'top': '20px', 'height': `${APP.graphics.maxHeight}px` });
+					TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'opacity': '1', 'right': '14px'});
 					TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'none', 'opacity': '0', 'filter': 'blur(20px) opacity(0)', 'right': '2px'});
 				}, 100);
 
@@ -225,18 +218,13 @@ temp_OPTIONS = {
 				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
 
 				// Hide right menu
-				TMS.css('MENU_TOP', {
-					'top': '0px',
-					'width': '100%',
-					'border-bottom-right-radius': '10px'
-				});
+				TMS.css('MENU_TOP', { 'top': '0px' });
 				TMS.css('MENU_TOP_BG', {
 					'top': '0px',
 					'width': '100%',
 					'app-region': 'drag'
 				});
-				TMS.css('MENU_RIGHT', {'width': '0px', 'filter': 'blur(20px)', 'opacity': '0'});
-				TMS.css('MENU_RIGHT_BG', {'width': '0px', 'filter': 'blur(20px)', 'opacity': '0'});
+				TMS.css('MENU_RIGHT', {'width': '0px', 'filter': 'blur(20px)', 'opacity': '0', 'right': '0px'});
 				TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'block', 'top': `${APP.graphics.maxHeight + 10}px`});
 
 				// Show back button
@@ -247,7 +235,6 @@ temp_OPTIONS = {
 				// Update right menu display mode and center map
 				APP.tools.createTimeout('hideRightMenu', function(){
 					TMS.css('MENU_RIGHT', {'display': 'none'});
-					TMS.css('MENU_RIGHT_BG', {'display': 'none'});
 					APP.graphics.updatePlayerPos(!0);
 				}, 1150);
 
