@@ -1,11 +1,13 @@
 -- General Shortcuts
 
-[F1]  Show about window
-[Alt] Toggle between drag canvas or current map
-[F7]  Center current map
-[F8]  Reset canvas zoom
-[F9]  Reset map
-[F10] Reload latest saved / loaded map
+[F1]    Show about window
+[Alt]   Toggle between drag canvas or current map
+[F7]    Center current map
+[F8]    Reset canvas zoom
+[F9]    Reset map
+[F10]   Reload latest saved / loaded map
+[Shift] (Hold) Lock X axis while moving Rooms / Map Canvas
+[Ctrl]  (Hold) Lock Y axis while moving Rooms / Map Canvas
 
 -- Global Shortcuts
 

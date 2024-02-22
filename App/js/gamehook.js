@@ -17,6 +17,9 @@ temp_GAMEHOOK = {
 	gameObject: void 0,
 	updateObject: void 0,
 
+	// 
+	updateCamCvx: !1,
+
 	/*
 		Functions
 	*/
@@ -179,7 +182,8 @@ temp_GAMEHOOK = {
 			try {
 
 				// Variables
-				var needUpdateCam = !1,
+				var prevCam,
+					needUpdateCam = !1,
 					memoryData = APP.options.settingsData[cGame],
 					cRoom = APP.gameHook.read(memoryData.room, 2, 'hex'),
 					cCamera = parseInt(APP.gameHook.read(memoryData.cam, 2, 'hex'), 16),
@@ -193,18 +197,26 @@ temp_GAMEHOOK = {
 
 					// Get camera
 					cCamera = parseInt(APP.tools.parseEndian(APP.gameHook.read(memoryData.cam, 2, 'hex', 4)), 16);
+					prevCam = Number(APP.tools.parseEndian(APP.gameHook.read((Number(memoryData.cam) + 4).toString(16), 2, 'hex', 4)));
 
 				}
 
 				// Set current map and check if needs to update label GUI
 				APP.gameHook.currentMap = cMap;
-				if (cCamera !== APP.gameHook.currentCamera){
+				if (cCamera !== APP.gameHook.currentCamera && APP.gameHook.updateCamCvx === !1 && isNaN(prevCam) === !1){
 					needUpdateCam = !0;
 					APP.gameHook.camHistory.push(cCamera);
 				}
 
-				// Update current camera and check if needs to trim cam history
+				// Check if needs to update biocv cam
 				APP.gameHook.currentCamera = cCamera;
+				if (APP.gameHook.updateCamCvx === !0 && isNaN(prevCam) === !1){
+					APP.gameHook.camHistory.push(cCamera);
+					APP.graphics.processAddCamHint(cMap);
+					APP.gameHook.updateCamCvx = !1;
+				}
+
+				// Update current camera and check if needs to trim cam history
 				if (APP.gameHook.camHistory.length > 9){
 					APP.gameHook.camHistory.splice(0, 7);
 				}
@@ -233,8 +245,11 @@ temp_GAMEHOOK = {
 				if (this.mapHistory[(this.mapHistory.length - 1)] !== cMap){
 
 					// Push current cam to prevent bugs
-					if (needUpdateCam === !1){
+					if (needUpdateCam === !1 && cGame !== 'biocv'){
 						APP.gameHook.camHistory.push(cCamera);
+					}
+					if (needUpdateCam === !1 && cGame === 'biocv'){
+						APP.gameHook.updateCamCvx = !0;
 					}
 
 					// Push room to map and update player pos.
@@ -252,9 +267,7 @@ temp_GAMEHOOK = {
 
 				// Update current cam var
 				if (needUpdateCam === !0){
-					if (cGame !== 'biocv'){
-						APP.graphics.processCamHint();
-					}
+					APP.graphics.processCamHint();
 					APP.graphics.updateGuiLabel();
 				}
 

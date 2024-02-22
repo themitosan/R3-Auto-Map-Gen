@@ -98,12 +98,8 @@ temp_GRAPHICS = {
 
 			// Check if current game is RE: Code veronica
 			if (cGame === 'biocv'){
-				availableCamHints = 'This option is not available for this game... <b>Yet!</b>';
 				seedFile = `${APP.path.parse(APP.options.settingsData[cGame].dumpPath).dir}/mod_biorand/description.txt`;
 			}
-
-			// Disable some options if current game is biocv
-			document.getElementById('CHECKBOX_enableCamHint').disabled = cGame === 'biocv';
 
 			// Hide elements depending of which game is selected
 			var btnDisplayIso = { 'display': 'inline' },
@@ -149,7 +145,7 @@ temp_GRAPHICS = {
 			}
 
 			// Check if available cam hints is available
-			if (APP.options.enableCamHint === !0 && cGame !== 'biocv'){
+			if (APP.options.enableCamHint === !0){
 				availableCamHints = APP.graphics.availableCamHints;
 			}
 
@@ -382,9 +378,7 @@ temp_GRAPHICS = {
 
 		// Push line, bump door trigger var and update labels
 		APP.graphics.pushLine(parent, mapName);
-		if (cGame !== 'biocv'){
-			APP.graphics.processCamHint();
-		}
+		APP.graphics.processCamHint();
 		APP.options.doorTrigger++;
 		this.updateGuiLabel();
 
@@ -647,10 +641,7 @@ temp_GRAPHICS = {
 
 			// Create HTML and render new lines
 			lineNames.forEach(function(lName){
-
-				const tempLine = `<svg id="${lName}"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff"/></svg>`;
-				TMS.append('APP_MAP_CANVAS', tempLine);
-
+				TMS.append('APP_MAP_CANVAS', `<svg id="${lName}"><line x1="${x1}" y1="${y1}" x2="${x2}" y2="${y2}" stroke="#fff"/></svg>`);
 			});
 
 			// Push to list
@@ -705,8 +696,25 @@ temp_GRAPHICS = {
 			finalX = (elmnt.offsetLeft - pos1);
 			finalY = (elmnt.offsetTop - pos2);
 
+			// Create enable vars
+			var enable_x = !0,
+				enable_y = !0;
+			
+			// Disable coords if Ctrl / Shift keys are active
+			if (APP.kbInput.indexOf('ShiftLeft') !== -1){
+				enable_y = !1;
+			}
+			if (APP.kbInput.indexOf('ControlLeft') !== -1){
+				enable_x = !1;
+			}
+
 			// Update CSS
-			TMS.css(domName, {'top': `${finalY}px`, 'left': `${finalX}px`});
+			if (enable_x === !0){
+				TMS.css(domName, {'left': `${finalX}px`});
+			}
+			if (enable_y === !0){
+				TMS.css(domName, {'top': `${finalY}px`});
+			}
 
 			// Update Lines
 			if (domName !== 'APP_MAP_CANVAS'){
@@ -819,7 +827,7 @@ temp_GRAPHICS = {
 				finalY = APP.tools.parsePolarity(nextY);
 
 			// Update canvas and map label pos.
-			TMS.css('APP_MAP_CANVAS', {'left': `${finalX}px`, 'top': `${finalY}px`});
+			TMS.css('APP_MAP_CANVAS', { 'left': `${finalX}px`, 'top': `${finalY}px` });
 			document.getElementById('LABEL_map_X').innerHTML = parseInt(nextX);
 			document.getElementById('LABEL_map_Y').innerHTML = parseInt(nextY);
 

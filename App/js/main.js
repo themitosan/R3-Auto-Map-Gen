@@ -32,6 +32,9 @@ const APP = {
 	timeoutDatabase: {},
 	intervalDatabase: {},
 
+	// Keyboard input
+	kbInput: [],
+
 	/*
 		Functions
 	*/
@@ -40,14 +43,22 @@ const APP = {
 	startKbShortcuts: function(disableGlobal){
 
 		// Prevent tab
-		document.addEventListener('keydown', function(event){
-			if (event.keyCode === 9){
-				event.preventDefault();
+		document.addEventListener('keydown', function(evt){
+			if (evt.keyCode === 9){
+				evt.preventDefault();
+			}
+			if (APP.kbInput.indexOf(evt.code) === -1){
+				APP.kbInput.push(evt.code);
 			}
 		});
 
 		// Start keypress
 		window.onkeyup = function(evt){
+
+			// Remove key from keyboard input
+			if (APP.kbInput.indexOf(evt.code) !== -1){
+				APP.kbInput.splice(APP.kbInput.indexOf(evt.code), 1);
+			}
 
 			switch (evt.key){
 
@@ -173,7 +184,6 @@ const APP = {
 
 					// Update chdir and run game
 					process.chdir(settingsData[settingsData.currentGame].gamePath);
-					console.info(execArgs);
 					APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, {
 						detached: !0
 					});

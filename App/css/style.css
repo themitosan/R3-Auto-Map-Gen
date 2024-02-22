@@ -73,7 +73,7 @@ select:disabled, button:disabled, input[type="button"]:disabled {
 	color: #a9a9a9;
 	cursor: not-allowed;
 	box-shadow: 0px 0px 4px #000 inset;
-	background-image: linear-gradient(180deg, #777, #787878);
+	background-image: linear-gradient(180deg, #777, #787878) !important;
 }
 input[type="range"] {
 	outline: none;
@@ -629,7 +629,7 @@ label {
 @media only screen and (max-width: 863px){
 
 	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, .APP_GAME_DATA {
-		display: none;
+		display: none !important;
 	}
 	.MENU_TOP {
 		justify-content: center;
