@@ -17,7 +17,7 @@ temp_GAMEHOOK = {
 	gameObject: void 0,
 	updateObject: void 0,
 
-	// 
+	// (biocv) Flag to update cam
 	updateCamCvx: !1,
 
 	/*
