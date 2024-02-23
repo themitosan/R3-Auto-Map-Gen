@@ -1148,12 +1148,14 @@ temp_GRAPHICS = {
 
 		// Update show game data var, create opacity and min width vars
 		localStorage.setItem('showGameData', getShowGameData);
-		var sGameDataOpacity = 1,
+		var appDragCss = 'drag',
+			sGameDataOpacity = 1,
 			sGameDataMinWidth = 240;
 
 		// Check if can display game data and update min width size
 		if (getShowGameData === !1){
 			sGameDataOpacity = 0;
+			appDragCss = 'no-drag';
 		}
 
 		// Check if BioRand mod is active
@@ -1162,7 +1164,11 @@ temp_GRAPHICS = {
 		}
 
 		// Set final CSS
-		TMS.css('APP_GAME_DATA', {'opacity': sGameDataOpacity, 'min-width': `${sGameDataMinWidth}px`});
+		TMS.css('APP_GAME_DATA', {
+			'app-region': appDragCss,
+			'opacity': sGameDataOpacity,
+			'min-width': `${sGameDataMinWidth}px`
+		});
 
 	},
 

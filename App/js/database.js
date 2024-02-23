@@ -639,9 +639,9 @@ temp_DATABASE = {
 			'R10F': { name: 'Statue Room', location: 'Prision', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R110': { name: 'Prision Backyard', location: 'Prision', haveItemBox: !0, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 
-			'R200': { name: 'Courtyard', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R200': { name: 'Palace Courtyard', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R202': { name: 'Palace Hall', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R203': { name: 'Bathroom', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R203': { name: 'Palace Bathroom', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R204': { name: 'Family Portrait Room', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R205': { name: 'Collection Display Room', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R206': { name: 'Umbrella Metting Room', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
@@ -650,7 +650,7 @@ temp_DATABASE = {
 			'R209': { name: 'Alfred\'s Office', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20A': { name: 'Bridge', location: 'Private Residence', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20B': { name: 'Casino Lounge', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R20C': { name: 'Passage', location: 'Military Training Facility', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R20C': { name: 'Military Passage', location: 'Military Training Facility', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20D': { name: 'Submarine Dock', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20E': { name: 'Submarine (Palace)', location: 'Palace', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 
