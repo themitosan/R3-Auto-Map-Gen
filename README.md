@@ -16,7 +16,7 @@ This app creates an node-conected map on the go for classic Resident Evil games.
 </sup>
 
 ## How to install
-- Download [latest release](https://github.com/themitosan/R3-Auto-Map-Gen/releases) (or the latest build from [GitHub Actions](https://github.com/themitosan/R3-Auto-Map-Gen/actions))
+- Download [latest release](https://github.com/themitosan/R3-Auto-Map-Gen/releases) _(or the latest build from [GitHub Actions](https://github.com/themitosan/R3-Auto-Map-Gen/actions))_
 - Extract the zip on a _cool-looking_ place
 - Run `R3 Auto Map Gen.exe`
 - Click on `App Setup`, select your game executable and then insert ram positions for current stage and room.
@@ -24,7 +24,7 @@ This app creates an node-conected map on the go for classic Resident Evil games.
 ...If everything is fine, just open your game - go to main menu and then click on `Hook game process`.
 
 ## How this thing works?
-- Open your game, start hook, open a simple door and you will see the magic!
+- Open your game, start hook, transition from one room to other and **see the magic**!
 
 <p align="center">
 <img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/example.png?raw=true" alt="R3_Example" width="800"/>
