@@ -48,9 +48,9 @@ You can find a list with all available shortcuts on `help.txt`.
 <br>
 <sup>
 
-_Some parts from this project was obtained from [R3ditor V2](https://github.com/themitosan/R3ditor-V2) and R3V3_
-
 _[BioRand](https://github.com/IntelOrca/biorand) is a Classic Resident Evil Randomizer created by [IntelOrca](https://github.com/IntelOrca)._
+
+_Some parts from this project was obtained from [R3ditor V2](https://github.com/themitosan/R3ditor-V2) and R3V3._
 
 _Code Veronica database was created using [Evil Resource](evilresource.com/resident-evil-code-veronica/maps) as reference._
 
