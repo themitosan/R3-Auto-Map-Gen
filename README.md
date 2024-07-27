@@ -52,6 +52,6 @@ _[BioRand](https://github.com/IntelOrca/biorand) is a Classic Resident Evil Rand
 
 _Some parts from this project was obtained from [R3ditor V2](https://github.com/themitosan/R3ditor-V2) and R3V3._
 
-_Code Veronica database was created using [Evil Resource](evilresource.com/resident-evil-code-veronica/maps) as reference._
+_Code Veronica database was created using [Evil Resource](https://evilresource.com/resident-evil-code-veronica/maps) as reference._
 
 </sup>
