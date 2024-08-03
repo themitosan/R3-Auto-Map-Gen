@@ -39,7 +39,10 @@ You can find a list with all available shortcuts on `help.txt`.
 ## How to build
 - Make sure to have latest [node.js](https://nodejs.org/) version installed!
 - Run `npm run build` for common build or `npm run build-debug` for debug build.
-- If everything is okay, binaries will be available on `build/R3 Auto Map Gen/`.
+- If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
+
+## Other OS?
+- Basic support for other os is being developed to work with wine (currently WIP).
 
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--/)
