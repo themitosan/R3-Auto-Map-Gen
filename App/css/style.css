@@ -55,6 +55,7 @@ input[id="BTN_SELECT_EXE"] {
 select, button, input[type="button"] {
 	border: none;
 	outline: none;
+	color :#000;
 	cursor: pointer;
 	min-height: 24px;
 	max-height: 30px;

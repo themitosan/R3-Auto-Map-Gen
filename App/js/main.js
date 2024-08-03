@@ -182,11 +182,15 @@ const APP = {
 						hookTimeout = 3000;
 					}
 
-					// Update chdir and run game
+					// Update chdir and check if wine fix is available before running game
 					process.chdir(settingsData[settingsData.currentGame].gamePath);
-					APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, {
-						detached: !0
-					});
+					if (APP.options.enableWineFix === !0 && cGame !== 'biocv'){
+						APP.childProcess.exec(`WINEDLLOVERRIDES="ddraw.dll=n,b" wine wineconsole ${gPath}`);
+					} else {
+						APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, {
+							detached: !0
+						});
+					}
 
 					// Seek game process
 					setTimeout(function(){
@@ -201,7 +205,7 @@ const APP = {
 				} catch (err) {
 					console.error(err);
 					window.alert(`ERROR - Unable to start game process!\n\n${err}`);
-					throw new Error(err);
+					throw err;
 				}
 
 			}
@@ -214,6 +218,7 @@ const APP = {
 						return cProcess;
 					}
 				});
+
 			if (gProcess.length === 0){
 				doStartGamePlz();
 			} else {
@@ -285,7 +290,7 @@ const APP = {
 	},
 
 	// DEV - Start global shortcuts button
-	devStartShortCuts: function(){
+	devStartShortcuts: function(){
 		document.getElementById('BTN_DEV_KB_SH').disabled = 'disabled';
 		TMS.css('BTN_DEV_KB_SH', {'display': 'none'});
 		APP.startKbShortcuts(!1);

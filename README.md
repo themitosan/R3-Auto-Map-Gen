@@ -27,7 +27,7 @@ This app creates an node-conected map on the go for classic Resident Evil games.
 - Open your game, start hook, transition from one room to other and **see the magic**!
 
 <p align="center">
-<img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/example.png?raw=true" alt="R3_Example" width="800"/>
+<img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/example.png?raw=true" alt="R3_Auto_Map_Gen_Example" width="800"/>
 </p>
 
 ## Where this thing can be helpful?

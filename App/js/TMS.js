@@ -13,7 +13,7 @@
 	**************************************************************************************
 */
 
-const TMS = Object.freeze(Object.seal({
+const TMS = Object.seal(Object.freeze({
 
 	// Log warning
 	logWarnings: !1,
@@ -514,5 +514,5 @@ const TMS = Object.freeze(Object.seal({
 	
 }));
 
-// Export
+// Export module
 exports = TMS;
