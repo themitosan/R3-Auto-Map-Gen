@@ -36,11 +36,11 @@ jobs:
       working-directory: ./
       run: echo %GITHUB_SHA% > hash.inc
 
-    - name: Build
-      run: npm run build --if-present
+    - name: Build (normal)
+      run: npm run build-normal --if-present
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
         name: R3_Auto_Map_Gen
-        path: ./Build/R3 Auto Map Gen/win64/
+        path: ./Build/r3_auto_map_gen/win64/
