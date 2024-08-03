@@ -14,6 +14,7 @@ const APP = {
 
 	// Modules
 	fs: void 0,
+	os: void 0,
 	win: void 0,
 	path: void 0,
 	memoryjs: void 0,
@@ -257,34 +258,42 @@ const APP = {
 				TMS.css('BTN_DEV_KB_SH', {'display': 'none'});
 			}
 
-			// Require modules
-			APP.fs = require('fs');
-			APP.win = nw.Window.get();
-			APP.path = require('path');
-			APP.childProcess = require('child_process');
-			APP.memoryjs = require(`${APP.pathPrefix}node_modules/memoryjs`);
+			// Require os module and check if current user are running windows
+			APP.os = require('os');
+			if (APP.os.platform() === 'win32'){
 
-			// Reset chdir and enable start
-			process.chdir(APP.tools.fixPath(APP.path.parse(process.execPath).dir));
-			document.getElementById('BTN_START').disabled = '';
-			document.getElementById('BTN_START').focus();
+				// Require remaining modules
+				APP.fs = require('fs');
+				APP.win = nw.Window.get();
+				APP.path = require('path');
+				APP.childProcess = require('child_process');
+				APP.memoryjs = require(`${APP.pathPrefix}node_modules/memoryjs`);
 
-			// Start keyboard shortcuts, load settings, set windows actions and toggle bg colot
-			APP.startKbShortcuts(startKbDevMode);
-			APP.options.loadSettings();
-			APP.graphics.startWinActions();
-			APP.graphics.toggleBgColor();
+				// Reset chdir and enable start
+				process.chdir(APP.tools.fixPath(APP.path.parse(process.execPath).dir));
+				document.getElementById('BTN_START').disabled = '';
+				document.getElementById('BTN_START').focus();
 
-			// Display menus
-			setTimeout(function(){
-				TMS.css('MENU_TOP', {'height': '30px', 'filter': 'blur(0px)'});
-				TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'right': '14px'});
-			}, 50);
+				// Start keyboard shortcuts, load settings, set windows actions and toggle bg colot
+				APP.startKbShortcuts(startKbDevMode);
+				APP.options.loadSettings();
+				APP.graphics.startWinActions();
+				APP.graphics.toggleBgColor();
+
+				// Display menus
+				setTimeout(function(){
+					TMS.css('MENU_TOP', {'height': '30px', 'filter': 'blur(0px)'});
+					TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'right': '14px'});
+				}, 50);
+
+			} else {
+				window.alert(`INFO - It seems that you are running this app on a non-windows operating system.\n\nSince this app requires memoryjs (a node module that only run on windows), you can\'t run this application natively on ${APP.os.platform()}.\n\nBut you can run this app using windows version under wine!\nTo run, make sure that wine is installed on yout system and run the following command:\nwine64 \"R3 Auto Map Gen.exe\" -wineFix\n\nR3 Auto Map Gen will quit after closing this message.`);
+				nw.App.quit();
+			}
 
 		} catch (err) {
 			window.alert(`ERROR - Something happened on boot process!\n${err}`);
-			console.error(err);
-			throw new Error(err);
+			throw err;
 		}
 
 	},
