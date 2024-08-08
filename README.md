@@ -42,7 +42,9 @@ You can find a list with all available shortcuts on `help.txt`.
 - If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
 
 ## Other OS?
-- Basic support for other os is being developed to work with wine (currently WIP).
+You can run this app using [wine](https://www.winehq.org/) compat layer.
+In order to read current game, make sure to run it under the same prefix.
+Some few things will be fixed later _(Run game and Cam Hint are broken)_.
 
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--/)

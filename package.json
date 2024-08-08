@@ -22,7 +22,6 @@
 	},
 	"scripts": {
 		"dev": "nw -dev",
-		"dev-wineFix": "nw -dev -wineFix",
 		"build-sdk": "node compiler/build-sdk.js",
 		"build-normal": "node compiler/build-normal.js"
 	},

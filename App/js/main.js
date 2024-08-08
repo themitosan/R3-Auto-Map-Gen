@@ -183,15 +183,11 @@ const APP = {
 						hookTimeout = 3000;
 					}
 
-					// Update chdir and check if wine fix is available before running game
+					// Update chdir and run game
 					process.chdir(settingsData[settingsData.currentGame].gamePath);
-					if (APP.options.enableWineFix === !0 && cGame !== 'biocv'){
-						APP.childProcess.exec(`WINEDLLOVERRIDES="ddraw.dll=n,b" wine wineconsole ${gPath}`);
-					} else {
-						APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, {
-							detached: !0
-						});
-					}
+					APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, {
+						detached: !0
+					});
 
 					// Seek game process
 					setTimeout(function(){

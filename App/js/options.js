@@ -19,7 +19,6 @@ temp_OPTIONS = {
 	enableTabletMode: !1,
 	isMenuRightClosed: !1,
 	enableBgObjectiveAnimation: !0,
-	enableWineFix: nw.App.argv.indexOf('-wineFix') !== -1,
 	bioRandObjectives: {
 		reset: !1,
 		current: null,
