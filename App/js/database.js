@@ -9,18 +9,19 @@
 	It also was done by using "Evil Resource" as guide:
 	(https://www.evilresource.com/resident-evil-code-veronica/maps)
 
-	name: 			String 		Map Name
-	location: 		String		Map location
-	canSave: 		Boolean		Player can save
-	haveItemBox: 	Boolean 	Map have item box
-	gameStart: 		Boolean 	Map where game starts
-	gameEnd: 		Boolean 	Map where game ends
-	skipCamHint:    Boolean 	Set true to skip camera hint
+	name:		 [String]  Map Name
+	location:	 [String]  Map Name
+	location:	 [String]  Map location
+	canSave:	 [Boolean] Player can save
+	haveItemBox: [Boolean] Map have item box
+	gameStart: 	 [Boolean] Map where game starts
+	gameEnd:	 [Boolean] Map where game ends
+	skipCamHint: [Boolean] Set true to skip camera hint
 */
 
 temp_DATABASE = {
 
-	// BioHazard
+	// Biohazard
 	bio1: {
 
 		// BioRand Objectives
@@ -222,7 +223,7 @@ temp_DATABASE = {
 		}
 	},
 
-	// BioHazard 2
+	// Biohazard 2
 	bio2: {
 
 		// BioRand Objectives
@@ -408,7 +409,7 @@ temp_DATABASE = {
 
 	},
 
-	// BioHazard 3 - Last Escape
+	// Biohazard 3 - Last Escape
 	bio3: {
 
 		// BioRand Objectives
@@ -610,7 +611,7 @@ temp_DATABASE = {
 
 	},
 
-	// BioHazard: Code: Veronica [WIP]
+	// Biohazard: Code: Veronica X
 	'biocv': {
 
 		// BioRand Objectives

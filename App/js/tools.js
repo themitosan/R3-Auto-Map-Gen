@@ -25,11 +25,9 @@ temp_TOOLS = {
 
 	// Parse endian values
 	parseEndian: function(hex){
-
 		if (hex !== void 0){
 			return hex.match(/.{2,2}/g).reverse().toString().replace(RegExp(',', 'gi'), '');
 		}
-
 	},
 
 	// Convert Hex values to UTF-8 string
@@ -77,7 +75,6 @@ temp_TOOLS = {
 	parseNegative: function(value){
 
 		var res = 0;
-
 		if (value !== void 0 && parseFloat(value) !== NaN){
 			const n = parseFloat(value);
 			res = ((n - n) - n);
@@ -92,11 +89,13 @@ temp_TOOLS = {
 
 	// Fix paths
 	fixPath: function(path){
+
 		var res = '';
 		if (path !== void 0 && path !== ''){
 			res = path.replace(RegExp('\\\\', 'gi'), '/');
 		}
 		return res;
+
 	},
 
 	/*
@@ -123,30 +122,6 @@ temp_TOOLS = {
 		}
 	},
 
-	// Set data on main object (APP - main.js)
-	setVariable: function(target, data, callback){
-
-		try {
-
-			if (target !== void 0 && target !== ''){
-
-				var i,
-					temp = APP,
-					path = target.split('.');
-
-				for (i = 0; i < (path.length - 1); i++){
-					temp = temp[path[i]];
-				}
-
-				temp[path[i]] = data;
-
-			}
-
-		} catch (err) {
-			console.error(err);
-		}
-	},
-
 	// Convert array to string breaking lines
 	convertArrayToString: function(str){
 		var res = '';
@@ -160,7 +135,6 @@ temp_TOOLS = {
 	cleanString: function(str, arr){
 
 		var res = '';
-
 		if (str !== void 0 && arr !== void 0){
 			res = str;
 			arr.forEach(function(rep){
@@ -217,7 +191,6 @@ temp_TOOLS = {
 	fixJson: function(data){
 
 		var res = '';
-
 		if (data !== void 0){
 			res = data.replace(RegExp("'", 'gi'), '"');
 		}
@@ -230,7 +203,6 @@ temp_TOOLS = {
 	cleanFn: function(fnStr){
 
 		var res = '';
-
 		if (fnStr !== void 0){
 			res = fnStr.replace(RegExp('\n', 'gi'), ' ').replace(RegExp('	', 'gi'), '');
 		}
@@ -341,10 +313,8 @@ temp_TOOLS = {
 
 	    }
 
-	    // Run process
+	    // Run process and return res
 	    gFileProcess(dir);
-
-	    // End
 	    return res;
 
 	},
@@ -371,7 +341,6 @@ temp_TOOLS = {
 	parsePolarity: function(value){
 
 		var res = 0;
-
 		if (res !== void 0){
 			res = value - value - value;
 		}
@@ -390,7 +359,6 @@ temp_TOOLS = {
 			if (domId === !1){
 				res = !0;
 			}
-
 			document.getElementById(domName).checked = res;
 
 		}
@@ -416,7 +384,6 @@ temp_TOOLS = {
 		if (typeof data === 'object' && document.getElementById(data.domName) !== null){
 
 			const cValue = Number(document.getElementById(data.domName).value);
-
 			if (data.maxLength === void 0){
 				data.maxLength = document.getElementById(data.domName).value.length;
 			}
@@ -696,9 +663,8 @@ temp_TOOLS = {
 	// Create setTimeout function with more control
 	createTimeout: function(name, action, timeout){
 
+		// Log and check if timeout was provided
 		console.info(`INFO - Creating timeout: ${name}`);
-		
-		// Check if timeout was provided
 		if (timeout === void 0){
 			timeout = 0;
 		}
@@ -724,9 +690,9 @@ temp_TOOLS = {
 
 	},
 
-	/*
-		Clear timeout
-			timeoutList: 	String | Boolean 	Timeout name or list to be cleared
+	/**
+		* Clear timeout
+		@param timeoutList [string | boolean] Timeout name or list to be cleared
 	*/
 	clearTimeoutList: function(timeoutList){
 

@@ -121,7 +121,7 @@ temp_GAMEHOOK = {
 
 	},
 
-	// Read data
+	// Read data from target process
 	read: function(ramPos, limit, mode, length){
 
 		var res = '00';
