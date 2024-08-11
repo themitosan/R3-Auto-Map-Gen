@@ -149,8 +149,8 @@ temp_GRAPHICS = {
 				availableCamHints = APP.graphics.availableCamHints;
 			}
 
-			// Check if right menu is closed
-			if (APP.options.isMenuRightClosed === !0){
+			// Check if right menu is closed and wine fix is disabled
+			if (APP.options.isMenuRightClosed === !0 && nw.App.manifest.extra.wineFix === !1){
 				labelDragMessage = ' [ You can use this label to drag app window ]';
 			}
 

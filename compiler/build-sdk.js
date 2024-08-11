@@ -8,4 +8,4 @@ const COMPILER = require('./build.js');
 
 // Clear console and start process
 console.clear();
-COMPILER.run('sdk');
+COMPILER.run('sdk', process.argv);

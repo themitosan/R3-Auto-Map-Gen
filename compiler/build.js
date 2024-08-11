@@ -12,7 +12,7 @@ module.exports = {
 	packageJson: require('../package.json'),
 
 	// Start compiler
-	run: function(flavor){
+	run: function(flavor, args){
 
 		// Get main data
 		var date = new Date,
@@ -20,6 +20,22 @@ module.exports = {
 			packageJson = this.packageJson,
 			buildHash = fs.readFileSync('hash.inc', 'utf-8'),
 			nwVersion = packageJson.dependencies.nw.replace('-sdk', '').replace('^', '');
+
+		// Check if args was provided. If so, process them
+		if (args !== void 0 && args.length !== 0){
+			args.forEach(function(cArg){
+				switch (cArg){
+
+					// Compile app with some wine fixes
+					case '--enableWineFix':
+						packageJson.window.frame = !0;
+						packageJson.extra.wineFix = !0;
+						packageJson.window.transparent = !1;
+						break;
+
+				}
+			});
+		}
 
 		// Update package.json
 		if (buildHash.length !== 0){
@@ -36,7 +52,7 @@ module.exports = {
 		fs.unlinkSync('hash.inc');
 
 		// Log initial data and setup nw-builder
-		console.info(`=== Running compiler ===\nApp version: ${this.packageJson.version}\nnwjs version: ${nwVersion}\nFlavor: ${flavor}\n`);
+		console.info(`=== Running compiler ===\nApp version: ${this.packageJson.version}\nnwjs version: ${nwVersion}\nFlavor: ${flavor}\nArgs: ${args}\n`);
 		const compileData = new this.nwBuilder({
 
 			// Main metadata

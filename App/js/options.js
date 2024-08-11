@@ -171,9 +171,14 @@ temp_OPTIONS = {
 					'filter': 'blur(0px)',
 					'transition-duration': '0.1s'
 				};
-				TMS.css('APP_DRAG_BAR', dragBarCss);
-				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
-				TMS.css('APP_GAME_DATA', {'top': `${APP.graphics.maxHeight + 30}px`});
+				var appGameDataTopFactor = 30;
+				if (nw.App.manifest.extra.wineFix === !1){
+					TMS.css('APP_DRAG_BAR', dragBarCss);
+					TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
+				} else {
+					appGameDataTopFactor = 10;
+				}
+				TMS.css('APP_GAME_DATA', {'top': `${APP.graphics.maxHeight + appGameDataTopFactor}px`});
 				TMS.css('MENU_TOP_BG', {
 					'top': '20px',
 					'app-region': 'none',
@@ -182,9 +187,18 @@ temp_OPTIONS = {
 
 				// Return right menu
 				APP.tools.createTimeout('returnRightMenu', function(){
-					TMS.css('MENU_TOP', { 'top': '20px', 'height': `${APP.graphics.maxHeight}px` });
+					
+					// Create top menu Y pos and check if wine fix is active
+					var topMenuPosY = 20;
+					if (nw.App.manifest.extra.wineFix === !0){
+						topMenuPosY = 0;
+					}
+
+					// Update CSS
+					TMS.css('MENU_TOP', { 'top': `${topMenuPosY}px`, 'height': `${APP.graphics.maxHeight}px` });
 					TMS.css('MENU_RIGHT', {'width': '196px', 'filter': 'blur(0px)', 'opacity': '1', 'right': '14px'});
 					TMS.css('BTN_SHOW_RIGHT_MENU', {'display': 'none', 'opacity': '0', 'filter': 'blur(20px) opacity(0)', 'right': '2px'});
+
 				}, 100);
 
 				// Center map
@@ -207,15 +221,20 @@ temp_OPTIONS = {
 				APP.graphics.displayTopMsg('INFO - Use [ Ctrl+Shift+Q ] shorcut to open right menu again.', 5500);
 
 				// Update app drag bar and canvas
+				var appGameDataTop = 74;
 				dragBarCss = {
 					'opacity': '0',
 					'height': '0px',
 					'filter': 'blur(50px)',
 					'transition-duration': '1s'
 				};
-				TMS.css('APP_DRAG_BAR', dragBarCss);
-				TMS.css('APP_GAME_DATA', {'top': '74px'});
-				TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
+				if (nw.App.manifest.extra.wineFix === !1){
+					TMS.css('APP_DRAG_BAR', dragBarCss);
+					TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
+				} else {
+					appGameDataTop = 40;
+				}
+				TMS.css('APP_GAME_DATA', {'top': `${appGameDataTop}px`});
 
 				// Hide right menu
 				TMS.css('MENU_TOP', { 'top': '0px' });

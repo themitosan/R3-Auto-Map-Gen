@@ -18,17 +18,22 @@
 		"position": "center",
 		"theme-color": "#002",
 		"icon": "App/img/icon.png",
-		"title": "R3 Auto Map Gen"
+		"title": "R3 Auto Map Gen - Please wait..."
+	},
+	"extra": {
+		"wineFix": false
 	},
 	"scripts": {
 		"dev": "nw -dev",
 		"build-sdk": "node compiler/build-sdk.js",
-		"build-normal": "node compiler/build-normal.js"
+		"build-normal": "node compiler/build-normal.js",
+		"build-sdk-wine": "node compiler/build-sdk.js --enableWineFix",
+		"build-normal-wine": "node compiler/build-normal.js --enableWineFix"
 	},
 	"devDependencies": {
 		"nw-builder": "^3.5.7"
 	},
 	"dependencies": {
-		"nw": "0.82.0-sdk"
+		"nw": "^0.83.0-sdk"
 	}
 }

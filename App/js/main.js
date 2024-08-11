@@ -245,6 +245,27 @@ const APP = {
 			document.title = appTitle;
 			document.getElementById('APP_DRAG_BAR').innerHTML = appTitle;
 
+			// Check if wine fix is active
+			if (nw.App.manifest.extra.wineFix === !0){
+
+				// Create consts
+				const
+					hideCss = { 'display': 'none' },
+					fixMargin = { 'margin-bottom': '8px' };
+
+				// Update CSS
+				TMS.css('APP_DRAG_BAR', hideCss);
+				TMS.css('BTN_RESET_ZOOM', fixMargin);
+				TMS.css('MENU_TOP', { 'top': '0px' });
+				TMS.css('APP_DRAG_BAR_ACTIONS', hideCss);
+				TMS.css('APP_GAME_DATA', { 'top': '40px' });
+				TMS.css('BTN_PICK_BG_COLOR_BOTTOM', fixMargin);
+				TMS.css('body', { 'background-color': '#002' });
+				TMS.css('APP_CANVAS', { 'border-radius': '0px' });
+				TMS.css('MENU_RIGHT', { 'top': '40px', 'height': 'calc(100% - 68px)' });
+
+			}
+
 			// Check if app is on dev mode
 			if (nw.App.argv.indexOf('-dev') !== -1){
 				document.getElementById('BTN_DEV_KB_SH').disabled = '';
