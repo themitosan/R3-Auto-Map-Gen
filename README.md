@@ -37,9 +37,14 @@ _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca
 You can find a list with all available shortcuts on `help.txt`.
 
 ## How to build
-- Make sure to have latest [node.js](https://nodejs.org/) version installed!
-- Run `npm run build` for common build or `npm run build-debug` for debug build.
-- If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
+
+> [!IMPORTANT]\
+> Make sure to have latest [node.js](https://nodejs.org/) version installed!
+
+- Run `npm run build-normal` for common build or `npm run build-sdk` for debug build.
+- You can also use `npm run build-normal-wine` or `npm run build-sdk-wine` to compile a version that plays nicer with [wine](https://www.winehq.org/) compat layer.
+
+If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
 
 ## Other OS?
 You can run this app using [wine](https://www.winehq.org/) compat layer.
@@ -47,8 +52,8 @@ In order to read current game, make sure to run it under the same prefix.
 Some few things will be fixed later _(Run game and Cam Hint are broken)_.
 
 ## External plugins on this project
-- [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--/)
-- [TMS.js](https://github.com/themitosan/TMS.js) from [TheMitoSan](https://github.com/themitosan/) <sup>_Hi!_</sup>
+- [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--)
+- [TMS.js](https://github.com/themitosan/TMS.js) from [TheMitoSan](https://github.com/themitosan) <sup>_Hi!_</sup>
 
 <br>
 <sup>
