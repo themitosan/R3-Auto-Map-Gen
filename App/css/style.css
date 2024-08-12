@@ -627,7 +627,7 @@ label {
 /*
 	Settings for window sizes
 */
-@media only screen and (max-width: 863px){
+@media only screen and (max-width: 918px){
 
 	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, .APP_GAME_DATA {
 		display: none !important;

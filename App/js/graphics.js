@@ -1141,12 +1141,8 @@ temp_GRAPHICS = {
 	// Toggle show game data
 	toggleShowGameData: function(){
 
-		// Get variables
-		const
-			cGame = APP.options.settingsData.currentGame,
-			getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
-
-		// Update show game data var, create opacity and min width vars
+		// Get variables, update show game data var, create opacity and min width vars
+		const getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
 		localStorage.setItem('showGameData', getShowGameData);
 		var appDragCss = 'drag',
 			sGameDataOpacity = 1,
@@ -1160,7 +1156,7 @@ temp_GRAPHICS = {
 
 		// Check if BioRand mod is active
 		if (document.getElementById('CHECKBOX_isBioRand').checked === !0){
-			sGameDataMinWidth = 612;
+			sGameDataMinWidth = 670;
 		}
 
 		// Set final CSS
