@@ -1,0 +1,46 @@
+name: CI
+
+on:
+  push:
+
+    branches: 
+    - '*'
+    tags:
+    - '*'
+
+  pull_request:
+    branches:
+    - '*'
+
+jobs:
+  build:
+
+    runs-on: windows-latest
+
+    strategy:
+      matrix:
+        node-version: [20.x]
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Use Node.js ${{ matrix.node-version }}
+      uses: actions/setup-node@v3
+      with:
+        node-version: ${{ matrix.node-version }}
+        cache: 'npm'
+
+    - run: npm ci
+
+    - name: Get hash
+      shell: cmd
+      working-directory: ./
+      run: echo %GITHUB_SHA% > hash.inc
+
+    - name: Build (normal)
+      run: npm run build-normal --if-present
+
+    - name: Upload artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: R3_Auto_Map_Gen
+        path: ./Build/r3_auto_map_gen/win64/
