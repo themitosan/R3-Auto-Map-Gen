@@ -6,7 +6,7 @@ on:
 jobs:
   build-windows:
     name: Build
-    uses: ./.github/workflows/build-windows.yml
+    uses: ./.github/workflows/build-windows.yaml
   build-windows-wine:
     name: Build
     uses: ./.github/workflows/build-windows-wine.yaml
