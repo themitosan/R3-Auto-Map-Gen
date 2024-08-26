@@ -3,15 +3,6 @@ name: CI (Windows + Wine fixes)
 on:
   workflow_call:
 
-    branches: 
-    - '*'
-    tags:
-    - '*'
-
-  pull_request:
-    branches:
-    - '*'
-
 jobs:
   build:
 
