@@ -33,5 +33,5 @@ jobs:
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
       with:
-        name: R3_Auto_Map_Gen
+        name: R3_Auto_Map_Gen_Wine
         path: ./Build/r3_auto_map_gen/win64/
