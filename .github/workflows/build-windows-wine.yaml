@@ -28,7 +28,7 @@ jobs:
       run: echo %GITHUB_SHA% > hash.inc
 
     - name: Build (normal)
-      run: npm run build-normal --if-present
+      run: npm run build-sdk-wine --if-present
 
     - name: Upload artifacts
       uses: actions/upload-artifact@v3
