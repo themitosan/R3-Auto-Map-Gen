@@ -5,8 +5,8 @@ on:
     - main
 jobs:
   build-windows:
-    name: Build
+    name: Build-Windows
     uses: ./.github/workflows/build-windows.yaml
   build-windows-wine:
-    name: Build
+    name: Build-Windows-Wine-Fix
     uses: ./.github/workflows/build-windows-wine.yaml
