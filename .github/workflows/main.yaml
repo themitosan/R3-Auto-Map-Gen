@@ -7,6 +7,6 @@ jobs:
   build-windows:
     name: Build
     uses: ./.github/workflows/build-windows.yml
-  build-linux:
+  build-windows-wine:
     name: Build
     uses: ./.github/workflows/build-windows-wine.yaml

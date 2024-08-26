@@ -1,7 +1,7 @@
-name: CI
+name: CI (Windows + Wine fixes)
 
 on:
-  push:
+  workflow_call:
 
     branches: 
     - '*'
