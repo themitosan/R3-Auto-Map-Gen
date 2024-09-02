@@ -11,14 +11,12 @@ temp_GAMEHOOK = {
 	gameData: {},
 	mapHistory: [],
 	camHistory: [],
-	gameActive: !1,
 	currentMap: '',
+	gameActive: !1,
+	updateCamCvx: !1,
 	currentCamera: 0,
 	gameObject: void 0,
 	updateObject: void 0,
-
-	// (biocv) Flag to update cam
-	updateCamCvx: !1,
 
 	/*
 		Functions
@@ -27,6 +25,7 @@ temp_GAMEHOOK = {
 	// Seek game
 	seekGame: function(skipCheck){
 
+		// Check if game is actives
 		if (this.gameActive === !1){
 
 			// Check if game process exists
@@ -128,12 +127,12 @@ temp_GAMEHOOK = {
 		if (length === void 0){
 			length = 1;
 		}
+
 		if (ramPos !== void 0 && this.gameActive === !0){
 
 			if (limit === void 0 || parseInt(limit) === NaN){
 				limit = 2;
 			}
-
 			if (mode === void 0 || mode === ''){
 				mode = 'int';
 			}
@@ -201,11 +200,22 @@ temp_GAMEHOOK = {
 
 				}
 
-				// Set current map and check if needs to update label GUI
+				// Set current map and check if needs to update label GUI depending of which game is selected
 				APP.gameHook.currentMap = cMap;
-				if (cCamera !== APP.gameHook.currentCamera && APP.gameHook.updateCamCvx === !1 && isNaN(prevCam) === !1){
-					needUpdateCam = !0;
-					APP.gameHook.camHistory.push(cCamera);
+				if (cGame === 'biocv'){
+
+					if (cCamera !== APP.gameHook.currentCamera && APP.gameHook.updateCamCvx === !1 && isNaN(prevCam) === !1){
+						needUpdateCam = !0;
+						APP.gameHook.camHistory.push(cCamera);
+					}	
+
+				} else {
+
+					if (cCamera !== APP.gameHook.currentCamera){
+						needUpdateCam = !0;
+						APP.gameHook.camHistory.push(cCamera);
+					}	
+
 				}
 
 				// Check if needs to update biocv cam

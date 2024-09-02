@@ -1,9 +1,12 @@
+# Folders
 App/node_modules/*
-Settings.json
 node_modules/
-version.txt
 cache/
 Cache/
 Build/
 build/
+
+# File extensions
+Settings.json
+version.txt
 *.bat
