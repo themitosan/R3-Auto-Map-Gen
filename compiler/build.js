@@ -26,7 +26,14 @@ module.exports = {
 			args.forEach(function(cArg){
 				switch (cArg){
 
-					// Compile app with some wine fixes
+					/*
+						Compile app with some wine fixes
+
+						- Set wineFix flag as true
+						- Main window will always have frame
+						- Main window can't use transparency
+						- NW version must be 0.83.0. (Wine have issues rendering text on newer versions.)
+					*/
 					case '--enableWineFix':
 						packageJson.window.frame = !0;
 						packageJson.extra.wineFix = !0;
@@ -90,10 +97,8 @@ module.exports = {
 
 		try {
 
-			// Create new hash file
+			// Create new hash file and read text files
 			fs.writeFileSync('hash.inc', '', 'utf-8');
-
-			// Get licence and readme files
 			const
 				help = fs.readFileSync('./help.txt', 'utf-8'),
 				license = fs.readFileSync('./LICENSE', 'utf-8'),

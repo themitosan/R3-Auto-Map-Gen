@@ -240,12 +240,10 @@ const APP = {
 			var startKbDevMode = !1,
 				appTitle = `R3 Auto Map Gen - Version: ${APP.version} [${APP.hash}]`; 
 
-			// Update log and app title
+			// Update log, app title and check if wine fix is active
 			console.info(appTitle);
 			document.title = appTitle;
 			document.getElementById('APP_DRAG_BAR').innerHTML = appTitle;
-
-			// Check if wine fix is active
 			if (nw.App.manifest.extra.wineFix === !0){
 
 				// Create consts
