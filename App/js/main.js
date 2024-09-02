@@ -150,7 +150,7 @@ const APP = {
 
 		// Close color picker and display about screen
 		this.tools.closeColorPicker();
-		window.alert(`R3 Auto Map Gen. - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/\n\nLoading gif was generated on loading.io:\nhttps://loading.io`);
+		window.alert(`R3 Auto Map Gen - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\nNW.js version: ${process.versions.nw}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/\n\nLoading gif was generated on loading.io:\nhttps://loading.io`);
 
 	},
 

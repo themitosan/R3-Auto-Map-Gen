@@ -31,6 +31,8 @@ module.exports = {
 						packageJson.window.frame = !0;
 						packageJson.extra.wineFix = !0;
 						packageJson.window.transparent = !1;
+						packageJson.dependencies.nw = '0.83.0';
+						nwVersion = packageJson.dependencies.nw;
 						break;
 
 				}
@@ -52,7 +54,7 @@ module.exports = {
 		fs.unlinkSync('hash.inc');
 
 		// Log initial data and setup nw-builder
-		console.info(`=== Running compiler ===\nApp version: ${this.packageJson.version}\nnwjs version: ${nwVersion}\nFlavor: ${flavor}\nArgs: ${args}\n`);
+		console.info(`=== Running compiler ===\nApp version: ${packageJson.version}\nnwjs version: ${nwVersion}\nFlavor: ${flavor}\nArgs: ${args}\n`);
 		const compileData = new this.nwBuilder({
 
 			// Main metadata
