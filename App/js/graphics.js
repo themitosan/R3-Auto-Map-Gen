@@ -115,7 +115,7 @@ temp_GRAPHICS = {
 				btnDisplayIso = { 'display': 'none' };
 			}
 
-			// Update options css
+			// Update options CSS
 			TMS.css('BTN_SELECT_ISO', btnDisplayIso);
 			TMS.css('SELECT_SCENARIO', selectScenario);			
 
@@ -153,6 +153,21 @@ temp_GRAPHICS = {
 			if (APP.options.isMenuRightClosed === !0 && nw.App.manifest.extra.wineFix === !1){
 				labelDragMessage = ' [ You can use this label to drag app window ]';
 			}
+
+			// Set game hint vars
+			var gameHintCss = { 'opacity': '0', 'app-region': 'no-drag' },
+				gameHintData = '<!-- Nothing to see here™ -->';
+
+			// Check if show game hints is active
+			if (APP.options.showGameHints === !0 && APP.database[cGame].gameHints[lMapHistory] !== void 0){
+				gameHintCss.opacity = '1';
+				gameHintCss['app-region'] = 'drag';
+				gameHintData = ` === Game Hint ===<br>${APP.database[cGame].gameHints[lMapHistory]}`;
+			}
+
+			// Set game hint data
+			TMS.css('APP_GAME_HINTS', gameHintCss);
+			document.getElementById('APP_GAME_HINTS').innerHTML = gameHintData;
 
 			// Set label strings and update top info GUI
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
@@ -372,7 +387,7 @@ temp_GRAPHICS = {
 
 			// Enable drag and push map to history
 			APP.graphics.enableDrag(`ROOM_${mapName}`);
-			this.addedMapHistory.push({ mapName: mapName, parent: parent });			
+			this.addedMapHistory.push({ mapName: mapName, parent: parent });
 
 		}
 
@@ -1109,27 +1124,21 @@ temp_GRAPHICS = {
 	// Toggle canvas bg color
 	toggleBgColor: function(){
 
-		switch (this.disableCanvasBgColor){
+		// Check if enable background color is active
+		if (this.disableCanvasBgColor === !0){
+			TMS.css('APP_MAP_CANVAS', {'background-color': '#0000'});
+			TMS.css('MENU_TOP_BG', {'background-color': '#0000'});
+			APP.graphics.disableCanvasBgColor = !1;
+		} else {
 
-			// Enable background color
-			case !0:
-				TMS.css('APP_MAP_CANVAS', {'background-color': '#0000'});
-				TMS.css('MENU_TOP_BG', {'background-color': '#0000'});
-				APP.graphics.disableCanvasBgColor = !1;
-				break;
+			// Disable top info
+			document.getElementById('CHECKBOX_showGameData').checked = !1;
+			APP.graphics.toggleShowGameData();
+			APP.options.showGameData = !1;
 
-			// Disable background color
-			case !1:
-				
-				// Disable top info
-				APP.options.showGameData = !1;
-				document.getElementById('CHECKBOX_showGameData').checked = !1;
-				APP.graphics.toggleShowGameData();
-
-				TMS.css('APP_MAP_CANVAS', {'background-color': '#200'});
-				TMS.css('MENU_TOP_BG', {'background-color': '#200'});
-				APP.graphics.disableCanvasBgColor = !0;
-				break;
+			APP.graphics.disableCanvasBgColor = !0;
+			TMS.css('MENU_TOP_BG', {'background-color': '#200'});
+			TMS.css('APP_MAP_CANVAS', {'background-color': '#200'});
 
 		}
 
@@ -1165,6 +1174,17 @@ temp_GRAPHICS = {
 			'opacity': sGameDataOpacity,
 			'min-width': `${sGameDataMinWidth}px`
 		});
+
+	},
+
+	// Toggle show game hints
+	toggleShowGameHints: function(){
+
+		// Get feature state and update settings data
+		const getShowGameHints = document.getElementById('CHECKBOX_showGameHints').checked;
+		localStorage.setItem('showGameHints', getShowGameHints);
+		APP.options.showGameHints = getShowGameHints;
+		APP.graphics.updateGuiLabel();
 
 	},
 

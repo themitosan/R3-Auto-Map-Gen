@@ -143,6 +143,11 @@
 				</div>
 
 				<div class="DIV_CHECKBOX">
+					<input type="checkbox" id="CHECKBOX_showGameHints">
+					<label title="Set this checkbox active to show game hints depending of which location you currently are." onclick="APP.tools.processCheckbox('CHECKBOX_showGameHints', APP.graphics.toggleShowGameHints);"> - Show game hints</label>
+				</div>
+
+				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_enableTabletMode">
 					<label title="Set this checkbox active to make GUI slightly larger." onclick="APP.tools.processCheckbox('CHECKBOX_enableTabletMode', APP.graphics.toggleTabletMode);"> - Enable tablet mode</label>
 				</div><br>
@@ -180,6 +185,9 @@
 				Available cam hints: <span class="LABEL_appGameData" id="LABEL_availableCamHints">Unknown</span><br>
 				Avg. room transition: <span class="LABEL_appGameData" id="LABEL_doorCounter">0</span>
 			</div>
+
+			<!-- Game Hints -->
+			<div class="APP_GAME_HINTS" id="APP_GAME_HINTS"><!-- Nothing to see here... Yet! --></div>
 
 			<!-- Map Canvas -->
 			<div class="APP_MAP_CANVAS" id="APP_MAP_CANVAS">

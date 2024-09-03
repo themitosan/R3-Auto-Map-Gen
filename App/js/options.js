@@ -16,6 +16,7 @@ temp_OPTIONS = {
 	isMapLoading: !1,
 	showGameData: !1,
 	enableCamHint: !0,
+	showGameHints: !1,
 	enableTabletMode: !1,
 	isMenuRightClosed: !1,
 	enableBgObjectiveAnimation: !0,
@@ -621,6 +622,7 @@ temp_OPTIONS = {
 			'alwaysOnTop',
 			'showGameData',
 			'enableCamHint',
+			'showGameHints',
 			'enableTabletMode',
 			'enableBgObjectiveAnimation'
 		].forEach(function(cSettings){
@@ -630,10 +632,8 @@ temp_OPTIONS = {
 				localStorage.setItem(cSettings, APP.options[cSettings]);
 			}
 
-			// Load settings
+			// Load settings and check data type
 			APP.options[cSettings] = JSON.parse(localStorage.getItem(cSettings));
-
-			// Check data type
 			switch (typeof APP.options[cSettings]){
 
 				case 'boolean':

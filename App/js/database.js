@@ -7,7 +7,7 @@
 
 	CVX maps was created using the same rule for all other games (Current Stage Value + 1)
 	It also was done by using "Evil Resource" as guide:
-	(https://www.evilresource.com/resident-evil-code-veronica/maps)
+	(https://evilresource.com/resident-evil-code-veronica/maps)
 
 	name:		 [String]  Map Name
 	location:	 [String]  Map Name
@@ -23,6 +23,9 @@ temp_DATABASE = {
 
 	// Biohazard
 	bio1: {
+
+		// Game Hints
+		gameHints: {},
 
 		// BioRand Objectives
 		bioRandObjectives: {
@@ -226,6 +229,9 @@ temp_DATABASE = {
 	// Biohazard 2
 	bio2: {
 
+		// Game Hints
+		gameHints: {},
+
 		// BioRand Objectives
 		bioRandObjectives: {
 
@@ -412,6 +418,18 @@ temp_DATABASE = {
 	// Biohazard 3 - Last Escape
 	bio3: {
 
+		// Game Hints
+		gameHints: {
+
+			'R113': 'Possible locker combinations:<br>"0513", "0131", "4011" or "4312".',
+			'R11B': 'Possible computer passwords:<br>\"AQUACURE\", \"SAFSPRIN\" or \"ADRAVIL\"',
+			'R309': 'Possible clock gems order:<br>11 o\'clock: Amber, Obsidian, Crystal<br>10 o\'clock: Amber, Crystal, Obsidian<br>9 o\'clock: Obsidian, Amber, Crystal<br>7 o\'clock: Obsidian, Crystal, Amber<br>6 o\'clock: Crystal, Amber, Obsidian<br>5 o\'clock: Crystal, Obsidian, Amber',
+			'R30C': 'Clock Tower Music Box order:<br>Up, Down, Down, Down, Down, Up<br>',
+			'R406': 'Possible locker password:<br><br>"531": Bottom-Right<br>"253": Bottom-Left<br>"104": Top-Left<br>"325": Top-Right',
+			'R40B': 'Synthesis Room Puzzle:<br>I: Down, II: Right: III: Down, A: Down, B: Right'
+
+		},
+
 		// BioRand Objectives
 		bioRandObjectives: {
 
@@ -532,8 +550,8 @@ temp_DATABASE = {
 			'R407': { name: 'Room 401', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R408': { name: 'Data Room', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R409': { name: 'Corridor (B3)', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R40A': { name: 'Laboratory 1', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R40B': { name: 'Laboratory 2', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R40A': { name: 'Laboratory', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R40B': { name: 'Synthesis Room', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R40C': { name: 'Park Entrance', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R40D': { name: 'Water Pump Puzzle', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R40E': { name: 'Park ‟L” Bridge', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
@@ -613,6 +631,9 @@ temp_DATABASE = {
 
 	// Biohazard: Code: Veronica X
 	'biocv': {
+
+		// Game Hints
+		gameHints: {},
 
 		// BioRand Objectives
 		bioRandObjectives: {},

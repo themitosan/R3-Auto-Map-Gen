@@ -58,7 +58,6 @@ temp_TOOLS = {
 	parsePositive: function(value){
 
 		var res = 0;
-
 		if (value !== void 0 && parseFloat(value) !== NaN){
 			const n = parseFloat(value);
 			res = ((n - n) - n);
