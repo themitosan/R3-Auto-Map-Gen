@@ -21,7 +21,8 @@ module.exports = {
 			buildHash = fs.readFileSync('hash.inc', 'utf-8'),
 			nwVersion = packageJson.dependencies.nw.replace('-sdk', '').replace('^', '');
 
-		// Check if args was provided. If so, process them
+		// Clear console and check if args was provided. If so, process them
+		console.clear();
 		if (args !== void 0 && args.length !== 0){
 			args.forEach(function(cArg){
 				switch (cArg){

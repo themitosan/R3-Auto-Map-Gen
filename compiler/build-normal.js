@@ -3,9 +3,6 @@
 	build-normal.js
 */
 
-// Get compiler
+// Get compiler and start process
 const COMPILER = require('./build.js');
-
-// Clear console and start process
-console.clear();
 COMPILER.run('normal', process.argv);
