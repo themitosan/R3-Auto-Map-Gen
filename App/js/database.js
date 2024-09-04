@@ -10,7 +10,6 @@
 	(https://evilresource.com/resident-evil-code-veronica/maps)
 
 	name:		 [String]  Map Name
-	location:	 [String]  Map Name
 	location:	 [String]  Map location
 	canSave:	 [Boolean] Player can save
 	haveItemBox: [Boolean] Map have item box
@@ -555,7 +554,7 @@ temp_DATABASE = {
 			'R40B': { name: 'Synthesis Room', location: 'Hospital', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R40C': { name: 'Park Entrance', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R40D': { name: 'Water Pump Puzzle', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R40E': { name: 'Park ‟L” Bridge', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R40E': { name: 'Lake Passageway', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R40F': { name: 'Park Exit', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R410': { name: 'Sewer Passage', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R411': { name: 'Graveyard', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },

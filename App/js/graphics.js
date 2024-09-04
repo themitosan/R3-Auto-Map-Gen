@@ -212,14 +212,8 @@ temp_GRAPHICS = {
 	// Add room to map
 	pushMap: function(mapName, parent){
 
-		// Variables
-		var canAdd = !0,
-			errorReason = '',
-			mList = this.addedMaps,
-			cMap = APP.gameHook.gameData.cMap,
-			distanceFactor = this.distanceFactor;
-
-		// Get current game and check if current map was added
+		// Set vars, get current game and check if current map was added
+		var canAdd = !0;
 		const cGame = APP.options.settingsData.currentGame;
 		if (document.getElementById(`ROOM_${mapName}`) !== null){
 			canAdd = !1;
@@ -238,10 +232,6 @@ temp_GRAPHICS = {
 		// Check if can add map
 		if (canAdd === !0){
 
-			// Reset map drag
-			APP.graphics.enableCanvasDrag = !0;
-			APP.graphics.toggleDragMapCanvas();
-
 			// Default coords
 			var posX = 50000,
 				posY = 50050,
@@ -250,6 +240,11 @@ temp_GRAPHICS = {
 				cBioRandObjective = APP.database[cGame].bioRandObjectives[mapName],
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
 
+			// Reset map drag
+			APP.graphics.enableCanvasDrag = !0;
+			APP.graphics.toggleDragMapCanvas();
+
+			// Check if parent map was provided
 			if (parent !== void 0){
 
 				// Set default position
@@ -266,11 +261,9 @@ temp_GRAPHICS = {
 
 			// Check if is game start
 			if (APP.database[cGame].rdt[mapName].gameStart === !0){
-				
-				// Can add message var
-				var canAddGameStart = !0;
 
-				// Check if is Bio 2 and current map is start from other scenario (Start from B on A and vice-versa)
+				// Create can add message var, check if is Bio 2 and current map is start from other scenario (Start from B on A and vice-versa)
+				var canAddGameStart = !0;
 				if (cGame === 'bio2' && cGameScenario === 'scenario_a' && mapName === 'R104'){
 					canAddGameStart = !1;
 				}
@@ -452,11 +445,9 @@ temp_GRAPHICS = {
 			// Process
 			const runProcess = function(){
 
-				// Bump cycle counter and set reset flag
+				// Bump cycle counter, set reset flag and start processing
 				cycles++;
 				var reRun = !1;
-
-				// Start processing
 				Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
 
 					// Exclude current map from processing
@@ -644,8 +635,10 @@ temp_GRAPHICS = {
 			canAdd = !1;
 		}
 
+		// Check if can add
 		if (canAdd === !0){
 
+			// Create vars
 			var pData = TMS.getRect(`ROOM_${parent}`),
 				nData = TMS.getRect(`ROOM_${newMap}`),
 				canvasData = TMS.getRect('APP_MAP_CANVAS'),
@@ -771,6 +764,7 @@ temp_GRAPHICS = {
 	// Update lines
 	updateLines: function(roomName){
 
+		// Create line const and check how much lines exists
 		const lineList = this.addedLines;
 		if (Object.keys(lineList).length !== 0){
 
