@@ -1,6 +1,6 @@
 <h1 align="center">
     <img src="App/img/icon.png" alt="R3_auto_map_gen_icon" title="R3 Auto Map Gen." width="200"/>
-    <br>R3 Auto Map Gen.<br>
+    <br>R3 Auto Map Gen<br>
     <p align="center">
         <img alt="license" src="https://img.shields.io/github/license/themitosan/R3-Auto-Map-Gen">
         <img alt="workflow_status" src="https://img.shields.io/github/actions/workflow/status/themitosan/R3-Auto-Map-Gen/main.yaml?style=plastic">
@@ -9,11 +9,9 @@
   
 This app creates an node-conected map on the go for classic Resident Evil games.
 
-<sup>
-  
- _(Click [here](https://twitter.com/themitosan/status/1659312625384140802) to see how it works)_
-  
-</sup>
+
+https://github.com/user-attachments/assets/d1c7b303-4d65-49cf-aca6-5a1b0c5ac2dc
+
 
 ## How to install
 - Download [latest release](https://github.com/themitosan/R3-Auto-Map-Gen/releases) _(or the latest build from [GitHub Actions](https://github.com/themitosan/R3-Auto-Map-Gen/actions))_
