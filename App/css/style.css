@@ -666,6 +666,14 @@ label {
 
 }
 
+@media only screen and (min-height: 1080px){
+
+	.MENU_RIGHT {
+		height: 984px !important;
+	}
+
+}
+
 /*
     Color labels
 */
