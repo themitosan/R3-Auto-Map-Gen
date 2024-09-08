@@ -425,7 +425,7 @@ temp_DATABASE = {
 			'R214': 'Transformer passwords:<br>Red, Blue, Blue, Blue<br>Blue, Red, Blue, Red',
 			'R309': 'Possible clock gems order:<br>11 o\'clock: Amber, Obsidian, Crystal<br>10 o\'clock: Amber, Crystal, Obsidian<br>9 o\'clock: Obsidian, Amber, Crystal<br>7 o\'clock: Obsidian, Crystal, Amber<br>6 o\'clock: Crystal, Amber, Obsidian<br>5 o\'clock: Crystal, Obsidian, Amber',
 			'R30C': 'Clock Tower Music Box order:<br>Up, Down, Down, Down, Down, Up<br>',
-			'R406': 'Possible locker password:<br><br>"531": Bottom-Right<br>"253": Bottom-Left<br>"104": Top-Left<br>"325": Top-Right',
+			'R406': 'Possible locker password:<br><br>Bottom-Right: \"531\"<br>Bottom-Left: \"253\"<br>Top-Left: \"104\"<br>Top-Right: \"325\"',
 			'R40B': 'Synthesis Room Puzzle:<br>I: Down, II: Right: III: Down, A: Down, B: Right',
 			'R40D': 'Water Pump Puzzle:<br>Black cogs on top, white cogs down.'
 
@@ -434,7 +434,7 @@ temp_DATABASE = {
 		// BioRand Objectives
 		bioRandObjectives: {
 
-			'R20C': { endsOn: ['R215'], applyDistance: !0, requiredCam: [], requiredScenario: null },
+			'R20C': { endsOn: ['R303'], applyDistance: !1, requiredCam: [], requiredScenario: null },
 			'R30C': { endsOn: ['R30D'], applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R30D': { endsOn: null,		applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R415': { endsOn: null,		applyDistance: !0, requiredCam: [], requiredScenario: null },
