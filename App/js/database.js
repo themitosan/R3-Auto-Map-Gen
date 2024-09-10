@@ -470,7 +470,7 @@ temp_DATABASE = {
 			'R113': { name: 'R.P.D. Evidence Room', location: 'Police Station', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R114': { name: 'Stair Corridor', location: 'Police Station', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R115': { name: 'Conference Corridor', location: 'Police Station', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R116': { name: 'Conference Room', location: 'Police Station', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R116': { name: 'R.P.D. Meeting Room', location: 'Police Station', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R117': { name: 'Dark Room', location: 'Police Station', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R118': { name: '2F Corridor', location: 'Police Station', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R119': { name: 'S.T.A.R.S. Corridor', location: 'Police Station', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
