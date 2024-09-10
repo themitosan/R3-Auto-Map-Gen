@@ -434,7 +434,7 @@ temp_DATABASE = {
 		// BioRand Objectives
 		bioRandObjectives: {
 
-			'R20C': { endsOn: ['R303'], applyDistance: !0, requiredCam: [], requiredScenario: null },
+			'R20C': { endsOn: ['R215'], applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R30C': { endsOn: ['R30D'], applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R30D': { endsOn: null,		applyDistance: !0, requiredCam: [], requiredScenario: null },
 			'R415': { endsOn: null,		applyDistance: !0, requiredCam: [], requiredScenario: null },
