@@ -260,8 +260,8 @@ const APP = {
 				TMS.css('body', { 'background-color': '#002' });
 				TMS.css('APP_CANVAS', { 'border-radius': '0px' });
 				TMS.css('APP_GAME_HINTS', { 'transition-duration': '0s' });
-				TMS.css('MENU_RIGHT', { 'top': '40px', 'height': 'calc(100% - 68px)', 'transition-duration': '0s' });
 				TMS.css('APP_GAME_DATA', { 'top': '40px', 'transition-duration': '0s' });
+				TMS.css('MENU_RIGHT', { 'top': '40px', 'height': 'calc(100% - 68px)', 'transition-duration': '0s' });
 
 			}
 
