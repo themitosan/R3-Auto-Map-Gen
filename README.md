@@ -44,6 +44,16 @@ If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
 You can run this app using [Wine](https://www.winehq.org) compat layer.
 In order to read current game, **make sure to run it under the same prefix**.
 
+<p align="center">
+<img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/wine.jpg?raw=true" alt="R3_Auto_Map_Gen_Wine" width="800"/>
+</p>
+
+<sup>
+
+_(R3 Auto Map Gen running using wine version on Arch Linux)_
+
+</sup>
+
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--)
 - [TMS.js](https://github.com/themitosan/TMS.js) from [TheMitoSan](https://github.com/themitosan) <sup>_Hi!_</sup>

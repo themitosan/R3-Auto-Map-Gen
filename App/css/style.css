@@ -296,7 +296,7 @@ label {
 	width: auto;
 	height: auto;
 	z-index: 996;
-	padding: 6px;
+	padding: 8px;
 	position: absolute;
 	text-align: center;
 	app-region: no-drag;
