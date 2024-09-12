@@ -10,3 +10,4 @@ build/
 Settings.json
 version.txt
 *.bat
+run
