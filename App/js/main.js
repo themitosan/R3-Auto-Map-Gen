@@ -150,7 +150,7 @@ const APP = {
 
 		// Close color picker and display about screen
 		this.tools.closeColorPicker();
-		window.alert(`R3 Auto Map Gen - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\nNW.js version: ${process.versions.nw}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/\n\nLoading gif was generated on loading.io:\nhttps://loading.io\n\nFont \"Space Mono\" was created by Colophon Foundry:\nhttps://fonts.google.com/specimen/Space+Mono`);
+		window.alert(`R3 Auto Map Gen - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\nNW.js version: ${process.versions.nw}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/\n\nLoading gif was generated on loading.io:\nhttps://loading.io\n\nFont \"Space Mono\" was created by Colophon Foundry:\nhttps://fonts.google.com/specimen/Space+Mono\n\nFont \"Inria Sans\" was created by Grégori Vincens and Jérémie Hornus:\nhttps://fonts.google.com/specimen/Inria+Sans`);
 
 	},
 
