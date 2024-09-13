@@ -44,6 +44,9 @@ If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
 You can run this app using [Wine](https://www.winehq.org) compat layer.
 In order to read current game, **make sure to run it under the same prefix**.
 
+Or, you can run main executable with same RE wine args!
+_Example: `WINEDLLOVERRIDES="ddraw.dll=n,b" wine64 R3\ Auto\ Map\ Gen.exe`_
+
 <p align="center">
 <img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/wine.jpg?raw=true" alt="R3_Auto_Map_Gen_Wine" width="800"/>
 </p>
