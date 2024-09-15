@@ -19,6 +19,7 @@ temp_OPTIONS = {
 	showGameHints: !1,
 	enableTabletMode: !1,
 	isMenuRightClosed: !1,
+	hookAfterGameStart: !0,
 	enableBgObjectiveAnimation: !0,
 	bioRandObjectives: {
 		reset: !1,
@@ -616,7 +617,7 @@ temp_OPTIONS = {
 		/*
 			Get localStorage settings
 		*/
-		const lStorageSettingsList = [
+		[
 			'enableGrid',
 			'hideTopMenu',
 			'alwaysOnTop',
@@ -624,6 +625,7 @@ temp_OPTIONS = {
 			'enableCamHint',
 			'showGameHints',
 			'enableTabletMode',
+			'hookAfterGameStart',
 			'enableBgObjectiveAnimation'
 		].forEach(function(cSettings){
 

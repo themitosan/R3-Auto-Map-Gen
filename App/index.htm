@@ -108,6 +108,11 @@
 				<div class="SEPARATOR_0"></div>
 
 				<div class="DIV_CHECKBOX">
+					<input type="checkbox" id="CHECKBOX_hookAfterGameStart" checked="true">
+					<label title="Set this checkbox active to start reading data after game launch." onclick="APP.tools.processCheckbox('CHECKBOX_hookAfterGameStart', APP.graphics.toggleHookAfterGameStart);"> - Auto hook game</label>
+				</div>
+
+				<div class="DIV_CHECKBOX">
 					<input type="checkbox" id="CHECKBOX_isBioRand">
 					<label title="Set this checkbox active if you are playing BioRand mod." onclick="APP.tools.processCheckbox('CHECKBOX_isBioRand', APP.graphics.updateGuiLabel);"> - Is BioRand?</label>
 				</div>

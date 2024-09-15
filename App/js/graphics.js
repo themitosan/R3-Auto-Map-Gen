@@ -1141,6 +1141,12 @@ temp_GRAPHICS = {
 
 	},
 
+	// Toggle hook after game start
+	toggleHookAfterGameStart: function(){
+		APP.options.hookAfterGameStart = document.getElementById('CHECKBOX_hookAfterGameStart').checked;
+		localStorage.setItem('hookAfterGameStart', document.getElementById('CHECKBOX_hookAfterGameStart').checked);
+	},
+
 	// Toggle show game data
 	toggleShowGameData: function(){
 

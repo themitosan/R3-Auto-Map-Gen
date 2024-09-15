@@ -191,7 +191,9 @@ const APP = {
 
 					// Seek game process
 					setTimeout(function(){
-						APP.gameHook.seekGame(!0);
+						if (APP.options.hookAfterGameStart === !0){
+							APP.gameHook.seekGame(!0);
+						}
 						APP.graphics.updateGuiLabel();
 						if (JSON.parse(localStorage.getItem('showGameData')) === !0){
 							TMS.css('APP_GAME_DATA', { 'display': 'block' });
