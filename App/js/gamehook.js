@@ -69,7 +69,9 @@ temp_GAMEHOOK = {
 					APP.graphics.updateGuiLabel();
 					APP.graphics.togglehideTopMenu();
 					APP.gameHook.updateObject = setInterval(function(){
-						APP.gameHook.updateProcess();
+						if (APP.options.enableReadGameData === !0){
+							APP.gameHook.updateProcess();
+						}
 					}, 100);
 
 				} catch (err) {

@@ -19,7 +19,7 @@ temp_OPTIONS = {
 	showGameHints: !1,
 	enableTabletMode: !1,
 	isMenuRightClosed: !1,
-	hookAfterGameStart: !0,
+	enableReadGameData: !0,
 	enableBgObjectiveAnimation: !0,
 	bioRandObjectives: {
 		reset: !1,
@@ -136,6 +136,12 @@ temp_OPTIONS = {
 		Functions
 	*/
 
+	// Toggle enable reading game data
+	toggleReadGameData: function(){
+		APP.options.enableReadGameData = document.getElementById('CHECKBOX_enableReadGameData').checked;
+		localStorage.setItem('enableReadGameData', document.getElementById('CHECKBOX_enableReadGameData').checked);
+	},
+
 	// Toggle always on top function
 	toggleAlwaysOnTop: function(){
 		APP.options.alwaysOnTop = document.getElementById('CHECKBOX_alwaysOnTop').checked;
@@ -148,7 +154,6 @@ temp_OPTIONS = {
 
 		// Declare variables and switch mode
 		var dragBarCss;
-
 		switch (mode){
 
 			case 'open':
@@ -625,7 +630,7 @@ temp_OPTIONS = {
 			'enableCamHint',
 			'showGameHints',
 			'enableTabletMode',
-			'hookAfterGameStart',
+			'enableReadGameData',
 			'enableBgObjectiveAnimation'
 		].forEach(function(cSettings){
 
