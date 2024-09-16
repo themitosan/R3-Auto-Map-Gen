@@ -524,7 +524,7 @@ temp_DATABASE = {
 			'R305': { name: 'Resting Room', location: 'Clock Tower', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R306': { name: 'Living Room', location: 'Clock Tower', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R307': { name: 'Clock Tower Library', location: 'Clock Tower', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R308': { name: 'Corridor to Clock Puzzle', location: 'Clock Tower', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R308': { name: 'Chronos Corridor', location: 'Clock Tower', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R309': { name: 'Clock Puzzle', location: 'Clock Tower', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R30A': { name: 'Main Hall (2F)', location: 'Clock Tower', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R30B': { name: 'Tower Balcony', location: 'Clock Tower', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
