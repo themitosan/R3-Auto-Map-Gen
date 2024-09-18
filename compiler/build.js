@@ -1,11 +1,12 @@
 /*
-	R3 Auto Map Gen.
+	R3 Auto Map Gen
 	build.js
 
 	This script was based on another top-secret-project™ from TemmieHeartz.
 */
 
-module.exports = {
+// Main compiler function
+const COMPILER = {
 
 	// Require nw-builder and get JSON files
 	nwBuilder: require('nw-builder'),
@@ -26,6 +27,8 @@ module.exports = {
 		console.clear();
 		if (args !== void 0 && args.length !== 0){
 			args.forEach(function(cArg){
+
+				// Switches
 				switch (cArg){
 
 					/*
@@ -47,10 +50,26 @@ module.exports = {
 
 					// Preserve previous build settings file
 					case '--preserveSettings':
-						prevSettings = JSON.parse(fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
+						if (fs.existsSync('./build/r3_auto_map_gen/win64/Settings.json') === !0){
+							prevSettings = JSON.parse(fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
+						}
+						break;
+
+					// Set flavor as sdk
+					case '--sdk':
+						flavor = 'sdk';
 						break;
 
 				}
+
+				// Set nw version
+				if (cArg.indexOf('--nwVer=') !== -1){
+					const newNwVer = cArg.replace('--nwVer=', '');
+					packageJson.dependencies.nw = newNwVer;
+					nwVersion = newNwVer;
+				}
+
+
 			});
 		}
 
@@ -144,3 +163,6 @@ module.exports = {
 	}
 
 };
+
+// Run compiler
+COMPILER.run('normal', process.argv);

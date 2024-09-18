@@ -54,7 +54,7 @@ _Example: `WINEDLLOVERRIDES="ddraw.dll=n,b" wine64 R3\ Auto\ Map\ Gen.exe`_
 
 <sup>
 
-_(R3 Auto Map Gen running using wine version on Arch Linux)_
+_(R3 Auto Map Gen running using wine version on Cinnamon, Arch Linux)_
 
 </sup>
 

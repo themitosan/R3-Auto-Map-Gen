@@ -25,10 +25,10 @@
 	},
 	"scripts": {
 		"dev": "nw . -dev",
-		"build-sdk": "node compiler/build-sdk.js",
-		"build-normal": "node compiler/build-normal.js",
-		"build-sdk-wine": "node compiler/build-sdk.js --enableWineFix",
-		"build-normal-wine": "node compiler/build-normal.js --enableWineFix"
+		"build-normal": "node compiler/build.js",
+		"build-sdk": "node compiler/build.js --sdk",
+		"build-normal-wine": "node compiler/build.js --enableWineFix",
+		"build-sdk-wine": "node compiler/build.js --sdk --enableWineFix"
 	},
 	"devDependencies": {
 		"nw-builder": "^3.5.7"
