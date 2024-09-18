@@ -60,7 +60,7 @@ WINEDLLOVERRIDES="ddraw.dll=n,b" %command%
 
 <sup>
 
-_(R3 Auto Map Gen running using wine version on Cinnamon, Arch Linux)_
+_(R3 Auto Map Gen wine version running on Cinnamon, Arch Linux)_
 
 </sup>
 
