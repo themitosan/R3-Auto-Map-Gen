@@ -50,7 +50,7 @@ Or, you can run R3 Auto Map Gen with same RE wine args!
 # You can use this command below to run Resident Evil 3: Nemesis + Classic Rebirth DLL
 WINEDLLOVERRIDES="ddraw.dll=n,b" wine64 R3\ Auto\ Map\ Gen.exe
 
-# Steam Deck or Proton? Sure! Use add this command to launch options
+# Steam Deck / Proton? Sure! Use add this command to launch options:
 WINEDLLOVERRIDES="ddraw.dll=n,b" %command%
 ```
 

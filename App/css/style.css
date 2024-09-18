@@ -484,6 +484,7 @@ label {
 	padding: 10px;
 	display: flex;
 	flex-wrap: wrap;
+	min-width: 180px;
 	position: absolute;
 	text-align: center;
 	align-items: center;
