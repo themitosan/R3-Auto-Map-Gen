@@ -254,12 +254,12 @@ const APP = {
 				// Update CSS
 				TMS.css('APP_DRAG_BAR', hideCss);
 				TMS.css('BTN_RESET_ZOOM', fixMargin);
-				TMS.css('MENU_TOP', { 'top': '0px' });
 				TMS.css('APP_DRAG_BAR_ACTIONS', hideCss);
 				TMS.css('BTN_PICK_BG_COLOR_BOTTOM', fixMargin);
 				TMS.css('body', { 'background-color': '#002' });
 				TMS.css('APP_CANVAS', { 'border-radius': '0px' });
 				TMS.css('APP_GAME_HINTS', { 'transition-duration': '0s' });
+				TMS.css('MENU_TOP', { 'top': '0px', 'transition-duration': '0s' });
 				TMS.css('APP_GAME_DATA', { 'top': '40px', 'transition-duration': '0s' });
 				TMS.css('MENU_RIGHT', { 'top': '40px', 'height': 'calc(100% - 68px)', 'transition-duration': '0s' });
 

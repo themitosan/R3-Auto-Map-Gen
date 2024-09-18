@@ -17,6 +17,7 @@ module.exports = {
 		// Get main data
 		var date = new Date,
 			fs = require('fs'),
+			prevSettings = void 0,
 			packageJson = this.packageJson,
 			buildHash = fs.readFileSync('hash.inc', 'utf-8'),
 			nwVersion = packageJson.dependencies.nw.replace('-sdk', '').replace('^', '');
@@ -31,9 +32,10 @@ module.exports = {
 						Compile app with some wine fixes
 
 						- Set wineFix flag as true
+						- Disable some transition effects
 						- Main window will always have frame
 						- Main window can't use transparency
-						- NW version must be 0.83.0. (Wine have issues rendering text on newer versions.)
+						- NW version must be 0.83.0 (Wine have issues rendering text on newer versions)
 					*/
 					case '--enableWineFix':
 						packageJson.window.frame = !0;
@@ -41,6 +43,11 @@ module.exports = {
 						packageJson.window.transparent = !1;
 						packageJson.dependencies.nw = '0.83.0';
 						nwVersion = packageJson.dependencies.nw;
+						break;
+
+					// Preserve previous build settings file
+					case '--preserveSettings':
+						prevSettings = JSON.parse(fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
 						break;
 
 				}
@@ -114,6 +121,12 @@ module.exports = {
 				fs.writeFileSync('./build/r3_auto_map_gen/win64/README.md', readme, 'utf-8');
 				fs.writeFileSync('./version.txt', `Version: ${packageJson.version}`, 'utf-8');
 				fs.writeFileSync('./build/r3_auto_map_gen/win64/version.txt', `Version: ${packageJson.version}`, 'utf-8');
+
+				// Check if needs to restore previous settings file
+				if (prevSettings !== void 0){
+					console.info('INFO - Restoring previous settings file (Settings.json)');
+					fs.writeFileSync('./build/r3_auto_map_gen/win64/Settings.json', JSON.stringify(prevSettings), 'utf-8');
+				}
 
 				// Rename main executable and log process complete
 				fs.renameSync('./build/r3_auto_map_gen/win64/r3_auto_map_gen.exe', './build/r3_auto_map_gen/win64/R3 Auto Map Gen.exe');
