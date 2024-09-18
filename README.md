@@ -44,7 +44,7 @@ If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
 You can run this app using [Wine](https://www.winehq.org) compat layer.
 In order to read current game, **make sure to run it under the same prefix**.
 
-Or, you can run main executable with same RE wine args!
+Or, you can run R3 Auto Map Gen with same RE wine args!
 
 ```shell
 # You can use this command below to run Resident Evil 3: Nemesis + Classic Rebirth DLL
