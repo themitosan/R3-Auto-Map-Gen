@@ -46,7 +46,10 @@ In order to read current game, **make sure to run it under the same prefix**.
 
 Or, you can run main executable with same RE wine args!
 
-_Example: `WINEDLLOVERRIDES="ddraw.dll=n,b" wine64 R3\ Auto\ Map\ Gen.exe`_
+```
+# You can use this command below to run Resident Evil 3: Nemesis 
+WINEDLLOVERRIDES="ddraw.dll=n,b" wine64 R3\ Auto\ Map\ Gen.exe
+```
 
 <p align="center">
 <img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/wine.jpg?raw=true" alt="R3_Auto_Map_Gen_Wine" width="800"/>
