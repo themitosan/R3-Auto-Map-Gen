@@ -47,7 +47,7 @@ In order to read current game, **make sure to run it under the same prefix**.
 Or, you can run main executable with same RE wine args!
 
 ```
-# You can use this command below to run Resident Evil 3: Nemesis 
+# You can use this command below to run Resident Evil 3: Nemesis + Classic Rebirth DLL
 WINEDLLOVERRIDES="ddraw.dll=n,b" wine64 R3\ Auto\ Map\ Gen.exe
 ```
 
