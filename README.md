@@ -7,7 +7,7 @@
     </p>
 </h1>
   
-This app creates an node-conected map on the go for classic Resident Evil games.
+This app creates an node-conected room map for classic Resident Evil games.
 
 ## How to install
 - Download [latest release](https://github.com/themitosan/R3-Auto-Map-Gen/releases) _(or the latest build from [GitHub Actions](https://github.com/themitosan/R3-Auto-Map-Gen/actions))_
