@@ -484,14 +484,14 @@ label {
 	padding: 10px;
 	display: flex;
 	flex-wrap: wrap;
-	min-width: 180px;
+	min-width: 200px;
 	position: absolute;
 	text-align: center;
 	align-items: center;
 	flex-direction: row;
 	align-content: center;
-	font-family: 'Space Mono';
 	justify-content: center;
+	font-family: 'Space Mono';
 	background-color: #0000;
 	text-shadow: 1px 1px 2px #000;
 	box-shadow: 0px 0px 0px 2px #fff inset;
@@ -505,10 +505,10 @@ label {
 	flex-wrap: nowrap;
 	align-items: center;
 	flex-direction: row;
-	font-family: 'Space Mono';
 	justify-content: center;
 	width: calc(100% - 20px);
 	margin: 8px 0px 0px 10px;
+	font-family: 'Space Mono';
 	text-shadow: 1px 1px 2px #000;
 	box-shadow: 0px 0px 0px 2px #fff inset;
 	background-image: linear-gradient(180deg, #00642f, #0a0);
@@ -745,30 +745,24 @@ label {
 	Settings for window sizes
 */
 @media only screen and (max-width: 918px){
-
 	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, .APP_GAME_DATA {
 		display: none !important;
 	}
 	.MENU_TOP {
 		justify-content: center;
 	}
-
 }
 
 @media only screen and (max-width: 580px){
-
 	.APP_GAME_HINTS {
 		display: none !important;
 	}
-
 }
 
 @media only screen and (min-height: 1080px){
-
 	.MENU_RIGHT {
 		height: 1020px !important;
 	}
-
 }
 
 /*
