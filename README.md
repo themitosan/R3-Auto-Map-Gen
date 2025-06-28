@@ -6,7 +6,7 @@
         <img alt="workflow_status" src="https://img.shields.io/github/actions/workflow/status/themitosan/R3-Auto-Map-Gen/main.yaml?style=plastic">
     </p>
 </h1>
-  
+
 This app creates an node-conected room map for classic Resident Evil games.
 
 ## How to install
