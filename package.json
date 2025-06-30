@@ -31,7 +31,6 @@
 		"build-sdk-wine": "node compiler/build.js --sdk --enableWineFix"
 	},
 	"dependencies": {
-		"archiver": "^7.0.1",
 		"nw": "^0.91.0-sdk"
 	},
 	"devDependencies": {
