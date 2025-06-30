@@ -66,6 +66,7 @@ _(R3 Auto Map Gen wine version running on Cinnamon, Arch Linux)_
 
 ## External plugins on this project
 - [memoryjs](https://github.com/rob--/memoryjs) from [Rob--](https://github.com/rob--)
+- [zip-a-folder](https://npmjs.com/package/zip-a-folder) from [maugenst](https://github.com/maugenst)
 - [TMS.js](https://github.com/themitosan/TMS.js) from [TheMitoSan](https://github.com/themitosan) <sup>_Hi!_</sup>
 
 <br>

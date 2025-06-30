@@ -10,4 +10,5 @@ build/
 Settings.json
 version.txt
 *.bat
-run
+*.zip
+hash.inc

@@ -2,167 +2,179 @@
 	R3 Auto Map Gen
 	build.js
 
-	This script was based on another top-secret-project™ from TemmieHeartz.
+	I had to rewrite this thing since the old verions of nwbuilder stopped working :/
 */
 
-// Main compiler function
-const COMPILER = {
+/*
+	Require modules
+*/
 
-	// Require nw-builder and get JSON files
-	nwBuilder: require('nw-builder'),
-	packageJson: require('../package.json'),
+import * as module_fs from 'fs';
+import nwbuild from 'nw-builder';
+import { zip } from 'zip-a-folder';
 
-	// Start compiler
-	run: function(flavor, args){
+/*
+	Functions
+*/
 
-		// Get main data
-		var date = new Date,
-			fs = require('fs'),
-			prevSettings = void 0,
-			packageJson = this.packageJson,
-			buildHash = fs.readFileSync('hash.inc', 'utf-8'),
-			nwVersion = packageJson.dependencies.nw.replace('-sdk', '').replace('^', '');
+/**
+	* Create a zip file from an specific target
+	* @param target [Path] Folder to be compressed
+	* @param zipPath [Path] Path to zip file 
+*/
+async function zipFolder(target, zipPath){
+	await zip(target, zipPath);
+}
 
-		// Clear console and check if args was provided. If so, process them
-		console.clear();
-		if (args !== void 0 && args.length !== 0){
-			args.forEach(function(cArg){
+/**
+	* Main function 
+*/
+function runCompiler(flavor, args){
 
-				// Switches
-				switch (cArg){
+	// Create main vars
+	var buildHash = '',
+		date = new Date,
+		prevSettings = void 0,
+		packageJson = JSON.parse(module_fs.readFileSync('package.json')),
+		nwVersion = packageJson.dependencies.nw.replace('-sdk', '').replace('^', '');
 
-					/*
-						Compile app with some wine fixes
+	if (module_fs.existsSync('hash.inc')) buildHash = module_fs.readFileSync('hash.inc', 'utf-8');
 
-						- Set wineFix flag as true
-						- Disable some transition effects
-						- Main window will always have frame
-						- Main window can't use transparency
-						- NW version must be 0.83.0 (Wine have issues rendering text on newer versions)
-					*/
-					case '--enableWineFix':
-						packageJson.window.frame = !0;
-						packageJson.extra.wineFix = !0;
-						packageJson.window.transparent = !1;
-						packageJson.dependencies.nw = '0.83.0';
-						nwVersion = packageJson.dependencies.nw;
-						break;
+	// Clear console and check if args was provided. If so, process them
+	console.clear();
+	if (args !== void 0 && args.length !== 0){
+		args.forEach(function(cArg){
 
-					// Preserve previous build settings file
-					case '--preserveSettings':
-						if (fs.existsSync('./build/r3_auto_map_gen/win64/Settings.json') === !0){
-							prevSettings = JSON.parse(fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
-						}
-						break;
+			// Switches
+			switch (cArg){
 
-					// Set flavor as sdk
-					case '--sdk':
-						flavor = 'sdk';
-						break;
+				/*
+					Compile app with some wine fixes
 
-				}
+					- Set wineFix flag as true
+					- Disable some transition effects
+					- Main window will always have frame
+					- Main window can't use transparency
+					- NW version must be 0.83.0 (Wine have issues rendering text on newer versions)
+				*/
+				case '--enableWineFix':
+					packageJson.window.frame = !0;
+					packageJson.extra.wineFix = !0;
+					packageJson.window.transparent = !1;
+					packageJson.dependencies.nw = '0.83.0';
+					nwVersion = packageJson.dependencies.nw;
+					break;
 
-				// Set nw version
-				if (cArg.indexOf('--nwVer=') !== -1){
-					const newNwVer = cArg.replace('--nwVer=', '');
-					packageJson.dependencies.nw = newNwVer;
-					nwVersion = newNwVer;
-				}
+				// Preserve previous build settings file
+				case '--preserveSettings':
+					if (fs.existsSync('./build/r3_auto_map_gen/win64/Settings.json') === !0){
+						prevSettings = JSON.parse(fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
+					}
+					break;
 
+				// Set flavor as sdk
+				case '--sdk':
+					flavor = 'sdk';
+					break;
 
-			});
-		}
+			}
 
-		// Update package.json
-		if (buildHash.length !== 0){
-			packageJson.hash = buildHash.slice(0, 6);
-		}
-		packageJson.scripts = void 0;
-		packageJson.main = 'index.htm';
-		packageJson.dependencies = void 0;
-		packageJson.devDependencies = void 0;
-		packageJson.window.icon = 'img/icon.png';
-
-		// Update package.json and remove inc file
-		fs.writeFileSync('./App/package.json', JSON.stringify(packageJson), 'utf-8');
-		fs.unlinkSync('hash.inc');
-
-		// Log initial data and setup nw-builder
-		console.info(`=== Running compiler ===\nApp version: ${packageJson.version}\nnwjs version: ${nwVersion}\nFlavor: ${flavor}\nArgs: ${args}\n`);
-		const compileData = new this.nwBuilder({
-
-			// Main metadata
-			appName: packageJson.name,
-			appVersion: packageJson.version,
-
-			// Running mode
-			zip: !0,
-			arch: 'x64',
-			mode: 'build',
-			srcDir: './App',
-			ourDir: './Build/',
-			files: './App/**/*',
-			platforms: ['win64'],
-
-			// Set flavor and version
-			flavor: flavor,
-			version: nwVersion,
-
-			// Windows settings
-			winIco: './App/img/icon.ico',
-			winVersionString: {
-				'ProductName': packageJson.name,
-				'CompanyName': packageJson.author,
-				'ProductShortName': packageJson.name,
-				'CompanyShortName': packageJson.author,
-				'FileDescription': packageJson.description,
-				'FileVersion': `Ver. ${packageJson.version}, nwjs: ${nwVersion}`,
-				'LegalCopyright': `2023, ${date.getFullYear()} - Juliana (TheMitoSan)`
+			// Set nw version
+			if (cArg.indexOf('--nwVer=') !== -1){
+				const newNwVer = cArg.replace('--nwVer=', '');
+				packageJson.dependencies.nw = newNwVer;
+				nwVersion = newNwVer;
 			}
 
 		});
+	}
 
-		try {
+	// Update package.json
+	if (buildHash.length !== 0){
+		packageJson.hash = buildHash.slice(0, 6);
+	}
+	packageJson.scripts = void 0;
+	packageJson.main = 'index.htm';
+	packageJson.dependencies = void 0;
+	packageJson.devDependencies = void 0;
+	packageJson.window.icon = 'img/icon.png';
 
-			// Create new hash file and read text files
-			fs.writeFileSync('hash.inc', '', 'utf-8');
-			const
-				help = fs.readFileSync('./help.txt', 'utf-8'),
-				license = fs.readFileSync('./LICENSE', 'utf-8'),
-				readme = fs.readFileSync('./README.md', 'utf-8');
+	// Update package.json and remove hash.inc file
+	module_fs.writeFileSync('./App/package.json', JSON.stringify(packageJson), 'utf-8');
+	if (module_fs.existsSync('hash.inc') === !0) module_fs.unlinkSync('hash.inc');
 
-			// Run nw-builder
-			compileData.build().then(function(){
+	// Start build process
+	console.info(`=== Running compiler ===\nApp version: ${packageJson.version}\nNW.js version: ${nwVersion}\nFlavor: ${flavor}\nArgs: ${args}`);
+	try {
+
+		module_fs.writeFileSync('hash.inc', '');
+		const
+			help = module_fs.readFileSync('help.txt', 'utf-8'),
+			license = module_fs.readFileSync('LICENSE', 'utf-8'),
+			readme = module_fs.readFileSync('README.md', 'utf-8');
+
+		// Start compiler
+		nwbuild({
+			flavor,
+			zip: !1,
+ 			glob: !1,
+			arch: 'x64',
+ 			mode: 'build',
+ 			srcDir: 'App',
+			outDir: 'build',
+			platform: 'win',
+ 			cacheDir: 'cache',
+			app: {
+				icon: 'App/img/icon.ico',
+				fileVersion: `Ver. ${packageJson.version}, NW.js: ${nwVersion}`,
+				legalCopyright: `2023, ${date.getFullYear()} - Juliana (TheMitoSan)`
+			}
+		})
+		.then(function(){
+
+			// Zip all files from package.nw
+			zipFolder('build/package.nw', 'build/package.nw.zip').then(function() {
+
+				// Bundle package.nw on main executable
+				const
+					packageNw = module_fs.readFileSync('build/package.nw.zip', 'binary'),
+					tempExecutable = module_fs.readFileSync('build/r3_auto_map_gen.exe', 'binary');
+
+				module_fs.writeFileSync('build/R3 Auto Map Gen.exe', tempExecutable + packageNw, 'binary');
+
+				// Remove temp files / dirs
+				[
+					'package.nw',
+					'package.nw.zip',
+					'r3_auto_map_gen.exe'
+				].forEach(function(cPath){
+					module_fs.rmSync(`build/${cPath}`, { recursive: !0 });
+				});
 
 				// Copy required files to build dir
-				fs.writeFileSync('./build/r3_auto_map_gen/win64/help.txt', help, 'utf-8');
-				fs.writeFileSync('./build/r3_auto_map_gen/win64/LICENSE', license, 'utf-8');
-				fs.writeFileSync('./build/r3_auto_map_gen/win64/README.md', readme, 'utf-8');
-				fs.writeFileSync('./version.txt', `Version: ${packageJson.version}`, 'utf-8');
-				fs.writeFileSync('./build/r3_auto_map_gen/win64/version.txt', `Version: ${packageJson.version}`, 'utf-8');
+				module_fs.writeFileSync('build/help.txt', help, 'utf-8');
+				module_fs.writeFileSync('build/LICENSE', license, 'utf-8');
+				module_fs.writeFileSync('build/README.md', readme, 'utf-8');
+				module_fs.writeFileSync('version.txt', `Version: ${packageJson.version}`, 'utf-8');
+				module_fs.writeFileSync('build/version.txt', `Version: ${packageJson.version}`, 'utf-8');
 
 				// Check if needs to restore previous settings file
-				if (prevSettings !== void 0){
+				if (prevSettings !== void 0 && module_fs.existsSync('build/Settings.json') === !0){
 					console.info('INFO - Restoring previous settings file (Settings.json)');
-					fs.writeFileSync('./build/r3_auto_map_gen/win64/Settings.json', JSON.stringify(prevSettings), 'utf-8');
+					module_fs.writeFileSync('build/Settings.json', JSON.stringify(prevSettings), 'utf-8');
 				}
 
-				// Rename main executable and log process complete
-				fs.renameSync('./build/r3_auto_map_gen/win64/r3_auto_map_gen.exe', './build/r3_auto_map_gen/win64/R3 Auto Map Gen.exe');
-				console.info(`\n=== Process Complete ===`);
+				console.info(`\n=== Process Complete ===\n`);
 
 			});
 
-		} catch (err) {
+		});
 
-			// Display error
-			throw new Error(err);
-
-		}
-
+	} catch (err) {
+		throw err;
 	}
 
-};
+}
 
 // Run compiler
-COMPILER.run('normal', process.argv);
+runCompiler('normal', process.argv);
