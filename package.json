@@ -30,11 +30,11 @@
 		"build-normal-wine": "node compiler/build.js --enableWineFix",
 		"build-sdk-wine": "node compiler/build.js --sdk --enableWineFix"
 	},
-	"dependencies": {
-		"nw": "^0.91.0-sdk"
-	},
 	"devDependencies": {
 		"nw-builder": "^4.13.14",
 		"zip-a-folder": "^3.1.9"
+	},
+	"dependencies": {
+		"nw": "^0.101.0-sdk"
 	}
 }
