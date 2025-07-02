@@ -8,50 +8,34 @@ temp_TOOLS = {
 	// Solve Hex
 	solveHex: function(hex){
 		var res = '';
-		if (hex !== void 0){
-			res = hex.toLowerCase().replace(RegExp(' ', 'gi'), '');
-		}
+		if (hex !== void 0) res = hex.toLowerCase().replace(RegExp(' ', 'gi'), '');
 		return res;
 	},
 
 	// Unsolve Hex
 	unsolveHex: function(hex){
 		var res = '';
-		if (hex !== void 0){
-			res = hex.toUpperCase().match(/.{2,2}/g).toString().replace(RegExp(',', 'gi'), ' ')
-		}
+		if (hex !== void 0) res = hex.toUpperCase().match(/.{2,2}/g).toString().replace(RegExp(',', 'gi'), ' ');
 		return res;
 	},
 
 	// Parse endian values
 	parseEndian: function(hex){
-		if (hex !== void 0){
-			return hex.match(/.{2,2}/g).reverse().toString().replace(RegExp(',', 'gi'), '');
-		}
+		if (hex !== void 0) return hex.match(/.{2,2}/g).reverse().toString().replace(RegExp(',', 'gi'), '');
 	},
 
 	// Convert Hex values to UTF-8 string
 	convertHexToUft8: function(hex){
-
 		var textValue = '';
-		if (hex !== void 0 && hex !== ''){
-			textValue = decodeURIComponent('%' + hex.match(/.{2,2}/g).join('%'));
-		}
-
+		if (hex !== void 0 && hex !== '') textValue = decodeURIComponent('%' + hex.match(/.{2,2}/g).join('%'));
 		return textValue;
-
 	},
 
 	// Parse percentage
 	parsePercentage: function(current, maximum){
-
 		var res = 0;
-		if (current !== void 0 && maximum !== void 0){
-			res = Math.floor((current / maximum) * 100);
-		}
-
+		if (current !== void 0 && maximum !== void 0) res = Math.floor((current / maximum) * 100);
 		return res;
-
 	},
 
 	// Parse positive
@@ -88,13 +72,9 @@ temp_TOOLS = {
 
 	// Fix paths
 	fixPath: function(path){
-
 		var res = '';
-		if (path !== void 0 && path !== ''){
-			res = path.replace(RegExp('\\\\', 'gi'), '/');
-		}
+		if (path !== void 0 && path !== '') res = path.replace(RegExp('\\\\', 'gi'), '/');
 		return res;
-
 	},
 
 	/*
@@ -102,9 +82,7 @@ temp_TOOLS = {
 		Original regex: https://css-tricks.com/snippets/javascript/strip-html-tags-in-javascript/
 	*/
 	removeHTML: function(str){
-		if (str !== void 0 && str !== ''){
-			return str.replace(/(<([^>]+)>)/gi, '');
-		}
+		if (str !== void 0 && str !== '') return str.replace(/(<([^>]+)>)/gi, '');
 	},
 
 	// Get data from main object (APP - main.js)
@@ -124,9 +102,7 @@ temp_TOOLS = {
 	// Convert array to string breaking lines
 	convertArrayToString: function(str){
 		var res = '';
-		if (str !== void 0 && str.length !== 0){
-			res = str.toString().replace(RegExp(',', 'gi'), '\n');
-		}
+		if (str !== void 0 && str.length !== 0) res = str.toString().replace(RegExp(',', 'gi'), '\n');
 		return res;
 	},
 
@@ -157,16 +133,9 @@ temp_TOOLS = {
 			size = Number(v),
 			input = inp.toString();
 
-		if (filler === void 0){
-			filler = '0';
-		}
-
-		if (inp === void 0 || inp === ''){
-			input = filler + filler;
-		}
-		if (v === void 0 || v === ''){
-			size = 2;
-		}
+		if (filler === void 0) filler = '0';
+		if (inp === void 0 || inp === '') input = filler + filler;
+		if (v === void 0 || v === '') size = 2;
 
 		if (input.length < size){
 
@@ -175,11 +144,7 @@ temp_TOOLS = {
 			}
 
 		} else {
-
-			if (input.length !== size && input.toString().length > size){
-				input = input.slice(0, v);
-			}
-
+			if (input.length !== size && input.toString().length > size) input = input.slice(0, v);
 		}
 
 		return input;
@@ -188,26 +153,16 @@ temp_TOOLS = {
 
 	// Fix JSON quotes
 	fixJson: function(data){
-
 		var res = '';
-		if (data !== void 0){
-			res = data.replace(RegExp("'", 'gi'), '"');
-		}
-
+		if (data !== void 0) res = data.replace(RegExp("'", 'gi'), '"');
 		return res;
-
 	},
 
 	// Clean function
 	cleanFn: function(fnStr){
-
 		var res = '';
-		if (fnStr !== void 0){
-			res = fnStr.replace(RegExp('\n', 'gi'), ' ').replace(RegExp('	', 'gi'), '');
-		}
-
+		if (fnStr !== void 0) res = fnStr.replace(RegExp('\n', 'gi'), ' ').replace(RegExp('	', 'gi'), '');
 		return res;
-
 	},
 
 	// Prompt - a simple way to handle window.prompt call
@@ -291,7 +246,8 @@ temp_TOOLS = {
 	    		Require modules individually.
 	    		They will not be linked to main object due compat with other softwares
 	    	*/
-	    	const module_fs = require('fs'),
+	    	const
+	    		module_fs = require('fs'),
 	    		module_path = require('path');
 
 	    	// Read dir
@@ -323,10 +279,7 @@ temp_TOOLS = {
 
 		try {
 
-			if (url === void 0 || url === ''){
-				url = 'https://google.com/';
-			}
-
+			if (url === void 0 || url === '') url = 'https://google.com';
 			var fetchTest = await fetch(url);
 			return Number(fetchTest.status) > 199 && Number(fetchTest.status) < 300;
 
@@ -338,12 +291,8 @@ temp_TOOLS = {
 
 	// Parse value polarity
 	parsePolarity: function(value){
-
 		var res = 0;
-		if (res !== void 0){
-			res = value - value - value;
-		}
-
+		if (res !== void 0) res = value - value - value;
 		return res;
 	},
 
@@ -355,16 +304,12 @@ temp_TOOLS = {
 			var res = !1,
 			    domId = document.getElementById(domName).checked;
 
-			if (domId === !1){
-				res = !0;
-			}
+			if (domId === !1) res = !0;
 			document.getElementById(domName).checked = res;
 
 		}
 
-		if (typeof callback === 'function'){
-			callback();
-		}
+		if (typeof callback === 'function') callback();
 
 	},
 
@@ -383,22 +328,11 @@ temp_TOOLS = {
 		if (typeof data === 'object' && document.getElementById(data.domName) !== null){
 
 			const cValue = Number(document.getElementById(data.domName).value);
-			if (data.maxLength === void 0){
-				data.maxLength = document.getElementById(data.domName).value.length;
-			}
-
-			if (cValue === NaN){
-				document.getElementById(data.domName).value = Number(data.def);
-			}
-			if (cValue < data.min){
-				document.getElementById(data.domName).value = Number(data.min);
-			}
-			if (cValue > data.max){
-				document.getElementById(data.domName).value = Number(data.max);
-			}
-			if (document.getElementById(data.domName).value.length > data.maxLength){
-				document.getElementById(data.domName).value = document.getElementById(data.domName).value.slice(0, data.maxLength);
-			}
+			if (data.maxLength === void 0) data.maxLength = document.getElementById(data.domName).value.length;
+			if (cValue === NaN) document.getElementById(data.domName).value = Number(data.def);
+			if (cValue < data.min) document.getElementById(data.domName).value = Number(data.min);
+			if (cValue > data.max) document.getElementById(data.domName).value = Number(data.max);
+			if (document.getElementById(data.domName).value.length > data.maxLength) document.getElementById(data.domName).value = document.getElementById(data.domName).value.slice(0, data.maxLength);
 
 		}
 
@@ -431,29 +365,19 @@ temp_TOOLS = {
 				errorReason.push(msg);
 			}
 
-			if (data.title === void 0){
-				data.title = '';
-			}
+			if (data.title === void 0) data.title = '';
 
 			// Check if user added location
-			if (typeof data.location !== 'object'){
-				addError('User didn\'t specified spawn location data');
-			}
+			if (typeof data.location !== 'object') addError('User didn\'t specified spawn location data');
 
 			// Check if apply action was provided
-			if (typeof data.onApply !== 'function'){
-				addError('User didn\'t specified onApply action');
-			}
+			if (typeof data.onApply !== 'function') addError('User didn\'t specified onApply action');
 
 			// Check if color picker is already active
-			if (document.getElementById('TMS_COLOR_PICKER') !== null){
-				addError('Color picker is already opened!');
-			}
+			if (document.getElementById('TMS_COLOR_PICKER') !== null) addError('Color picker is already opened!');
 
 			// Check if spawn location exists
-			if (document.getElementById(data.location.spawnLocation) === null){
-				addError('Unable to locate spawn location!');
-			}
+			if (document.getElementById(data.location.spawnLocation) === null) addError('Unable to locate spawn location!');
 
 			// Check if can continue
 			if (errorReason.length === 0){
@@ -464,15 +388,9 @@ temp_TOOLS = {
 					yPos = data.location.y,
 					htmlData = APP.fs.readFileSync(`${nw.__dirname}/${APP.pathPrefix}/tools/color-picker.htm`, 'utf8');
 
-				if (typeof data.location.x !== 'string'){
-					xPos = '10px';
-				}
-				if (typeof data.location.y !== 'string'){
-					yPos = '10px';
-				}
-				if (typeof data.outputMode === void 0){
-					data.outputMode = 'hex';
-				}
+				if (typeof data.location.x !== 'string') xPos = '10px';
+				if (typeof data.location.y !== 'string') yPos = '10px';
+				if (typeof data.outputMode === void 0) data.outputMode = 'hex';
 
 				// Append form
 				TMS.append(data.location.spawnLocation, htmlData);
@@ -508,14 +426,10 @@ temp_TOOLS = {
 
 				// Set cancel action
 				document.getElementById('BTN_TMS_COLOR_PICKER_CANCEL').onclick = function(){
-					
-					// Remove color picker
-					TMS.removeDOM('TMS_COLOR_PICKER');
 
-					// Execute onCancel action
-					if (typeof data.onCancel === 'function'){
-						data.onCancel();
-					}
+					// Remove color picker and execute onCancel action
+					TMS.removeDOM('TMS_COLOR_PICKER');
+					if (typeof data.onCancel === 'function') data.onCancel();
 
 				}
 
@@ -555,9 +469,7 @@ temp_TOOLS = {
 
 				// Update color and execute onOpen action
 				APP.tools.updateColorPicker(updateMode);
-				if (typeof data.onOpen === 'function'){
-					data.onOpen();
-				}
+				if (typeof data.onOpen === 'function') data.onOpen();
 
 			} else {
 				const errMsg = `ERROR - Unable to open color picker!\nReason: ${errorReason.toString().replace(RegExp(',', 'gi'), '\n')}`;
@@ -574,10 +486,7 @@ temp_TOOLS = {
 
 		if (document.getElementById('TMS_COLOR_PICKER') !== null){
 
-			if (typeof inputSource !== 'string'){
-				inputSource = 'hex';
-			}
-
+			if (typeof inputSource !== 'string') inputSource = 'hex';
 			var colorR,	colorG,	colorB, colorA,
 				bgColor = '000';
 
@@ -654,9 +563,7 @@ temp_TOOLS = {
 
 	// Cancel Color Picker
 	closeColorPicker: function(){
-		if (document.getElementById('TMS_COLOR_PICKER') !== null){
-			TMS.triggerClick('BTN_TMS_COLOR_PICKER_CANCEL');
-		}
+		if (document.getElementById('TMS_COLOR_PICKER') !== null) TMS.triggerClick('BTN_TMS_COLOR_PICKER_CANCEL');
 	},
 
 	// Create setTimeout function with more control
@@ -664,9 +571,7 @@ temp_TOOLS = {
 
 		// Log and check if timeout was provided
 		console.info(`INFO - Creating timeout: ${name}`);
-		if (timeout === void 0){
-			timeout = 0;
-		}
+		if (timeout === void 0) timeout = 0;
 
 		// Check if current timeout exists on database
 		if (APP.timeoutDatabase[name] !== void 0){
@@ -677,12 +582,8 @@ temp_TOOLS = {
 		// Set timeout
 		APP.timeoutDatabase[name] = setTimeout(function(){
 
-			// Execute action
-			if (typeof action === 'function'){
-				action();
-			}
-
-			// Remove timeout from database
+			// Execute action and remove timeout from database
+			if (typeof action === 'function') action();
 			delete APP.timeoutDatabase[name];
 
 		}, Number(timeout));
@@ -698,16 +599,12 @@ temp_TOOLS = {
 		switch (typeof timeoutList){
 
 			case 'string':
-				if (APP.timeoutDatabase[timeoutList] !== void 0){
-					clearTimeout(APP.timeoutDatabase[timeoutList]);
-				}
+				if (APP.timeoutDatabase[timeoutList] !== void 0) clearTimeout(APP.timeoutDatabase[timeoutList]);
 				break;
 
 			case 'object':
 				timeoutList.forEach(function(cTimeout){
-					if (APP.timeoutDatabase[cTimeout] !== void 0){
-						clearTimeout(APP.timeoutDatabase[cTimeout]);
-					}
+					if (APP.timeoutDatabase[cTimeout] !== void 0) clearTimeout(APP.timeoutDatabase[cTimeout]);
 				});
 				break;
 
@@ -718,12 +615,8 @@ temp_TOOLS = {
 	// Create setInterval function with more control
 	createInterval: function(name, action, interval){
 
-		// Check if timeout was provided
-		if (interval === void 0){
-			interval = 1000;
-		}
-
-		// Check if current interval exists on database
+		// Check if timeout was provided and if current interval exists on database
+		if (interval === void 0) interval = 1000;
 		if (APP.intervalDatabase[name] !== void 0){
 			clearInterval(APP.intervalDatabase[name]);
 			delete APP.intervalDatabase[name];

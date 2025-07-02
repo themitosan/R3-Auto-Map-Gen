@@ -73,9 +73,7 @@ temp_FILEMANAGER = {
 			postAction = data.callback;
 
 		// Fix extension
-		if (ext === '' || typeof ext !== 'string'){
-			ext = '*.*';
-		}
+		if (ext === '' || typeof ext !== 'string') ext = '*.*';
 
 		// Set file info and onchange event
 		document.getElementById('APP_FILE_SAVE').accept = ext;
@@ -91,9 +89,7 @@ temp_FILEMANAGER = {
 
 					// Write file and execute postAction
 					APP.fs.writeFileSync(location, content, mode);
-					if (typeof postAction === 'function'){
-						postAction(APP.tools.fixPath(location));
-					}
+					if (typeof postAction === 'function') postAction(APP.tools.fixPath(location));
 
 				} catch (err) {
 					throw new Error(err);

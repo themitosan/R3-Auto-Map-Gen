@@ -33,9 +33,7 @@ temp_GAMEHOOK = {
 				exeName = APP.options.settingsData[cGame].exeName,
 				pList = Array.from(APP.memoryjs.getProcesses()),
 				gProcess = pList.filter(function(cProcess){
-					if (cProcess.szExeFile === exeName){
-						return cProcess;
-					}
+					if (cProcess.szExeFile === exeName) return cProcess;
 				});
 
 			if (gProcess.length !== 0 || skipCheck === !0){
@@ -61,17 +59,13 @@ temp_GAMEHOOK = {
 					APP.gameHook.gameActive = !0;
 
 					// Check if needs to hide menu
-					if (APP.options.hideTopMenu === !0){
-						TMS.css('MENU_TOP', {'height': '0px'});
-					}
+					if (APP.options.hideTopMenu === !0) TMS.css('MENU_TOP', {'height': '0px'});
 
 					// Update labels, top menu and set interval
 					APP.graphics.updateGuiLabel();
 					APP.graphics.togglehideTopMenu();
 					APP.gameHook.updateObject = setInterval(function(){
-						if (APP.options.enableReadGameData === !0){
-							APP.gameHook.updateProcess();
-						}
+						if (APP.options.enableReadGameData === !0) APP.gameHook.updateProcess();
 					}, 100);
 
 				} catch (err) {
@@ -110,9 +104,7 @@ temp_GAMEHOOK = {
 
 		// Update selected game / check if current game exists, open right menu, reset spawn variable and set running flag as false
 		APP.options.updateSelectedGame();
-		if (skipOpenRightMenu !== !0){
-			APP.options.toggleRightMenu('open');
-		}
+		if (skipOpenRightMenu !== !0) APP.options.toggleRightMenu('open');
 		APP.spawnProcess = void 0;
 		this.gameActive = !1;
 
@@ -126,18 +118,12 @@ temp_GAMEHOOK = {
 	read: function(ramPos, limit, mode, length){
 
 		var res = '00';
-		if (length === void 0){
-			length = 1;
-		}
+		if (length === void 0) length = 1;
 
 		if (ramPos !== void 0 && this.gameActive === !0){
 
-			if (limit === void 0 || parseInt(limit) === NaN){
-				limit = 2;
-			}
-			if (mode === void 0 || mode === ''){
-				mode = 'int';
-			}
+			if (limit === void 0 || parseInt(limit) === NaN) limit = 2;
+			if (mode === void 0 || mode === '') mode = 'int';
 
 			switch (mode){
 
@@ -172,9 +158,7 @@ temp_GAMEHOOK = {
 			cGame = APP.options.settingsData.currentGame,
 			pList = Array.from(APP.memoryjs.getProcesses()),
 			gProcess = pList.filter(function(cProcess){
-				if (cProcess.szExeFile === APP.options.settingsData[cGame].exeName){
-					return cProcess;
-				}
+				if (cProcess.szExeFile === APP.options.settingsData[cGame].exeName) return cProcess;
 			});
 
 		// Check if process was found
@@ -229,9 +213,7 @@ temp_GAMEHOOK = {
 				}
 
 				// Update current camera and check if needs to trim cam history
-				if (APP.gameHook.camHistory.length > 9){
-					APP.gameHook.camHistory.splice(0, 7);
-				}
+				if (APP.gameHook.camHistory.length > 9) APP.gameHook.camHistory.splice(0, 7);
 
 				// Create reset conditions var
 				const resetConditions = [
@@ -249,20 +231,14 @@ temp_GAMEHOOK = {
 				];
 
 				// Check if needs to reset current map
-				if (resetConditions.indexOf(!0) !== -1){
-					APP.options.resetMap();
-				}
+				if (resetConditions.indexOf(!0) !== -1) APP.options.resetMap();
 
 				// Check if latest map is the current one
 				if (this.mapHistory[(this.mapHistory.length - 1)] !== cMap){
 
 					// Push current cam to prevent bugs
-					if (needUpdateCam === !1 && cGame !== 'biocv'){
-						APP.gameHook.camHistory.push(cCamera);
-					}
-					if (needUpdateCam === !1 && cGame === 'biocv'){
-						APP.gameHook.updateCamCvx = !0;
-					}
+					if (needUpdateCam === !1 && cGame !== 'biocv') APP.gameHook.camHistory.push(cCamera);
+					if (needUpdateCam === !1 && cGame === 'biocv') APP.gameHook.updateCamCvx = !0;
 
 					// Push room to map and update player pos.
 					APP.gameHook.mapHistory.push(cMap);
@@ -271,9 +247,7 @@ temp_GAMEHOOK = {
 					APP.graphics.updatePlayerPos();
 
 					// Add Cam Hint
-					if (cGame !== 'biocv'){
-						APP.graphics.processAddCamHint(cMap);
-					}
+					if (cGame !== 'biocv') APP.graphics.processAddCamHint(cMap);
 
 				}
 

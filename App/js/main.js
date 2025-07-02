@@ -232,9 +232,7 @@ const APP = {
 		try {
 
 			// Fix empty hash
-			if (APP.hash === ''){
-				APP.hash = 'DIRTY';
-			}
+			if (APP.hash === '') APP.hash = 'DIRTY';
 
 			// Set vars
 			var startKbDevMode = !1,
@@ -263,6 +261,12 @@ const APP = {
 				TMS.css('APP_GAME_DATA', { 'top': '40px', 'transition-duration': '0s' });
 				TMS.css('MENU_RIGHT', { 'top': '40px', 'height': 'calc(100% - 68px)', 'transition-duration': '0s' });
 
+			}
+
+			// Disable window actions
+			if (nw.App.manifest.extra.disableWindowActions === !0){
+				TMS.css('APP_DRAG_BAR', { 'width': '100%' });
+				TMS.css('APP_DRAG_BAR_ACTIONS', { 'display': 'none' });
 			}
 
 			// Check if app is on dev mode

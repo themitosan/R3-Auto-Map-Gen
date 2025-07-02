@@ -21,7 +21,8 @@
 		"title": "R3 Auto Map Gen - Please wait..."
 	},
 	"extra": {
-		"wineFix": false
+		"wineFix": false,
+		"disableWindowActions": false
 	},
 	"scripts": {
 		"dev": "nw . -dev",

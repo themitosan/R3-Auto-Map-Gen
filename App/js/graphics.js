@@ -106,14 +106,10 @@ temp_GRAPHICS = {
 				selectScenario = { 'display': 'inline' };
 
 			// Hide current scenario if current game isn't bio2
-			if (cGame !== 'bio2'){
-				selectScenario =  { 'display': 'none' };
-			}
+			if (cGame !== 'bio2') selectScenario =  { 'display': 'none' };
 
 			// Hide select iso button if current game is biocv
-			if (cGame !== 'biocv'){
-				btnDisplayIso = { 'display': 'none' };
-			}
+			if (cGame !== 'biocv') btnDisplayIso = { 'display': 'none' };
 
 			// Update options CSS
 			TMS.css('BTN_SELECT_ISO', btnDisplayIso);
@@ -140,19 +136,13 @@ temp_GRAPHICS = {
 			}
 
 			// Check canvas drag status
-			if (this.enableCanvasDrag === !0){
-				canvasDragStatus = 'ON';
-			}
+			if (this.enableCanvasDrag === !0) canvasDragStatus = 'ON';
 
 			// Check if available cam hints is available
-			if (APP.options.enableCamHint === !0){
-				availableCamHints = APP.graphics.availableCamHints;
-			}
+			if (APP.options.enableCamHint === !0) availableCamHints = APP.graphics.availableCamHints;
 
 			// Check if right menu is closed and wine fix is disabled
-			if (APP.options.isMenuRightClosed === !0 && nw.App.manifest.extra.wineFix === !1){
-				labelDragMessage = ' [ You can use this label to drag app window ]';
-			}
+			if (APP.options.isMenuRightClosed === !0 && nw.App.manifest.extra.wineFix === !1) labelDragMessage = ' [ You can use this label to drag app window ]';
 
 			// Set game hint vars
 			var gameHintCss = { 'opacity': '0', 'app-region': 'no-drag' },
@@ -201,9 +191,7 @@ temp_GRAPHICS = {
 			APP.graphics.updateGuiLabel();
 
 			// Check if need to hide top menu
-			if (APP.options.hideTopMenu === !0 && APP.gameHook.gameActive === !0){
-				TMS.css('MENU_TOP', {'height': '0px'});
-			}
+			if (APP.options.hideTopMenu === !0 && APP.gameHook.gameActive === !0) TMS.css('MENU_TOP', {'height': '0px'});
 
 		}, timeout);
 
@@ -215,19 +203,13 @@ temp_GRAPHICS = {
 		// Set vars, get current game and check if current map was added
 		var canAdd = !0;
 		const cGame = APP.options.settingsData.currentGame;
-		if (document.getElementById(`ROOM_${mapName}`) !== null){
-			canAdd = !1;
-		}
+		if (document.getElementById(`ROOM_${mapName}`) !== null) canAdd = !1;
 
 		// Check if current map name was provided
-		if (mapName === void 0){
-			canAdd = !1;
-		}
+		if (mapName === void 0) canAdd = !1;
 
 		// Check if map exists on database
-		if (APP.database[cGame].rdt[mapName] === void 0){
-			canAdd = !1;
-		}
+		if (APP.database[cGame].rdt[mapName] === void 0) canAdd = !1;
 
 		// Check if can add map
 		if (canAdd === !0){
@@ -264,17 +246,11 @@ temp_GRAPHICS = {
 
 				// Create can add message var, check if is Bio 2 and current map is start from other scenario (Start from B on A and vice-versa)
 				var canAddGameStart = !0;
-				if (cGame === 'bio2' && cGameScenario === 'scenario_a' && mapName === 'R104'){
-					canAddGameStart = !1;
-				}
-				if (cGame === 'bio2' && cGameScenario === 'scenario_b' && mapName === 'R100'){
-					canAddGameStart = !1;
-				}
+				if (cGame === 'bio2' && cGameScenario === 'scenario_a' && mapName === 'R104') canAddGameStart = !1;
+				if (cGame === 'bio2' && cGameScenario === 'scenario_b' && mapName === 'R100') canAddGameStart = !1;
 
 				// Check if can add
-				if (canAddGameStart === !0){
-					mapExtraClass.push('GAME_START');
-				}
+				if (canAddGameStart === !0) mapExtraClass.push('GAME_START');
 
 			}
 
@@ -283,44 +259,30 @@ temp_GRAPHICS = {
 
 				// Create check var and check if current game isn't RE2
 				var canAddGameEnd = !1;
-				if (cGame !== 'bio2'){
-					canAddGameEnd = !0;
-				}
+				if (cGame !== 'bio2') canAddGameEnd = !0;
 
 				// Check if is RE2 and is scenario a
-				if (cGame === 'bio2' && mapName === 'R700' && cGameScenario === 'scenario_a'){
-					canAddGameEnd = !0;
-				}
+				if (cGame === 'bio2' && mapName === 'R700' && cGameScenario === 'scenario_a') canAddGameEnd = !0;
 
 				// Check if is RE2 and is scenario b
-				if (cGame === 'bio2' && mapName === 'R704' && cGameScenario === 'scenario_b'){
-					canAddGameEnd = !0;
-				}
+				if (cGame === 'bio2' && mapName === 'R704' && cGameScenario === 'scenario_b') canAddGameEnd = !0;
 
 				// Check if can add
-				if (canAddGameEnd === !0){
-					mapExtraClass.push('GAME_END');
-				}
+				if (canAddGameEnd === !0) mapExtraClass.push('GAME_END');
 
 			}
 
 			// Check if player can save on current map
-			if (APP.database[cGame].rdt[mapName].canSave === !0){
-				mapExtraClass.push('ROOM_CAN_SAVE');
-			}
+			if (APP.database[cGame].rdt[mapName].canSave === !0) mapExtraClass.push('ROOM_CAN_SAVE');
 
 			// Check if current map have item box
-			if (APP.database[cGame].rdt[mapName].haveItemBox === !0){
-				mapExtraClass.push('ROOM_ITEM_BOX');
-			}
+			if (APP.database[cGame].rdt[mapName].haveItemBox === !0) mapExtraClass.push('ROOM_ITEM_BOX');
 
 			// Check if "is BioRand" mode is active
 			if (isBioRandMod === !0){
 
 				// Update BioRand objective
-				if (parent !== void 0){
-					APP.options.updateBioRandObjective(mapName, parent);
-				} 
+				if (parent !== void 0) APP.options.updateBioRandObjective(mapName, parent);
 
 				// Check if reset objective flag is active
 				if (APP.options.bioRandObjectives.reset === !0){
@@ -351,9 +313,7 @@ temp_GRAPHICS = {
 					}
 
 					// Check if can add BioRand objective
-					if (canAddBioRandObjective === !0){
-						mapExtraClass.push('BIORAND_OBJECTIVE');
-					}
+					if (canAddBioRandObjective === !0) mapExtraClass.push('BIORAND_OBJECTIVE');
 
 				}
 
@@ -436,9 +396,7 @@ temp_GRAPHICS = {
 			// Calc point factor
 			const calcPointFactor = function(val){
 				var res = (val * point_factor);
-				if (res === 0){
-					res = val;
-				}
+				if (res === 0) res = val;
 				return res;
 			} 
 
@@ -627,13 +585,9 @@ temp_GRAPHICS = {
 
 		// Check if can add new lines to canvas
 		lineNames.forEach(function(lNames){
-			if (lineList[lNames] !== void 0){
-				canAdd = !1;
-			}
+			if (lineList[lNames] !== void 0) canAdd = !1;
 		});
-		if (parent === void 0){
-			canAdd = !1;
-		}
+		if (parent === void 0) canAdd = !1;
 
 		// Check if can add
 		if (canAdd === !0){
@@ -709,25 +663,15 @@ temp_GRAPHICS = {
 				enable_y = !0;
 			
 			// Disable coords if Ctrl / Shift keys are active
-			if (APP.kbInput.indexOf('ShiftLeft') !== -1){
-				enable_y = !1;
-			}
-			if (APP.kbInput.indexOf('ControlLeft') !== -1){
-				enable_x = !1;
-			}
+			if (APP.kbInput.indexOf('ShiftLeft') !== -1) enable_y = !1;
+			if (APP.kbInput.indexOf('ControlLeft') !== -1) enable_x = !1;
 
 			// Update CSS
-			if (enable_x === !0){
-				TMS.css(domName, {'left': `${finalX}px`});
-			}
-			if (enable_y === !0){
-				TMS.css(domName, {'top': `${finalY}px`});
-			}
+			if (enable_x === !0) TMS.css(domName, {'left': `${finalX}px`});
+			if (enable_y === !0) TMS.css(domName, {'top': `${finalY}px`});
 
 			// Update Lines
-			if (domName !== 'APP_MAP_CANVAS'){
-				APP.graphics.updateLines(domName);
-			}
+			if (domName !== 'APP_MAP_CANVAS') APP.graphics.updateLines(domName);
 
 			// Update map label pos
 			if (domName === 'APP_MAP_CANVAS'){
@@ -772,9 +716,7 @@ temp_GRAPHICS = {
 			var processList = Object.keys(lineList);
 			if (roomName !== void 0){
 				processList = Object.keys(lineList).filter(function(cLine){
-					if (cLine.indexOf(roomName.replace('ROOM_', '')) !== -1){
-						return cLine;
-					}
+					if (cLine.indexOf(roomName.replace('ROOM_', '')) !== -1) return cLine;
 				});
 			}
 
@@ -852,9 +794,7 @@ temp_GRAPHICS = {
 			prevCam = APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2];
 
 		// Fix if cam doesn't exists yet!
-		if (prevCam === void 0){
-			prevCam = 0;
-		}
+		if (prevCam === void 0) prevCam = 0;
 
 		// Check if current cam exist on current map
 		if (APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)] === void 0){
@@ -1036,9 +976,7 @@ temp_GRAPHICS = {
 				TMS.css('APP_MAP_CANVAS_BG', {'transition-duration': '1s', 'transition-timing-function': 'cubic-bezier(0,1,0,1)'});
 				TMS.css('APP_MAP_CANVAS', {'cursor': 'auto', 'transition-duration': '1s'});
 				document.getElementById('APP_MAP_CANVAS').onmousedown = null;
-				if (pos !== -1){
-					APP.graphics.enabledDragList.splice(pos, 1);
-				}
+				if (pos !== -1) APP.graphics.enabledDragList.splice(pos, 1);
 				APP.graphics.enableCanvasDrag = !1;
 				break;
 
@@ -1158,9 +1096,7 @@ temp_GRAPHICS = {
 		}
 
 		// Check if BioRand mod is active
-		if (document.getElementById('CHECKBOX_isBioRand').checked === !0){
-			sGameDataMinWidth = 670;
-		}
+		if (document.getElementById('CHECKBOX_isBioRand').checked === !0) sGameDataMinWidth = 670;
 
 		// Set final CSS
 		TMS.css('APP_GAME_DATA', {

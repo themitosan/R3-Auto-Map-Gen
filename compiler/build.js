@@ -20,14 +20,14 @@ import { zip } from 'zip-a-folder';
 /**
 	* Create a zip file from an specific target
 	* @param target [Path] Folder to be compressed
-	* @param zipPath [Path] Path to zip file 
+	* @param zipPath [Path] Path to zip file
 */
 async function zipFolder(target, zipPath){
 	await zip(target, zipPath);
 }
 
 /**
-	* Main function 
+	* Main function
 */
 function runCompiler(flavor, args){
 
@@ -38,10 +38,11 @@ function runCompiler(flavor, args){
 		packageJson = JSON.parse(module_fs.readFileSync('package.json')),
 		nwVersion = packageJson.dependencies.nw.replace('-sdk', '').replace('^', '');
 
-	if (module_fs.existsSync('hash.inc')) buildHash = module_fs.readFileSync('hash.inc', 'utf-8');
-
-	// Clear console and check if args was provided. If so, process them
+	// Clear console and check if hash file exists
 	console.clear();
+	if (module_fs.existsSync('hash.inc') === !0) buildHash = module_fs.readFileSync('hash.inc', 'utf-8');
+
+	// Check if args was provided
 	if (args !== void 0 && args.length !== 0){
 		args.forEach(function(cArg){
 
@@ -65,10 +66,15 @@ function runCompiler(flavor, args){
 					nwVersion = packageJson.dependencies.nw;
 					break;
 
+				// Disable window actions
+				case '--disableWindowActions':
+					packageJson.extra.disableWindowActions = !0;
+					break;
+
 				// Preserve previous build settings file
 				case '--preserveSettings':
-					if (fs.existsSync('./build/r3_auto_map_gen/win64/Settings.json') === !0){
-						prevSettings = JSON.parse(fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
+					if (module_fs.existsSync('./build/r3_auto_map_gen/win64/Settings.json') === !0){
+						prevSettings = JSON.parse(module_fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
 					}
 					break;
 
@@ -90,14 +96,12 @@ function runCompiler(flavor, args){
 	}
 
 	// Update package.json
-	if (buildHash.length !== 0){
-		packageJson.hash = buildHash.slice(0, 6);
-	}
 	packageJson.scripts = void 0;
 	packageJson.main = 'index.htm';
 	packageJson.dependencies = void 0;
 	packageJson.devDependencies = void 0;
 	packageJson.window.icon = 'img/icon.png';
+	if (buildHash.length !== 0) packageJson.hash = buildHash.slice(0, 6);
 
 	// Update package.json and remove hash.inc file
 	module_fs.writeFileSync('./App/package.json', JSON.stringify(packageJson), 'utf-8');

@@ -94,9 +94,7 @@ temp_OPTIONS = {
 			}
 
 			// Check if can resolve
-			if (canSolveObjective === !0){
-				solveObjective();
-			}
+			if (canSolveObjective === !0) solveObjective();
 
 		}
 
@@ -126,6 +124,7 @@ temp_OPTIONS = {
 				if (APP.options.isMapLoading === !1){
 					APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
 				}
+
 			}
 
 		}
@@ -197,9 +196,7 @@ temp_OPTIONS = {
 					
 					// Create top menu Y pos and check if wine fix is active
 					var topMenuPosY = 20;
-					if (nw.App.manifest.extra.wineFix === !0){
-						topMenuPosY = 0;
-					}
+					if (nw.App.manifest.extra.wineFix === !0) topMenuPosY = 0;
 
 					// Update CSS
 					TMS.css('MENU_TOP', { 'top': `${topMenuPosY}px`, 'height': `${APP.graphics.maxHeight}px` });
@@ -357,9 +354,7 @@ temp_OPTIONS = {
 			});
 
 			// Check if farest map was added
-			if (APP.graphics.xFarestMap === ''){
-				APP.graphics.checkForMapDistances();
-			}
+			if (APP.graphics.xFarestMap === '') APP.graphics.checkForMapDistances();
 
 			// Set variables
 			var cGame = APP.options.settingsData.currentGame,
@@ -389,9 +384,7 @@ temp_OPTIONS = {
 				fileName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 
 				// Check if is Bio 2. If so, append scenario at filename
-				if (cGame === 'bio2'){
-					fileName = `${fileName}-${cScenario.slice(cScenario.length - 1).toUpperCase()}`;
-				}
+				if (cGame === 'bio2') fileName = `${fileName}-${cScenario.slice(cScenario.length - 1).toUpperCase()}`;
 
 			}
 
@@ -485,9 +478,7 @@ temp_OPTIONS = {
 			// Update top menu, release reload button and seek game process again
 			APP.graphics.togglehideTopMenu();
 			document.getElementById('BTN_MAP_RELOAD').disabled = '';
-			if (startHookAfter === !0){
-				APP.gameHook.seekGame(!0);
-			}
+			if (startHookAfter === !0) APP.gameHook.seekGame(!0);
 
 			// Set map loading process as false
 			APP.options.isMapLoading = !1;
@@ -570,9 +561,7 @@ temp_OPTIONS = {
 		const fPath = `${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`;
 
 		// Check if save file exists
-		if (APP.fs.existsSync(fPath) === !1){
-			APP.options.saveSettings();
-		}
+		if (APP.fs.existsSync(fPath) === !1) APP.options.saveSettings();
 
 		// Check if all data maches from settings model
 		var requestSave = !1;
@@ -599,9 +588,7 @@ temp_OPTIONS = {
 		// Load file and set current game
 		this.settingsData = tempData;
 		var cGame = localStorage.getItem('currentGame');
-		if (cGame === null){
-			cGame = 'bio3';
-		}
+		if (cGame === null) cGame = 'bio3';
 		document.getElementById('SELECT_GAME').value = cGame;
 
 		// Check if game executable exists
@@ -635,9 +622,7 @@ temp_OPTIONS = {
 		].forEach(function(cSettings){
 
 			// Check if settings exists
-			if (localStorage.getItem(cSettings) === null){
-				localStorage.setItem(cSettings, APP.options[cSettings]);
-			}
+			if (localStorage.getItem(cSettings) === null) localStorage.setItem(cSettings, APP.options[cSettings]);
 
 			// Load settings and check data type
 			APP.options[cSettings] = JSON.parse(localStorage.getItem(cSettings));
@@ -760,9 +745,7 @@ temp_OPTIONS = {
 					if (canSave === !0){
 
 						// Set values, update settings file, display message and load new settings
-						if (cGame === 'biocv'){
-							APP.options.settingsData[cGame].variant = v;
-						}
+						if (cGame === 'biocv') APP.options.settingsData[cGame].variant = v;
 						APP.options.settingsData[cGame].stage = s;
 						APP.options.settingsData[cGame].room = r;
 						APP.options.settingsData[cGame].cam = c;
@@ -781,37 +764,21 @@ temp_OPTIONS = {
 					c = window.prompt(`Please insert ram pos. for current camera:\nExample: \"${cGameSettings.default_cam}\" (without quotes) for ${cGame.toUpperCase()} ${gVersion}.\nYou can leave this box empty to use this value above.`);
 
 				// Check if is for default values
-				if (s === null){
-					s = APP.options.settingsData[cGame].default_stage;
-				}
-				if (r === null){
-					r = APP.options.settingsData[cGame].default_room;
-				}
-				if (c === null){
-					c = APP.options.settingsData[cGame].default_cam;
-				}
+				if (s === null) s = APP.options.settingsData[cGame].default_stage;
+				if (r === null) r = APP.options.settingsData[cGame].default_room;
+				if (c === null) c = APP.options.settingsData[cGame].default_cam;
 
-				if (s === '' || s.length !== 10){
-					canSave = !1;
-				}
-				if (r === '' || r.length !== 10){
-					canSave = !1;
-				}
-				if (c === '' || c.length !== 10){
-					canSave = !1;
-				}
+				if (s === '' || s.length !== 10) canSave = !1;
+				if (r === '' || r.length !== 10) canSave = !1;
+				if (c === '' || c.length !== 10) canSave = !1;
 
 				// Check if current game is code veronica
 				if (cGame === 'biocv'){
 
 					// Set code veronica vars and check if can save
 					v = window.prompt(`PLease insert ram pos. for \"variant\":\nExample \"${cGameSettings.default_variant}\" (without quotes) on ${cGame.toUpperCase()} ${gVersion}\nYou can leave this box empty to use this value above`);
-					if (v === null){
-						v = APP.options.settingsData[cGame].default_variant;
-					}
-					if (v === '' || v.length !== 10){
-						canSave = !1;
-					}
+					if (v === null) v = APP.options.settingsData[cGame].default_variant;
+					if (v === '' || v.length !== 10) canSave = !1;
 					checkSaveFunction();
 
 				} else {
