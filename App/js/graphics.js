@@ -124,9 +124,7 @@ temp_GRAPHICS = {
 				const randDesc = APP.fs.readFileSync(seedFile, 'utf-8');
 				bioRandSeedName = randDesc.slice(randDesc.indexOf('Seed: ') + 6).replace('\r\n', '');
 				clearedObjectives = APP.options.bioRandObjectives.clearedObjectives;
-				if (APP.options.bioRandObjectives.current !== null){
-					currentObjective = `[${APP.options.bioRandObjectives.current}] ${APP.database[cGame].rdt[APP.options.bioRandObjectives.current].name}`;
-				}
+				if (APP.options.bioRandObjectives.current !== null) currentObjective = `[${APP.options.bioRandObjectives.current}] ${APP.database[cGame].rdt[APP.options.bioRandObjectives.current].name}`;
 			}
 
 			// Check if latest map exists and if game is running
@@ -142,7 +140,7 @@ temp_GRAPHICS = {
 			if (APP.options.enableCamHint === !0) availableCamHints = APP.graphics.availableCamHints;
 
 			// Check if right menu is closed and wine fix is disabled
-			if (APP.options.isMenuRightClosed === !0 && nw.App.manifest.extra.wineFix === !1) labelDragMessage = ' [ You can use this label to drag app window ]';
+			if (APP.options.isMenuRightClosed === !0 && nw.App.manifest.extra.wineFix === !1) labelDragMessage = ' [ Use this label to drag this window ]';
 
 			// Set game hint vars
 			var gameHintCss = { 'opacity': '0', 'app-region': 'no-drag' },
@@ -161,11 +159,11 @@ temp_GRAPHICS = {
 
 			// Set label strings and update top info GUI
 			document.getElementById('LABEL_RE3_INFO_mapName').innerHTML = cMap;
-			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName;
 			document.getElementById('LABEL_currentObjective').innerHTML = currentObjective;
 			document.getElementById('LABEL_clearedObjectives').innerHTML = clearedObjectives;
 			document.getElementById('LABEL_availableCamHints').innerHTML = availableCamHints;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
+			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName.slice(0, 9);
 			document.getElementById('LABEL_currentCamera').innerHTML = APP.gameHook.currentCamera;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
 			APP.graphics.toggleShowGameData();
@@ -1085,9 +1083,9 @@ temp_GRAPHICS = {
 		// Get variables, update show game data var, create opacity and min width vars
 		const getShowGameData = document.getElementById('CHECKBOX_showGameData').checked;
 		localStorage.setItem('showGameData', getShowGameData);
+
 		var appDragCss = 'drag',
-			sGameDataOpacity = 1,
-			sGameDataMinWidth = 240;
+			sGameDataOpacity = 1;
 
 		// Check if can display game data and update min width size
 		if (getShowGameData === !1){
@@ -1095,14 +1093,10 @@ temp_GRAPHICS = {
 			appDragCss = 'no-drag';
 		}
 
-		// Check if BioRand mod is active
-		if (document.getElementById('CHECKBOX_isBioRand').checked === !0) sGameDataMinWidth = 670;
-
 		// Set final CSS
 		TMS.css('APP_GAME_DATA', {
 			'app-region': appDragCss,
-			'opacity': sGameDataOpacity,
-			'min-width': `${sGameDataMinWidth}px`
+			'opacity': sGameDataOpacity
 		});
 
 	},

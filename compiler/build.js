@@ -73,8 +73,8 @@ function runCompiler(flavor, args){
 
 				// Preserve previous build settings file
 				case '--preserveSettings':
-					if (module_fs.existsSync('./build/r3_auto_map_gen/win64/Settings.json') === !0){
-						prevSettings = JSON.parse(module_fs.readFileSync('./build/r3_auto_map_gen/win64/Settings.json', 'utf-8'));
+					if (module_fs.existsSync('./build/Settings.json') === !0){
+						prevSettings = JSON.parse(module_fs.readFileSync('./build/Settings.json', 'utf-8'));
 					}
 					break;
 
