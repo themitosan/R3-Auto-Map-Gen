@@ -335,7 +335,7 @@ label {
 	width: auto;
 	z-index: 997;
 	padding: 10px;
-	min-width: 190px;
+	min-width: 240px;
 	app-region: drag;
 	position: absolute;
 	border-radius: 10px;
