@@ -111,6 +111,7 @@ function runCompiler(flavor, args){
 	console.info(`=== Running compiler ===\nApp version: ${packageJson.version}\nNW.js version: ${nwVersion}\nFlavor: ${flavor}\nArgs: ${args}`);
 	try {
 
+		// Create hash file again and prepare some consts
 		module_fs.writeFileSync('hash.inc', '');
 		const
 			help = module_fs.readFileSync('help.txt', 'utf-8'),
@@ -128,8 +129,12 @@ function runCompiler(flavor, args){
 			outDir: 'build',
 			platform: 'win',
  			cacheDir: 'cache',
+			version: nwVersion,
+			manifestUrl: 'https://nwjs.io/versions.json',
 			app: {
 				icon: 'App/img/icon.ico',
+				productName: 'R3 Auto Map Gen.',
+				productVersion: packageJson.version,
 				fileVersion: `Ver. ${packageJson.version}, NW.js: ${nwVersion}`,
 				legalCopyright: `2023, ${date.getFullYear()} - Juliana (TheMitoSan)`
 			}
