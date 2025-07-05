@@ -166,7 +166,7 @@ function runCompiler(flavor, args){
 				module_fs.writeFileSync('build/version.txt', `Version: ${packageJson.version}`, 'utf-8');
 
 				// Check if needs to restore previous settings file
-				if (prevSettings !== void 0 && module_fs.existsSync('build/Settings.json') === !0){
+				if (prevSettings !== void 0){
 					console.info('INFO - Restoring previous settings file (Settings.json)');
 					module_fs.writeFileSync('build/Settings.json', JSON.stringify(prevSettings), 'utf-8');
 				}

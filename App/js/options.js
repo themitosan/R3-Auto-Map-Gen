@@ -82,16 +82,12 @@ temp_OPTIONS = {
 			if (bRandDb.endsOn === null && parent === cObjective){
 
 				// Check if current objective requires a player being in a specific camera
-				if (bRandDb.requiredCam.length === 0 || bRandDb.requiredCam.indexOf(APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2]) !== -1){
-					canSolveObjective = !0;
-				}
+				if (bRandDb.requiredCam.length === 0 || bRandDb.requiredCam.indexOf(APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2]) !== -1) canSolveObjective = !0;
 
 			}
 
 			// Check if current map is the resoluction from current objective (on BioRand log files, it is labelled as "always")
-			if (canSolveObjective === !1 && bRandDb.endsOn !== null && bRandDb.endsOn.indexOf(mapName) !== -1 && parent === cObjective){
-				canSolveObjective = !0;
-			}
+			if (canSolveObjective === !1 && bRandDb.endsOn !== null && bRandDb.endsOn.indexOf(mapName) !== -1 && parent === cObjective) canSolveObjective = !0;
 
 			// Check if can resolve
 			if (canSolveObjective === !0) solveObjective();
@@ -102,9 +98,7 @@ temp_OPTIONS = {
 		if (cObjectiveData !== void 0 && APP.options.bioRandObjectives.current !== mapName){
 
 			// Check if current game is BioHazard 2 and if current objecte belongs to current scenario
-			if (cGame === 'bio2' && cObjectiveData.requiredScenario !== null && cObjectiveData.requiredScenario !== cScenario){
-				canSetObjective = !1;
-			}
+			if (cGame === 'bio2' && cObjectiveData.requiredScenario !== null && cObjectiveData.requiredScenario !== cScenario) canSetObjective = !1;
 
 			// Check if can set objective
 			if (canSetObjective === !0){
@@ -116,14 +110,10 @@ temp_OPTIONS = {
 				APP.graphics.updateGuiLabel();
 
 				// Check if can display background animation
-				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0){
-					APP.graphics.playBgObjetiveAnimation('foundObjective', mapName);
-				}
+				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0) APP.graphics.playBgObjetiveAnimation('foundObjective', mapName);
 
 				// Check if can display message
-				if (APP.options.isMapLoading === !1){
-					APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
-				}
+				if (APP.options.isMapLoading === !1) APP.graphics.displayTopMsg(`New Objective: ${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}`, 5200);
 
 			}
 
@@ -328,9 +318,7 @@ temp_OPTIONS = {
 
 		// Check background color status
 		APP.tools.createTimeout('checkCanvasGridOpacity', function(){
-			if (APP.graphics.disableCanvasBgColor === !1){
-				APP.graphics.toggleBgGrid();
-			}
+			if (APP.graphics.disableCanvasBgColor === !1) APP.graphics.toggleBgGrid();
 		}, 50);
 
 	},
@@ -690,9 +678,7 @@ temp_OPTIONS = {
 
 					// Read directory and try to unlink all files with recognized save extensions
 					APP.fs.readdirSync(saveDataPath).filter(function(cFile){
-						if (extList.indexOf(APP.path.parse(`${saveDataPath}/${cFile}`).ext.toLowerCase()) !== -1){
-							APP.fs.rm(`${saveDataPath}/${cFile}`, { force: !0 });
-						}
+						if (extList.indexOf(APP.path.parse(`${saveDataPath}/${cFile}`).ext.toLowerCase()) !== -1) APP.fs.rm(`${saveDataPath}/${cFile}`, { force: !0 });
 					});
 					window.alert('INFO - Process complete!');
 

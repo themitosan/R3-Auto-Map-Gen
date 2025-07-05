@@ -147,11 +147,8 @@ const APP = {
 
 	// About screen
 	about: function(){
-
-		// Close color picker and display about screen
 		this.tools.closeColorPicker();
-		window.alert(`R3 Auto Map Gen - Version: ${APP.version}\nCreated by TheMitoSan\nTwitter: @themitosan\n\nBuild Hash: ${this.hash}\nNW.js version: ${process.versions.nw}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/\n\nLoading gif was generated on loading.io:\nhttps://loading.io\n\nFont \"Space Mono\" was created by Colophon Foundry:\nhttps://fonts.google.com/specimen/Space+Mono\n\nFont \"Inria Sans\" was created by Grégori Vincens and Jérémie Hornus:\nhttps://fonts.google.com/specimen/Inria+Sans`);
-
+		window.alert(`R3 Auto Map Gen - Version: ${APP.version}\nCreated by TheMitoSan\nBlueSky: @themitosan.bsky.social\n\nBuild Hash: ${this.hash}\nNW.js version: ${process.versions.nw}\n\nExternal plugins present on this project:\nmemoryjs by Rob--\nhttps://github.com/rob--/memoryjs\n\nBioRand is an application created by IntelOrca:\nhttps://github.com/intelorca/biorand/\nhttps://biorand.net/\n\nLoading gif was generated on loading.io:\nhttps://loading.io\n\nFont \"Space Mono\" was created by Colophon Foundry:\nhttps://fonts.google.com/specimen/Space+Mono\n\nFont \"Inria Sans\" was created by Grégori Vincens and Jérémie Hornus:\nhttps://fonts.google.com/specimen/Inria+Sans`);
 	},
 
 	// Run game
@@ -185,17 +182,13 @@ const APP = {
 
 					// Update chdir and run game
 					process.chdir(settingsData[settingsData.currentGame].gamePath);
-					APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, {
-						detached: !0
-					});
+					APP.spawnProcess = APP.childProcess.spawn(gPath, execArgs, { detached: !0 });
 
 					// Seek game process
 					setTimeout(function(){
 						APP.gameHook.seekGame(!0);
 						APP.graphics.updateGuiLabel();
-						if (JSON.parse(localStorage.getItem('showGameData')) === !0){
-							TMS.css('APP_GAME_DATA', { 'display': 'block' });
-						}
+						if (JSON.parse(localStorage.getItem('showGameData')) === !0) TMS.css('APP_GAME_DATA', { 'display': 'block' });
 						TMS.css('DIV_LOADING_PLEASE_WAIT', { 'display': 'none' });
 					}, hookTimeout);
 
@@ -211,9 +204,7 @@ const APP = {
 			var exeName = settingsData[settingsData.currentGame].exeName,
 				pList = Array.from(APP.memoryjs.getProcesses()),
 				gProcess = pList.filter(function(cProcess){
-					if (cProcess.szExeFile === exeName){
-						return cProcess;
-					}
+					if (cProcess.szExeFile === exeName) return cProcess;
 				});
 
 			if (gProcess.length === 0){

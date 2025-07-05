@@ -335,7 +335,7 @@ label {
 	width: auto;
 	z-index: 997;
 	padding: 10px;
-	min-width: 240px;
+	min-width: 450px;
 	app-region: drag;
 	position: absolute;
 	border-radius: 10px;
@@ -491,8 +491,8 @@ label {
 	flex-direction: row;
 	align-content: center;
 	justify-content: center;
-	font-family: 'Space Mono';
 	background-color: #0000;
+	font-family: 'Space Mono';
 	text-shadow: 1px 1px 2px #000;
 	box-shadow: 0px 0px 0px 2px #fff inset;
 	background-image: linear-gradient(180deg, #00642f, #0a0);
@@ -614,7 +614,6 @@ label {
 	animation-iteration-count: infinite !important;
 	border-image: linear-gradient(180deg, #f00, #c00);
 	border-image-slice: 1;
-}
 
 /*
 	Objetive animations
@@ -744,8 +743,8 @@ label {
 /*
 	Settings for window sizes
 */
-@media only screen and (max-width: 490px){
-	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT, .APP_GAME_DATA {
+@media only screen and (max-width: 600px){
+	#RE_CAPTURE_ICON, .BTN_MENU_TOP, .BTN_LEFT, .BTN_RIGHT {
 		display: none !important;
 	}
 	.MENU_TOP {
