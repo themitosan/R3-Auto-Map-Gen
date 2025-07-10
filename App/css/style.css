@@ -614,7 +614,7 @@ label {
 	animation-iteration-count: infinite !important;
 	border-image: linear-gradient(180deg, #f00, #c00);
 	border-image-slice: 1;
-
+}
 /*
 	Objetive animations
 */
