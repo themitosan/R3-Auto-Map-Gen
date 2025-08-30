@@ -89,17 +89,11 @@ temp_GRAPHICS = {
 				seedFile = `${APP.options.settingsData[cGame].gamePath}/mod_biorand/description.txt`;
 
 			// Reset top menu and update if select scenario should be active (or not)
-			if (APP.options.hideTopMenu === !1){
-				TMS.css('MENU_TOP', {'height': `${maxHeight}px`});
-			}
-			if (APP.gameHook.gameActive === !1){
-				document.getElementById('SELECT_SCENARIO').disabled = APP.options.settingsData.currentGame !== 'bio2';
-			}
+			if (APP.options.hideTopMenu === !1) TMS.css('MENU_TOP', {'height': `${maxHeight}px`});
+			if (APP.gameHook.gameActive === !1) document.getElementById('SELECT_SCENARIO').disabled = APP.options.settingsData.currentGame !== 'bio2';
 
 			// Check if current game is RE: Code veronica
-			if (cGame === 'biocv'){
-				seedFile = `${APP.path.parse(APP.options.settingsData[cGame].dumpPath).dir}/mod_biorand/description.txt`;
-			}
+			if (cGame === 'biocv') seedFile = `${APP.path.parse(APP.options.settingsData[cGame].dumpPath).dir}/mod_biorand/description.txt`;
 
 			// Hide elements depending of which game is selected
 			var btnDisplayIso = { 'display': 'inline' },
@@ -233,9 +227,7 @@ temp_GRAPHICS = {
 				posY = rect.T;
 
 				// Check if farest map was defined
-				if (APP.graphics.xFarestMap === ''){
-					APP.graphics.checkForMapDistances();
-				}
+				if (APP.graphics.xFarestMap === '') APP.graphics.checkForMapDistances();
 
 			}
 
@@ -279,10 +271,8 @@ temp_GRAPHICS = {
 			// Check if "is BioRand" mode is active
 			if (isBioRandMod === !0){
 
-				// Update BioRand objective
+				// Update BioRand objective and check if reset objective flag is active
 				if (parent !== void 0) APP.options.updateBioRandObjective(mapName, parent);
-
-				// Check if reset objective flag is active
 				if (APP.options.bioRandObjectives.reset === !0){
 
 					// Check if map is loading and if needs to apply distance from previous segment
@@ -306,9 +296,7 @@ temp_GRAPHICS = {
 
 					// Set can add BioRand objective var and check current game
 					var canAddBioRandObjective = !0;
-					if (cGame === 'bio2' && cBioRandObjective.requiredScenario !== null && cBioRandObjective.requiredScenario !== cGameScenario){
-						canAddBioRandObjective = !1;
-					}
+					if (cGame === 'bio2' && cBioRandObjective.requiredScenario !== null && cBioRandObjective.requiredScenario !== cGameScenario) canAddBioRandObjective = !1;
 
 					// Check if can add BioRand objective
 					if (canAddBioRandObjective === !0) mapExtraClass.push('BIORAND_OBJECTIVE');
@@ -624,9 +612,7 @@ temp_GRAPHICS = {
 
 			// Display only current line with animation
 			connectedLines = Object.keys(lineList).filter(function(cLine){
-				if (cLine.indexOf(newMap) !== -1){
-					TMS.css(cLine, {'opacity': '1'});
-				}
+				if (cLine.indexOf(newMap) !== -1) TMS.css(cLine, {'opacity': '1'});
 			});
 			TMS.css(reverseConnection, {'opacity': '0'});
 
@@ -788,34 +774,24 @@ temp_GRAPHICS = {
 	processAddCamHint: function(mapName){
 
 		// Get previous maps / cams and check if exists. if not, return null map / cam 0
+		const currentCam = APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)];
 		var prevMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 2],
 			prevCam = APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2];
 
-		// Fix if cam doesn't exists yet!
+		// Fix if cam doesn't exists yet and check if current exists on current map
 		if (prevCam === void 0) prevCam = 0;
-
-		// Check if current cam exist on current map
-		if (APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)] === void 0){
-			APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)] = [];
-		}
+		if (currentCam === void 0) APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)] = [];
 
 		// Check if can add previous map connection to dataabase
 		if (prevMap !== void 0){
 
-			// Check if previous cams on previous maps contains current map
-			if (APP.graphics.addedMaps[prevMap].cams[prevCam].indexOf(mapName) === -1){
-				APP.graphics.addedMaps[prevMap].cams[prevCam].push(mapName);
-			}
-
-			// Check if previous map exists on current cam
-			if (APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)].indexOf(prevMap) === -1){
-				APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)].push(prevMap);
-			}
+			// Check if previous cams on previous maps contains current map and if previous map exists on current cam
+			if (APP.graphics.addedMaps[prevMap].cams[prevCam].indexOf(mapName) === -1) APP.graphics.addedMaps[prevMap].cams[prevCam].push(mapName);
+			if (currentCam.indexOf(prevMap) === -1) APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)].push(prevMap);
 
 		}
 
 		APP.graphics.processCamHint();
-		// console.info(APP.graphics.addedMaps);
 
 	},
 
@@ -825,9 +801,7 @@ temp_GRAPHICS = {
 		// Set current feature status
 		APP.options.enableCamHint = document.getElementById('CHECKBOX_enableCamHint').checked;
 		localStorage.setItem('enableCamHint', APP.options.enableCamHint);
-		for (var i = 0; i < APP.gameHook.mapHistory.length; i++){
-			TMS.removeDOM(`CAM_HINT_${i}`);
-		}
+		for (var i = 0; i < APP.gameHook.mapHistory.length; i++) TMS.removeDOM(`CAM_HINT_${i}`);
 		APP.graphics.availableCamHints = 0;
 
 		// Get current map and current game

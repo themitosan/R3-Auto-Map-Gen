@@ -45,29 +45,21 @@ const APP = {
 
 		// Prevent tab
 		document.addEventListener('keydown', function(evt){
-			if (evt.keyCode === 9){
-				evt.preventDefault();
-			}
-			if (APP.kbInput.indexOf(evt.code) === -1){
-				APP.kbInput.push(evt.code);
-			}
+			if (evt.keyCode === 9) evt.preventDefault();
+			if (APP.kbInput.indexOf(evt.code) === -1) APP.kbInput.push(evt.code);
 		});
 
 		// Start keypress
 		window.onkeyup = function(evt){
 
 			// Remove key from keyboard input
-			if (APP.kbInput.indexOf(evt.code) !== -1){
-				APP.kbInput.splice(APP.kbInput.indexOf(evt.code), 1);
-			}
+			if (APP.kbInput.indexOf(evt.code) !== -1) APP.kbInput.splice(APP.kbInput.indexOf(evt.code), 1);
 
 			switch (evt.key){
 
 				// Debug: Reload app
 				case 'F5':
-					if (disableGlobal === !0){
-						location.reload(!0);
-					}
+					if (disableGlobal === !0) location.reload(!0);
 					break;
 
 				case 'F1':
@@ -103,9 +95,7 @@ const APP = {
 			if (disableGlobal !== !0){
 				var newKey = new nw.Shortcut({
 					key: keys,
-					active: function(){
-						action();
-					},
+					active: action,
 					failed: function(err){
 						console.error(err);
 					}

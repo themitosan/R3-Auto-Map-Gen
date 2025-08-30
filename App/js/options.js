@@ -63,14 +63,10 @@ temp_OPTIONS = {
 				APP.options.bioRandObjectives.clearedObjectives++;
 
 				// Check if can display background animation
-				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0){
-					APP.graphics.playBgObjetiveAnimation('clearObjective', cPrev);
-				}
+				if (APP.options.isMapLoading === !1 && APP.options.enableBgObjectiveAnimation === !0) APP.graphics.playBgObjetiveAnimation('clearObjective', cPrev);
 
 				// Check if can display message
-				if (APP.options.isMapLoading === !1){
-					APP.graphics.displayTopMsg(`Objective complete! - ${APP.database[cGame].rdt[parent].name}, ${APP.database[cGame].rdt[parent].location}`, 5200);
-				}
+				if (APP.options.isMapLoading === !1) APP.graphics.displayTopMsg(`Objective complete! - ${APP.database[cGame].rdt[parent].name}, ${APP.database[cGame].rdt[parent].location}`, 5200);
 
 			}
 
@@ -452,9 +448,7 @@ temp_OPTIONS = {
 
 			// Set farest map and check if it's data exists
 			APP.graphics.xFarestMap = saveData.xFarestMap;
-			if (saveData.xFarestMap === void 0 || saveData.xFarestMap === ''){
-				APP.graphics.checkForMapDistances();
-			}
+			if (saveData.xFarestMap === void 0 || saveData.xFarestMap === '') APP.graphics.checkForMapDistances();
 
 			// Update lines and canvas position
 			APP.graphics.updateLines();
