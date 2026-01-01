@@ -427,7 +427,8 @@ temp_DATABASE = {
 			'R30C': 'Clock Tower Music Box order:<br>Up, Down, Down, Down, Down, Up<br>',
 			'R406': 'Possible locker password:<br><br>Bottom-Right: \"531\"<br>Bottom-Left: \"253\"<br>Top-Left: \"104\"<br>Top-Right: \"325\"',
 			'R40B': 'Synthesis Room Puzzle:<br>I: Down, II: Right: III: Down, A: Down, B: Right',
-			'R40D': 'Water Pump Puzzle:<br>Black cogs on top, white cogs down.'
+			'R40D': 'Water Pump Puzzle:<br>Black cogs on <b>top</b>, white cogs <b>down</b>.',
+			'R506': 'Water Sample Puzzle:<br><b>High-Empty</b> <i>(HE)</i> <b>A</b>: Right x1 <b>B</b>: Right x1 <b>C</b>: Left x2<br><b>Medium-Low</b> <i>(ML)</i> <b>A</b>: Right x1 <b>B</b>: Right x3 <b>C</b>: Left x4<br><b>Medium-Empty</b> <i>(ME)</i> <b>A</b>: Left x4 <b>B</b>: Right x2 <b>C</b>: Left x2<br><b>High-Low</b> <i>(HL)</i> <b>A</b>: Left x1 <b>B</b>: Left x2 <b>C</b>: Right x2'
 
 		},
 
