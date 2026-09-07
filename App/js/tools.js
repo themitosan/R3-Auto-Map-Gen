@@ -411,9 +411,7 @@ temp_TOOLS = {
 
 					case 'hex':
 						var dataColor = data.color.replace(RegExp('#', 'gi'), '');
-						if (dataColor.length === 6){
-							dataColor = dataColor + 'ff';
-						}
+						if (dataColor.length === 6) dataColor = dataColor + 'ff';
 						document.getElementById('TMS_COLOR_PICKER_HEX').value = dataColor;
 						updateMode = 'hex';
 						break;
@@ -440,11 +438,8 @@ temp_TOOLS = {
 						colorHex = document.getElementById('TMS_COLOR_PICKER_HEX').value,
 						colorData = '';
 
-					// Check input
-					if (colorHex.length !== 8 || colorHex === ''){
-						colorHex = `#${APP.tools.fixVars(parseInt(colorR, 16))}${APP.tools.fixVars(parseInt(colorG, 16))}${APP.tools.fixVars(parseInt(colorB, 16))}${APP.tools.fixVars(parseInt(colorA, 16))}`;
-					}
-
+					// Check input and switch output mode
+					if (colorHex.length !== 8 || colorHex === '') colorHex = `#${APP.tools.fixVars(parseInt(colorR, 16))}${APP.tools.fixVars(parseInt(colorG, 16))}${APP.tools.fixVars(parseInt(colorB, 16))}${APP.tools.fixVars(parseInt(colorA, 16))}`;
 					switch(data.outputMode.toLowerCase()){
 
 						case 'rgb':

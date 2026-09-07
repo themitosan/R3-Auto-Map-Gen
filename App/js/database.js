@@ -582,7 +582,7 @@ temp_DATABASE = {
 			'R50C': { name: 'Car Cemetery', location: 'Dead Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R50D': { name: 'Incinerator Room', location: 'Dead Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R50E': { name: 'Extraction Point', location: 'Dead Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !0, skipCamHint: !1 },
-			'R50F': { name: 'Elevator to Extraction Point', location: 'Dead Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R50F': { name: 'Extraction Point Elevator', location: 'Dead Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R510': { name: 'Bridge to Dead Factory', location: 'Park', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 
 			'R600': { name: '(Merc) Warehouse Save Room', location: 'Uptown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !0, skipCamHint: !1 },

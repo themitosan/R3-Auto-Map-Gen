@@ -11,4 +11,5 @@ Settings.json
 version.txt
 *.bat
 *.zip
+*.sh
 hash.inc

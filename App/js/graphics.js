@@ -811,9 +811,7 @@ temp_GRAPHICS = {
 			cGame = APP.options.settingsData.currentGame;
 
 		// Check if current cam exists on database
-		if (APP.graphics.addedMaps[currentMap] !== void 0 && APP.graphics.addedMaps[currentMap].cams[currentCam] === void 0){
-			APP.graphics.addedMaps[currentMap].cams[currentCam] = [];
-		}
+		if (APP.graphics.addedMaps[currentMap] !== void 0 && APP.graphics.addedMaps[currentMap].cams[currentCam] === void 0) APP.graphics.addedMaps[currentMap].cams[currentCam] = [];
 
 		// Check if have maps
 		if (Object.keys(APP.graphics.addedMaps).length !== 0 && APP.options.isMapLoading === !1){

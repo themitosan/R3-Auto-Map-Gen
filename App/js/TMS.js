@@ -20,9 +20,7 @@ const TMS = Object.seal(Object.freeze({
 
 	// Warn if something go wrong
 	warn: function(warnText){
-		if (this.logWarnings === !0){
-			console.warn(`[TMS] ${warnText}`);
-		}
+		if (this.logWarnings === !0) console.warn(`[TMS] ${warnText}`);
 	},
 
 	/*
@@ -34,12 +32,8 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	getElement: function(elementId){
 		var res = document.getElementById(elementId);
-		if (res === null){
-			res = document.getElementsByTagName(elementId)[0];
-		}
-		if (res === void 0){
-			res = null;
-		}
+		if (res === null) res = document.getElementsByTagName(elementId)[0];
+		if (res === void 0) res = null;
 		return res;
 	},
 
@@ -52,9 +46,7 @@ const TMS = Object.seal(Object.freeze({
 		if (Object.keys(css).length !== 0){
 
 			// Check if document has the class holder
-			if (TMS.getElement('TMS_JS_CLASS_LIST') === null){
-				TMS.append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>');
-			}
+			if (TMS.getElement('TMS_JS_CLASS_LIST') === null) TMS.append('body', '<div style="display:none !important;" id="TMS_JS_CLASS_LIST"></div>');
 
 			// Create custom class
 			var finalHtml = `.${name} { `;
@@ -80,9 +72,7 @@ const TMS = Object.seal(Object.freeze({
 		* Remove custom class
 	*/
 	removeCustomClass: function(name){
-		if (TMS.getElement(`TMS_JS_CLASS_${name}`) !== null){
-			TMS.removeDOM(`TMS_JS_CLASS_${name}`);
-		}
+		if (TMS.getElement(`TMS_JS_CLASS_${name}`) !== null) TMS.removeDOM(`TMS_JS_CLASS_${name}`);
 	},
 
 	/*
@@ -147,12 +137,8 @@ const TMS = Object.seal(Object.freeze({
 		// End
 		if (canStart === !0){
 
-			if (animationEase === void 0){
-				animationEase = '';
-			}
-			if (animationTime < 0){
-				animationTime = 0;
-			}
+			if (animationEase === void 0) animationEase = '';
+			if (animationTime < 0) animationTime = 0;
 
 			Object.keys(cssChanges).forEach(function(cItem){
 				elId.style[cItem] = cssChanges[cItem];
@@ -176,19 +162,15 @@ const TMS = Object.seal(Object.freeze({
 	focus: function(elementId, sTimeout){
 
 		const elId = TMS.getElement(elementId);
-
 		if (elId !== null){
 
 			if (sTimeout !== void 0 && Number(sTimeout) !== NaN){
-
 				setTimeout(function(){
 					elId.focus();
 				}, sTimeout);
-
 			} else {
 				elId.focus();
 			}
-
 		} else {
 			TMS.warn(`Unable to focus element because it does not exist! (${elementId})`);
 		}
@@ -200,7 +182,6 @@ const TMS = Object.seal(Object.freeze({
 	disableElement: function(idList){
 
 		var disableList = [];
-
 		if (typeof idList === 'object'){
 			disableList = idList;
 		} else {
@@ -241,7 +222,6 @@ const TMS = Object.seal(Object.freeze({
 
 			elId.disabled = '';
 			elId.disabled = !1;
-
 			if (elId.type === 'button'){
 				TMS.css(elementId, {'filter': 'grayscale(0) blur(0px)', 'cursor': 'pointer', 'opacity': '1'});
 			}
@@ -261,18 +241,13 @@ const TMS = Object.seal(Object.freeze({
 			elId = TMS.getElement(elementId);
 
 		if (elId !== null){
-
 			result = elId.style[cssAttrName];
 
 			// Get computed style
-			if (result === ''){
-				result = window.getComputedStyle(elId)[cssAttrName];
-			}
+			if (result === '') result = window.getComputedStyle(elId)[cssAttrName];
 
 			// Get from DOM
-			if (result === void 0){
-				result = elId[cssAttrName];
-			}
+			if (result === void 0) result = elId[cssAttrName];
 
 		} else {
 			TMS.warn(`Unable to get element because it does not exist! (${elementId})`);
@@ -318,9 +293,7 @@ const TMS = Object.seal(Object.freeze({
 		Add Class
 	*/
 	addClass: function(elementId, className){
-
 		const elId = TMS.getElement(elementId);
-
 		if (elId !== null){
 			elId.classList.add(className);
 		} else {
@@ -332,15 +305,12 @@ const TMS = Object.seal(Object.freeze({
 		Remove Class
 	*/
 	removeClass: function(elementId, className){
-
 		const elId = TMS.getElement(elementId);
-
 		if (elId !== null){
 			elId.classList.remove(className);
 		} else {
 			TMS.warn(`Unable to remove class because DOM does not exist! (${elementId})`);
 		}
-
 	},
 
 	/*
@@ -374,17 +344,12 @@ const TMS = Object.seal(Object.freeze({
 	scrollCenter: function(elementId, delay){
 
 		const elId = TMS.getElement(elementId);
-
 		if (elId !== null){
-
 			var parentDom = elId.parentElement,
 				parentHeight = parentDom.offsetHeight,
 				elHeight = parseFloat(window.getComputedStyle(elId).height.replace('px', ''));
 
-			if (delay === void 0 || Number(delay) === NaN){
-				delay = 0;
-			}
-
+			if (delay === void 0 || Number(delay) === NaN) delay = 0;
 			setTimeout(function(){
 				parentDom.scrollTo(0, (elId.offsetTop - ((parentHeight / 2) - (elHeight / 2))));
 			}, delay);
@@ -441,14 +406,9 @@ const TMS = Object.seal(Object.freeze({
 			elId = TMS.getElement(elementId);
 
 		if (elId !== null){
-
 			res = document.getElementById(elementId).childElementCount;
-			if (res < 0){
-				res = 0;
-			}
-
+			if (res < 0) res = 0;
 			return res;
-
 		} else {
 			TMS.warn(`Unable to get html collection because DOM does not exist! (${elementId})`);
 		}

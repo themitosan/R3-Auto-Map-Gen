@@ -47,9 +47,7 @@ temp_FILEMANAGER = {
 		if (ext !== void 0 && typeof postAction === 'function'){
 
 			// Check for extension
-			if (ext === ''){
-				ext = '*.*';
-			}
+			if (ext === '') ext = '*.*';
 
 			// Call load file popup and start reading
 			document.getElementById('APP_FILE_LOADER').onchange = function(){

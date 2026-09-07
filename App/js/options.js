@@ -162,7 +162,8 @@ temp_OPTIONS = {
 					'height': '20px',
 					'filter': 'blur(0px)',
 					'transition-duration': '0.1s'
-				};
+				}
+
 				var appGameDataTopFactor = 30;
 				if (nw.App.manifest.extra.wineFix === !1){
 					TMS.css('APP_DRAG_BAR', dragBarCss);
@@ -170,6 +171,7 @@ temp_OPTIONS = {
 				} else {
 					appGameDataTopFactor = 10;
 				}
+
 				TMS.css('APP_GAME_DATA', {'top': `${APP.graphics.maxHeight + appGameDataTopFactor}px`});
 				TMS.css('MENU_TOP_BG', {
 					'top': '20px',
@@ -217,7 +219,8 @@ temp_OPTIONS = {
 					'height': '0px',
 					'filter': 'blur(50px)',
 					'transition-duration': '1s'
-				};
+				}
+
 				if (nw.App.manifest.extra.wineFix === !1){
 					TMS.css('APP_DRAG_BAR', dragBarCss);
 					TMS.css('APP_DRAG_BAR_ACTIONS', dragBarCss);
@@ -574,19 +577,13 @@ temp_OPTIONS = {
 		document.getElementById('SELECT_GAME').value = cGame;
 
 		// Check if game executable exists
-		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/${this.settingsData[cGame].exeName}`) === !0){
-			document.getElementById('BTN_RUN_GAME').disabled = '';
-		}
+		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/${this.settingsData[cGame].exeName}`) === !0) document.getElementById('BTN_RUN_GAME').disabled = '';
 
 		// Check if has BioRand mod installed
-		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/mod_biorand`) === !0 || cGame === 'biocv' && APP.fs.existsSync(`${APP.path.parse(this.settingsData[cGame].dumpPath).dir}/mod_biorand`) === !0){
-			document.getElementById('CHECKBOX_isBioRand').checked = !0;
-		}
+		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/mod_biorand`) === !0 || cGame === 'biocv' && APP.fs.existsSync(`${APP.path.parse(this.settingsData[cGame].dumpPath).dir}/mod_biorand`) === !0) document.getElementById('CHECKBOX_isBioRand').checked = !0;
 
 		// Check if savedata folder exists
-		if (APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/savedata`) === !0){
-			document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
-		}
+		if (APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/savedata`) === !0) document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 
 		/*
 			Get localStorage settings
