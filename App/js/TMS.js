@@ -81,20 +81,13 @@ const TMS = Object.seal(Object.freeze({
 	css: function(elementId, cssChanges){
 
 		var eReason = [],
-			canStart = !0,
 			elId = TMS.getElement(elementId);
 
-		if (elId === null){
-			canStart = !1;
-			eReason.push(`DOM or Tag does not exist! (${elementId})`);
-		}
-		if (typeof cssChanges !== 'object'){
-			canStart = !1;
-			eReason.push(`You must insert an object for CSS data (Current type: ${typeof cssChanges})`);
-		}
+		if (elId === null) eReason.push(`DOM or Tag does not exist! (${elementId})`);
+		if (typeof cssChanges !== 'object') eReason.push(`You must insert an object for CSS data (Current type: ${typeof cssChanges})`);
 
 		// End
-		if (canStart === !0){
+		if (eReason.length === 0){
 
 			Object.keys(cssChanges).forEach(function(cItem){
 				elId.style[cItem] = cssChanges[cItem];
@@ -117,25 +110,15 @@ const TMS = Object.seal(Object.freeze({
 	animate: function(elementId, cssChanges, animationTime, animationEase){
 
 		var eReason = [],
-			canStart = !0,
 			transitionString = '';
 			elId = TMS.getElement(elementId);
 
-		if (elId === null){
-			canStart = !1;
-			eReason.push(`\nDOM does not exist! (${elementId})`);
-		}
-		if (typeof cssChanges !== 'object'){
-			canStart = !1;
-			eReason.push(`\nYou must insert an object for CSS data (Current type: ${typeof cssChanges})`);
-		}
-		if (typeof animationTime !== 'number'){
-			canStart = !1;
-			eReason.push(`\nYou must insert a number on animation time (Current type: ${typeof animationTime})`);
-		}
+		if (elId === null) eReason.push(`\nDOM does not exist! (${elementId})`);
+		if (typeof cssChanges !== 'object') eReason.push(`\nYou must insert an object for CSS data (Current type: ${typeof cssChanges})`);
+		if (typeof animationTime !== 'number') eReason.push(`\nYou must insert a number on animation time (Current type: ${typeof animationTime})`);
 
 		// End
-		if (canStart === !0){
+		if (eReason.length === 0){
 
 			if (animationEase === void 0) animationEase = '';
 			if (animationTime < 0) animationTime = 0;
@@ -181,27 +164,20 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	disableElement: function(idList){
 
-		var disableList = [];
-		if (typeof idList === 'object'){
-			disableList = idList;
-		} else {
-			disableList.push(idList);
-		}
+		var disableList = idList;
+		if (typeof idList !== 'object') disableList.push(idList);
 
 		// End
 		disableList.forEach(function(cItem){
 
 			const elId = TMS.getElement(cItem);
-
 			if (elId !== null){
 
 				elId.disabled = !0;
 				elId.disabled = 'disabled';
 
 				// If is <input>
-				if (elId.type === 'button'){
-					TMS.css(cItem, {'filter': 'grayscale(1) blur(0.8px)', 'cursor': 'not-allowed', 'opacity': '0.6'});
-				}
+				if (elId.type === 'button') TMS.css(cItem, {'filter': 'grayscale(1) blur(0.8px)', 'cursor': 'not-allowed', 'opacity': '0.6'});
 
 			} else {
 				TMS.warn(`Unable to disable element because it does not exist! (${cItem})`);
@@ -222,9 +198,7 @@ const TMS = Object.seal(Object.freeze({
 
 			elId.disabled = '';
 			elId.disabled = !1;
-			if (elId.type === 'button'){
-				TMS.css(elementId, {'filter': 'grayscale(0) blur(0px)', 'cursor': 'pointer', 'opacity': '1'});
-			}
+			if (elId.type === 'button') TMS.css(elementId, {'filter': 'grayscale(0) blur(0px)', 'cursor': 'pointer', 'opacity': '1'});
 
 		} else {
 			TMS.warn(`Unable to enable element because it does not exist! (${elementId})`);
@@ -264,7 +238,6 @@ const TMS = Object.seal(Object.freeze({
 		Object.keys(elementObjects).forEach(function(elementId){
 
 			const elId = TMS.getElement(elementId);
-
 			if (elId !== null){
 				elId.scrollTop = elementObjects[elementId];
 			} else {
@@ -280,7 +253,6 @@ const TMS = Object.seal(Object.freeze({
 	append: function(elementId, newData){
 
 		var elId = TMS.getElement(elementId);
-
 		if (elId !== null){
 			elId.insertAdjacentHTML('beforeend', newData);
 		} else {
@@ -345,6 +317,7 @@ const TMS = Object.seal(Object.freeze({
 
 		const elId = TMS.getElement(elementId);
 		if (elId !== null){
+
 			var parentDom = elId.parentElement,
 				parentHeight = parentDom.offsetHeight,
 				elHeight = parseFloat(window.getComputedStyle(elId).height.replace('px', ''));

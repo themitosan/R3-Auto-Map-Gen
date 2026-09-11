@@ -193,6 +193,7 @@ temp_GAMEHOOK = {
 					if (cCamera !== APP.gameHook.currentCamera && APP.gameHook.updateCamCvx === !1 && isNaN(prevCam) === !1){
 						needUpdateCam = !0;
 						APP.gameHook.camHistory.push(cCamera);
+						APP.options.camTrigger++;
 					}	
 
 				} else {
@@ -200,6 +201,7 @@ temp_GAMEHOOK = {
 					if (cCamera !== APP.gameHook.currentCamera){
 						needUpdateCam = !0;
 						APP.gameHook.camHistory.push(cCamera);
+						APP.options.camTrigger++;
 					}	
 
 				}
@@ -210,6 +212,7 @@ temp_GAMEHOOK = {
 					APP.gameHook.camHistory.push(cCamera);
 					APP.graphics.processAddCamHint(cMap);
 					APP.gameHook.updateCamCvx = !1;
+					APP.options.camTrigger++;
 				}
 
 				// Update current camera and check if needs to trim cam history

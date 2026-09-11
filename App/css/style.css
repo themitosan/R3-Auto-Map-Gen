@@ -148,9 +148,9 @@ input[id="BTN_SELECT_EXE"] {
 	margin: 8px 2px 0px 2px !important;
 }
 select, button, input[type="button"] {
+	color: #000;
 	border: none;
 	outline: none;
-	color: #000;
 	cursor: pointer;
 	min-height: 24px;
 	max-height: 30px;
@@ -308,9 +308,9 @@ label {
 	height: 20px;
 	width: 33.33px;
 	max-height: 20px;
-	font-family: 'Space Mono';
 	background-image: none;
 	background-color: #0000;
+	font-family: 'Space Mono';
 }
 .BTN_APP_DRAG:hover {
 	background-color: #fff3;
@@ -733,7 +733,7 @@ label {
 }
 @keyframes ITEM_BOX_BORDER_RADIUS {
 	0% {
-		border-radius: 0px 0px 0px 0px;
+		border-radius: 0px;
 	}
 	100% {
 		border-radius: 4px 10px 4px 10px;

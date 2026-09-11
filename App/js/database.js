@@ -24,7 +24,9 @@ temp_DATABASE = {
 	bio1: {
 
 		// Game Hints
-		gameHints: {},
+		gameHints: {
+			'R506': 'User: <b>JOHN</b><br>Password: <b>ADA</b><br>2nd Password: <b>MOLE</b>'
+		},
 
 		// BioRand Objectives
 		bioRandObjectives: {
@@ -50,7 +52,7 @@ temp_DATABASE = {
 			'R105': { name: 'Dining Room', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R106': { name: 'Main Hall', location: 'Mansion 1F', haveItemBox: !1, canSave: !0, gameStart: !0, gameEnd: !1, skipCamHint: !1 },
 			'R107': { name: 'Gallery', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R108': { name: 'L Passage', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R108': { name: '‟L” Passage', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R109': { name: 'Trap Passage', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R10A': { name: 'Back Passage', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R10B': { name: '1F Right Stairs', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
@@ -88,7 +90,7 @@ temp_DATABASE = {
 			'R20D': { name: 'Pillar Passage', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20E': { name: 'Front Of Attic', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20F': { name: 'Candle Dinner Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R210': { name: 'Attic (Snake Fight)', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R210': { name: 'Yawn\'s Attic', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R211': { name: 'Terrace Passage', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R212': { name: 'Terrace (Forest)', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R213': { name: 'Elevator Hallway', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
@@ -160,7 +162,7 @@ temp_DATABASE = {
 			'R512': { name: 'Cell Room', location: 'Laboratory B3', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R513': { name: 'Tyrant Lab', location: 'Laboratory B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R514': { name: 'L Corridor', location: 'Laboratory B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R515': { name: 'B4 Elevator', location: 'Laboratory B3 / B4', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R515': { name: 'B3 / B4 Elevator', location: 'Laboratory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 
 			'R600': { name: 'Serum Save Room', location: 'Mansion 1F', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R601': { name: '1F Left Stairs', location: 'Mansion 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
@@ -208,7 +210,7 @@ temp_DATABASE = {
 			'R70D': { name: 'Pillar Passage', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R70E': { name: 'Front Of Attic', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R70F': { name: 'Candle Dinner Room', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R710': { name: 'Attic (Snake Fight)', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R710': { name: 'Yawn\'s Attic', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R711': { name: 'Terrace Passage', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R712': { name: 'Terrace (Forest)', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R713': { name: 'Elevator Hallway', location: 'Mansion 2F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
@@ -229,7 +231,10 @@ temp_DATABASE = {
 	bio2: {
 
 		// Game Hints
-		gameHints: {},
+		gameHints: {
+			'R613': 'User name: <b>GUEST</b>',
+			'R115': 'Wesker\'s desk seems a little bit <i>suspicious</i>...<br>Maybe you should really <b>inspect</b> it'
+		},
 
 		// BioRand Objectives
 		bioRandObjectives: {
@@ -279,7 +284,7 @@ temp_DATABASE = {
 			'R000': { name: 'Unknown Map', location: 'Unknown', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !0 },
 
 			'R100': { name: 'Backstreet (Left)', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1, skipCamHint: !1 },
-			'R101': { name: 'Kendo\'s gun shop', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R101': { name: 'Kendo\'s Gun Shop', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R102': { name: 'Basketball Alley', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R103': { name: 'R.P.D. Courtyard', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R104': { name: 'Backstreet (Right)', location: 'City Area', haveItemBox: !1, canSave: !1, gameStart: !0, gameEnd: !1, skipCamHint: !1 },
@@ -322,7 +327,7 @@ temp_DATABASE = {
 			'R20A': { name: 'Waiting Corridor', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20B': { name: 'East Office', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20C': { name: 'Long Corridor', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R20D': { name: 'Press Conference Room (Cog)', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R20D': { name: 'Press Conference Room', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20E': { name: 'Mirror Room', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R20F': { name: 'Window / Stair Corridor', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R210': { name: 'Guardian Place', location: 'Police Station 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
@@ -372,9 +377,9 @@ temp_DATABASE = {
 			'R501': { name: 'Ropeway Car Exit', location: 'Vacant Factory B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R502': { name: 'Underground Passage (Left)', location: 'Vacant Factory B1', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R503': { name: 'Panel Save Room', location: 'Vacant Factory 1F', haveItemBox: !0, canSave: !0, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R504': { name: 'Trailer Station (With Trailer)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R504': { name: 'T. Station (With Trailer)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R505': { name: 'Trailer', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
-			'R506': { name: 'Trailer Station (Without Trailer)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
+			'R506': { name: 'T. Station (No Trailer)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R507': { name: 'Factory Monitor Room', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R508': { name: 'Underground Passage (Right)', location: 'Vacant Factory 1F', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },
 			'R509': { name: 'Trailer (Boss)', location: 'Vacant Factory', haveItemBox: !1, canSave: !1, gameStart: !1, gameEnd: !1, skipCamHint: !1 },

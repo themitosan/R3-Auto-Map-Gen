@@ -275,7 +275,7 @@ temp_TOOLS = {
 
 		try {
 
-			if (url === void 0 || url === '') url = 'https://google.com';
+			if (url === void 0 || url === '') url = '1.1.1.1';
 			var fetchTest = await fetch(url);
 			return Number(fetchTest.status) > 199 && Number(fetchTest.status) < 300;
 
@@ -285,10 +285,10 @@ temp_TOOLS = {
 
 	},
 
-	// Parse value polarity
+	// Parse value polarity (aka. negate)
 	parsePolarity: function(value){
 		var res = 0;
-		if (res !== void 0) res = value - value - value;
+		if (res !== void 0) res = (value * -1);
 		return res;
 	},
 

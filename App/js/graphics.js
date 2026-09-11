@@ -158,6 +158,7 @@ temp_GRAPHICS = {
 			document.getElementById('LABEL_availableCamHints').innerHTML = availableCamHints;
 			document.getElementById('LABEL_doorCounter').innerHTML = APP.options.doorTrigger;
 			document.getElementById('LABEL_bioRandSeed').innerHTML = bioRandSeedName.slice(0, 9);
+			document.getElementById('LABEL_camCounter').innerHTML = APP.options.camTrigger;
 			document.getElementById('LABEL_currentCamera').innerHTML = APP.gameHook.currentCamera;
 			document.getElementById('LABEL_mapDragStatus').innerHTML = `${gameRunningStatus}Canvas drag is <u>${canvasDragStatus}</u>${labelDragMessage}`;
 			APP.graphics.toggleShowGameData();
@@ -915,9 +916,7 @@ temp_GRAPHICS = {
 		// Set variables
 		APP.options.enableBgObjectiveAnimation = document.getElementById('CHECKBOX_enableBgObjectiveAnimation').checked;
 		localStorage.setItem('enableBgObjectiveAnimation', APP.options.enableBgObjectiveAnimation);
-		if (APP.options.enableBgObjectiveAnimation === !1){
-			APP.graphics.clearBgObjectiveAnimation();
-		}
+		if (APP.options.enableBgObjectiveAnimation === !1) APP.graphics.clearBgObjectiveAnimation();
 
 	},
 
@@ -1095,9 +1094,7 @@ temp_GRAPHICS = {
 				colorIndex = 0;
 
 			// Get current color
-			if (colorPos === 'bottom'){
-				colorIndex++;
-			}
+			if (colorPos === 'bottom') colorIndex++;
 			cColor = APP.options.settingsData.bgGradientColor[colorIndex];
 
 			// Prompt new color

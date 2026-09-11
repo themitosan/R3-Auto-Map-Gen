@@ -9,6 +9,7 @@ temp_OPTIONS = {
 		Variables
 	*/
 	latestFile: '',
+	camTrigger: 0,
 	enableGrid: !0,
 	doorTrigger: 0,
 	hideTopMenu: !1,
@@ -294,6 +295,7 @@ temp_OPTIONS = {
 		APP.tools.closeColorPicker();
 
 		// Reset vars
+		this.camTrigger = 0;
 		this.doorTrigger = 0;
 		APP.graphics.zIndexMap = 10;
 		APP.graphics.addedMaps = {};
