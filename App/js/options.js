@@ -272,7 +272,7 @@ temp_OPTIONS = {
 		APP.graphics.updateGuiLabel();
 
 		// Get current data and check if can enable run game button
-		const cData = APP.settingsData;
+		const cData = APP.options.settingsData;
 		if (cGame !== 'biocv'){
 			document.getElementById('BTN_RUN_GAME').disabled = APP.fs.existsSync(`${cData[cGame].gamePath}/${cData[cGame].exeName}`) !== !0;
 		} else {
