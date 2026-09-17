@@ -1257,6 +1257,12 @@ temp_GRAPHICS = {
 				case 6:
 					finalY = (finalY - modifierY);
 					break;
+
+				// Up-Right
+				case 7:
+					finalY = (finalY - modifierY);
+					finalX = (finalX + modifierX);
+					break;
 	
 			}
 

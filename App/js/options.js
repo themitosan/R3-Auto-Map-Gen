@@ -303,6 +303,7 @@ temp_OPTIONS = {
 		APP.gameHook.mapHistory = [];
 		APP.gameHook.camHistory = [];
 		APP.graphics.xFarestMap = '';
+		APP.graphics.mapSelectList = [];
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
 		APP.graphics.availableCamHints = 0;
@@ -333,13 +334,8 @@ temp_OPTIONS = {
 			// Close color picker menu and update map locations
 			APP.tools.closeColorPicker();
 			Object.keys(APP.graphics.addedMaps).forEach(function(cMap){
-
-				var top = parseFloat(TMS.getCssData(`ROOM_${cMap}`, 'top').replace('px', '')),
-					left = parseFloat(TMS.getCssData(`ROOM_${cMap}`, 'left').replace('px', ''));
-
-				APP.graphics.addedMaps[cMap].y = top;
-				APP.graphics.addedMaps[cMap].x = left;
-
+				APP.graphics.addedMaps[cMap].y = parseFloat(TMS.getCssData(`ROOM_${cMap}`, 'top').replace('px', ''));
+				APP.graphics.addedMaps[cMap].x = parseFloat(TMS.getCssData(`ROOM_${cMap}`, 'left').replace('px', ''));
 			});
 
 			// Check if farest map was added
@@ -555,7 +551,7 @@ temp_OPTIONS = {
 			tempData = JSON.parse(APP.fs.readFileSync(fPath, 'utf8'));
 
 		// Process settings data
-		Object.keys(this.settingsData).forEach(function(cData){
+		Object.keys(APP.options.settingsData).forEach(function(cData){
 			if (tempData[cData] === void 0){
 				tempData[cData] = APP.options.settingsData[cData];
 				requestSave = !0;
@@ -564,7 +560,7 @@ temp_OPTIONS = {
 
 		// Check if needs to update settings file
 		if (requestSave === !0){
-			this.settingsData = tempData;
+			APP.options.settingsData = tempData;
 			APP.options.saveSettings();
 		}
 
@@ -573,7 +569,7 @@ temp_OPTIONS = {
 		*/
 
 		// Load file and set current game
-		this.settingsData = tempData;
+		APP.options.settingsData = tempData;
 		var cGame = localStorage.getItem('currentGame');
 		if (cGame === null) cGame = 'bio3';
 		document.getElementById('SELECT_GAME').value = cGame;

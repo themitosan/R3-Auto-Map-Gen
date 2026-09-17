@@ -52,63 +52,115 @@ const APP = {
 		// Start keypress
 		window.onkeyup = function(evt){
 
-			// Remove key from keyboard input
+			console.info(evt.keyCode);
+
+			// Remove key from keyboard input and switch keyCode
 			if (APP.kbInput.indexOf(evt.code) !== -1) APP.kbInput.splice(APP.kbInput.indexOf(evt.code), 1);
+			switch (evt.keyCode){
 
-			switch (evt.key){
-
-				// Debug: Reload app
-				case 'F5':
+				// [F5] Debug: Reload app
+				case 116:
 					if (disableGlobal === !0) location.reload(!0);
 					break;
 
-				case 'F1':
+				// [F1] About
+				case 112:
 					APP.about();
 					break;
 
-				case 'Alt':
+				// [Alt] Toggle drag mode
+				case 18:
 					APP.graphics.toggleDragMapCanvas();
 					break;
 
-				case 'F7':
+				// [F7] Update player position
+				case 118:
 					APP.graphics.updatePlayerPos(!0);
 					break;
 
-				case 'F8':
+				// [F8] Reset canvas zoom
+				case 119:
 					APP.graphics.resetCanvasZoom();
 					break;
 
-				case 'F9':
+				// [F9] Reset map
+				case 120:
 					APP.options.resetMap();
 					break;
 
-				case 'F10':
+				// [F10] Load last map file
+				case 121:
 					APP.options.loadLatestFile();
 					break;
 
-				// Clear map selection
-				case 'Escape':
+				// [Escape] Clear map selection
+				case 27:
 					APP.graphics.clearMapSelection();
 					break;
 
-				// Move selected maps right
-				case 'ArrowRight':
+				// [ArrowRight] Move selected maps right
+				case 39:
 					APP.graphics.moveSelectedMapsToDir(0);
 					break;
 
-				// Move selected maps down
-				case 'ArrowDown':
+				// [ArrowDown] Move selected maps down
+				case 40:
 					APP.graphics.moveSelectedMapsToDir(2);
 					break;
 
-				// Move selected maps left
-				case 'ArrowLeft':
+				// [ArrowLeft] Move selected maps left
+				case 37:
 					APP.graphics.moveSelectedMapsToDir(4);
 					break;
 
-				// Move selected maps up
-				case 'ArrowUp':
+				// [ArrowUp] Move selected maps up
+				case 38:
 					APP.graphics.moveSelectedMapsToDir(6);
+					break;
+
+				// [Numpad1] Move selected maps down-left
+				case 97:
+					APP.graphics.moveSelectedMapsToDir(3);
+					break;
+
+				// [Numpad2] Move selected maps down
+				case 98:
+					APP.graphics.moveSelectedMapsToDir(2);
+					break;
+
+				// [Numpad3] Move selected maps down-right
+				case 99:
+					APP.graphics.moveSelectedMapsToDir(1);
+					break;
+
+				// [Numpad4] Move selected maps left
+				case 100:
+					APP.graphics.moveSelectedMapsToDir(4);
+					break;
+
+				// [Numpad5] Update player position
+				case 101:
+					APP.graphics.updatePlayerPos(!0);
+					break;
+
+				// [Numpad6] Move selected maps right
+				case 102:
+					APP.graphics.moveSelectedMapsToDir(0);
+					break;
+
+				// [Numpad7] Move selected maps up-left
+				case 103:
+					APP.graphics.moveSelectedMapsToDir(5);
+					break;
+
+				// [Numpad8] Move selected maps up
+				case 104:
+					APP.graphics.moveSelectedMapsToDir(6);
+					break;
+
+				// [Numpad9] Move selected maps up-right
+				case 105:
+					APP.graphics.moveSelectedMapsToDir(7);
 					break;
 
 			}
