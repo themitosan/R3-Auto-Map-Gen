@@ -647,20 +647,9 @@ temp_GRAPHICS = {
 			finalX = (elmnt.offsetLeft - pos1);
 			finalY = (elmnt.offsetTop - pos2);
 
-			// Create enable vars
-			var enable_x = !0,
-				enable_y = !0;
-			
-			// Disable coords if Ctrl / Shift keys are active
-			if (APP.kbInput.indexOf('ShiftLeft') !== -1) enable_y = !1;
-			if (APP.kbInput.indexOf('ControlLeft') !== -1) enable_x = !1;
-
 			// Update CSS
-			if (enable_x === !0) TMS.css(domName, {'left': `${finalX}px`});
-			if (enable_y === !0) TMS.css(domName, {'top': `${finalY}px`});
-
-			// Update Lines
-			if (domName !== 'APP_MAP_CANVAS') APP.graphics.updateLines(domName);
+			TMS.css(domName, {'left': `${finalX}px`});
+			TMS.css(domName, {'top': `${finalY}px`});
 
 			// Update map label pos
 			if (domName === 'APP_MAP_CANVAS'){
