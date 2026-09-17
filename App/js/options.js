@@ -43,7 +43,7 @@ temp_OPTIONS = {
 			cObjective,
 			canSetObjective = !0,
 			canSolveObjective = !1,
-			cGame = this.settingsData.currentGame,
+			cGame = APP.settingsData.currentGame,
 			cScenario = document.getElementById('SELECT_SCENARIO').value,
 			cObjectiveData = APP.database[cGame].bioRandObjectives[mapName];
 
@@ -124,13 +124,13 @@ temp_OPTIONS = {
 
 	// Toggle enable reading game data
 	toggleReadGameData: function(){
-		this.enableReadGameData = document.getElementById('CHECKBOX_enableReadGameData').checked;
+		APP.options.enableReadGameData = document.getElementById('CHECKBOX_enableReadGameData').checked;
 		localStorage.setItem('enableReadGameData', document.getElementById('CHECKBOX_enableReadGameData').checked);
 	},
 
 	// Toggle always on top function
 	toggleAlwaysOnTop: function(){
-		this.alwaysOnTop = document.getElementById('CHECKBOX_alwaysOnTop').checked;
+		APP.options.alwaysOnTop = document.getElementById('CHECKBOX_alwaysOnTop').checked;
 		localStorage.setItem('alwaysOnTop', APP.options.alwaysOnTop);
 		APP.win.setAlwaysOnTop(APP.options.alwaysOnTop);
 	},
@@ -266,13 +266,13 @@ temp_OPTIONS = {
 
 		// Get current game, update it's variable and scenario and update gui labels
 		const cGame = document.getElementById('SELECT_GAME').value;
-		this.settingsData.scenario = document.getElementById('SELECT_SCENARIO').value;
-		this.settingsData.currentGame = cGame;
+		APP.options.settingsData.scenario = document.getElementById('SELECT_SCENARIO').value;
+		APP.options.settingsData.currentGame = cGame;
 		localStorage.setItem('currentGame', cGame);
 		APP.graphics.updateGuiLabel();
 
 		// Get current data and check if can enable run game button
-		const cData = this.settingsData;
+		const cData = APP.settingsData;
 		if (cGame !== 'biocv'){
 			document.getElementById('BTN_RUN_GAME').disabled = APP.fs.existsSync(`${cData[cGame].gamePath}/${cData[cGame].exeName}`) !== !0;
 		} else {
@@ -295,8 +295,8 @@ temp_OPTIONS = {
 		APP.tools.closeColorPicker();
 
 		// Reset vars
-		this.camTrigger = 0;
-		this.doorTrigger = 0;
+		APP.options.camTrigger = 0;
+		APP.options.doorTrigger = 0;
 		APP.graphics.zIndexMap = 10;
 		APP.graphics.addedMaps = {};
 		APP.graphics.addedLines = {};
@@ -307,7 +307,7 @@ temp_OPTIONS = {
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
 		APP.graphics.availableCamHints = 0;
-		this.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null, clearedObjectives: 0 };
+		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null, clearedObjectives: 0 };
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
@@ -575,13 +575,13 @@ temp_OPTIONS = {
 		document.getElementById('SELECT_GAME').value = cGame;
 
 		// Check if game executable exists
-		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/${this.settingsData[cGame].exeName}`) === !0) document.getElementById('BTN_RUN_GAME').disabled = '';
+		if (cGame !== 'biocv' && APP.fs.existsSync(`${APP.options.settingsData[cGame].gamePath}/${APP.options.settingsData[cGame].exeName}`) === !0) document.getElementById('BTN_RUN_GAME').disabled = '';
 
 		// Check if has BioRand mod installed
-		if (cGame !== 'biocv' && APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/mod_biorand`) === !0 || cGame === 'biocv' && APP.fs.existsSync(`${APP.path.parse(this.settingsData[cGame].dumpPath).dir}/mod_biorand`) === !0) document.getElementById('CHECKBOX_isBioRand').checked = !0;
+		if (cGame !== 'biocv' && APP.fs.existsSync(`${APP.options.settingsData[cGame].gamePath}/mod_biorand`) === !0 || cGame === 'biocv' && APP.fs.existsSync(`${APP.path.parse(APP.options.settingsData[cGame].dumpPath).dir}/mod_biorand`) === !0) document.getElementById('CHECKBOX_isBioRand').checked = !0;
 
 		// Check if savedata folder exists
-		if (APP.fs.existsSync(`${this.settingsData[cGame].gamePath}/savedata`) === !0) document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
+		if (APP.fs.existsSync(`${APP.options.settingsData[cGame].gamePath}/savedata`) === !0) document.getElementById('BTN_DEL_GAME_SAVES').disabled = '';
 
 		/*
 			Get localStorage settings
@@ -616,10 +616,10 @@ temp_OPTIONS = {
 		// Process post loading settings
 		APP.graphics.toggleBgObjectiveAnimation();
 		APP.graphics.toggleShowGameData();
-		this.updateSelectedGame();
+		APP.options.updateSelectedGame();
 		APP.graphics.togglehideTopMenu();
 		APP.graphics.toggleTabletMode();
-		this.toggleAlwaysOnTop();
+		APP.options.toggleAlwaysOnTop();
 		APP.graphics.updateGuiLabel();
 		APP.graphics.updateBgColor();
 		APP.graphics.toggleBgGrid();
@@ -631,7 +631,7 @@ temp_OPTIONS = {
 
 		try {
 			localStorage.setItem('hideTopMenu', APP.options.hideTopMenu);
-			APP.fs.writeFileSync(`${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`, JSON.stringify(this.settingsData), 'utf8');
+			APP.fs.writeFileSync(`${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`, JSON.stringify(APP.options.settingsData), 'utf8');
 		} catch (err) {
 			window.alert(`ERROR - Unable to save settings!\n${err}`);
 			console.error(err);
@@ -645,7 +645,7 @@ temp_OPTIONS = {
 		// Close color picker menu and get save data folder
 		APP.tools.closeColorPicker();
 		const
-			cGame = this.settingsData.currentGame,
+			cGame = APP.options.settingsData.currentGame,
 			saveDataPath = `${APP.options.settingsData[cGame].gamePath}/savedata`;
 
 		// Check if game save folder exists 
