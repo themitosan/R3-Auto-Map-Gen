@@ -86,6 +86,31 @@ const APP = {
 					APP.options.loadLatestFile();
 					break;
 
+				// Clear map selection
+				case 'Escape':
+					APP.graphics.clearMapSelection();
+					break;
+
+				// Move selected maps right
+				case 'ArrowRight':
+					APP.graphics.moveSelectedMapsToDir(0);
+					break;
+
+				// Move selected maps down
+				case 'ArrowDown':
+					APP.graphics.moveSelectedMapsToDir(2);
+					break;
+
+				// Move selected maps left
+				case 'ArrowLeft':
+					APP.graphics.moveSelectedMapsToDir(4);
+					break;
+
+				// Move selected maps up
+				case 'ArrowUp':
+					APP.graphics.moveSelectedMapsToDir(6);
+					break;
+
 			}
 
 		}

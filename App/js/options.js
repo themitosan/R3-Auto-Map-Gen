@@ -124,13 +124,13 @@ temp_OPTIONS = {
 
 	// Toggle enable reading game data
 	toggleReadGameData: function(){
-		APP.options.enableReadGameData = document.getElementById('CHECKBOX_enableReadGameData').checked;
+		this.enableReadGameData = document.getElementById('CHECKBOX_enableReadGameData').checked;
 		localStorage.setItem('enableReadGameData', document.getElementById('CHECKBOX_enableReadGameData').checked);
 	},
 
 	// Toggle always on top function
 	toggleAlwaysOnTop: function(){
-		APP.options.alwaysOnTop = document.getElementById('CHECKBOX_alwaysOnTop').checked;
+		this.alwaysOnTop = document.getElementById('CHECKBOX_alwaysOnTop').checked;
 		localStorage.setItem('alwaysOnTop', APP.options.alwaysOnTop);
 		APP.win.setAlwaysOnTop(APP.options.alwaysOnTop);
 	},
@@ -266,13 +266,13 @@ temp_OPTIONS = {
 
 		// Get current game, update it's variable and scenario and update gui labels
 		const cGame = document.getElementById('SELECT_GAME').value;
-		APP.options.settingsData.scenario = document.getElementById('SELECT_SCENARIO').value;
-		APP.options.settingsData.currentGame = cGame;
+		this.settingsData.scenario = document.getElementById('SELECT_SCENARIO').value;
+		this.settingsData.currentGame = cGame;
 		localStorage.setItem('currentGame', cGame);
 		APP.graphics.updateGuiLabel();
 
 		// Get current data and check if can enable run game button
-		const cData = APP.options.settingsData;
+		const cData = this.settingsData;
 		if (cGame !== 'biocv'){
 			document.getElementById('BTN_RUN_GAME').disabled = APP.fs.existsSync(`${cData[cGame].gamePath}/${cData[cGame].exeName}`) !== !0;
 		} else {
@@ -306,7 +306,7 @@ temp_OPTIONS = {
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];
 		APP.graphics.availableCamHints = 0;
-		APP.options.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null, clearedObjectives: 0 };
+		this.bioRandObjectives = { current: null, parentMap: null, reset: !1, applyDistance: null, clearedObjectives: 0 };
 
 		// Reset drag
 		APP.graphics.enableCanvasDrag = !0;
@@ -620,10 +620,10 @@ temp_OPTIONS = {
 		// Process post loading settings
 		APP.graphics.toggleBgObjectiveAnimation();
 		APP.graphics.toggleShowGameData();
-		APP.options.updateSelectedGame();
+		this.updateSelectedGame();
 		APP.graphics.togglehideTopMenu();
 		APP.graphics.toggleTabletMode();
-		APP.options.toggleAlwaysOnTop();
+		this.toggleAlwaysOnTop();
 		APP.graphics.updateGuiLabel();
 		APP.graphics.updateBgColor();
 		APP.graphics.toggleBgGrid();
@@ -649,7 +649,7 @@ temp_OPTIONS = {
 		// Close color picker menu and get save data folder
 		APP.tools.closeColorPicker();
 		const
-			cGame = APP.options.settingsData.currentGame,
+			cGame = this.settingsData.currentGame,
 			saveDataPath = `${APP.options.settingsData[cGame].gamePath}/savedata`;
 
 		// Check if game save folder exists 

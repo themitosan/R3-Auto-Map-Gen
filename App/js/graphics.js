@@ -14,6 +14,7 @@ temp_GRAPHICS = {
 	addedMaps: {},
 	addedLines: {},
 	xFarestMap: '',
+	mapSelectList: [],
 	distanceFactor: 20,
 	addedMapHistory: [],
 	enabledDragList: [],
@@ -65,7 +66,7 @@ temp_GRAPHICS = {
 	// Reset canvas zoom
 	resetCanvasZoom: function(){
 		document.getElementById('OPTION_mapCanvasZoom').value = 1;
-		APP.graphics.updateCanvasZoom();
+		this.updateCanvasZoom();
 	},
 
 	// Update current map label
@@ -73,7 +74,7 @@ temp_GRAPHICS = {
 
 		// Get max height value and check if can update GUI labels
 		const maxHeight = this.maxHeight;
-		if (APP.graphics.skipUpdateGuiLabel === !1){
+		if (this.skipUpdateGuiLabel === !1){
 
 			var cMap = '',
 				labelDragMessage = '',
@@ -312,8 +313,8 @@ temp_GRAPHICS = {
 
 			// Generate room html and append to canvas
 			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}${biorandObjectveTitle}" 
-							class="DIV_ROOM ${mapExtraClass.toString().replace(RegExp(',', 'gi'), ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;">
-							[${mapName}]<br>${APP.database[cGame].rdt[mapName].name}</div>`;
+							class="DIV_ROOM ${mapExtraClass.toString().replace(RegExp(',', 'gi'), ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;"
+							onclick="APP.graphics.addMapToSelectList('ROOM_${mapName}');">[${mapName}]<br>${APP.database[cGame].rdt[mapName].name}</div>`;
 			TMS.append('APP_MAP_CANVAS', mapTemp);
 
 			// Bump map z-index counter and push selected map to list
@@ -329,15 +330,15 @@ temp_GRAPHICS = {
 				APP.graphics.checkForMapDistances();
 			}
 
-			// Enable drag and push map to history
-			APP.graphics.enableDrag(`ROOM_${mapName}`);
+			// Push map to history
 			this.addedMapHistory.push({ mapName: mapName, parent: parent });
 
 		}
 
 		// Push line, bump door trigger var and update labels
-		APP.graphics.pushLine(parent, mapName);
-		APP.graphics.processCamHint();
+		this.pushLine(parent, mapName);
+		this.clearMapSelection();
+		this.processCamHint();
 		APP.options.doorTrigger++;
 		this.updateGuiLabel();
 
@@ -636,6 +637,7 @@ temp_GRAPHICS = {
 
 		// Process drag event
 		function dragElement(evt){
+
 			evt = evt || window.event;
 			evt.preventDefault();
 			pos1 = (pos3 - evt.clientX);
@@ -777,7 +779,7 @@ temp_GRAPHICS = {
 	processAddCamHint: function(mapName){
 
 		// Get previous maps / cams and check if exists. if not, return null map / cam 0
-		const currentCam = APP.graphics.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)];
+		const currentCam = this.addedMaps[mapName].cams[structuredClone(APP.gameHook.currentCamera)];
 		var prevMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 2],
 			prevCam = APP.gameHook.camHistory[APP.gameHook.camHistory.length - 2];
 
@@ -794,7 +796,7 @@ temp_GRAPHICS = {
 
 		}
 
-		APP.graphics.processCamHint();
+		this.processCamHint();
 
 	},
 
@@ -805,7 +807,7 @@ temp_GRAPHICS = {
 		APP.options.enableCamHint = document.getElementById('CHECKBOX_enableCamHint').checked;
 		localStorage.setItem('enableCamHint', APP.options.enableCamHint);
 		for (var i = 0; i < APP.gameHook.mapHistory.length; i++) TMS.removeDOM(`CAM_HINT_${i}`);
-		APP.graphics.availableCamHints = 0;
+		this.availableCamHints = 0;
 
 		// Get current map and current game
 		const
@@ -933,8 +935,8 @@ temp_GRAPHICS = {
 	toggleDragMapCanvas: function(){
 
 		// Declare vars and check enable canvas drag
-		const pos = APP.graphics.enabledDragList.indexOf('APP_MAP_CANVAS');
-		switch (APP.graphics.enableCanvasDrag){
+		const pos = this.enabledDragList.indexOf('APP_MAP_CANVAS');
+		switch (this.enableCanvasDrag){
 
 			case !1:
 				TMS.css('APP_MAP_CANVAS_BG', {'transition-duration': '0s', 'transition-timing-function': 'cubic-bezier(0,0,1,1)'});
@@ -978,7 +980,7 @@ temp_GRAPHICS = {
 			];
 
 		// Set default data and check if tablet mode is enabled. If so, update CSS
-		APP.graphics.maxHeight = 30;
+		this.maxHeight = 30;
 		APP.options.enableTabletMode = document.getElementById('CHECKBOX_enableTabletMode').checked;
 		if (APP.options.enableTabletMode === !0){
 			APP.graphics.maxHeight = 40;
@@ -999,7 +1001,7 @@ temp_GRAPHICS = {
 		});
 
 		// Update GUI, open right menu, update checkbox class and update localstorage data
-		APP.graphics.updateGuiLabel();
+		this.updateGuiLabel();
 		APP.options.toggleRightMenu('open');
 		localStorage.setItem('enableTabletMode', APP.options.enableTabletMode);
 
@@ -1081,7 +1083,7 @@ temp_GRAPHICS = {
 		const getShowGameHints = document.getElementById('CHECKBOX_showGameHints').checked;
 		localStorage.setItem('showGameHints', getShowGameHints);
 		APP.options.showGameHints = getShowGameHints;
-		APP.graphics.updateGuiLabel();
+		this.updateGuiLabel();
 
 	},
 
@@ -1180,6 +1182,90 @@ temp_GRAPHICS = {
 		list.forEach(function(cItem){
 			document.getElementById(cItem).disabled = '';
 		});
+	},
+
+	/*
+		Map Selection
+	*/
+
+	// Add selected map to list
+	addMapToSelectList: function(domName){
+		if (APP.kbInput.indexOf('ControlLeft') === -1 && APP.kbInput.indexOf('ControlRight') === -1) this.clearMapSelection();
+		if (this.mapSelectList.indexOf(domName) === -1){
+			this.mapSelectList.push(domName);
+			TMS.addClass(domName, 'MAP_SELECTED');
+		}
+	},
+
+	// Clear map list
+	clearMapSelection: function(){
+		this.mapSelectList.forEach(function(cMap){
+			TMS.removeClass(cMap, 'MAP_SELECTED');
+		});
+		this.mapSelectList = [];
+	},
+
+	// Move all selected maps to desired direction
+	moveSelectedMapsToDir: function(direction){
+
+		const
+			modifierX = (200 + (this.distanceFactor * 2)),
+			modifierY = (56 + this.distanceFactor);
+
+		this.mapSelectList.forEach(function(cMap, cIndex){
+
+			const cMapCoords = TMS.getCoords(cMap);
+			var finalX = cMapCoords.L,
+				finalY = cMapCoords.T;
+
+			switch (direction){
+
+				// Right
+				case 0:
+					finalX = (finalX + modifierX);
+					break;
+
+				// Down-Right
+				case 1:
+					finalX = (finalX + modifierX);
+					finalY = (finalY + modifierY);
+					break;
+
+				// Down
+				case 2:
+					finalY = (finalY + modifierY);
+					break;
+
+				// Down-Left
+				case 3:
+					finalX = (finalX - modifierX);
+					finalY = (finalY + modifierY);
+					break;
+
+				// Left
+				case 4:
+					finalX = (finalX - modifierX);
+					break;
+
+				// Up-Left
+				case 5:
+					finalX = (finalX - modifierX);
+					finalY = (finalY - modifierY);
+					break;
+
+				// Up
+				case 6:
+					finalY = (finalY - modifierY);
+					break;
+	
+			}
+
+			// Update postion and lines
+			TMS.css(cMap, {'top': `${finalY}px`, 'left': `${finalX}px`});
+			APP.graphics.updateLines(cMap);
+
+		});
+
 	}
 
 }

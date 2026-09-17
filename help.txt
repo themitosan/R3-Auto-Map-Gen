@@ -1,22 +1,27 @@
 --> General Shortcuts
 
-[F1]    Show about window
-[Alt]   Toggle between drag canvas or current map
-[F7]    Center current map
-[F8]    Reset canvas zoom
-[F9]    Reset map
-[F10]   Reload latest saved / loaded map
-[Shift] (Hold) Lock X axis while moving Rooms / Map Canvas
-[Ctrl]  (Hold) Lock Y axis while moving Rooms / Map Canvas
+[F1]         Show about window
+[Alt]        Toggle between drag canvas or current map
+[F7]         Center current map
+[F8]         Reset canvas zoom
+[F9]         Reset map
+[F10]        Reload latest saved / loaded map
+[Shift]      (Hold) Lock X axis while moving Rooms / Map Canvas
+[Ctrl]       (Hold) Lock Y axis while moving Rooms / Map Canvas
+[Escape]     Clear selected map list
+[ArrowUp]    Move selected map up
+[ArrowDown]  Move selected map down
+[ArrowLeft]  Move selected map left
+[ArrowRight] Move selected map right
 
 --> Global Shortcuts
 
-[Ctrl+Shift+S]        Save / update current map
-[Ctrl+F7]             Center current map
-[Ctrl+F8]             Reset canvas zoom
-[Ctrl+F9] or [Ctrl+L] Reset map
-[Ctrl+F10]            Reload latest saved / loaded map
-[Ctrl+Delete]         Delete all saves from selected game
-[Ctrl+Shift+R]        Run game
-[Ctrl+Shift+H]        Hook game process
-[Ctrl+Shift+Q]        Restore right menu
+[Ctrl+Shift+S]      Save current map
+[Ctrl+F7]           Center current map
+[Ctrl+F8]           Reset canvas zoom
+[Ctrl+F9], [Ctrl+L] Reset map
+[Ctrl+F10]          Reload latest saved / loaded map
+[Ctrl+Delete]       Delete all saves from selected game
+[Ctrl+Shift+R]      Run game
+[Ctrl+Shift+H]      Hook game process
+[Ctrl+Shift+Q]      Restore right menu
