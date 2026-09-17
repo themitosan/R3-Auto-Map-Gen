@@ -61,7 +61,6 @@ function runCompiler(flavor, args){
 					packageJson.window.frame = !0;
 					packageJson.extra.wineFix = !0;
 					packageJson.window.transparent = !1;
-					nwVersion = packageJson.dependencies.nw;
 					break;
 
 				// Disable animations
