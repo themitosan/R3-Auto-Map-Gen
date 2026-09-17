@@ -820,7 +820,8 @@ temp_GRAPHICS = {
 			// Check if can render cam hint
 			if (hintRequirements.indexOf(!1) === -1){
 
-				// Set current cam hints and process cam list
+				// Clear map selection, set current cam hints and process cam list
+				APP.graphics.clearMapSelection();
 				APP.graphics.availableCamHints = APP.graphics.addedMaps[currentMap].cams[currentCam].length;
 				APP.graphics.addedMaps[currentMap].cams[currentCam].forEach(function(mapTarget, cIndex){
 
