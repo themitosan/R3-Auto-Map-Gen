@@ -751,7 +751,7 @@ temp_OPTIONS = {
 				if (cGame === 'biocv'){
 
 					// Set code veronica vars and check if can save
-					v = window.prompt(`PLease insert ram pos. for \"variant\":\nExample \"${cGameSettings.default_variant}\" (without quotes) on ${cGame.toUpperCase()} ${gVersion}\nYou can leave this box empty to use this value above`);
+					v = window.prompt(`Please insert ram pos. for \"variant\":\nExample \"${cGameSettings.default_variant}\" (without quotes) on ${cGame.toUpperCase()} ${gVersion}\nYou can leave this box empty to use this value above`);
 					if (v === null) v = APP.options.settingsData[cGame].default_variant;
 					if (v === '' || v.length !== 10) canSave = !1;
 					checkSaveFunction();

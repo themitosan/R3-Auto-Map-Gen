@@ -110,7 +110,7 @@ function runCompiler(flavor, args){
 		// Create hash file again and prepare some consts
 		module_fs.writeFileSync('hash.inc', '');
 		const
-			help = module_fs.readFileSync('help.txt', 'utf-8'),
+			help = module_fs.readFileSync('help.md', 'utf-8'),
 			license = module_fs.readFileSync('LICENSE', 'utf-8'),
 			readme = module_fs.readFileSync('README.md', 'utf-8');
 
@@ -162,7 +162,7 @@ function runCompiler(flavor, args){
 
 				// Copy required files to build dir
 				console.info(`[ INFO ] - Creating extra build files...`);
-				module_fs.writeFileSync('build/help.txt', help, 'utf-8');
+				module_fs.writeFileSync('build/help.md', help, 'utf-8');
 				module_fs.writeFileSync('build/LICENSE', license, 'utf-8');
 				module_fs.writeFileSync('build/README.md', readme, 'utf-8');
 				module_fs.writeFileSync('version.txt', `Version: ${packageJson.version}`, 'utf-8');

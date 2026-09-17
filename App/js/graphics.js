@@ -829,7 +829,8 @@ temp_GRAPHICS = {
 
 						// Get map coords and append hint on map
 						const cMapCoords = TMS.getCoords(`ROOM_${mapTarget}`);
-						TMS.append('APP_MAP_CANVAS', `<div id="CAM_HINT_${cIndex}" class="DIV_CAM_HINT" style="z-index: ${(APP.graphics.addedMapHistory.length * 2)};top: ${(cMapCoords.T - 6)}px;left: ${(cMapCoords.L - 6)}px;width: ${(cMapCoords.W + 6)}px;height: ${(cMapCoords.H + 6)}px;"></div>`);
+						TMS.append('APP_MAP_CANVAS', `<div id="CAM_HINT_${cIndex}" class="DIV_CAM_HINT" style="z-index: ${(APP.graphics.addedMapHistory.length * 2)};
+							top: ${(cMapCoords.T - 6)}px;left: ${(cMapCoords.L - 6)}px;width: ${(cMapCoords.W + 6)}px;height: ${(cMapCoords.H + 6)}px;"></div>`);
 
 					}
 
