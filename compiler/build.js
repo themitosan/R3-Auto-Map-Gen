@@ -56,24 +56,22 @@ function runCompiler(flavor, args){
 					- Disable some transition effects
 					- Main window will always have frame
 					- Main window can't use transparency
-					- NW version must be 0.83.0 (Wine have issues rendering text on newer versions)
 				*/
 				case '--enableWineFix':
 					packageJson.window.frame = !0;
 					packageJson.extra.wineFix = !0;
 					packageJson.window.transparent = !1;
-					packageJson.dependencies.nw = '0.83.0';
 					nwVersion = packageJson.dependencies.nw;
+					break;
+
+				// Disable animations
+				case '--disableAnimations':
+					packageJson.extra.disableAnimations = !0;
 					break;
 
 				// Disable window actions
 				case '--disableWindowActions':
 					packageJson.extra.disableWindowActions = !0;
-					break;
-
-				// Preserve previous build settings file
-				case '--preserveSettings':
-					if (module_fs.existsSync('build/Settings.json') === !0) prevSettings = JSON.parse(module_fs.readFileSync('build/Settings.json', 'utf-8'));
 					break;
 
 				// Set flavor as sdk
@@ -100,6 +98,7 @@ function runCompiler(flavor, args){
 	packageJson.devDependencies = void 0;
 	packageJson.window.icon = 'img/icon.png';
 	if (buildHash.length !== 0) packageJson.hash = buildHash.slice(0, 6);
+	if (module_fs.existsSync('build/Settings.json') === !0) prevSettings = JSON.parse(module_fs.readFileSync('build/Settings.json', 'utf-8'));
 
 	// Update package.json and remove hash.inc file
 	module_fs.writeFileSync('./App/package.json', JSON.stringify(packageJson), 'utf-8');
@@ -117,6 +116,7 @@ function runCompiler(flavor, args){
 			readme = module_fs.readFileSync('README.md', 'utf-8');
 
 		// Start compiler
+		console.info(`[ INFO ] - Starting nwbuild...`);
 		nwbuild({
 			flavor,
 			zip: !1,
@@ -140,6 +140,7 @@ function runCompiler(flavor, args){
 		.then(function(){
 
 			// Zip all files from package.nw
+			console.info(`[ INFO ] - Creating package.nw.zip...`);
 			zipFolder('build/package.nw', 'build/package.nw.zip').then(function() {
 
 				// Bundle package.nw on main executable
@@ -147,6 +148,7 @@ function runCompiler(flavor, args){
 					packageNw = module_fs.readFileSync('build/package.nw.zip', 'binary'),
 					tempExecutable = module_fs.readFileSync('build/r3_auto_map_gen.exe', 'binary');
 
+				console.info(`[ INFO ] - Finalizing executable build...`);
 				module_fs.writeFileSync('build/R3 Auto Map Gen.exe', tempExecutable + packageNw, 'binary');
 
 				// Remove temp files / dirs
@@ -155,10 +157,12 @@ function runCompiler(flavor, args){
 					'package.nw.zip',
 					'r3_auto_map_gen.exe'
 				].forEach(function(cPath){
+					console.info(`[ INFO ] - Removing temp file: ${cPath}`);
 					module_fs.rmSync(`build/${cPath}`, { recursive: !0 });
 				});
 
 				// Copy required files to build dir
+				console.info(`[ INFO ] - Creating extra build files...`);
 				module_fs.writeFileSync('build/help.txt', help, 'utf-8');
 				module_fs.writeFileSync('build/LICENSE', license, 'utf-8');
 				module_fs.writeFileSync('build/README.md', readme, 'utf-8');
@@ -167,11 +171,11 @@ function runCompiler(flavor, args){
 
 				// Check if needs to restore previous settings file
 				if (prevSettings !== void 0){
-					console.info('INFO - Restoring previous settings file (Settings.json)');
+					console.info('[ INFO ] - Restoring previous settings file (Settings.json)');
 					module_fs.writeFileSync('build/Settings.json', JSON.stringify(prevSettings), 'utf-8');
 				}
 
-				console.info(`\n=== Process Complete ===\n`);
+				console.info(`[ INFO ] - Process Complete!`);
 
 			});
 

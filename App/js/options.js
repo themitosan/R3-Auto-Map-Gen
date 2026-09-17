@@ -791,9 +791,7 @@ temp_OPTIONS = {
 			APP.gameHook.stop();
 			localStorage.clear();
 			sessionStorage.clear();
-			APP.fs.rm(`${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`, { force: !0 }, function(){
-				chrome.runtime.reload();
-			});
+			APP.fs.rm(`${APP.tools.fixPath(APP.path.parse(process.execPath).dir)}/Settings.json`, { force: !0 }, chrome.runtime.reload);
 		}
 
 	}

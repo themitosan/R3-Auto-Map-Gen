@@ -79,7 +79,7 @@
 				<br><br>
 
 				<input type="button" title="Global Shortcut: Ctrl+F7" value="[F7] Center map" onclick="APP.graphics.updatePlayerPos();" class="BTN_OPTIONS BTN_TOP">
-				<input type="button" title="Global Shortcut: Ctrl+F9" value="[F9] Reset map" onclick="APP.options.resetMap();" class="BTN_OPTIONS">
+				<input type="button" title="Global Shortcut: Ctrl+F9 or Ctrl+L" value="[F9] Reset map" onclick="APP.options.resetMap();" class="BTN_OPTIONS">
 				<input type="button" value="[Alt] Toggle drag" onclick="APP.graphics.toggleDragMapCanvas();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+Shift+S" value="Save Map" onclick="APP.options.saveMap();" class="BTN_OPTIONS">
 				<input type="button" title="Global Shortcut: Ctrl+Del" value="[Del] Clear game save" onclick="APP.options.delGameSaveFiles();" class="BTN_OPTIONS" id="BTN_DEL_GAME_SAVES" disabled="disabled">
@@ -163,16 +163,16 @@
 				</div>
 				<div class="SEPARATOR_0"></div>
 
-				<div class="RT PLAYER_PRESENT">
+				<div class="RT PLAYER_PRESENT" title="This is where you are right now">
 					Current location
 				</div>
-				<div class="RT ROOM_CAN_SAVE">
+				<div class="RT ROOM_CAN_SAVE" title="You can save on this room">
 					Saveroom
 				</div>
-				<div class="RT ROOM_ITEM_BOX">
+				<div class="RT ROOM_ITEM_BOX" title="You can access your item box in this room">
 					Map have Item Box (Border)
 				</div>
-				<div class="RT BIORAND_OBJECTIVE">
+				<div class="RT BIORAND_OBJECTIVE" title="If you are playing a BioRand + Random Maps enabled, this room is your current objective.">
 					BioRand current<br>
 					objective
 				</div>
@@ -231,6 +231,7 @@
 
 			<!-- Main Script -->
 			<script type="text/javascript" src="js/main.js"></script>
+
 		</div>
 
 	</body>

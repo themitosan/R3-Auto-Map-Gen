@@ -111,24 +111,13 @@ const APP = {
 		createGlobalShortcut('Ctrl+F7', function(){
 			APP.graphics.updatePlayerPos(!0);
 		});
-		createGlobalShortcut('Ctrl+F8', function(){
-			APP.graphics.resetCanvasZoom();
-		});
-		createGlobalShortcut('Ctrl+F9', function(){
-			APP.options.resetMap();
-		});
-		createGlobalShortcut('Ctrl+F10', function(){
-			APP.options.loadLatestFile();
-		});
-		createGlobalShortcut('Ctrl+Delete', function(){
-			APP.options.delGameSaveFiles();
-		});
-		createGlobalShortcut('Ctrl+Shift+R', function(){
-			APP.runGame();
-		});
-		createGlobalShortcut('Ctrl+Shift+H', function(){
-			APP.gameHook.seekGame();
-		});
+		createGlobalShortcut('Ctrl+F8', APP.graphics.resetCanvasZoom);
+		createGlobalShortcut('Ctrl+F9', APP.options.resetMap);
+		createGlobalShortcut('Ctrl+L', APP.options.resetMap);
+		createGlobalShortcut('Ctrl+F10', APP.options.loadLatestFile);
+		createGlobalShortcut('Ctrl+Delete', APP.options.delGameSaveFiles);
+		createGlobalShortcut('Ctrl+Shift+R', APP.runGame);
+		createGlobalShortcut('Ctrl+Shift+H', APP.gameHook.seekGame);
 		createGlobalShortcut('Ctrl+Shift+Q', function(){
 			APP.options.toggleRightMenu('open');
 		});
@@ -237,11 +226,15 @@ const APP = {
 				TMS.css('BTN_PICK_BG_COLOR_BOTTOM', fixMargin);
 				TMS.css('body', { 'background-color': '#002' });
 				TMS.css('APP_CANVAS', { 'border-radius': '0px' });
+
+			}
+
+			// Disable animations
+			if (nw.App.manifest.extra.disableAnimations === !0){
 				TMS.css('APP_GAME_HINTS', { 'transition-duration': '0s' });
 				TMS.css('MENU_TOP', { 'top': '0px', 'transition-duration': '0s' });
 				TMS.css('APP_GAME_DATA', { 'top': '40px', 'transition-duration': '0s' });
 				TMS.css('MENU_RIGHT', { 'top': '40px', 'height': 'calc(100% - 68px)', 'transition-duration': '0s' });
-
 			}
 
 			// Disable window actions

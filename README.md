@@ -38,7 +38,7 @@ You can find a list with all available shortcuts on `help.txt`.
 - Run `npm run build-normal` for common build or `npm run build-sdk` for debug build.
 - You can also use `npm run build-normal-wine` or `npm run build-sdk-wine` to compile a version that plays nicer with [wine](https://www.winehq.org) compat layer.
 
-If everything is okay, binaries will be available on `build/r3_auto_map_gen/`.
+If everything is okay, binaries will be available on `build/` directory.
 
 ## Other OS?
 You can run this app using [Wine](https://www.winehq.org) compat layer.

@@ -232,8 +232,9 @@ temp_DATABASE = {
 
 		// Game Hints
 		gameHints: {
-			'R613': 'User name: <b>GUEST</b>',
-			'R115': 'Wesker\'s desk seems a little bit <i>suspicious</i>...<br>Maybe you should really <b>inspect</b> it'
+			'R115': 'Wesker\'s desk seems a little bit <i>suspicious</i>...<br>Maybe you should really <b>inspect</b> it',
+			'R20B': 'Locker Password: <b>2236</b>',
+			'R613': 'User name: <b>GUEST</b>'
 		},
 
 		// BioRand Objectives

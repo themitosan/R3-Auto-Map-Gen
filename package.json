@@ -22,6 +22,7 @@
 	},
 	"extra": {
 		"wineFix": false,
+		"disableAnimations": false,
 		"disableWindowActions": false
 	},
 	"scripts": {
@@ -29,7 +30,11 @@
 		"build-normal": "node compiler/build.js",
 		"build-sdk": "node compiler/build.js --sdk",
 		"build-normal-wine": "node compiler/build.js --enableWineFix",
-		"build-sdk-wine": "node compiler/build.js --sdk --enableWineFix"
+		"build-sdk-wine": "node compiler/build.js --sdk --enableWineFix",
+		"build-normal-noAnim": "node compiler/build.js --disableAnimations",
+		"build-sdk-noAnim": "node compiler/build.js --sdk --disableAnimations",
+		"build-normal-wine-noAnim": "node compiler/build.js --enableWineFix --disableAnimations",
+		"build-sdk-wine-noAnim": "node compiler/build.js --sdk --enableWineFix --disableAnimations"
 	},
 	"devDependencies": {
 		"nw-builder": "^4.13.14",
@@ -37,5 +42,9 @@
 	},
 	"dependencies": {
 		"nw": "^0.101.0-sdk"
+	},
+	"allowScripts": {
+		"nw-builder@4.20.0": true,
+		"nw@0.101.2": true
 	}
 }

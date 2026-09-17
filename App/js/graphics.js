@@ -144,7 +144,7 @@ temp_GRAPHICS = {
 			if (APP.options.showGameHints === !0 && APP.database[cGame].gameHints[lMapHistory] !== void 0){
 				gameHintCss.opacity = '1';
 				gameHintCss['app-region'] = 'drag';
-				gameHintData = ` === Game Hint ===<br>${APP.database[cGame].gameHints[lMapHistory]}`;
+				gameHintData = ` ===[ Game Hint ]===<br>${APP.database[cGame].gameHints[lMapHistory]}`;
 			}
 
 			// Set game hint data
@@ -211,6 +211,7 @@ temp_GRAPHICS = {
 			var posX = 50000,
 				posY = 50050,
 				mapExtraClass = [],
+				biorandObjectveTitle = '',
 				cGameScenario = document.getElementById('SELECT_SCENARIO').value,
 				cBioRandObjective = APP.database[cGame].bioRandObjectives[mapName],
 				isBioRandMod = document.getElementById('CHECKBOX_isBioRand').checked;
@@ -300,14 +301,17 @@ temp_GRAPHICS = {
 					if (cGame === 'bio2' && cBioRandObjective.requiredScenario !== null && cBioRandObjective.requiredScenario !== cGameScenario) canAddBioRandObjective = !1;
 
 					// Check if can add BioRand objective
-					if (canAddBioRandObjective === !0) mapExtraClass.push('BIORAND_OBJECTIVE');
+					if (canAddBioRandObjective === !0){
+						mapExtraClass.push('BIORAND_OBJECTIVE');
+						biorandObjectveTitle = "\n\n===BIORAND OBJECTIVE ===\nClearing the requirements of this room (Puzzle, getting items or just reach the next exit) is your current objective.";
+					}
 
 				}
 
 			}
 
 			// Generate room html and append to canvas
-			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database[cGame].rdt[mapName].name}, ${APP.database[cGame].rdt[mapName].location}" 
+			const mapTemp = `<div id="ROOM_${mapName}" title="[${mapName}]\n${APP.database[cGame].rdt[mapName].name}${biorandObjectveTitle}, ${APP.database[cGame].rdt[mapName].location}" 
 							class="DIV_ROOM ${mapExtraClass.toString().replace(RegExp(',', 'gi'), ' ')}" style="z-index: ${APP.graphics.zIndexMap};top: ${posY}px;left: ${posX}px;">
 							[${mapName}]<br>${APP.database[cGame].rdt[mapName].name}</div>`;
 			TMS.append('APP_MAP_CANVAS', mapTemp);
@@ -543,9 +547,7 @@ temp_GRAPHICS = {
 				});
 
 				// Check if need to run process again
-				if (reRun === !0){
-					runProcess();
-				}
+				if (reRun === !0) runProcess();
 
 			}
 
