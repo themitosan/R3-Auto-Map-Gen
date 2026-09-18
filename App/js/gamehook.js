@@ -119,7 +119,6 @@ temp_GAMEHOOK = {
 
 		var res = '00';
 		if (length === void 0) length = 1;
-
 		if (ramPos !== void 0 && this.gameActive === !0){
 
 			if (limit === void 0 || parseInt(limit) === NaN) limit = 2;

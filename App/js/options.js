@@ -43,7 +43,7 @@ temp_OPTIONS = {
 			cObjective,
 			canSetObjective = !0,
 			canSolveObjective = !1,
-			cGame = APP.settingsData.currentGame,
+			cGame = APP.options.settingsData.currentGame,
 			cScenario = document.getElementById('SELECT_SCENARIO').value,
 			cObjectiveData = APP.database[cGame].bioRandObjectives[mapName];
 

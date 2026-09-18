@@ -357,23 +357,19 @@ temp_TOOLS = {
 
 			// Process error reason
 			var errorReason = [];
-			const addError = function(msg){
-				errorReason.push(msg);
-			}
-
 			if (data.title === void 0) data.title = '';
 
 			// Check if user added location
-			if (typeof data.location !== 'object') addError('User didn\'t specified spawn location data');
+			if (typeof data.location !== 'object') errorReason.push('User didn\'t specified spawn location data');
 
 			// Check if apply action was provided
-			if (typeof data.onApply !== 'function') addError('User didn\'t specified onApply action');
+			if (typeof data.onApply !== 'function') errorReason.push('User didn\'t specified onApply action');
 
 			// Check if color picker is already active
-			if (document.getElementById('TMS_COLOR_PICKER') !== null) addError('Color picker is already opened!');
+			if (document.getElementById('TMS_COLOR_PICKER') !== null) errorReason.push('Color picker is already opened!');
 
 			// Check if spawn location exists
-			if (document.getElementById(data.location.spawnLocation) === null) addError('Unable to locate spawn location!');
+			if (document.getElementById(data.location.spawnLocation) === null) errorReason.push('Unable to locate spawn location!');
 
 			// Check if can continue
 			if (errorReason.length === 0){
