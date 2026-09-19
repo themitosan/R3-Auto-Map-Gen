@@ -303,6 +303,7 @@ temp_OPTIONS = {
 		APP.gameHook.mapHistory = [];
 		APP.gameHook.camHistory = [];
 		APP.graphics.xFarestMap = '';
+		APP.gameHook.mapHistName = [];
 		APP.graphics.mapSelectList = [];
 		APP.graphics.addedMapHistory = [];
 		APP.graphics.enabledDragList = [];

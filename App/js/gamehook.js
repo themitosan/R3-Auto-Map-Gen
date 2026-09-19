@@ -13,6 +13,7 @@ temp_GAMEHOOK = {
 	camHistory: [],
 	currentMap: '',
 	gameActive: !1,
+	mapHistName: [],
 	updateCamCvx: !1,
 	currentCamera: 0,
 	gameObject: void 0,
@@ -174,7 +175,8 @@ temp_GAMEHOOK = {
 					isBioRandActive = document.getElementById('CHECKBOX_isBioRand').checked,
 					previousMap = APP.gameHook.mapHistory[APP.gameHook.mapHistory.length - 1],
 					cStage = (parseInt(APP.gameHook.read(memoryData.stage, 2, 'hex')) + 1).toString(16).toUpperCase(),
-					cMap = `R${cStage}${cRoom}`;
+					cMap = `R${cStage}${cRoom}`,
+					cMapName = APP.database[cGame].rdt[cMap].name;
 
 				// Fixes for biocv
 				if (cGame === 'biocv'){
@@ -228,7 +230,10 @@ temp_GAMEHOOK = {
 					cGame === 'bio2' && isBioRandActive === !1 && cMap !== 'R104' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
 
 					// Bio 3
-					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1
+					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
+
+					// The last map name is from another game
+					APP.database[cGame].rdt[cMap].name !== APP.gameHook.mapHistName[APP.gameHook.mapHistName.length - 1]
 
 				];
 
@@ -244,6 +249,7 @@ temp_GAMEHOOK = {
 
 					// Push room to map and update player pos.
 					APP.gameHook.mapHistory.push(cMap);
+					APP.gameHook.mapHistName.push(cMapName);
 					const mHistory = APP.gameHook.mapHistory;
 					APP.graphics.pushMap(mHistory[(mHistory.length - 1)], mHistory[(mHistory.length - 2)]);
 					APP.graphics.updatePlayerPos();

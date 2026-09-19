@@ -651,12 +651,6 @@ temp_GRAPHICS = {
 			TMS.css(domName, {'left': `${finalX}px`});
 			TMS.css(domName, {'top': `${finalY}px`});
 
-			// Update map label pos
-			if (domName === 'APP_MAP_CANVAS'){
-				document.getElementById('LABEL_map_X').innerHTML = APP.tools.parsePolarity(parseInt(finalX));
-				document.getElementById('LABEL_map_Y').innerHTML = APP.tools.parsePolarity(parseInt(finalY));
-			}
-
 		}
 
 		// Stop drag event

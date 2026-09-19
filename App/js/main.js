@@ -52,8 +52,6 @@ const APP = {
 		// Start keypress
 		window.onkeyup = function(evt){
 
-			console.info(evt.keyCode);
-
 			// Remove key from keyboard input and switch keyCode
 			if (APP.kbInput.indexOf(evt.code) !== -1) APP.kbInput.splice(APP.kbInput.indexOf(evt.code), 1);
 			switch (evt.keyCode){
@@ -168,17 +166,8 @@ const APP = {
 		}
 
 		// Create global shortcuts 
-		const createGlobalShortcut = function(keys, action){
-			if (disableGlobal !== !0){
-				var newKey = new nw.Shortcut({
-					key: keys,
-					active: action,
-					failed: function(err){
-						console.error(err);
-					}
-				});
-				nw.App.registerGlobalHotKey(newKey);
-			}
+		const createGlobalShortcut = function(key, active){
+			if (disableGlobal !== !0) nw.App.registerGlobalHotKey(new nw.Shortcut({ key, active, failed: function(err){ console.error(err); } }));
 		}
 
 		// Init global shortcuts
