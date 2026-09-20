@@ -3,7 +3,6 @@
     <br>R3 Auto Map Gen<br>
     <p align="center">
         <img alt="license" src="https://img.shields.io/github/license/themitosan/R3-Auto-Map-Gen">
-        <img alt="workflow_status" src="https://img.shields.io/github/actions/workflow/status/themitosan/R3-Auto-Map-Gen/main.yaml?style=plastic">
     </p>
 </h1>
 
