@@ -45,6 +45,6 @@
 	},
 	"allowScripts": {
 		"nw-builder@4.20.0": true,
-		"nw@0.101.2": true
+		"nw@0.116.0": true
 	}
 }

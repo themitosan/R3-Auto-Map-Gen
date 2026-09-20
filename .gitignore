@@ -7,7 +7,6 @@ Build/
 build/
 
 # Specific files
-package-lock.json
 Settings.json
 version.txt
 hash.inc
