@@ -27,8 +27,8 @@ This app creates an node-conected room map for classic Resident Evil games.
 ## Where this thing can be helpful?
 _...Do you have heard about the word of **[BioRand](https://github.com/IntelOrca/biorand)**?_
 
-## Shortcuts
-You can find a list with all available shortcuts on `help.txt`.
+## Need help?
+You can find all shortcuts + some extra info *[**here**](help.md)*.
 
 ## How to build
 
@@ -55,12 +55,12 @@ WINEDLLOVERRIDES="ddraw.dll=n,b" %command%
 ```
 
 <p align="center">
-<img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/wine.jpg?raw=true" alt="R3_Auto_Map_Gen_Wine" width="800"/>
+<img src="https://github.com/themitosan/R3-Auto-Map-Gen/blob/main/wine.png?raw=true" alt="R3_Auto_Map_Gen_Wine" width="800"/>
 </p>
 
 <sup>
 
-_(R3 Auto Map Gen wine version running on Cinnamon, Arch Linux)_
+_(R3 Auto Map Gen wine build running on [KDE Plasma](https://kde.org/plasma-desktop), [CachyOS](https://cachyos.org))_
 
 </sup>
 
