@@ -230,10 +230,7 @@ temp_GAMEHOOK = {
 					cGame === 'bio2' && isBioRandActive === !1 && cMap !== 'R104' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
 
 					// Bio 3
-					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1,
-
-					// The last map name is from another game
-					APP.database[cGame].rdt[cMap].name !== APP.gameHook.mapHistName[APP.gameHook.mapHistName.length - 1]
+					cGame === 'bio3' && APP.database[cGame].rdt[cMap].gameStart === !0 && APP.gameHook.mapHistory.length > 1
 
 				];
 
@@ -247,7 +244,8 @@ temp_GAMEHOOK = {
 					if (needUpdateCam === !1 && cGame !== 'biocv') APP.gameHook.camHistory.push(cCamera);
 					if (needUpdateCam === !1 && cGame === 'biocv') APP.gameHook.updateCamCvx = !0;
 
-					// Push room to map and update player pos.
+					// Clear map selection, push room to map and update player pos.
+					APP.graphics.clearMapSelection();
 					APP.gameHook.mapHistory.push(cMap);
 					APP.gameHook.mapHistName.push(cMapName);
 					const mHistory = APP.gameHook.mapHistory;

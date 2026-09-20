@@ -148,6 +148,11 @@ temp_GRAPHICS = {
 				gameHintData = ` ===[ Game Hint ]===<br>${APP.database[cGame].gameHints[lMapHistory]}`;
 			}
 
+			// Set previous map name
+			var prevMapName = APP.gameHook.mapHistName[APP.gameHook.mapHistName.length - 2];
+			if (prevMapName === void 0) prevMapName = 'Unknown';
+			document.getElementById('LABEL_prevRoom').innerHTML = prevMapName;
+
 			// Set game hint data
 			TMS.css('APP_GAME_HINTS', gameHintCss);
 			document.getElementById('APP_GAME_HINTS').innerHTML = gameHintData;
@@ -751,8 +756,6 @@ temp_GRAPHICS = {
 
 			// Update canvas and map label pos.
 			TMS.css('APP_MAP_CANVAS', { 'left': `${finalX}px`, 'top': `${finalY}px` });
-			document.getElementById('LABEL_map_X').innerHTML = parseInt(nextX);
-			document.getElementById('LABEL_map_Y').innerHTML = parseInt(nextY);
 
 		}
 
@@ -787,7 +790,7 @@ temp_GRAPHICS = {
 	processCamHint: function(){
 
 		// Set current feature status
-		APP.options.enableCamHint = document.getElementById('CHECKBOX_enableCamHint').checked;
+		APP.options.enableCamHint = JSON.parse(document.getElementById('CHECKBOX_enableCamHint').checked);
 		localStorage.setItem('enableCamHint', APP.options.enableCamHint);
 		for (var i = 0; i < APP.gameHook.mapHistory.length; i++) TMS.removeDOM(`CAM_HINT_${i}`);
 		this.availableCamHints = 0;
@@ -814,8 +817,7 @@ temp_GRAPHICS = {
 			// Check if can render cam hint
 			if (hintRequirements.indexOf(!1) === -1){
 
-				// Clear map selection, set current cam hints and process cam list
-				APP.graphics.clearMapSelection();
+				// Set current cam hints and process cam list
 				APP.graphics.availableCamHints = APP.graphics.addedMaps[currentMap].cams[currentCam].length;
 				APP.graphics.addedMaps[currentMap].cams[currentCam].forEach(function(mapTarget, cIndex){
 
@@ -824,8 +826,9 @@ temp_GRAPHICS = {
 
 						// Get map coords and append hint on map
 						const cMapCoords = TMS.getCoords(`ROOM_${mapTarget}`);
-						TMS.append('APP_MAP_CANVAS', `<div id="CAM_HINT_${cIndex}" class="DIV_CAM_HINT" style="z-index: ${(APP.graphics.addedMapHistory.length * 2)};
-							top: ${(cMapCoords.T - 6)}px;left: ${(cMapCoords.L - 6)}px;width: ${(cMapCoords.W + 6)}px;height: ${(cMapCoords.H + 6)}px;"></div>`);
+						TMS.append('APP_MAP_CANVAS', `<div id="CAM_HINT_${cIndex}" class="DIV_CAM_HINT" style="z-index: ${APP.graphics.addedMapHistory.length + 1000};
+							top: ${(cMapCoords.T - 6)}px;left: ${(cMapCoords.L - 6)}px;width: ${(cMapCoords.W + 6)}px;height: ${(cMapCoords.H + 6)}px;" 
+							onclick="APP.graphics.addMapToSelectList('ROOM_${mapTarget}');"></div>`);
 
 					}
 
@@ -1254,6 +1257,7 @@ temp_GRAPHICS = {
 			// Update postion and lines
 			TMS.css(cMap, {'top': `${finalY}px`, 'left': `${finalX}px`});
 			APP.graphics.updateLines(cMap);
+			APP.graphics.processCamHint();
 
 		});
 

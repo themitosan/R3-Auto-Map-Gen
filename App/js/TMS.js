@@ -148,12 +148,11 @@ const TMS = Object.seal(Object.freeze({
 		if (elId !== null){
 
 			if (sTimeout !== void 0 && Number(sTimeout) !== NaN){
-				setTimeout(function(){
-					elId.focus();
-				}, sTimeout);
+				setTimeout(elId.focus, sTimeout);
 			} else {
 				elId.focus();
 			}
+
 		} else {
 			TMS.warn(`Unable to focus element because it does not exist! (${elementId})`);
 		}
