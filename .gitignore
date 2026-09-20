@@ -6,10 +6,13 @@ Cache/
 Build/
 build/
 
-# File extensions
+# Specific files
+package-lock.json
 Settings.json
 version.txt
+hash.inc
+
+# File extensions
 *.bat
 *.zip
 *.sh
-hash.inc
