@@ -1256,8 +1256,8 @@ temp_GRAPHICS = {
 
 			// Update postion and lines
 			TMS.css(cMap, {'top': `${finalY}px`, 'left': `${finalX}px`});
-			APP.graphics.updateLines(cMap);
 			APP.graphics.processCamHint();
+			APP.graphics.updateLines(cMap);
 
 		});
 

@@ -80,8 +80,8 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	css: function(elementId, cssChanges){
 
-		var eReason = [],
-			elId = TMS.getElement(elementId);
+		var eReason = [];
+		const elId = TMS.getElement(elementId);
 
 		if (elId === null) eReason.push(`DOM or Tag does not exist! (${elementId})`);
 		if (typeof cssChanges !== 'object') eReason.push(`You must insert an object for CSS data (Current type: ${typeof cssChanges})`);
@@ -111,7 +111,7 @@ const TMS = Object.seal(Object.freeze({
 
 		var eReason = [],
 			transitionString = '';
-			elId = TMS.getElement(elementId);
+		const elId = TMS.getElement(elementId);
 
 		if (elId === null) eReason.push(`\nDOM does not exist! (${elementId})`);
 		if (typeof cssChanges !== 'object') eReason.push(`\nYou must insert an object for CSS data (Current type: ${typeof cssChanges})`);
@@ -131,7 +131,7 @@ const TMS = Object.seal(Object.freeze({
 
 			setTimeout(function(){
 				elId.style['transition'] = 'none 0s';
-			}, (animationTime + 1));
+			}, (animationTime++));
 
 		} else {
 			TMS.warn(`Unable to animate!\n${eReason.toString().replace(RegExp(',', 'gi'), '\n')}`);
@@ -192,7 +192,6 @@ const TMS = Object.seal(Object.freeze({
 	enableElement: function(elementId){
 
 		const elId = TMS.getElement(elementId);
-
 		if (elId !== null){
 
 			elId.disabled = '';
@@ -210,8 +209,8 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	getCssData: function(elementId, cssAttrName){
 
-		var result = '',
-			elId = TMS.getElement(elementId);
+		var result = '';
+		const elId = TMS.getElement(elementId);
 
 		if (elId !== null){
 			result = elId.style[cssAttrName];
@@ -252,7 +251,7 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	append: function(elementId, newData){
 
-		var elId = TMS.getElement(elementId);
+		const elId = TMS.getElement(elementId);
 		if (elId !== null){
 			elId.insertAdjacentHTML('beforeend', newData);
 		} else {
@@ -375,8 +374,8 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	getChildCount: function(elementId){
 
-		var res = 0,
-			elId = TMS.getElement(elementId);
+		var res = 0;
+		const elId = TMS.getElement(elementId);
 
 		if (elId !== null){
 			res = document.getElementById(elementId).childElementCount;
@@ -393,8 +392,8 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	getRect: function(elementId){
 
-		var res,
-			elId = TMS.getElement(elementId);
+		var res;
+		const elId = TMS.getElement(elementId);
 
 		if (elId !== null){
 			res = elId.getBoundingClientRect();
@@ -419,8 +418,8 @@ const TMS = Object.seal(Object.freeze({
 	*/
 	getCoords: function(elementId){
 
-		var res,
-			elId = TMS.getElement(elementId);
+		var res;
+		const elId = TMS.getElement(elementId);
 
 		if (elId !== null){
 
