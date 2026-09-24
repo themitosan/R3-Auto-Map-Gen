@@ -272,7 +272,10 @@ const APP = {
 
 			// Set vars
 			var startKbDevMode = !1,
-				appTitle = `R3 Auto Map Gen - Version: ${APP.version} [${APP.hash}]`; 
+				isNwSdkVersion = '';
+
+			if (process.versions[`nw-flavor`] === 'sdk') isNwSdkVersion = '-sdk';
+			const appTitle = `R3 Auto Map Gen - Version: ${APP.version}${isNwSdkVersion} [${APP.hash}]`; 
 
 			// Update log, app title and check if wine fix is active
 			console.info(appTitle);
