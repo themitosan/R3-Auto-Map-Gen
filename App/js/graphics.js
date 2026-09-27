@@ -341,11 +341,11 @@ temp_GRAPHICS = {
 		}
 
 		// Push line, bump door trigger var and update labels
-		this.pushLine(parent, mapName);
-		this.clearMapSelection();
-		this.processCamHint();
+		APP.graphics.pushLine(parent, mapName);
+		APP.graphics.clearMapSelection();
+		APP.graphics.processCamHint();
 		APP.options.doorTrigger++;
-		this.updateGuiLabel();
+		APP.graphics.updateGuiLabel();
 
 	},
 
@@ -944,7 +944,7 @@ temp_GRAPHICS = {
 		}
 
 		// Update labels
-		this.updateGuiLabel();
+		APP.graphics.updateGuiLabel();
 
 	},
 
@@ -989,7 +989,7 @@ temp_GRAPHICS = {
 		});
 
 		// Update GUI, open right menu, update checkbox class and update localstorage data
-		this.updateGuiLabel();
+		APP.graphics.updateGuiLabel();
 		APP.options.toggleRightMenu('open');
 		localStorage.setItem('enableTabletMode', APP.options.enableTabletMode);
 
@@ -1071,7 +1071,7 @@ temp_GRAPHICS = {
 		const getShowGameHints = document.getElementById('CHECKBOX_showGameHints').checked;
 		localStorage.setItem('showGameHints', getShowGameHints);
 		APP.options.showGameHints = getShowGameHints;
-		this.updateGuiLabel();
+		APP.graphics.updateGuiLabel();
 
 	},
 

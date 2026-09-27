@@ -136,8 +136,9 @@ const APP = {
 					APP.graphics.moveSelectedMapsToDir(4);
 					break;
 
-				// [Numpad5] Update player position
+				// [Numpad5] Clear map selection and update player position
 				case 101:
+					APP.graphics.clearMapSelection();
 					APP.graphics.updatePlayerPos(!0);
 					break;
 
